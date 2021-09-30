@@ -1,0 +1,371 @@
+@extends('master.main')
+@section('content')
+<style>
+    .card-body{
+        font-size: 12px;
+    }
+    .form-group{
+        margin-bottom: 10px;
+    }
+    input, textarea, select{
+        text-transform: uppercase;
+    }
+</style>
+<div class="container-fluid mt--6">
+    <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between">
+            <h3 class="mb-0">Tambah Pasien PRB</h3>
+            <button type="button" class="btn btn-block btn-default w-25" data-toggle="modal" data-target="#modal-cari-data">Cari Pasien</button>
+        </div>
+        <div class="card-body">
+            <form action="{{route('save_prb')}}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="idPasien" id="idPasien">
+                <input type="hidden" name="noRm" id="noRm">
+                <div class="row">
+                    <div class="col-6 col-md-6 col-sm-6">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label class="col-4 col-form-label">Nama</label>
+                                    <input type="text" name="namaPasien" id="namaPasien" class="form-control col-8" placeholder="Nama Pasien">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label class="col-4 col-form-label">Alamat KTP</label>
+                                    <textarea name="alamat" id="alamat" class="form-control col-8" cols="30"
+                                                rows="2" autocomplete="new-text" placeholder="Alamat KTP"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label class="col-4 col-form-label">RT / RW</label>
+                                    <input type="text" name="rt" id="rt" class="form-control col mr-2" placeholder="RT">
+                                    <input type="text" name="rw" id="rw" class="form-control col" placeholder="RW">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label class="col-4 col-form-label">Alamat Domisili</label>
+                                    <textarea name="alamat_dom" id="alamat_dom" class="form-control col-8" cols="30" rows="2" placeholder="Alamat Domisili" autocomplete="new-text"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label class="col-4 col-form-label">Dokter</label>
+                                    <select name="dokter" id="dokter" class="form-control selectize col-8">
+                                        @foreach($dataDokter as $dokter)
+                                            <option value="{{$dokter->id}}">{{$dokter->nama}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-6 col-sm-6">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label class="col-4 col-form-label">Tensi</label>
+                                    <input type="text" name="tensi" id="tensi" class="form-control col-8" placeholder="Tensi">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label class="col-4 col-form-label">Nadi</label>
+                                    <input type="text" name="nadi" id="nadi" class="form-control col-8" placeholder="Nadi">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label class="col-4 col-form-label">Suhu</label>
+                                    <input type="text" name="suhu" id="suhu" class="form-control col-8" placeholder="Suhu">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label class="col-4 col-form-label">Berat Badan</label>
+                                    <input type="text" name="berat_badan" id="berat_badan" class="form-control col-8" placeholder="Berat Badan">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label class="col-4 col-form-label">Tinggi Badan</label>
+                                    <input type="text" name="tinggi_badan" id="tinggi_badan" class="form-control col-8" placeholder="Tinggi Badan">
+                                </div>
+                            </div>
+                        </div>
+                        <div id="load-obat-list">
+                            <div class="row my-3">
+                                <div class="col-12">
+                                    <button class="btn btn-info btn-modal-obat">Tambah Obat</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mt-5">
+                        <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
+                        <button type="reset" class="btn btn-fill btn-danger btn-batal-pasien">Batal</button>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </form>
+        </div>
+    </div>
+    <footer class="footer pt-0">
+    <div class="row align-items-center justify-content-lg-between">
+        <div class="col-lg-6">
+        <div class="copyright text-center text-lg-left text-muted">
+            © 2019 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
+        </div>
+        </div>
+        <div class="col-lg-6">
+        <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+            <li class="nav-item">
+            <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Creative Tim</a>
+            </li>
+            <li class="nav-item">
+            <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>
+            </li>
+            <li class="nav-item">
+            <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Blog</a>
+            </li>
+            <li class="nav-item">
+            <a href="https://www.creative-tim.com/license" class="nav-link" target="_blank">License</a>
+            </li>
+        </ul>
+        </div>
+    </div>
+    </footer>
+</div>
+<div class="modal fade" id="modal-cari-obat" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal- modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+             <div class="modal-header px-4">
+                <h6 class="modal-title" id="modal-title-default">Cari Data</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body p-0">
+                <div class="card-body px-lg-4 py-lg-3">
+                    <form role="form" id="form-cari-obat">
+                        <div class="form-group mb-3">
+                            <div class="input-group input-group-merge input-group-alternative">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="ni ni-single-copy-04"></i></span>
+                            </div>
+                            <input class="form-control" name="keyword" placeholder="Cari..." type="text">
+                            </div>
+                        </div>
+                        <div class="text-left">
+                            <button type="button" class="btn btn-primary btn-cari-obat my-4">Cari</button>
+                        </div>
+                    </form>
+                    <table class="table table-flush table-cari-obat" id="datatable-basic">
+                        <thead class="thead-light">
+                        <tr>
+                            <th>No</th>
+                            <th>Obat</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-cari-data" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal- modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+             <div class="modal-header px-4">
+                <h6 class="modal-title" id="modal-title-default">Cari Data</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body p-0">
+                <div class="card-body px-lg-4 py-lg-3">
+                    <form role="form" id="form-cari-data">
+                        <div class="form-group mb-3">
+                            <div class="input-group input-group-merge input-group-alternative">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="ni ni-single-copy-04"></i></span>
+                            </div>
+                            <input class="form-control" name="noRm" placeholder="No RM" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group input-group-merge input-group-alternative">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="ni ni-single-02"></i></span>
+                            </div>
+                            <input class="form-control" name="namaPasien" placeholder="Nama Pasien" type="text">
+                            </div>
+                        </div>
+                        <div class="text-left">
+                            <button type="button" class="btn btn-primary btn-cari-data my-4">Cari</button>
+                        </div>
+                    </form>
+                    <table class="table table-flush table-cari-data" id="datatable-basic">
+                        <thead class="thead-light">
+                        <tr>
+                            <th>No</th>
+                            <th>No RM</th>
+                            <th>Nama</th>
+                            <th>Alamat</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('input').attr('autocomplete', 'off');
+
+    $('.btn-cari-data').click(function(e){
+        let form = $('#form-cari-data');
+        let tbody = $('.table-cari-data').find('tbody');
+        $.ajax({
+            url : '{{route("cari_data_pasien")}}',
+            method : 'GET',
+            dataType : 'json',
+            data : form.serialize(),
+            success : function(response){
+                tbody.html('');
+                response.forEach(element => {
+                    let tr = $('<tr>');
+                    let td1 = $('<td>', {text : '1'});
+                    let td2 = $('<td>', {text : element.no_rm});
+                    let td3 = $('<td>', {text : element.kepala_keluarga});
+                    let td4 = $('<td>', {text : element.alamat});
+                    let td5 = $('<td>');
+                    let action = $('<a>', {href:'javascript:;', text:'Pilih', class:'btn btn-sm btn-neutral btn-pilih-member', member_id:element.id});
+                    tr.append(td1);
+                    tr.append(td2);
+                    tr.append(td3);
+                    tr.append(td4);
+                    td5.append(action);
+                    tr.append(td5);
+                    tbody.append(tr);
+                });
+            }
+        });
+    });
+
+    $(document).on('click', '.btn-pilih-member', function(e){
+        e.preventDefault();
+        let memberId = $(this).attr('member_id');
+        var options = {
+            theme:"sk-bounce",
+            message:'Mohon tunggu, sedang memproses data...',
+            backgroundColor:"#5e72e4",
+            textColor:"#ffffff"
+        };
+
+        HoldOn.open(options);
+        $.ajax({
+            url : '{{route("get_from_kepala_keluarga")}}',
+            method : 'GET',
+            dataType : 'json',
+            data : {memberId:memberId},
+            success : function(response){
+                $('#idPasien').val(response.id);
+                $('#namaPasien').val(response.nama);
+                $('#namaPasien').attr('readonly', 'readonly');
+                $('#noRm').val(response.no_rm);
+                $('#alamat').text(response.alamat);
+                $('#rt').val(response.rt);
+                $('#rw').val(response.rw);
+                $('#alamat_dom').text(response.alamat_dom);
+                if (response.alamat == response.alamat_dom){
+                    $('.btn-same-address').prop('checked', true);
+                }
+                $('#modal-cari-data').modal('hide');
+                setTimeout(() => {
+                    HoldOn.close();
+                }, 1500);
+            }
+        });
+    })
+
+    $('.btn-modal-obat').click(function(e){
+        e.preventDefault();
+        $('#modal-cari-obat').modal();
+    });
+
+    $('.btn-cari-obat').click(function(e) {
+        let form = $('#form-cari-obat');
+        let tbody = $('.table-cari-obat').find('tbody');
+        $.ajax({
+            url : '{{route("cari_data_obat")}}',
+            method : 'GET',
+            dataType : 'json',
+            data : form.serialize(),
+            success : function(response){
+                tbody.html('');
+                response.forEach(element => {
+                    let tr = $('<tr>');
+                    let td1 = $('<td>', {text : '1'});
+                    let td2 = $('<td>', {text : element.nama});
+                    let td4 = $('<td>');
+                    let action = $('<a>', {href:'javascript:;', text:'Pilih', class:'btn btn-sm btn-neutral btn-pilih-obat', obat_id:element.id, obat : element.nama});
+                    tr.append(td1);
+                    tr.append(td2);
+                    td4.append(action);
+                    tr.append(td4);
+                    tbody.append(tr);
+                });
+            }
+        });
+    });
+
+    var elmObat = $('#load-obat-list');
+    function countObat(){
+        let resultCount = elmObat.find('.row-obat').length;
+        return resultCount+1;
+    }
+
+    $(document).on('click', '.btn-pilih-obat', function(e){
+        let obatId = $(this).attr('obat_id');
+        let obat = $(this).attr('obat');
+        let rowCount = countObat();
+        let rowObat = '<div class="row row-obat row-obat-'+rowCount+' mb-2"><input type="hidden" name="id_obat[]" value="'+obatId+'"></input><div class="col-5 col-md-5 col-sm-5"><input type="text" name="obat[]" class="form-control" value="'+obat+'" readonly></div><div class="col-4 col-md-4 col-sm-4"><input type="text" name="takaran[]" class="form-control" value="" placeholder="Takaran"></div><div class="col-1 col-md-1 col-sm-1"><a href="javascript:;" class="btn btn-danger btn-delete-obat" data-row="'+rowCount+'">X</a></div></div>';
+        elmObat.append(rowObat);
+    });
+
+    $(document).on('click', '.btn-delete-obat', function(e){
+        let rowData = $(this).attr('data-row');
+        elmObat.find('.row-obat-'+rowData).remove();
+    });
+</script>
+@endsection
