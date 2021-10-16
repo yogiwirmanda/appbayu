@@ -2,13 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DiagnosaController;
 use App\Http\Controllers\DokterController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KlpcmController;
 use App\Http\Controllers\KunjunganController;
+use App\Http\Controllers\ObatController;
 use App\Http\Controllers\PasienController;
 use App\Http\Controllers\PrbController;
 use App\Http\Controllers\PrintController;
+use App\Http\Controllers\PoliController;
 use App\Http\Controllers\RegencyController;
 use App\Http\Controllers\SettingController;
 
@@ -21,6 +24,7 @@ Route::post('register', [AuthController::class, 'register']);
 Route::group(['middleware' => 'auth'], function () {
     Route::get('home', [HomeController::class, 'index'])->name('home');
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+
     Route::get('pasien', [PasienController::class, 'index'])->name('daftar_pasien');
     Route::get('pasien/create', [PasienController::class, 'create'])->name('tambah_pasien');
     Route::post('pasien/store', [PasienController::class, 'store'])->name('save_pasien');
@@ -32,35 +36,65 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('pasien/check/getDetailPasien', [PasienController::class, 'getDetailPasien'])->name('get_detail_pasien');
     Route::get('pasien/cariData', [PasienController::class, 'cariData'])->name('cari_data_pasien');
     Route::get('pasiens/check/norm', [PasienController::class, 'checkNoRM'])->name('cek_no_rm');
+
     Route::get('regency/check/city', [RegencyController::class, 'getDataCity'])->name('load_data_city');
     Route::get('regency/check/district', [RegencyController::class, 'getDataDistrict'])->name('load_data_district');
     Route::get('regency/check/villages', [RegencyController::class, 'getDataVillages'])->name('load_data_villages');
+
     Route::get('kunjungan', [KunjunganController::class, 'index'])->name('kunjungan_pasien');
     Route::get('kunjungan/create/{param}', [KunjunganController::class, 'create'])->name('kunjungan_pasien_create');
     Route::get('kunjungan/pasien/save', [KunjunganController::class, 'store'])->name('kunjungan_pasien_save');
     Route::get('kunjungans/klpcm/{param}', [KunjunganController::class, 'klpcm'])->name('klpcm');
     Route::get('kunjungans/harian/{param}', [KunjunganController::class, 'index'])->name('kunjunganHarian');
+
     Route::get('klpcms/check/icd', [KlpcmController::class, 'checkIcd'])->name('cari_data_diagnosa');
     Route::get('klpcms/check/obat', [KlpcmController::class, 'checkObat'])->name('cari_data_obat');
     Route::get('klpcms/index/{param}', [KlpcmController::class, 'index'])->name('Detail');
     Route::post('klpcms/save', [KlpcmController::class, 'store'])->name('save_klpcm');
+
     Route::get('cetak/{param}', [PrintController::class, 'index'])->name('Cetak');
     Route::get('reusedRM/{param}/{param1}/{param2}/{param3}', [PasienController::class, 'reusedRM'])->name('reusedRM');
+    Route::get('cek/formPasien', [PasienController::class, 'formPasien'])->name('pasien_form');
+
     Route::get('setting/nomor', [SettingController::class, 'index'])->name('setting_nomor');
     Route::get('setting/cek', [SettingController::class, 'nomorCek'])->name('setting_cek');
     Route::get('setting/set/nomor', [SettingController::class, 'reusedRM'])->name('setting_set_nomor');
+
     Route::get('prolanis', [PasienController::class, 'prolanis'])->name('show_prolanis');
     Route::get('prolanis/check', [PasienController::class, 'checkProlanis'])->name('check_prolanis');
     Route::get('prolanis/save', [PasienController::class, 'saveProlanis'])->name('save_prolanis');
-    Route::get('cek/formPasien', [PasienController::class, 'formPasien'])->name('pasien_form');
+
     Route::get('prb', [PrbController::class, 'index'])->name('show_prb');
     Route::get('prb/create', [PrbController::class, 'create'])->name('create_prb');
     Route::post('prb/save', [PrbController::class, 'store'])->name('save_prb');
     Route::post('prb/edit', [PrbController::class, 'edit'])->name('edit_prb');
+
     Route::get('dokter', [DokterController::class, 'index'])->name('show_dokter');
     Route::get('dokter/create', [DokterController::class, 'create'])->name('create_dokter');
     Route::post('dokter/save', [DokterController::class, 'store'])->name('save_dokter');
     Route::get('dokter/edit/{param}', [DokterController::class, 'edit'])->name('edit_dokter');
     Route::post('dokter/update', [DokterController::class, 'update'])->name('update_dokter');
+
+    Route::get('diagnosa', [DiagnosaController::class, 'index'])->name('show_diagnosa');
+    Route::get('diagnosa/create', [DiagnosaController::class, 'create'])->name('create_diagnosa');
+    Route::post('diagnosa/save', [DiagnosaController::class, 'store'])->name('save_diagnosa');
+    Route::get('diagnosa/edit/{param}', [DiagnosaController::class, 'edit'])->name('edit_diagnosa');
+    Route::post('diagnosa/update', [DiagnosaController::class, 'update'])->name('update_diagnosa');
+    Route::get('diagnosa/destroy/{param}', [DiagnosaController::class, 'delete'])->name('delete_diagnosa');
+
+    Route::get('poli', [PoliController::class, 'index'])->name('show_poli');
+    Route::get('poli/create', [PoliController::class, 'create'])->name('create_poli');
+    Route::post('poli/save', [PoliController::class, 'store'])->name('save_poli');
+    Route::get('poli/edit/{param}', [PoliController::class, 'edit'])->name('edit_poli');
+    Route::post('poli/update', [PoliController::class, 'update'])->name('update_poli');
+    Route::get('poli/destroy/{param}', [PoliController::class, 'delete'])->name('delete_poli');
+
+    Route::get('obat', [ObatController::class, 'index'])->name('show_obat');
+    Route::get('obat/create', [ObatController::class, 'create'])->name('create_obat');
+    Route::post('obat/save', [ObatController::class, 'store'])->name('save_obat');
+    Route::get('obat/edit/{param}', [ObatController::class, 'edit'])->name('edit_obat');
+    Route::post('obat/update', [ObatController::class, 'update'])->name('update_obat');
+    Route::get('obat/destroy/{param}', [ObatController::class, 'delete'])->name('delete_obat');
+
     Route::get('klpcms/check/kasus', [KlpcmController::class, 'checkKasus'])->name('check_kasus');
 });

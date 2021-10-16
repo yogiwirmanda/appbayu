@@ -43,6 +43,27 @@
                   </li>
                 </ul>
               </div>
+              <div class="collapse" id="navbar-examples">
+                <ul class="nav nav-sm flex-column">
+                  <li class="nav-item">
+                    <a href="{{route('show_diagnosa')}}" class="nav-link">Diagnosa</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="collapse" id="navbar-examples">
+                <ul class="nav nav-sm flex-column">
+                  <li class="nav-item">
+                    <a href="{{route('show_poli')}}" class="nav-link">Poli</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="collapse" id="navbar-examples">
+                <ul class="nav nav-sm flex-column">
+                  <li class="nav-item">
+                    <a href="{{route('show_obat')}}" class="nav-link">Obat</a>
+                  </li>
+                </ul>
+              </div>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#navbar-components" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-components">
