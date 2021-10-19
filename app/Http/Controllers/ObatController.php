@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Obat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ObatController extends Controller
 {
@@ -20,14 +21,24 @@ class ObatController extends Controller
 
     public function store(Request $request)
     {
-        $dokter = new Obat([
-            'nama' => $request->nama,
-            'keterangan' => $request->keterangan
+        $error = 0;
+        $validator = Validator::make($request->all(), [
+            'nama' => 'required',
+            'keterangan' => 'required',
         ]);
 
-        $dokter->save();
+        if ($validator->fails()) {
+            $error = 1;
+            return response()->json(
+                ['error'=>$error, 'field'=>$validator->errors()->keys()]
+            );
+        } else {
+            Obat::create($request->all());
+        }
 
-        return redirect('obat');
+        return response()->json(
+            ['error'=>$error, 'messages'=>'Obat berhasil di tambahkan'],
+        );
     }
 
     public function edit($obatId)

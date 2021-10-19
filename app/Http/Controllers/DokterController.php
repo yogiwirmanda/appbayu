@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Dokter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class DokterController extends Controller
 {
@@ -20,12 +21,12 @@ class DokterController extends Controller
 
     public function store(Request $request)
     {
-        $dokter = new Dokter([
-            'nama' => $request->nama,
-            'nip' => $request->nip
+        $validator = Validator::make($request->all(), [
+            'nama' => 'required',
+            'nip' => 'required',
         ]);
 
-        $dokter->save();
+        Dokter::create($request->all());
 
         return redirect('dokter');
     }
