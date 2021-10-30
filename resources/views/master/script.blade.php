@@ -20,6 +20,7 @@
   <script src="{{asset('assets/vendor/holdonjs/HoldOn.min.js')}}"></script>
   <!-- Argon JS -->
   <script src="{{asset('assets/js/argon.js?v=1.1.0')}}"></script>
+  <script src="{{asset('js/app.js')}}"></script>
   <!-- Demo JS - remove this in your project -->
   <script src="{{asset('assets/js/demo.min.js')}}"></script>
   <script>

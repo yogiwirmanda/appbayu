@@ -9,5 +9,6 @@ use Illuminate\Routing\Controller as BaseController;
 
 class Controller extends BaseController
 {
+    public $navActive;
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 }

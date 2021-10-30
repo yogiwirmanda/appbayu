@@ -17,7 +17,7 @@
             <h3 class="mb-0">Edit Diagnosa</h3>
         </div>
         <div class="card-body">
-            <form action="{{route('update_diagnosa')}}" method="POST" enctype="multipart/form-data">
+            <form action="{{route('update_diagnosa')}}" id="form-diagnosa" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="diagnosaId" value="{{$dataDiagnosa->id}}">
                 <div class="row">
@@ -26,7 +26,8 @@
                             <div class="col-md-12">
                                 <div class="form-group row">
                                     <label class="col-2 col-form-label">Kode ICD</label>
-                                    <input type="text" name="kode_icd" id="kode_icd" class="form-control col-6" placeholder="Kode ICD" value="{{$dataDiagnosa->kode_icd}}">
+                                    <input type="text" name="kode_icd" id="kode_icd" class="form-control col-6 input-form-kode_icd" placeholder="Kode ICD" value="{{$dataDiagnosa->kode_icd}}">
+                                    <div class="offset-md-2 col-10 invalid-feedback">Kode ICD wajib di isi</div>
                                 </div>
                             </div>
                         </div>
@@ -34,7 +35,8 @@
                             <div class="col-md-12">
                                 <div class="form-group row">
                                     <label class="col-2 col-form-label">Diagnosa</label>
-                                    <textarea name="diagnosa" id="diagnosa" cols="30" rows="10" class="form-control col-6" placeholder="Diagnosa">{{$dataDiagnosa->diagnosa}}</textarea>
+                                    <textarea name="diagnosa" id="diagnosa" cols="30" rows="10" class="form-control col-6 input-form-diagnosa" placeholder="Diagnosa">{{$dataDiagnosa->diagnosa}}</textarea>
+                                    <div class="offset-md-2 col-10 invalid-feedback">Diagnosa wajib di isi</div>
                                 </div>
                             </div>
                         </div>
@@ -42,7 +44,8 @@
                             <div class="col-md-12">
                                 <div class="form-group row">
                                     <label class="col-2 col-form-label">Keterangan</label>
-                                    <input type="text" name="keterangan" id="keterangan" class="form-control col-6" placeholder="Keterangan" value="{{$dataDiagnosa->keterangan}}">
+                                    <input type="text" name="keterangan" id="keterangan" class="form-control col-6 input-form-keterangan" placeholder="Keterangan" value="{{$dataDiagnosa->keterangan}}">
+                                    <div class="offset-md-2 col-10 invalid-feedback">Keterangan wajib di isi</div>
                                 </div>
                             </div>
                         </div>
@@ -59,4 +62,12 @@
         </div>
     </div>
 </div>
+<script>
+    $('#form-diagnosa').submit(function(e){
+        e.preventDefault();
+        PRC.disabledValidation();
+        let form = $(this);
+        PRC.ajaxSubmit(form, '/diagnosa');
+    });
+</script>
 @endsection

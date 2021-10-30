@@ -61,6 +61,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('setting/set/nomor', [SettingController::class, 'reusedRM'])->name('setting_set_nomor');
 
     Route::get('prolanis', [PasienController::class, 'prolanis'])->name('show_prolanis');
+    Route::get('prolanis/create', [PasienController::class, 'prolanisCreate'])->name('create_prolanis');
     Route::get('prolanis/check', [PasienController::class, 'checkProlanis'])->name('check_prolanis');
     Route::get('prolanis/save', [PasienController::class, 'saveProlanis'])->name('save_prolanis');
 
@@ -74,6 +75,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('dokter/save', [DokterController::class, 'store'])->name('save_dokter');
     Route::get('dokter/edit/{param}', [DokterController::class, 'edit'])->name('edit_dokter');
     Route::post('dokter/update', [DokterController::class, 'update'])->name('update_dokter');
+    Route::get('dokter/destroy/{param}', [DokterController::class, 'delete'])->name('delete_dokter');
 
     Route::get('diagnosa', [DiagnosaController::class, 'index'])->name('show_diagnosa');
     Route::get('diagnosa/create', [DiagnosaController::class, 'create'])->name('create_diagnosa');

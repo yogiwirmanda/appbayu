@@ -10,11 +10,18 @@ use Illuminate\Http\Request;
 
 class SettingController extends Controller
 {
+    public function __construct()
+    {
+        $this->navActive = 'setting-nomor';
+    }
+
     public function index()
     {
         $dataWilayah = Wilayah::all();
         $dataKategori = Kategori::all();
-        return view('setting.nomor', compact('dataWilayah', 'dataKategori'));
+        $navActive = $this->navActive;
+
+        return view('setting.nomor', compact('dataWilayah', 'dataKategori', 'navActive'));
     }
 
     public function nomorCek(Request $request)

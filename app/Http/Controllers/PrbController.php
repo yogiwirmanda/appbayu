@@ -9,19 +9,28 @@ use Illuminate\Http\Request;
 
 class PrbController extends Controller
 {
+    public function __construct()
+    {
+        $this->navActive = 'transaksi-prb';
+    }
+
     public function index()
     {
         $dataPasienPrb = Prb::select('prbs.*', 'dokters.nama as namaDokter', 'pasiens.nama as namaPasien', 'pasiens.alamat as alamatPasien', 'pasiens.no_rm as noRm')
             ->join('pasiens', 'pasiens.id', '=', 'prbs.id_pasien')
             ->join('dokters', 'dokters.id', '=', 'prbs.id_dokter')
             ->get();
-        return view('prb.index', compact('dataPasienPrb'));
+        $navActive = $this->navActive;
+
+        return view('prb.index', compact('dataPasienPrb', 'navActive'));
     }
 
     public function create()
     {
         $dataDokter = Dokter::all();
-        return view('prb.create', compact('dataDokter'));
+        $navActive = $this->navActive;
+
+        return view('prb.create', compact('dataDokter', 'navActive'));
     }
 
     public function store(Request $request)

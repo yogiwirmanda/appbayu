@@ -1,23 +1,12 @@
 @extends('master.main')
 @section('content')
-<style>
-    .card-body{
-        font-size: 12px;
-    }
-    .form-group{
-        margin-bottom: 10px;
-    }
-    input, textarea, select{
-        text-transform: uppercase;
-    }
-</style>
 <div class="container-fluid mt--6">
     <div class="card mb-4">
         <div class="card-header d-flex justify-content-between">
             <h3 class="mb-0">Edit Obat</h3>
         </div>
         <div class="card-body">
-            <form action="{{route('update_obat')}}" method="POST" enctype="multipart/form-data">
+            <form action="{{route('update_obat')}}" method="POST" id="form-obat" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="obatId" value="{{$dataObat->id}}">
                 <div class="row">
@@ -26,7 +15,8 @@
                             <div class="col-md-12">
                                 <div class="form-group row">
                                     <label class="col-2 col-form-label">Nama Obat</label>
-                                    <input type="text" name="nama" id="nama" class="form-control col-6" placeholder="Nama Obat" value="{{$dataObat->nama}}">
+                                    <input type="text" name="nama" id="nama" class="form-control col-6 input-form-nama" placeholder="Nama Obat" value="{{$dataObat->nama}}">
+                                    <div class="offset-md-2 col-10 invalid-feedback">Nama obat wajib di isi</div>
                                 </div>
                             </div>
                         </div>
@@ -34,7 +24,8 @@
                             <div class="col-md-12">
                                 <div class="form-group row">
                                     <label class="col-2 col-form-label">Keterangan</label>
-                                    <input type="text" name="keterangan" id="keterangan" class="form-control col-6" placeholder="Keterangan" value="{{$dataObat->keterangan}}">
+                                    <input type="text" name="keterangan" id="keterangan" class="form-control col-6 input-form-keterangan" placeholder="Keterangan" value="{{$dataObat->keterangan}}">
+                                    <div class="offset-md-2 col-10 invalid-feedback">Keterangan wajib di isi</div>
                                 </div>
                             </div>
                         </div>
@@ -51,4 +42,12 @@
         </div>
     </div>
 </div>
+<script>
+    $('#form-obat').submit(function(e){
+        e.preventDefault();
+        PRC.disabledValidation();
+        let form = $(this);
+        PRC.ajaxSubmit(form, '/obat');
+    })
+</script>
 @endsection

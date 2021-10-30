@@ -19,4 +19,5 @@
 <!-- Page plugins -->
 <!-- Argon CSS -->
 <link rel="stylesheet" href="{{asset('assets/css/argon.css?v=1.1.0')}}" type="text/css">
+<link rel="stylesheet" href="{{asset('css/app.css')}}" type="text/css">
 <script src="{{asset('assets/vendor/jquery/dist/jquery.min.js')}}"></script>

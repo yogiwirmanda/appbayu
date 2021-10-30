@@ -7,13 +7,13 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-8 text-left">
-                            <h3 class="mb-0">Obt</h3>
+                            <h3 class="mb-0">Obat</h3>
                             <p class="text-sm mb-0">
                                 This is an exmaple of datatable using the well known datatables.net plugin.
                             </p>
                         </div>
                         <div class="col-4 text-right">
-                            <a href="{{asset('obat/create')}}" class="btn btn-sm btn-neutral btn-round btn-icon" data-toggle="tooltip" data-original-title="Tambah Poli">
+                            <a href="{{asset('obat/create')}}" class="btn btn-sm btn-neutral btn-round btn-icon" data-toggle="tooltip" data-original-title="Tambah Obat">
                                 <span class="btn-inner--icon"><i class="fas fa-user-edit"></i></span>
                                 <span class="btn-inner--text">Tambah</span>
                             </a>

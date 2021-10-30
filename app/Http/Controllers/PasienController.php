@@ -15,6 +15,11 @@ use Illuminate\Support\Facades\DB;
 
 class PasienController extends Controller
 {
+    public function __construct()
+    {
+        $this->navActive = 'master-pasien';
+    }
+
     public function index()
     {
         $dataPasien = DB::table('pasiens')
@@ -22,7 +27,9 @@ class PasienController extends Controller
                     ->select('pasiens.*', 'districts.name AS namaWilayah')
                     ->orderBy('created_at', 'DESC')
                     ->get();
-        return view('pasien.index', compact('dataPasien'));
+        $navActive = $this->navActive;
+
+        return view('pasien.index', compact('dataPasien', 'navActive'));
     }
 
 
@@ -30,7 +37,9 @@ class PasienController extends Controller
     {
         $dataProvince = Province::all();
         $dataWilayah = Wilayah::all();
-        return view('pasien.create', compact('dataWilayah', 'dataProvince'));
+        $navActive = $this->navActive;
+
+        return view('pasien.create', compact('dataWilayah', 'dataProvince', 'navActive'));
     }
 
 
@@ -118,7 +127,9 @@ class PasienController extends Controller
         $dataCity = Regency::where('province_id', $pasiens->province)->get();
         $dataDistrict = District::where('regency_id', $pasiens->regency)->get();
         $dataVillages = Village::where('district_id', $pasiens->district)->get();
-        return view('pasien.edit', compact('pasiens', 'id', 'dataProvince', 'dataCity', 'dataDistrict', 'dataVillages'));
+        $navActive = $this->navActive;
+
+        return view('pasien.edit', compact('pasiens', 'id', 'dataProvince', 'dataCity', 'dataDistrict', 'dataVillages', 'navActive'));
     }
 
 
@@ -185,7 +196,9 @@ class PasienController extends Controller
         $title = "Kunjungan Pasien";
         $dataPasien = Pasien::find($idPasien);
         $dataPoli = Poli::all();
-        return view('pasien.kunjungan', compact('title', 'dataPasien', 'dataPoli', 'idPasien', 'nav'));
+        $navActive = 'transaksi-kunjungan';
+
+        return view('pasien.kunjungan', compact('title', 'dataPasien', 'dataPoli', 'idPasien', 'navActive'));
     }
 
     public function kunjunganSave(Request $request)
@@ -199,6 +212,7 @@ class PasienController extends Controller
             'no_bpjs' => $request->get('noBpjs'),
         ]);
         $kunjungans->save();
+
         return redirect('/pasiens');
     }
 
@@ -429,7 +443,17 @@ class PasienController extends Controller
 
     public function prolanis()
     {
-        return view('prolanis.index');
+        $dataPasien = Pasien::where('status_prolanis', 1)->get();
+        $navActive = 'transaksi-prolanis';
+
+        return view('prolanis.index', compact('dataPasien', 'navActive'));
+    }
+
+    public function prolanisCreate()
+    {
+        $navActive = 'transaksi-prolanis';
+
+        return view('prolanis.create', compact('navActive'));
     }
 
     public function checkProlanis(Request $request)

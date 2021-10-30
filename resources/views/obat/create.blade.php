@@ -1,16 +1,5 @@
 @extends('master.main')
 @section('content')
-<style>
-    .card-body{
-        font-size: 12px;
-    }
-    .form-group{
-        margin-bottom: 10px;
-    }
-    input, textarea, select{
-        text-transform: uppercase;
-    }
-</style>
 <div class="container-fluid mt--6">
     <div class="card mb-4">
         <div class="card-header d-flex justify-content-between">
@@ -53,37 +42,11 @@
     </div>
 </div>
 <script>
-    function disabledValidation(){
-        $('.form-control').removeClass('is-invalid');
-    }
     $('#form-obat').submit(function(e){
         e.preventDefault();
-        disabledValidation();
+        PRC.disabledValidation();
         let form = $(this);
-        form.find('.btn').attr('disabled', 'disabled');
-        $.ajax({
-            url : form.attr('action'),
-            method : form.attr('method'),
-            dataType : 'json',
-            data : form.serialize(),
-            success : function(response){
-                let error = response.error;
-                if (error === 1){
-                    let field = response.field;
-                    $.each(field, function(key, value){
-                        $('.input-form-'+value).addClass('is-invalid');
-                    });
-                    form.find('.btn').removeAttr('disabled');
-                } else {
-                    let messages = response.messages;
-                    $.notify(messages, 'success');
-                    setTimeout(() => {
-                        window.location.href = '/obat';
-                    }, 1000);
-                }
-                HoldOn.close();
-            }
-        })
-    })
+        PRC.ajaxSubmit(form, '/obat');
+    });
 </script>
 @endsection

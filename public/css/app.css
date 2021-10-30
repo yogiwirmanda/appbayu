@@ -1,0 +1,9 @@
+.card-body{
+    font-size: 12px;
+}
+.form-group{
+    margin-bottom: 10px;
+}
+input, textarea, select{
+    text-transform: uppercase;
+}

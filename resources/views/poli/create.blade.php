@@ -17,7 +17,7 @@
             <h3 class="mb-0">Tambah Poli</h3>
         </div>
         <div class="card-body">
-            <form action="{{route('save_poli')}}" method="POST" enctype="multipart/form-data">
+            <form action="{{route('save_poli')}}" id="form-poli" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-12 col-md-12 col-sm-12">
@@ -25,7 +25,8 @@
                             <div class="col-md-12">
                                 <div class="form-group row">
                                     <label class="col-2 col-form-label">Nama</label>
-                                    <input type="text" name="nama" id="nama" class="form-control col-6" placeholder="Nama Poli">
+                                    <input type="text" name="nama" id="nama" class="form-control col-6 input-form-nama" placeholder="Nama Poli">
+                                    <div class="offset-md-2 col-10 invalid-feedback">Nama Poli wajib di isi</div>
                                 </div>
                             </div>
                         </div>
@@ -42,4 +43,12 @@
         </div>
     </div>
 </div>
+<script>
+    $('#form-poli').submit(function(e){
+        e.preventDefault();
+        PRC.disabledValidation();
+        let form = $(this);
+        PRC.ajaxSubmit(form, '/poli');
+    });
+</script>
 @endsection

@@ -56,11 +56,11 @@
 <script>
   $('.table-action-delete').each(function(){
     $(this).click(function(){
-      let dataPasienId = $(this).attr('data-pasien-id');
-      let namaPasien = $(this).attr('data-pasien-nama');
+      let dataDokterId = $(this).attr('data-dokter-id');
+      let namaDokter = $(this).attr('data-dokter-nama');
       swal({
           title: 'Apakah anda yakin?',
-          text: 'Menghapus data pasien atas nama '+namaPasien,
+          text: 'Menghapus data pasien atas nama '+namaDokter,
           type: 'question',
           buttonsStyling: false,
           showCancelButton: true,
@@ -71,13 +71,13 @@
       }).then((result) => {
         if (result.value == true){
           $.ajax({
-            url : "pasien/destroy/"+dataPasienId,
+            url : "dokter/destroy/"+dataDokterId,
             method : "GET",
             dataType : "json",
-            data : {dataPasienId: dataPasienId},
+            data : {dataDokterId: dataDokterId},
             success : function (response) {
               if (response.errCode == 0){
-                $.notify('Pasien Berhasil dihapus', 'success');
+                $.notify('Dokter Berhasil dihapus', 'success');
                 setTimeout(() => {
                   window.location.reload();
                 }, 2000);

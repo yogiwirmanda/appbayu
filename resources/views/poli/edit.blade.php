@@ -27,6 +27,7 @@
                                 <div class="form-group row">
                                     <label class="col-2 col-form-label">Nama Poli</label>
                                     <input type="text" name="nama" id="nama" class="form-control col-6" placeholder="Nama Poli" value="{{$dataPoli->nama}}">
+                                    <div class="offset-md-2 col-10 invalid-feedback">Nama Poli wajib di isi</div>
                                 </div>
                             </div>
                         </div>

@@ -8,15 +8,22 @@ use Illuminate\Support\Facades\Validator;
 
 class ObatController extends Controller
 {
+    public function __construct()
+    {
+        $this->navActive = 'master-obat';
+    }
+
     public function index()
     {
         $dataObat = Obat::all();
-        return view('obat/index', compact('dataObat'));
+        $navActive = $this->navActive;
+        return view('obat/index', compact('dataObat', 'navActive'));
     }
 
     public function create()
     {
-        return view('obat/create');
+        $navActive = $this->navActive;
+        return view('obat/create', compact('navActive'));
     }
 
     public function store(Request $request)
@@ -44,19 +51,35 @@ class ObatController extends Controller
     public function edit($obatId)
     {
         $dataObat = Obat::find($obatId);
+        $navActive = $this->navActive;
 
-        return view('obat.edit', compact('dataObat'));
+        return view('obat.edit', compact('dataObat', 'navActive'));
     }
 
     public function update(Request $request)
     {
-        $obatId = $request->obatId;
-        $dataObat = Obat::find($obatId);
-        $dataObat->nama = $request->nama;
-        $dataObat->keterangan = $request->keterangan;
-        $dataObat->save();
+        $error = 0;
+        $validator = Validator::make($request->all(), [
+            'nama' => 'required',
+            'keterangan' => 'required',
+        ]);
 
-        return redirect('obat');
+        if ($validator->fails()) {
+            $error = 1;
+            return response()->json(
+                ['error'=>$error, 'field'=>$validator->errors()->keys()]
+            );
+        } else {
+            $obatId = $request->obatId;
+            $dataObat = Obat::find($obatId);
+            $dataObat->nama = $request->nama;
+            $dataObat->keterangan = $request->keterangan;
+            $dataObat->save();
+        }
+
+        return response()->json(
+            ['error'=>$error, 'messages'=>'Obat berhasil di update'],
+        );
     }
 
     public function delete($obatId)

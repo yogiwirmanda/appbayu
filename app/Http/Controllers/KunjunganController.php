@@ -12,12 +12,12 @@ class KunjunganController extends Controller
 {
     public function __construct()
     {
-        $this->nav = 'kunjungan';
+        $this->navActive = 'transaksi-kunjungan';
     }
 
     public function index($tanggal = null)
     {
-        $nav = $this->nav;
+        $navActive = $this->navActive;
         $dateNow = date('Y-m-d');
         if ($tanggal == null) {
             $tanggal = $dateNow;
@@ -29,16 +29,18 @@ class KunjunganController extends Controller
                         ->where('kunjungans.tanggal', '=', $tanggal)
                         ->select('kunjungans.*', 'pasiens.*', 'polis.nama as namaPoli', 'kunjungans.id as kunjunganId')
                         ->get();
-        return view('kunjungan/index', compact('title', 'dataKunjungan', 'tanggal', 'nav'));
+        $navActive = $this->navActive;
+
+        return view('kunjungan/index', compact('title', 'dataKunjungan', 'tanggal', 'navActive'));
     }
 
     public function create($idPasien)
     {
-        $nav = $this->nav;
+        $navActive = $this->navActive;
         $title = "Kunjungan Pasien";
         $dataPasien = Pasien::find($idPasien);
         $dataPoli = Poli::all();
-        return view('kunjungan.kunjungan', compact('title', 'dataPasien', 'dataPoli', 'idPasien', 'nav'));
+        return view('kunjungan.kunjungan', compact('title', 'dataPasien', 'dataPoli', 'idPasien', 'navActive'));
     }
 
 
@@ -59,7 +61,7 @@ class KunjunganController extends Controller
 
     public function klpcm($idKunjungan)
     {
-        $nav = 'klpcm';
+        $navActive = $this->navActive;
         $title = 'KLPCM';
         $dataKunjungan = DB::table('kunjungans')
                 ->join('pasiens', 'kunjungans.id_pasien', '=', 'pasiens.id')
@@ -67,6 +69,6 @@ class KunjunganController extends Controller
                 ->where('kunjungans.id', '=', $idKunjungan)
                 ->select('kunjungans.*', 'pasiens.*', 'pasiens.nama as nama_pasien', 'polis.nama as namaPoli', 'kunjungans.id as kunjunganId')
                 ->first();
-        return view('klpcm.create', compact('title', 'dataKunjungan', 'idKunjungan', 'nav'));
+        return view('klpcm.create', compact('title', 'dataKunjungan', 'idKunjungan', 'navActive'));
     }
 }

@@ -1,121 +1,104 @@
 @extends('master.main')
 @section('content')
-<style>
-    .card-body{
-        font-size: 12px;
-    }
-    .form-group{
-        margin-bottom: 10px;
-    }
-    input, textarea, select{
-        text-transform: uppercase;
-    }
-</style>
 <div class="container-fluid mt--6">
     <div class="row">
-        <div class="col-md-12">
-            <div class="card strpied-tabled-with-hover">
-                <div class="card-header d-flex justify-content-between">
-                    <h4 class="card-title">Filter</h4>
-                </div>
-                <div class="card-body table-full-width table-responsive">
-                    <div class="col-6 d-flex justify-content-around">
-                        <input type="text" name="no_rm" id="no_rm" class="form-control" value="">
-                        <a href="javascript:;" class="btn btn-info btn-fill pull-right btn-cari-data ml-2">Cari</a>
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-8 text-left">
+                            <h3 class="mb-0">Pasien Prolanis</h3>
+                            <p class="text-sm mb-0">
+                                This is an exmaple of datatable using the well known datatables.net plugin.
+                            </p>
+                        </div>
+                        <div class="col-4 text-right">
+                            <a href="{{asset('prolanis/create')}}" class="btn btn-sm btn-neutral btn-round btn-icon"
+                                data-toggle="tooltip" data-original-title="Tambah Prolanis">
+                                <span class="btn-inner--icon"><i class="fas fa-user-edit"></i></span>
+                                <span class="btn-inner--text">Tambah</span>
+                            </a>
+                        </div>
                     </div>
+                </div>
+                <div class="table-responsive py-4">
+                    <table class="table table-flush" id="datatable-basic" style="text-transform: uppercase;">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>No</th>
+                                <th>No RM</th>
+                                <th>Name</th>
+                                <th>Umur</th>
+                                <th>Alamat</th>
+                                <!-- <th>Aksi</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($dataPasien as $key => $pasien)
+                            @php
+                                $yearBorn = (int) Date('Y', strtotime($pasien->tgl_lahir));
+                                $yearNow = (int) Date('Y');
+                                $age = $yearNow - $yearBorn;
+                            @endphp
+                            <tr>
+                                <td>{{$key + 1}}</td>
+                                <td>{{$pasien->no_rm}}</td>
+                                <td>{{$pasien->nama}}</td>
+                                <td>{{$age}}</td>
+                                <td>{{$pasien->alamat}}</td>
+                                <!-- <td class="table-actions">
+                                    <a href="{{route('edit_pasien', $pasien->id)}}" class="table-action"
+                                        data-toggle="tooltip" data-original-title="Edit product">
+                                        <i class="fas fa-user-edit"></i>
+                                    </a>
+                                    <a href="javascript:;" class="table-action table-action-delete" data-pasien-id="{{$pasien->id}}" data-pasien-nama="{{$pasien->nama}}" data-toggle="tooltip"
+                                        data-original-title="Delete product">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td> -->
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <form action="{{route('save_prolanis')}}" method="GET">
-                <input type="hidden" name="id_pasien" id="id_pasien">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label class="col-4 col-form-label">No RM</label>
-                                            <input type="text" name="noRm" id="noRm" class="form-control col-8" placeholder="No RM" readonly>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label class="col-4 col-form-label">Nama</label>
-                                            <input type="text" name="nama" id="nama" class="form-control col-8" placeholder="Nama" readonly>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label class="col-4 col-form-label">Alamat</label>
-                                            <textarea name="alamat" id="alamat" cols="30" rows="3" class="form-control col-8" placeholder="Alamat" readonly></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label class="col-4 col-form-label">Jenis Kelamin</label>
-                                            <select name="status_prolanis" id="status_prolanis" class="form-control col-8">
-                                                <option value="Diabetes Melitus">Diabetes Melitus</option>
-                                                <option value="Hipertensi">Hipertensi</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label class="col-4 col-form-label">Jenis Kelamin</label>
-                                            <input type="text" name="jk" id="jk" class="form-control col-8" placeholder="Jenis Kelamin" readonly>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label class="col-4 col-form-label">Tanggal Lahir</label>
-                                            <input type="text" name="tgl_lahir" id="tgl_lahir" class="form-control col-8" placeholder="Tanggal Lahir" readonly>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mx-2 my-3">
-                            <div class="col-md-12">
-                                <div class="form-group row">
-                                    <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
         </div>
     </div>
 </div>
 <script>
-    $('.btn-cari-data').click(function(e){
-        let noRM = $('#no_rm').val();
-        $.ajax({
-            url : '{{route("check_prolanis")}}',
-            method : 'GET',
-            dataType : 'json',
-            data : {noRM : noRM},
+  $('.table-action-delete').each(function(){
+    $(this).click(function(){
+      let dataPasienId = $(this).attr('data-pasien-id');
+      let namaPasien = $(this).attr('data-pasien-nama');
+      swal({
+          title: 'Apakah anda yakin?',
+          text: 'Menghapus data pasien atas nama '+namaPasien,
+          type: 'question',
+          buttonsStyling: false,
+          showCancelButton: true,
+          confirmButtonClass: 'btn btn-success btn-delete-pasien',
+          confirmButtonText: 'Hapus',
+          cancelButtonClass: 'btn btn-danger',
+          cancelButtonText: 'Batal',
+      }).then((result) => {
+        if (result.value == true){
+          $.ajax({
+            url : "pasien/destroy/"+dataPasienId,
+            method : "GET",
+            dataType : "json",
+            data : {dataPasienId: dataPasienId},
             success : function (response) {
-                $('#id_pasien').val(response.id);
-                $('#noRm').val(response.no_rm);
-                $('#nama').val(response.nama);
-                $('#alamat').val(response.alamat);
-                $('#jk').val(response.jk);
-                $('#tgl_lahir').val(response.tgl_lahir);
+              if (response.errCode == 0){
+                $.notify('Pasien Berhasil dihapus', 'success');
+                setTimeout(() => {
+                  window.location.reload();
+                }, 2000);
+              }
             }
-        });
-    });
+          });
+        }
+      })
+    })
+  })
 </script>
 @endsection

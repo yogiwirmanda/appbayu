@@ -6,46 +6,81 @@ use App\Models\Diagnosa;
 use App\Models\Dokter;
 use App\Models\Poli;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PoliController extends Controller
 {
+    public function __construct()
+    {
+        $this->navActive = 'master-poli';
+    }
+
     public function index()
     {
         $dataPoli = Poli::all();
-        return view('poli/index', compact('dataPoli'));
+        $navActive = $this->navActive;
+
+        return view('poli/index', compact('dataPoli', 'navActive'));
     }
 
     public function create()
     {
-        return view('poli/create');
+        $navActive = $this->navActive;
+
+        return view('poli/create', compact('navActive'));
     }
 
     public function store(Request $request)
     {
-        $diagnosa = new Poli([
-            'nama' => $request->nama,
+        $error = 0;
+        $validator = Validator::make($request->all(), [
+            'nama' => 'required',
         ]);
 
-        $diagnosa->save();
+        if ($validator->fails()) {
+            $error = 1;
+            return response()->json(
+                ['error'=>$error, 'field'=>$validator->errors()->keys()]
+            );
+        } else {
+            Poli::create($request->all());
+        }
 
-        return redirect('poli');
+        return response()->json(
+            ['error'=>$error, 'messages'=>'Poli berhasil di tambahkan'],
+        );
     }
 
     public function edit($poliId)
     {
         $dataPoli = Poli::find($poliId);
+        $navActive = $this->navActive;
 
-        return view('poli.edit', compact('dataPoli'));
+        return view('poli.edit', compact('dataPoli', 'navActive'));
     }
 
     public function update(Request $request)
     {
-        $poliId = $request->poliId;
-        $dataPoli = Poli::find($poliId);
-        $dataPoli->nama = $request->nama;
-        $dataPoli->save();
+        $error = 0;
+        $validator = Validator::make($request->all(), [
+            'nama' => 'required',
+        ]);
 
-        return redirect('poli');
+        if ($validator->fails()) {
+            $error = 1;
+            return response()->json(
+                ['error'=>$error, 'field'=>$validator->errors()->keys()]
+            );
+        } else {
+            $poliId = $request->poliId;
+            $dataPoli = Poli::find($poliId);
+            $dataPoli->nama = $request->nama;
+            $dataPoli->save();
+        }
+
+        return response()->json(
+            ['error'=>$error, 'messages'=>'Poli berhasil di update'],
+        );
     }
 
     public function delete($poliId)
