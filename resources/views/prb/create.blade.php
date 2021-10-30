@@ -18,7 +18,7 @@
             <button type="button" class="btn btn-block btn-default w-25" data-toggle="modal" data-target="#modal-cari-data">Cari Pasien</button>
         </div>
         <div class="card-body">
-            <form action="{{route('save_prb')}}" method="POST" enctype="multipart/form-data">
+            <form action="{{route('save_prb')}}" id="form-prb" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="idPasien" id="idPasien">
                 <input type="hidden" name="noRm" id="noRm">
@@ -28,7 +28,7 @@
                             <div class="col-md-12">
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Nama</label>
-                                    <input type="text" name="namaPasien" id="namaPasien" class="form-control col-8" placeholder="Nama Pasien">
+                                    <input type="text" name="namaPasien" id="namaPasien" class="form-control col-8" placeholder="Nama Pasien" readonly>
                                 </div>
                             </div>
                         </div>
@@ -36,8 +36,7 @@
                             <div class="col-md-12">
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Alamat KTP</label>
-                                    <textarea name="alamat" id="alamat" class="form-control col-8" cols="30"
-                                                rows="2" autocomplete="new-text" placeholder="Alamat KTP"></textarea>
+                                    <textarea name="alamat" id="alamat" class="form-control col-8" cols="30" rows="2" autocomplete="new-text" placeholder="Alamat KTP" readonly></textarea>
                                 </div>
                             </div>
                         </div>
@@ -45,8 +44,8 @@
                             <div class="col-md-12">
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">RT / RW</label>
-                                    <input type="text" name="rt" id="rt" class="form-control col mr-2" placeholder="RT">
-                                    <input type="text" name="rw" id="rw" class="form-control col" placeholder="RW">
+                                    <input type="text" name="rt" id="rt" class="form-control col mr-2" placeholder="RT" readonly>
+                                    <input type="text" name="rw" id="rw" class="form-control col" placeholder="RW" readonly>
                                 </div>
                             </div>
                         </div>
@@ -54,7 +53,7 @@
                             <div class="col-md-12">
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Alamat Domisili</label>
-                                    <textarea name="alamat_dom" id="alamat_dom" class="form-control col-8" cols="30" rows="2" placeholder="Alamat Domisili" autocomplete="new-text"></textarea>
+                                    <textarea name="alamat_dom" id="alamat_dom" class="form-control col-8" cols="30" rows="2" placeholder="Alamat Domisili" autocomplete="new-text" readonly></textarea>
                                 </div>
                             </div>
                         </div>
@@ -76,7 +75,8 @@
                             <div class="col-md-12">
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Tensi</label>
-                                    <input type="text" name="tensi" id="tensi" class="form-control col-8" placeholder="Tensi">
+                                    <input type="text" name="tensi" id="tensi" class="form-control col-8 input-form-tensi" placeholder="Tensi">
+                                    <div class="offset-md-4 col-10 invalid-feedback">Tensi wajib di isi</div>
                                 </div>
                             </div>
                         </div>
@@ -84,7 +84,8 @@
                             <div class="col-md-12">
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Nadi</label>
-                                    <input type="text" name="nadi" id="nadi" class="form-control col-8" placeholder="Nadi">
+                                    <input type="text" name="nadi" id="nadi" class="form-control col-8 input-form-nadi" placeholder="Nadi">
+                                    <div class="offset-md-4 col-10 invalid-feedback">Nadi wajib di isi</div>
                                 </div>
                             </div>
                         </div>
@@ -92,7 +93,8 @@
                             <div class="col-md-12">
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Suhu</label>
-                                    <input type="text" name="suhu" id="suhu" class="form-control col-8" placeholder="Suhu">
+                                    <input type="text" name="suhu" id="suhu" class="form-control col-8 input-form-suhu" placeholder="Suhu">
+                                    <div class="offset-md-4 col-10 invalid-feedback">Suhu wajib di isi</div>
                                 </div>
                             </div>
                         </div>
@@ -100,7 +102,8 @@
                             <div class="col-md-12">
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Berat Badan</label>
-                                    <input type="text" name="berat_badan" id="berat_badan" class="form-control col-8" placeholder="Berat Badan">
+                                    <input type="text" name="berat_badan" id="berat_badan" class="form-control col-8 input-form-berat_badan" placeholder="Berat Badan">
+                                    <div class="offset-md-4 col-10 invalid-feedback">Berat badan wajib di isi</div>
                                 </div>
                             </div>
                         </div>
@@ -108,7 +111,8 @@
                             <div class="col-md-12">
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Tinggi Badan</label>
-                                    <input type="text" name="tinggi_badan" id="tinggi_badan" class="form-control col-8" placeholder="Tinggi Badan">
+                                    <input type="text" name="tinggi_badan" id="tinggi_badan" class="form-control col-8 input-form-tinggi_badan" placeholder="Tinggi Badan">
+                                    <div class="offset-md-4 col-10 invalid-feedback">Tinggi badan wajib di isi</div>
                                 </div>
                             </div>
                         </div>
@@ -131,31 +135,6 @@
             </form>
         </div>
     </div>
-    <footer class="footer pt-0">
-    <div class="row align-items-center justify-content-lg-between">
-        <div class="col-lg-6">
-        <div class="copyright text-center text-lg-left text-muted">
-            © 2019 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
-        </div>
-        </div>
-        <div class="col-lg-6">
-        <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-            <li class="nav-item">
-            <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Creative Tim</a>
-            </li>
-            <li class="nav-item">
-            <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>
-            </li>
-            <li class="nav-item">
-            <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Blog</a>
-            </li>
-            <li class="nav-item">
-            <a href="https://www.creative-tim.com/license" class="nav-link" target="_blank">License</a>
-            </li>
-        </ul>
-        </div>
-    </div>
-    </footer>
 </div>
 <div class="modal fade" id="modal-cari-obat" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal- modal-dialog-centered modal-lg" role="document">
@@ -366,6 +345,13 @@
     $(document).on('click', '.btn-delete-obat', function(e){
         let rowData = $(this).attr('data-row');
         elmObat.find('.row-obat-'+rowData).remove();
+    });
+
+    $('#form-prb').submit(function(e){
+        e.preventDefault();
+        PRC.disabledValidation();
+        let form = $(this);
+        PRC.ajaxSubmit(form, '/prb');
     });
 </script>
 @endsection

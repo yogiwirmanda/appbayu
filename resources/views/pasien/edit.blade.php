@@ -17,7 +17,7 @@
             <h3 class="mb-0">Edit Pasien</h3>
         </div>
         <div class="card-body">
-            <form action="{{route('save_edit_pasien')}}" method="POST" enctype="multipart/form-data">
+            <form action="{{route('save_edit_pasien')}}" id="form-pasien" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="idPasien" value="{{$pasiens->id}}">
                 <div class="row">
@@ -26,7 +26,8 @@
                             <div class="col-md-12">
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Nama KK</label>
-                                    <input type="text" name="kepala_keluarga" id="kepalaKeluarga" class="form-control col-8" placeholder="Nama Kepala Keluarga" value="{{$pasiens->kepala_keluarga}}">
+                                    <input type="text" name="kepala_keluarga" id="kepalaKeluarga" class="form-control col-8 input-form-kepala_keluarga" placeholder="Nama Kepala Keluarga" value="{{$pasiens->kepala_keluarga}}">
+                                    <div class="offset-md-4 col-10 invalid-feedback">Nama KK wajib di isi</div>
                                 </div>
                             </div>
                         </div>
@@ -43,7 +44,8 @@
                                 <div class="col-md-12">
                                     <div class="form-group row">
                                         <label class="col-4 col-form-label">Nama</label>
-                                        <input type="text" name="nama" id="nama" class="form-control col-8" placeholder="Nama" value="{{$pasiens->nama}}">
+                                        <input type="text" name="nama" id="nama" class="form-control col-8 input-form-nama" placeholder="Nama" value="{{$pasiens->nama}}">
+                                        <div class="offset-md-4 col-10 invalid-feedback">Nama wajib di isi</div>
                                     </div>
                                 </div>
                             </div>
@@ -62,6 +64,7 @@
                                     <label class="col-4 col-form-label">Tanggal Lahir</label>
                                     <input type="date" name="tgl_lahir" id="tglLahir" class="form-control col-5 mr-2" value="{{$pasiens->tgl_lahir}}">
                                     <input type="text" name="umur" id="umur" class="form-control col" readonly>
+                                    <div class="offset-md-4 col-10 invalid-feedback">Tanggal Lahir wajib di isi</div>
                                 </div>
                             </div>
                         </div>
@@ -91,6 +94,7 @@
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Agama</label>
                                     <select name="agama" id="agama" class="form-control col-8">
+                                        <option value="0" selected>Pilih Agama</option>
                                         <option value="1">Islam</option>
                                         <option value="2">Katolik</option>
                                         <option value="3">Kristen</option>
@@ -159,7 +163,8 @@
                             <div class="col-md-12">
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">No BPJS</label>
-                                    <input type="text" name="no_bpjs" id="noBpjs" value="" class="form-control col-8" placeholder="No BPJS">
+                                    <input type="text" name="no_bpjs" id="noBpjs" value="" class="form-control col-8 input-form-no_bpjs" placeholder="No BPJS">
+                                    <div class="offset-md-4 col-10 invalid-feedback">No BPJS wajib di isi</div>
                                 </div>
                             </div>
                         </div>
@@ -171,8 +176,8 @@
                             <div class="col-md-12">
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Alamat KTP</label>
-                                    <textarea name="alamat" id="alamat" class="form-control col-8" cols="30"
-                                                rows="2" autocomplete="off" placeholder="Alamat KTP">{{$pasiens->alamat}}</textarea>
+                                    <textarea name="alamat" id="alamat" class="form-control col-8 input-form-alamat" cols="30" rows="2" autocomplete="off" placeholder="Alamat KTP">{{$pasiens->alamat}}</textarea>
+                                    <div class="offset-md-4 col-10 invalid-feedback">Alamat wajib di isi</div>
                                 </div>
                             </div>
                         </div>
@@ -256,6 +261,7 @@
                                                 <option value="{{$villages->id}}">{{$villages->name}}</option>
                                             @endforeach
                                         </select>
+                                        <div class="col-10 invalid-feedback">Kelurahan wajib di isi</div>
                                     </div>
                                 </div>
                             </div>
@@ -272,31 +278,6 @@
             </form>
         </div>
     </div>
-    <footer class="footer pt-0">
-    <div class="row align-items-center justify-content-lg-between">
-        <div class="col-lg-6">
-        <div class="copyright text-center text-lg-left text-muted">
-            © 2019 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
-        </div>
-        </div>
-        <div class="col-lg-6">
-        <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-            <li class="nav-item">
-            <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Creative Tim</a>
-            </li>
-            <li class="nav-item">
-            <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>
-            </li>
-            <li class="nav-item">
-            <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Blog</a>
-            </li>
-            <li class="nav-item">
-            <a href="https://www.creative-tim.com/license" class="nav-link" target="_blank">License</a>
-            </li>
-        </ul>
-        </div>
-    </div>
-    </footer>
 </div>
 <script>
     $(document).ready(function(){
@@ -551,6 +532,13 @@
                 $('#alamat_dom').val(getKTPAddress);
             }
         }
+    });
+
+    $('#form-pasien').submit(function(e){
+        e.preventDefault();
+        PRC.disabledValidation();
+        let form = $(this);
+        PRC.ajaxSubmit(form, '/pasien');
     });
 </script>
 @endsection

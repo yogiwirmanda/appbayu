@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\District;
 use App\Models\Kategori;
 use App\Models\Pasien;
+use App\Models\Poli;
 use App\Models\Province;
 use App\Models\Regency;
 use App\Models\rmcanuse;
@@ -12,6 +13,7 @@ use App\Models\Village;
 use App\Models\Wilayah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class PasienController extends Controller
 {
@@ -45,74 +47,99 @@ class PasienController extends Controller
 
     public function store(Request $request)
     {
-        $errCode = 0;
-        $errMessage = '';
-        $wilayah = self::generateWilayah($request->villages);
-        $kategori = 'U';
-        $lastRm = '';
-        $pendatang = $request->pendatang;
+        $error = 0;
+        $options = [];
+        $optionsAdd = [];
 
-        if ($request->umur >= 60) {
-            $kategori = 'L';
+        $options = [
+            'nama' => 'required',
+            'kepala_keluarga' => 'required',
+            'tgl_lahir' => 'required',
+            'jk' => 'required',
+            'alamat' => 'required',
+            'villages' => 'required',
+        ];
+
+        $caraBayar = $request->cara_bayar;
+
+        if ($caraBayar == 'BPJS') {
+            $optionsAdd = ['no_bpjs' => 'required'];
         }
+        $optionsValidate = array_merge($options, $optionsAdd);
 
-        $kodeKategori = self::checkKategoriPasien($request->umur);
-        $noRm = $request->noRm;
-        if (strlen($noRm) == 0 && strlen($pendatang == null)) {
-            $checkUsedRM = self::checkUsedRm($wilayah, $kodeKategori);
-            if ($checkUsedRM == null) {
-                $noRm = self::checkNoRM($wilayah, $kategori, $kodeKategori);
-                $lastRm = self::getLastNumber($wilayah, $kodeKategori);
-            } else {
-                $noRm = self::generateRmUsed($checkUsedRM, $wilayah, $kategori);
-                $lastRm = $checkUsedRM;
+        $validator = Validator::make($request->all(), $optionsValidate);
+
+
+        if ($validator->fails()) {
+            $error = 1;
+            return response()->json(
+                ['error'=>$error, 'field'=>$validator->errors()->keys()]
+            );
+        } else {
+            $wilayah = self::generateWilayah($request->villages);
+            $kategori = 'U';
+            $lastRm = '';
+            $pendatang = $request->pendatang;
+
+            if ($request->umur >= 60) {
+                $kategori = 'L';
             }
-        } else {
-            $noRm = self::generateRMPendatang($request->nama, $kategori);
-            $lastRm = self::lastRmPendatang();
-        }
 
-        $kodeWilayah = $wilayah;
-        if ($pendatang != null) {
-            $kodeWilayah = 7;
-        }
+            $kodeKategori = self::checkKategoriPasien($request->umur);
+            $noRm = $request->noRm;
+            if (strlen($noRm) == 0 && strlen($pendatang == null)) {
+                $checkUsedRM = self::checkUsedRm($wilayah, $kodeKategori);
+                if ($checkUsedRM == null) {
+                    $noRm = self::checkNoRM($wilayah, $kategori, $kodeKategori);
+                    $lastRm = self::getLastNumber($wilayah, $kodeKategori);
+                } else {
+                    $noRm = self::generateRmUsed($checkUsedRM, $wilayah, $kategori);
+                    $lastRm = $checkUsedRM;
+                }
+            } else {
+                $noRm = self::generateRMPendatang($request->nama, $kategori);
+                $lastRm = self::lastRmPendatang();
+            }
 
+            $kodeWilayah = $wilayah;
+            if ($pendatang != null) {
+                $kodeWilayah = 7;
+            }
 
-        $dataStore = [];
-        $dataStore['no_rm'] = $noRm;
-        $dataStore['no_urut'] = $lastRm;
-        $dataStore['nama'] = $request->nama;
-        $dataStore['no_ktp'] = $request->no_ktp;
-        $dataStore['tgl_lahir'] = $request->tgl_lahir;
-        $dataStore['tempat_lahir'] = $request->tempat_lahir;
-        $dataStore['jk'] = $request->jk;
-        $dataStore['alamat'] = $request->alamat;
-        $dataStore['agama'] = $request->agama;
-        $dataStore['wilayah'] = $kodeWilayah;
-        $dataStore['no_hp'] = $request->no_hp;
-        $dataStore['kategori'] = $kodeKategori ;
-        $dataStore['kepala_keluarga'] = $request->kepala_keluarga;
-        $dataStore['cara_bayar'] = $request->cara_bayar;
-        $dataStore['no_bpjs'] = $request->no_bpjs;
-        $dataStore['pekerjaan'] = $request->pekerjaan;
-        $dataStore['alamat_dom'] = $request->alamat_dom;
-        $dataStore['rt'] = $request->rt;
-        $dataStore['rw'] = $request->rw;
-        $dataStore['province'] = $request->province;
-        $dataStore['regency'] = $request->city;
-        $dataStore['district'] = $request->district;
-        $dataStore['kewarganegaraan'] = $request->warganegara;
-        $dataStore['gol_darah'] = $request->gol_darah;
-        $dataStore['status_kawin'] = $request->status_kawin;
-        $dataStore['village'] = $request->villages;
+            $dataStore = [];
+            $dataStore['no_rm'] = $noRm;
+            $dataStore['no_urut'] = $lastRm;
+            $dataStore['nama'] = $request->nama;
+            $dataStore['no_ktp'] = $request->no_ktp;
+            $dataStore['tgl_lahir'] = $request->tgl_lahir;
+            $dataStore['tempat_lahir'] = $request->tempat_lahir;
+            $dataStore['jk'] = $request->jk;
+            $dataStore['alamat'] = $request->alamat;
+            $dataStore['agama'] = $request->agama;
+            $dataStore['wilayah'] = $kodeWilayah;
+            $dataStore['no_hp'] = $request->no_hp;
+            $dataStore['kategori'] = $kodeKategori ;
+            $dataStore['kepala_keluarga'] = $request->kepala_keluarga;
+            $dataStore['cara_bayar'] = $request->cara_bayar;
+            $dataStore['no_bpjs'] = $request->no_bpjs;
+            $dataStore['pekerjaan'] = $request->pekerjaan;
+            $dataStore['alamat_dom'] = $request->alamat_dom;
+            $dataStore['rt'] = $request->rt;
+            $dataStore['rw'] = $request->rw;
+            $dataStore['province'] = $request->province;
+            $dataStore['regency'] = $request->city;
+            $dataStore['district'] = $request->district;
+            $dataStore['kewarganegaraan'] = $request->warganegara;
+            $dataStore['gol_darah'] = $request->gol_darah;
+            $dataStore['status_kawin'] = $request->status_kawin;
+            $dataStore['village'] = $request->villages;
 
-        if ($errCode == 0) {
             $modelPasien = Pasien::create($dataStore);
-            return redirect('pasien');
-        } else {
-            return redirect()->route('pasien.create')
-                ->with('error', $errMessage);
         }
+
+        return response()->json(
+            ['error'=> $error, 'messages'=>'Pasien berhasil di tambahkan'],
+        );
     }
 
     public function show($id)

@@ -18,7 +18,7 @@
             <button type="button" class="btn btn-block btn-default w-25" data-toggle="modal" data-target="#modal-cari-data">Cari Data</button>
         </div>
         <div class="card-body">
-            <form action="{{route('save_pasien')}}" method="POST" enctype="multipart/form-data">
+            <form action="{{route('save_pasien')}}" id="form-pasien" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="kategori" id="input-kategori">
                 <input type="hidden" name="wilayah" id="input-wilayah">
@@ -39,7 +39,8 @@
                             <div class="col-md-12">
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Nama KK</label>
-                                    <input type="text" name="kepala_keluarga" id="kepalaKeluarga" class="form-control col-8" placeholder="Nama Kepala Keluarga">
+                                    <input type="text" name="kepala_keluarga" id="kepalaKeluarga" class="form-control col-8 input-form-kepala_keluarga" placeholder="Nama Kepala Keluarga">
+                                    <div class="offset-md-4 col-10 invalid-feedback">Nama KK wajib di isi</div>
                                 </div>
                             </div>
                         </div>
@@ -56,7 +57,8 @@
                                 <div class="col-md-12">
                                     <div class="form-group row">
                                         <label class="col-4 col-form-label">Nama</label>
-                                        <input type="text" name="nama" id="nama" class="form-control col-8" placeholder="Nama">
+                                        <input type="text" name="nama" id="nama" class="form-control col-8 input-form-nama" placeholder="Nama">
+                                        <div class="offset-md-4 col-10 invalid-feedback">Nama Pasien wajib di isi</div>
                                     </div>
                                 </div>
                             </div>
@@ -65,8 +67,7 @@
                             <div class="col-md-12">
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Tempat Lahir</label>
-                                    <input type="text" name="tempat_lahir" id="tempatLahir"
-                                            class="form-control col-8" placeholder="Tempat Lahir"></input>
+                                    <input type="text" name="tempat_lahir" id="tempatLahir" class="form-control col-8 " placeholder="Tempat Lahir"></input>
                                 </div>
                             </div>
                         </div>
@@ -74,8 +75,9 @@
                             <div class="col-md-12">
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Tanggal Lahir</label>
-                                    <input type="date" name="tgl_lahir" id="tglLahir" class="form-control col-5 mr-2">
+                                    <input type="date" name="tgl_lahir" id="tglLahir" class="form-control col-5 mr-2 input-form-tgl_lahir">
                                     <input type="text" name="umur" id="umur" class="form-control col" readonly>
+                                    <div class="offset-md-4 col-10 invalid-feedback">Tanggal Lahir wajib di isi</div>
                                 </div>
                             </div>
                         </div>
@@ -83,10 +85,11 @@
                             <div class="col-md-12">
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Jenis Kelamin</label>
-                                    <select class="form-control col-8" name="jk" id="jk">
+                                    <select class="form-control col-8 input-form-jk" name="jk" id="jk">
                                         <option value="L">Laki-Laki</option>
                                         <option value="P">Perempuan</option>
                                     </select>
+                                    <div class="offset-md-4 col-10 invalid-feedback">Jenis Kelamin wajib di isi</div>
                                 </div>
                             </div>
                         </div>
@@ -105,6 +108,7 @@
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Agama</label>
                                     <select name="agama" id="agama" class="form-control col-8">
+                                        <option value="0" selected>Pilih Agama</option>
                                         <option value="1">Islam</option>
                                         <option value="2">Katolik</option>
                                         <option value="3">Kristen</option>
@@ -120,6 +124,7 @@
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Status Perkawinan</label>
                                     <select name="status_kawin" id="status_kawin" class="form-control col-8">
+                                        <option value="tidak-memilih">Pilih Status</option>
                                         <option value="kawin">Kawin</option>
                                         <option value="belum">Belum Kawin</option>
                                     </select>
@@ -174,7 +179,8 @@
                             <div class="col-md-12">
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">No BPJS</label>
-                                    <input type="text" name="no_bpjs" id="noBpjs" value="" class="form-control col-8" placeholder="No BPJS">
+                                    <input type="text" name="no_bpjs" id="noBpjs" value="" class="form-control col-8 input-form-no_bpjs" placeholder="No BPJS">
+                                    <div class="offset-md-4 col-10 invalid-feedback">No BPJS wajib di isi</div>
                                 </div>
                             </div>
                         </div>
@@ -186,8 +192,8 @@
                             <div class="col-md-12">
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Alamat KTP</label>
-                                    <textarea name="alamat" id="alamat" class="form-control col-8" cols="30"
-                                                rows="2" autocomplete="new-text" placeholder="Alamat KTP"></textarea>
+                                    <textarea name="alamat" id="alamat" class="form-control col-8 input-form-alamat" cols="30" rows="2" autocomplete="new-text" placeholder="Alamat KTP"></textarea>
+                                    <div class="offset-md-4 col-10 invalid-feedback">Alamat wajib di isi</div>
                                 </div>
                             </div>
                         </div>
@@ -260,8 +266,9 @@
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Kelurahan</label>
                                     <div class="col-8">
-                                        <select class="form-control col-8 select2" name="villages" id="select-villages" disabled>
+                                        <select class="form-control col-8 select2 input-form-villages" name="villages" id="select-villages" disabled>
                                         </select>
+                                        <div class="col-10 invalid-feedback">Kelurahan wajib di isi</div>
                                     </div>
                                 </div>
                             </div>
@@ -678,6 +685,13 @@
         } else {
             $('.input-nama-kk').removeClass('d-none');
         }
+    });
+
+    $('#form-pasien').submit(function(e){
+        e.preventDefault();
+        PRC.disabledValidation();
+        let form = $(this);
+        PRC.ajaxSubmit(form, '/pasien');
     });
 </script>
 @endsection
