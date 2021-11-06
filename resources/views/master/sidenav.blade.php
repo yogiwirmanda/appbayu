@@ -8,7 +8,7 @@ if (!isset($navActive)){
     <div class="scrollbar-inner">
         <div class="sidenav-header d-flex align-items-center">
             <a class="navbar-brand" href="/home">
-                <img src="{{asset('assets/img/brand/blue.png')}}" class="navbar-brand-img" alt="...">
+                <img src="{{asset('image/prcv3.png')}}" class="navbar-brand-img" alt="...">
             </a>
             <div class="ml-auto">
                 <div class="sidenav-toggler d-none d-xl-block" data-action="sidenav-unpin" data-target="#sidenav-main">
@@ -108,7 +108,7 @@ if (!isset($navActive)){
                         <div class="collapse navbar-klpcm" id="navbar-laporan">
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item">
-                                    <a href="{{asset('laporan/klpcm/harian')}}" class="nav-link">Klpcm</a>
+                                    <a href="{{asset('laporan/klpcm')}}" class="nav-link">Klpcm</a>
                                 </li>
                             </ul>
                         </div>

@@ -15,6 +15,7 @@ use App\Http\Controllers\PrintController;
 use App\Http\Controllers\PoliController;
 use App\Http\Controllers\RegencyController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\UnitTestController;
 
 Route::get('/', [AuthController::class, 'showFormLogin'])->name('login');
 Route::get('login', [AuthController::class, 'showFormLogin'])->name('login');
@@ -103,4 +104,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('laporan/klpcm/{type}/{date}', [LaporanController::class, 'klpcm'])->name('laporan_klpcm');
 
     Route::get('klpcms/check/kasus', [KlpcmController::class, 'checkKasus'])->name('check_kasus');
+
+    Route::get('test/api/send', [UnitTestController::class, 'testSendMessage'])->name('unit_test_send_message');
+    Route::get('test/getProlanis', [UnitTestController::class, 'getProlanis'])->name('unit_test_get_prolanis');
 });
