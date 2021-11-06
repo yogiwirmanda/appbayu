@@ -26,5 +26,9 @@
   <script>
     $(document).ready(function(){
       $('.select2').select2();
+      $('#datatable-basic-with-export').DataTable({
+          dom : 'Bfrtip',
+          buttons : ['copy', 'pdf', 'csv', 'excel', 'print']
+      });
     })
   </script>

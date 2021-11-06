@@ -7,8 +7,8 @@ if (!isset($navActive)){
   <input type="hidden" id="navActive" value="{{$navActive}}">
     <div class="scrollbar-inner">
         <div class="sidenav-header d-flex align-items-center">
-            <a class="navbar-brand" href="../../pages/dashboards/dashboard.html">
-                <img src="../../assets/img/brand/blue.png" class="navbar-brand-img" alt="...">
+            <a class="navbar-brand" href="/home">
+                <img src="{{asset('assets/img/brand/blue.png')}}" class="navbar-brand-img" alt="...">
             </a>
             <div class="ml-auto">
                 <div class="sidenav-toggler d-none d-xl-block" data-action="sidenav-unpin" data-target="#sidenav-main">
@@ -95,6 +95,20 @@ if (!isset($navActive)){
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item">
                                     <a href="{{asset('prb')}}" class="nav-link">PRB</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link laporan-menu" href="#navbar-laporan" data-toggle="collapse" role="button"
+                            aria-expanded="false" aria-controls="navbar-laporan">
+                            <i class="ni ni-ui-04 text-info"></i>
+                            <span class="nav-link-text">Laporan</span>
+                        </a>
+                        <div class="collapse navbar-klpcm" id="navbar-laporan">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a href="{{asset('laporan/klpcm/harian')}}" class="nav-link">Klpcm</a>
                                 </li>
                             </ul>
                         </div>

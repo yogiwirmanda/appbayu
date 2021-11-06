@@ -7,6 +7,7 @@ use App\Http\Controllers\DokterController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KlpcmController;
 use App\Http\Controllers\KunjunganController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\ObatController;
 use App\Http\Controllers\PasienController;
 use App\Http\Controllers\PrbController;
@@ -97,6 +98,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('obat/edit/{param}', [ObatController::class, 'edit'])->name('edit_obat');
     Route::post('obat/update', [ObatController::class, 'update'])->name('update_obat');
     Route::get('obat/destroy/{param}', [ObatController::class, 'delete'])->name('delete_obat');
+
+    Route::get('laporan/klpcm', [LaporanController::class, 'klpcm'])->name('laporan_klpcm');
+    Route::get('laporan/klpcm/{type}/{date}', [LaporanController::class, 'klpcm'])->name('laporan_klpcm');
 
     Route::get('klpcms/check/kasus', [KlpcmController::class, 'checkKasus'])->name('check_kasus');
 });

@@ -1,16 +1,5 @@
 @extends('master.main')
 @section('content')
-<style>
-    .card-body{
-        font-size: 12px;
-    }
-    .form-group{
-        margin-bottom: 10px;
-    }
-    input, textarea, select{
-        text-transform: uppercase;
-    }
-</style>
 <div class="container-fluid mt--6">
     <div class="card mb-4">
         <div class="card-header d-flex justify-content-between">
