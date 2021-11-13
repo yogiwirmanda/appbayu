@@ -98,6 +98,20 @@ if (!isset($navActive)){
                                 </li>
                             </ul>
                         </div>
+                        <div class="collapse navbar-retensi" id="navbar-components">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a href="{{asset('retensi')}}" class="nav-link">Retensi</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- <div class="collapse navbar-surat-sehat" id="navbar-components">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a href="{{route('show_surat_sehat')}}" class="nav-link">Surat Sehat</a>
+                                </li>
+                            </ul>
+                        </div> -->
                     </li>
                     <li class="nav-item">
                         <a class="nav-link laporan-menu" href="#navbar-laporan" data-toggle="collapse" role="button"

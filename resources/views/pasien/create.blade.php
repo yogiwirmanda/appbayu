@@ -14,12 +14,14 @@
                 <input type="hidden" name="kode-usia" id="kode-usia">
                 <input type="hidden" name="kode-daerah" id="kode-daerah">
                 <input type="hidden" name="noRm" id="noRm">
-                <div class="row">
-                    <div class="col-md-6 ml-3">
-                        <div class="form-group row align-items-center">
-                            <input type="checkbox" name="pendatang" class="input-pendatang mr-2" value="1">
-                            <label class="col-form-label">Pendatang</label>
-                        </div>
+                <div class="row align-items-center">
+                    <div class="form-group col-md-2 align-items-center">
+                        <input type="checkbox" name="pendatang" class="input-pendatang mr-2" value="1">
+                        <label class="col-form-label">Pendatang</label>
+                    </div>
+                    <div class="form-group col-md-4 align-items-center">
+                        <input type="checkbox" name="suratSehat" class="input-surat-sehat mr-2" value="1">
+                        <label class="col-form-label">Surat Sehat</label>
                     </div>
                 </div>
                 <div class="row">
@@ -160,6 +162,7 @@
                                     <select name="cara_bayar" id="caraBayar" class="form-control col-8">
                                         <option value="UMUM">UMUM</option>
                                         <option value="BPJS">BPJS</option>
+                                        <option value="UKS">UKS</option>
                                     </select>
                                 </div>
                             </div>

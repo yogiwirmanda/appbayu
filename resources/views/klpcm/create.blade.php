@@ -63,11 +63,38 @@
                                     <div class="col-12 col-md-12 col-sm-12">
                                         <h5>Diagnosa</h5>
                                     </div>
+                                    <div id="load-diagnosa-list" class="col-md-12">
+                                        <div class="row my-3">
+                                            <div class="col-12">
+                                                <button class="btn btn-info btn-modal-diagnosa">Tambah Diagnosa</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div id="load-diagnosa-list">
-                                    <div class="row my-3">
-                                        <div class="col-12">
-                                            <button class="btn btn-info btn-modal-diagnosa">Tambah Diagnosa</button>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Rujukan</label>
+                                            <select name="status_rujukan" id="status_rujukan" class="form-control select2">
+                                                <option value="1">Dirujuk</option>
+                                                <option value="0" selected>Tidak</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row rujukan-form d-none">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Poli Rujukan</label>
+                                            <input type="text" name="poli_rujukan" id="poli_rujukan" class="form-control" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row rujukan-form d-none">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>RS Rujukan</label>
+                                            <input type="text" name="rs_rujukan" id="rs_rujukan" class="form-control" value="">
                                         </div>
                                     </div>
                                 </div>
@@ -388,6 +415,15 @@ $(document).on('click', '.btn-pilih-diagnosa', function(e){
 $(document).on('click', '.btn-delete-diagnosa', function(e){
     let rowData = $(this).attr('data-row');
     elmDiagnosa.find('.row-diagnosa-'+rowData).remove();
+});
+
+$('#status_rujukan').change(function(e){
+    let getVal = parseInt($(this).val());
+    if (getVal == 1){
+        $('.rujukan-form').removeClass('d-none');
+    } else {
+        $('.rujukan-form').addClass('d-none');
+    }
 });
 </script>
 @endsection

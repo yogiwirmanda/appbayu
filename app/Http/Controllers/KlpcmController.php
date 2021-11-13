@@ -100,7 +100,10 @@ class KlpcmController extends Controller
                 'jml_lengkap_poli' => $jmlLengkapPoli,
                 'jml_tidak_lengkap_poli' => $jmlTidakLengkapPoli,
                 'prosentase_lengkap_poli' => $prosentaseLengkapPoli,
-                'prosentase_tidak_lengkap_poli' => $prosentaseTidakLengkapPoli
+                'prosentase_tidak_lengkap_poli' => $prosentaseTidakLengkapPoli,
+                'status_rujukan' => $request->get('status_rujukan'),
+                'poli_rujukan' => $request->get('poli_rujukan'),
+                'rs_rujukan' => $request->get('rs_rujukan')
         ]);
 
         $kunjungan = Kunjungan::find($request->get('idKunjungan'));

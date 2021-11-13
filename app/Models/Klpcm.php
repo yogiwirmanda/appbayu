@@ -13,5 +13,6 @@ class Klpcm extends Model
     'kls','klo','kla','klp','klkie','kldx','kldy','klnama_petugas','klttd_petugas','klkode_icd',
     'jml_lengkap','jml_tidak_lengkap','prosentase_lengkap','prosentase_tidak_lengkap',
     'jml_lengkap_daftar','jml_tidak_lengkap_daftar','prosentase_lengkap_daftar','prosentase_tidak_lengkap_daftar',
-    'jml_lengkap_poli','jml_tidak_lengkap_poli','prosentase_lengkap_poli','prosentase_tidak_lengkap_poli'];
+    'jml_lengkap_poli','jml_tidak_lengkap_poli','prosentase_lengkap_poli','prosentase_tidak_lengkap_poli',
+    'status_rujukan', 'poli_rujukan', 'rs_rujukan'];
 }

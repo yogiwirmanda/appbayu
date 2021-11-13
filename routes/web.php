@@ -14,7 +14,9 @@ use App\Http\Controllers\PrbController;
 use App\Http\Controllers\PrintController;
 use App\Http\Controllers\PoliController;
 use App\Http\Controllers\RegencyController;
+use App\Http\Controllers\RetensiController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\SuratSehatController;
 use App\Http\Controllers\UnitTestController;
 
 Route::get('/', [AuthController::class, 'showFormLogin'])->name('login');
@@ -93,6 +95,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('poli/update', [PoliController::class, 'update'])->name('update_poli');
     Route::get('poli/destroy/{param}', [PoliController::class, 'delete'])->name('delete_poli');
 
+    Route::get('surat-sehat', [SuratSehatController::class, 'index'])->name('show_surat_sehat');
+    Route::get('surat-sehat/create', [SuratSehatController::class, 'create'])->name('create_surat_sehat');
+    Route::post('surat-sehat/save', [SuratSehatController::class, 'store'])->name('save_surat_sehat');
+    Route::get('surat-sehat/edit/{param}', [SuratSehatController::class, 'edit'])->name('edit_surat_sehat');
+    Route::post('surat-sehat/update', [SuratSehatController::class, 'update'])->name('update_surat_sehat');
+    Route::get('surat-sehat/destroy/{param}', [SuratSehatController::class, 'delete'])->name('delete_surat_sehat');
+
     Route::get('obat', [ObatController::class, 'index'])->name('show_obat');
     Route::get('obat/create', [ObatController::class, 'create'])->name('create_obat');
     Route::post('obat/save', [ObatController::class, 'store'])->name('save_obat');
@@ -107,4 +116,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('test/api/send', [UnitTestController::class, 'testSendMessage'])->name('unit_test_send_message');
     Route::get('test/getProlanis', [UnitTestController::class, 'getProlanis'])->name('unit_test_get_prolanis');
+
+    Route::get('retensi', [RetensiController::class, 'index'])->name('retensi_index');
+    Route::get('retensi/save', [RetensiController::class, 'store'])->name('retensi_save');
+    Route::get('retensi/report', [RetensiController::class, 'report'])->name('retensi_report');
 });

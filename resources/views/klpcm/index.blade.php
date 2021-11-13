@@ -61,6 +61,33 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Rujukan</label>
+                                            <select name="status_rujukan" id="status_rujukan" class="form-control select2" disabled>
+                                                <option value="1" <?php echo($dataKLPCM->status_rujukan == 1) ? 'selected' : '' ?>>Dirujuk</option>
+                                                <option value="0" <?php echo($dataKLPCM->status_rujukan == 0) ? 'selected' : '' ?>>Tidak</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row rujukan-form <?php echo($dataKLPCM->status_rujukan == 1) ? '' : 'd-none' ?>">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Poli Rujukan</label>
+                                            <input type="text" name="poli_rujukan" id="poli_rujukan" class="form-control" value="{{$dataKLPCM->poli_rujukan}}" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row rujukan-form <?php echo($dataKLPCM->status_rujukan == 1) ? '' : 'd-none' ?>">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>RS Rujukan</label>
+                                            <input type="text" name="rs_rujukan" id="rs_rujukan" class="form-control" value="{{$dataKLPCM->rs_rujukan}}" readonly>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-6 col-md-6 col-sm-6">
                                 <div class="row">
