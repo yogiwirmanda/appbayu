@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pasien extends Model
 {
-    use HasFactory;
+    use HasFactory; 
 
     protected $fillable = [
         'no_rm', 'no_urut', 'nama', 'no_ktp', 'tgl_lahir', 'jk',

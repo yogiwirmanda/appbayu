@@ -99,13 +99,13 @@
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Agama</label>
                                     <select name="agama" id="agama" class="form-control col-8">
-                                        <option value="0" selected>Pilih Agama</option>
-                                        <option value="1">Islam</option>
-                                        <option value="2">Katolik</option>
-                                        <option value="3">Kristen</option>
-                                        <option value="4">Buddha</option>
-                                        <option value="5">Hindu</option>
-                                        <option value="6">Konghucu</option>
+                                        <option value="-" selected>Pilih Agama</option>
+                                        <option value="Islam">Islam</option>
+                                        <option value="Katolik">Katolik</option>
+                                        <option value="Kristen">Kristen</option>
+                                        <option value="Buddha">Buddha</option>
+                                        <option value="Hindu">Hindu</option>
+                                        <option value="Konghucu">Konghucu</option>
                                     </select>
                                 </div>
                             </div>

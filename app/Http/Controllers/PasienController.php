@@ -491,11 +491,21 @@ class PasienController extends Controller
 
     public function saveProlanis(Request $request)
     {
-        $queryPasien = Pasien::find($request->id_pasien);
-        $queryPasien->status_prolanis = 1;
-        $queryPasien->keterangan_prolanis = $request->status_prolanis;
-        $queryPasien->save();
-        return redirect('pasien');
+        if ($request->id_pasien == null){
+            return response()->json(
+                ['error'=> 1, 'messages'=>'Pasien tidak di temukan'],
+            );
+        } else {
+
+            $queryPasien = Pasien::find($request->id_pasien);
+            $queryPasien->status_prolanis = 1;
+            $queryPasien->keterangan_prolanis = $request->status_prolanis;
+            $queryPasien->save();
+
+            return response()->json(
+                ['error'=> 0, 'messages'=>'Pasien berhasil di tambahkan'],
+            );
+        }
     }
 
     public function formPasien()

@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-md-12">
             <form action="{{route('save_prolanis')}}" id="form-prolanis" method="GET">
-                <input type="hidden" name="id_pasien" id="id_pasien">
+                <input type="hidden" name="id_pasien" id="idPasien">
                 <div class="card">
                     <div class="card-body">
                         <div class="row mb-5">
