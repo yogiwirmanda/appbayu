@@ -65,6 +65,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('setting/set/nomor', [SettingController::class, 'reusedRM'])->name('setting_set_nomor');
 
     Route::get('prolanis', [PasienController::class, 'prolanis'])->name('show_prolanis');
+    Route::get('prolanis/filter/{val}', [PasienController::class, 'prolanisFilter'])->name('show_prolanis_filter');
     Route::get('prolanis/create', [PasienController::class, 'prolanisCreate'])->name('create_prolanis');
     Route::get('prolanis/check', [PasienController::class, 'checkProlanis'])->name('check_prolanis');
     Route::get('prolanis/save', [PasienController::class, 'saveProlanis'])->name('save_prolanis');

@@ -25,15 +25,14 @@ class PasienController extends Controller
     public function index()
     {
         $dataPasien = DB::table('pasiens')
-                    ->join('districts', 'pasiens.district', '=', 'districts.id')
-                    ->select('pasiens.*', 'districts.name AS namaWilayah')
-                    ->orderBy('created_at', 'DESC')
-                    ->get();
+                ->join('districts', 'pasiens.district', '=', 'districts.id')
+                ->select('pasiens.*', 'districts.name AS namaWilayah')
+                ->orderBy('created_at', 'DESC')
+                ->get();
         $navActive = $this->navActive;
 
         return view('pasien.index', compact('dataPasien', 'navActive'));
     }
-
 
     public function create()
     {
@@ -476,6 +475,16 @@ class PasienController extends Controller
         return view('prolanis.index', compact('dataPasien', 'navActive'));
     }
 
+    public function prolanisFilter($param = '')
+    {
+        $dataPasien = Pasien::where('status_prolanis', 1)
+            ->where('keterangan_prolanis', $param)
+            ->get();
+        $navActive = 'transaksi-prolanis';
+
+        return view('prolanis.index', compact('dataPasien', 'navActive'));
+    }
+
     public function prolanisCreate()
     {
         $navActive = 'transaksi-prolanis';
@@ -491,12 +500,11 @@ class PasienController extends Controller
 
     public function saveProlanis(Request $request)
     {
-        if ($request->id_pasien == null){
+        if ($request->id_pasien == null) {
             return response()->json(
                 ['error'=> 1, 'messages'=>'Pasien tidak di temukan'],
             );
         } else {
-
             $queryPasien = Pasien::find($request->id_pasien);
             $queryPasien->status_prolanis = 1;
             $queryPasien->keterangan_prolanis = $request->status_prolanis;

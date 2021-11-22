@@ -3,6 +3,21 @@
 <div class="container-fluid mt--6">
     <div class="row">
         <div class="col">
+            <div class="card strpied-tabled-with-hover">
+                <div class="card-header d-flex justify-content-between">
+                    <h4 class="card-title">Filter</h4>
+                </div>
+                <div class="card-body table-full-width table-responsive">
+                    <div class="col-6 d-flex justify-content-around">
+                        <select name="jenis_prolanis" class="form-control" id="jenis_prolanis">
+                            <option value="Diabetes Melitus">Diabetes Melitus</option>
+                            <option value="Hipertensi">Hipertensi</option>
+                        </select>
+                        <a href="javascript:;"
+                            class="btn btn-info btn-fill pull-right btn-submit-filter ml-2">Filter</a>
+                    </div>
+                </div>
+            </div>
             <div class="card">
                 <div class="card-header">
                     <div class="row">
@@ -66,6 +81,12 @@
     </div>
 </div>
 <script>
+
+    $('.btn-submit-filter').click(function () {
+        let value = $('#jenis_prolanis').val();
+        window.location.href = '/prolanis/filter/' + value;
+    });
+
   $('.table-action-delete').each(function(){
     $(this).click(function(){
       let dataPasienId = $(this).attr('data-pasien-id');
