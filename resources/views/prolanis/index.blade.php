@@ -45,7 +45,7 @@
                                 <th>Name</th>
                                 <th>Umur</th>
                                 <th>Alamat</th>
-                                <!-- <th>Aksi</th> -->
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -61,16 +61,11 @@
                                 <td>{{$pasien->nama}}</td>
                                 <td>{{$age}}</td>
                                 <td>{{$pasien->alamat}}</td>
-                                <!-- <td class="table-actions">
-                                    <a href="{{route('edit_pasien', $pasien->id)}}" class="table-action"
-                                        data-toggle="tooltip" data-original-title="Edit product">
-                                        <i class="fas fa-user-edit"></i>
+                                <td class="table-actions">
+                                    <a href="javascript:;" class="btn btn-primary btn-sm btn-send-whatsapp" data-pasien-id="{{$pasien->id}}" data-toggle="tooltip" data-original-title="Kirim WA">
+                                        Kirim WA
                                     </a>
-                                    <a href="javascript:;" class="table-action table-action-delete" data-pasien-id="{{$pasien->id}}" data-pasien-nama="{{$pasien->nama}}" data-toggle="tooltip"
-                                        data-original-title="Delete product">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                </td> -->
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -81,7 +76,6 @@
     </div>
 </div>
 <script>
-
     $('.btn-submit-filter').click(function () {
         let value = $('#jenis_prolanis').val();
         window.location.href = '/prolanis/filter/' + value;
@@ -121,5 +115,23 @@
       })
     })
   })
+
+  $('.btn-send-whatsapp').click(function(e){
+    let dataPasienId = $(this).attr('data-pasien-id');
+    $.ajax({
+        url : "/send/whatsapp/"+dataPasienId,
+        method : "GET",
+        dataType : "json",
+        data : {dataPasienId: dataPasienId},
+        success : function (response) {
+            if (response.errCode == 0){
+            $.notify('Pasien Berhasil dihapus', 'success');
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000);
+            }
+        }
+    });
+  });
 </script>
 @endsection
