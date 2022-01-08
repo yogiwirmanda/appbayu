@@ -6,6 +6,7 @@ use App\Models\Diagnosa;
 use App\Models\Klpcm;
 use App\Models\Kunjungan;
 use App\Models\Obat;
+use App\Models\Pasien;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -52,11 +53,13 @@ class KlpcmController extends Controller
         $getIcd = $request->kodeIcd;
         $getDiagnosa = $request->diagnosa;
         $diagnosaTemp = [];
-        foreach ($getDiagnosa as $key => $value) {
-            $tempArray = [];
-            $tempArray['kode_icd'] = $getIcd[$key];
-            $tempArray['diagnosa'] = $value;
-            $diagnosaTemp[] = $tempArray;
+        if ($getDiagnosa != null){
+            foreach ($getDiagnosa as $key => $value) {
+                $tempArray = [];
+                $tempArray['kode_icd'] = $getIcd[$key];
+                $tempArray['diagnosa'] = $value;
+                $diagnosaTemp[] = $tempArray;
+            }
         }
 
         $jmlTidakLengkap = $jmlTotal - $jmlLengkap;
@@ -107,10 +110,19 @@ class KlpcmController extends Controller
         ]);
 
         $kunjungan = Kunjungan::find($request->get('idKunjungan'));
-        $kunjungan->diagnosa = json_encode($diagnosaTemp);
-        $kunjungan->diagnosa_main = $diagnosaId[0];
+        if ($getDiagnosa != null){
+            $kunjungan->diagnosa = json_encode($diagnosaTemp);
+            $kunjungan->diagnosa_main = $diagnosaId[0];
+        }
         $kunjungan->is_edit = 1;
         $kunjungan->save();
+
+        $pasien = Pasien::find($kunjungan->id_pasien);
+        $pasien->gdp = $request->gdp;
+        $pasien->hba1c = $request->hba1c;
+        $pasien->kontrol = $request->kontrol;
+        $pasien->kimia_darah = $request->kimia_darah;
+        $pasien->save();
 
         $klpcm->save();
         return redirect('kunjungan');

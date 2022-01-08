@@ -88,6 +88,43 @@
                                         </div>
                                     </div>
                                 </div>
+                                @if ($dataKunjungan->status_prolanis == 1)
+                                    @if($dataKunjungan->keterangan_prolanis)
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>GDP</label>
+                                                    <input type="text" name="gdp" id="gdp" class="form-control" readonly value="{{$dataKunjungan->gdp}}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>HBA1C</label>
+                                                    <input type="text" name="hba1c" id="hba1c" class="form-control" readonly value="{{$dataKunjungan->hba1c}}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @else
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>Kontrol</label>
+                                                    <input type="text" name="kontrol" id="kontrol" class="form-control" readonly value="{{$dataKunjungan->kontrol}}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>Kimia Darah</label>
+                                                    <input type="text" name="kimia_darah" id="kimia_darah" class="form-control" readonly value="{{$dataKunjungan->kimia_darah}}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endif
                             </div>
                             <div class="col-6 col-md-6 col-sm-6">
                                 <div class="row">
@@ -125,16 +162,18 @@
                                 <div id="load-diagnosa-list">
                                     <div class="row my-3">
                                         <div class="col-12">
-                                            @foreach($dataDiagnosa as $data)
-                                            <div class="row row-diagnosa mb-2">
-                                                <div class="col-3 col-md-3 col-sm-3">
-                                                    <input type="text" name="kodeIcd" class="form-control" value="{{$data->kode_icd}}" readonly>
+                                            @if ($dataDiagnosa != null)
+                                                @foreach($dataDiagnosa as $data)
+                                                <div class="row row-diagnosa mb-2">
+                                                    <div class="col-3 col-md-3 col-sm-3">
+                                                        <input type="text" name="kodeIcd" class="form-control" value="{{$data->kode_icd}}" readonly>
+                                                    </div>
+                                                    <div class="col-6 col-md-6 col-sm-6">
+                                                        <input type="text" name="diagnosa" class="form-control" value="{{$data->diagnosa}}" readonly>
+                                                    </div>
                                                 </div>
-                                                <div class="col-6 col-md-6 col-sm-6">
-                                                    <input type="text" name="diagnosa" class="form-control" value="{{$data->diagnosa}}" readonly>
-                                                </div>
-                                            </div>
-                                            @endforeach
+                                                @endforeach
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

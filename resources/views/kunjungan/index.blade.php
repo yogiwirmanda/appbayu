@@ -33,7 +33,7 @@
                                 @foreach($dataKunjungan as $kunjungan)
                                 <tr>
                                     <td>{{$kunjungan->no_rm}}</td>
-                                    <td>{{$kunjungan->nama}}</td>
+                                    <td>{{$kunjungan->nama}} @if ($kunjungan->status_prolanis == 1)<span class="ml-1 badge badge-success">Prolanis</span>@endif</td>
                                     <td>{{$kunjungan->namaPoli}}</td>
                                     <td>{{$kunjungan->tanggal}}</td>
                                     <td>

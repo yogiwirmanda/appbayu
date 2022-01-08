@@ -98,6 +98,43 @@
                                         </div>
                                     </div>
                                 </div>
+                                @if ($dataKunjungan->status_prolanis == 1)
+                                    @if($dataKunjungan->keterangan_prolanis)
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>GDP</label>
+                                                    <input type="text" name="gdp" id="gdp" class="form-control" value="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>HBA1C</label>
+                                                    <input type="text" name="hba1c" id="hba1c" class="form-control" value="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @else
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>Kontrol</label>
+                                                    <input type="text" name="kontrol" id="kontrol" class="form-control" value="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>Kimia Darah</label>
+                                                    <input type="text" name="kimia_darah" id="kimia_darah" class="form-control" value="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endif
                             </div>
                             <div class="col-6 col-md-6 col-sm-6">
                                 <div class="row">
