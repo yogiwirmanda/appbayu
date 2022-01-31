@@ -1,5 +1,11 @@
 @extends('master.main')
 @section('content')
+@php
+$jenisPemeriksaan = ['Kontrol', 'Kimia Darah'];
+if ($dataKunjungan->keterangan_prolanis == 'Diabetes Melitus'){
+    $jenisPemeriksaan = ['GDP', 'HBA1C'];
+}
+@endphp
 <div class="container-fluid mt--6">
     <div class="row">
         <div class="col-md-12">
@@ -103,12 +109,24 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
+                                                    <label>Jenis Pemeriksaan</label>
+                                                    <select name="jenis_pemeriksaan" id="jenis_pemeriksaan" class="form-control select-pemeriksaan">
+                                                        @foreach($jenisPemeriksaan as $pemeriksaan)
+                                                            <option value="{{$pemeriksaan}}">{{$pemeriksaan}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row pemeriksaan pemeriksaan-gdp">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
                                                     <label>GDP</label>
                                                     <input type="text" name="gdp" id="gdp" class="form-control" value="">
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div class="row pemeriksaan pemeriksaan-hba1c d-none">
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label>HBA1C</label>
@@ -116,8 +134,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    @else
-                                        <div class="row">
+                                        <div class="row pemeriksaan pemeriksaan-kontrol d-none">
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label>Kontrol</label>
@@ -125,7 +142,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div class="row pemeriksaan pemeriksaan-kimiadarah d-none">
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label>Kimia Darah</label>
@@ -183,7 +200,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mt-3">
                             <div class="col-6 col-md-6 col-sm-6">
                                 <table class="table table-hover table-striped">
                                     <thead>
@@ -462,5 +479,27 @@ $('#status_rujukan').change(function(e){
         $('.rujukan-form').addClass('d-none');
     }
 });
+
+$('.select-pemeriksaan').change(function(e){
+    let getValue = $(this).val();
+    $('.pemeriksaan').addClass('d-none');
+    switch (getValue.toLowerCase()) {
+        case 'gdp':
+            $('.pemeriksaan-gdp').removeClass('d-none');
+            break;
+        case 'hba1c':
+            $('.pemeriksaan-hba1c').removeClass('d-none');
+            break;
+        case 'kontrol':
+            $('.pemeriksaan-kontrol').removeClass('d-none');
+            break;
+        case 'kimiadarah':
+            $('.pemeriksaan-kimiadarah').removeClass('d-none');
+            break;
+
+        default:
+            break;
+    }
+})
 </script>
 @endsection

@@ -126,6 +126,20 @@ if (!isset($navActive)){
                                 </li>
                             </ul>
                         </div>
+                        <div class="collapse navbar-prolanis" id="navbar-laporan">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a href="{{asset('laporan/prolanis')}}" class="nav-link">Prolanis</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="collapse navbar-pemeriksaan" id="navbar-laporan">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a href="{{asset('laporan/pemeriksaan')}}" class="nav-link">Pemeriksaan</a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link setting-menu" href="#navbar-setting" data-toggle="collapse" role="button"

@@ -41,7 +41,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group row">
-                                            <label class="col-4 col-form-label">Jenis Kelamin</label>
+                                            <label class="col-4 col-form-label">Prolanis</label>
                                             <select name="status_prolanis" id="status_prolanis" class="form-control col-8">
                                                 <option value="Diabetes Melitus">Diabetes Melitus</option>
                                                 <option value="Hipertensi">Hipertensi</option>

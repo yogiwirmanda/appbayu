@@ -113,6 +113,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('laporan/klpcm', [LaporanController::class, 'klpcm'])->name('laporan_klpcm');
     Route::get('laporan/klpcm/{type}/{date}', [LaporanController::class, 'klpcm'])->name('laporan_klpcm');
 
+    Route::get('laporan/prolanis', [LaporanController::class, 'prolanis'])->name('laporan_prolanis');
+    Route::get('laporan/prolanis/{type}/{date}', [LaporanController::class, 'prolanis'])->name('laporan_prolanis');
+
+    Route::get('laporan/pemeriksaan', [LaporanController::class, 'pemeriksaan'])->name('laporan_pemeriksaan');
+    Route::get('laporan/pemeriksaan/{type}/{date}', [LaporanController::class, 'pemeriksaan'])->name('laporan_pemeriksaan');
+
     Route::get('klpcms/check/kasus', [KlpcmController::class, 'checkKasus'])->name('check_kasus');
 
     Route::get('test/api/send', [UnitTestController::class, 'testSendMessage'])->name('unit_test_send_message');

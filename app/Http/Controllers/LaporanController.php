@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pasien;
 use App\Models\Poli;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -56,5 +57,31 @@ class LaporanController extends Controller
         }
 
         return view('laporan.klpcm.index', compact('dataLaporan', 'navActive', 'tanggal', 'type'));
+    }
+
+    public function prolanis($type = 'harian', $tanggal = '')
+    {
+        $navActive = 'prolanis';
+        if (strlen($tanggal) == 0) {
+            $tanggal = Date('Y-m-d');
+        }
+
+        $dataLaporan = [];
+
+        $dataLaporan = Pasien::where('status_prolanis', 1)->get();
+        return view('laporan.prolanis.index', compact('dataLaporan', 'type', 'tanggal', 'navActive'));
+    }
+
+    public function pemeriksaan($type = 'harian', $tanggal = '')
+    {
+        $navActive = 'prolanis';
+        if (strlen($tanggal) == 0) {
+            $tanggal = Date('Y-m-d');
+        }
+
+        $dataLaporan = [];
+
+        $dataLaporan = Pasien::where('status_prolanis', 1)->get();
+        return view('laporan.prolanis.pemeriksaan', compact('dataLaporan', 'type', 'tanggal', 'navActive'));
     }
 }
