@@ -31,7 +31,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('pasien', [PasienController::class, 'index'])->name('daftar_pasien');
     Route::get('pasien/create', [PasienController::class, 'create'])->name('tambah_pasien');
+    Route::get('pasien/createAdmin', [PasienController::class, 'createAdmin'])->name('tambah_pasien_admin');
     Route::post('pasien/store', [PasienController::class, 'store'])->name('save_pasien');
+    Route::post('pasien/storeAdmin', [PasienController::class, 'storeAdmin'])->name('save_pasien_admin');
     Route::get('pasien/edit/{param}', [PasienController::class, 'edit'])->name('edit_pasien');
     Route::get('pasien/destroy/{param}', [PasienController::class, 'destroy'])->name('delete_pasien');
     Route::post('pasien/update', [PasienController::class, 'update'])->name('save_edit_pasien');
