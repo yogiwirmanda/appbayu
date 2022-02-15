@@ -5,6 +5,9 @@ $jenisPemeriksaan = ['Kontrol', 'Kimia Darah'];
 if ($dataKunjungan->keterangan_prolanis == 'Diabetes Melitus'){
     $jenisPemeriksaan = ['GDP', 'HBA1C'];
 }
+$yearNow = (int) Date('Y');
+$yearPasien = (int) Date('Y', strtotime($dataKunjungan->tgl_lahir));
+$umur = $yearNow - $yearPasien;
 @endphp
 <div class="container-fluid mt--6">
     <div class="row">
@@ -61,7 +64,7 @@ if ($dataKunjungan->keterangan_prolanis == 'Diabetes Melitus'){
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Umur</label>
-                                            <input type="text" id="umur" class="form-control" value="" readonly>
+                                            <input type="text" id="umur" class="form-control" value="{{$umur}}" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -101,6 +104,46 @@ if ($dataKunjungan->keterangan_prolanis == 'Diabetes Melitus'){
                                         <div class="form-group">
                                             <label>RS Rujukan</label>
                                             <input type="text" name="rs_rujukan" id="rs_rujukan" class="form-control" value="">
+                                        </div>
+                                    </div>
+</div>
+                            </div>
+                            <div class="col-6 col-md-6 col-sm-6">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Poli</label>
+                                            <input type="text" class="form-control" id="poli"
+                                                value="{{$dataKunjungan->namaPoli}}" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Tanggal Kunjungan</label>
+                                            <input type="text" id="tglKunjungan" class="form-control"
+                                                value="{{$dataKunjungan->tanggal}}" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Alamat</label>
+                                            <textarea id="alamat" class="form-control" cols="30" rows="10"
+                                                readonly>{{$dataKunjungan->alamat}}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Jenis Kasus</label>
+                                            <select name="jenis_kasus" id="jenis_kasus" class="form-control">
+                                                <option value="lama">Lama</option>
+                                                <option value="baru">Baru</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -152,46 +195,6 @@ if ($dataKunjungan->keterangan_prolanis == 'Diabetes Melitus'){
                                         </div>
                                     @endif
                                 @endif
-                            </div>
-                            <div class="col-6 col-md-6 col-sm-6">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label>Poli</label>
-                                            <input type="text" class="form-control" id="poli"
-                                                value="{{$dataKunjungan->namaPoli}}" readonly>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label>Tanggal Kunjungan</label>
-                                            <input type="text" id="tglKunjungan" class="form-control"
-                                                value="{{$dataKunjungan->tanggal}}" readonly>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label>Alamat</label>
-                                            <textarea id="alamat" class="form-control" cols="30" rows="10"
-                                                readonly>{{$dataKunjungan->alamat}}</textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label>Jenis Kasus</label>
-                                            <select name="jenis_kasus" id="jenis_kasus" class="form-control">
-                                                <option value="lama">Lama</option>
-                                                <option value="baru">Baru</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">

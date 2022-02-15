@@ -302,7 +302,7 @@
         $('#select-district').val(districtSelected);
         $('#select-villages').val(villageSelected);
         $('#gol_darah').val(golDarah);
-        $('#warganegara').val(kewarganegaraan);
+        $('#warganegara').val(warganegara);
         $('#caraBayar').val(caraBayar);
         $('#status_kawin').val(statusKawin);
         $('#agama').val(agama);

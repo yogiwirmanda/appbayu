@@ -286,7 +286,7 @@ class PasienController extends Controller
 
     public function update(Request $request)
     {
-        $errCode = 0;
+        $error = 0;
         $errMessage = '';
         $wilayah = self::generateWilayah($request->villages);
         $kategori = 'U';
@@ -321,7 +321,9 @@ class PasienController extends Controller
         $pasiens->wilayah = $wilayah;
         $pasiens->save();
 
-        return redirect('pasien');
+        return response()->json(
+            ['error'=> $error, 'messages'=>'Pasien berhasil di perbarui'],
+        );
     }
 
 

@@ -52,11 +52,11 @@
                                         <i class="ni ni-book-bookmark"></i>
                                     </a>
                                     <a href="{{route('edit_pasien', $pasien->id)}}" class="table-action"
-                                        data-toggle="tooltip" data-original-title="Edit product">
+                                        data-toggle="tooltip" data-original-title="Edit pasien">
                                         <i class="fas fa-user-edit"></i>
                                     </a>
                                     <a href="javascript:;" class="table-action table-action-delete" data-pasien-id="{{$pasien->id}}" data-pasien-nama="{{$pasien->nama}}" data-toggle="tooltip"
-                                        data-original-title="Delete product">
+                                        data-original-title="Delete pasien">
                                         <i class="fas fa-trash"></i>
                                     </a>
                                 </td>
