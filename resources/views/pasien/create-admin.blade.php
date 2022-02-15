@@ -14,16 +14,6 @@
                 <input type="hidden" name="kode-usia" id="kode-usia">
                 <input type="hidden" name="kode-daerah" id="kode-daerah">
                 <input type="hidden" name="noRm" id="noRm">
-                <div class="row align-items-center">
-                    <div class="form-group col-md-2 align-items-center">
-                        <input type="checkbox" name="pendatang" class="input-pendatang mr-2" value="1">
-                        <label class="col-form-label">Pendatang</label>
-                    </div>
-                    <div class="form-group col-md-4 align-items-center">
-                        <input type="checkbox" name="suratSehat" class="input-surat-sehat mr-2" value="1">
-                        <label class="col-form-label">Surat Sehat</label>
-                    </div>
-                </div>
                 <div class="row">
                     <div class="col-6 col-md-6 col-sm-6">
                         <div class="row input-nama-kk">
@@ -301,46 +291,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group row">
-                                    <label class="col-4 col-form-label">Kunjungan Terakhir Prolanis</label>
-                                    <input type="date" name="kunjungan_terakhir_prolanis" id="kunjungan_terakhir_prolanis" class="form-control col-8">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group row">
-                                    <label class="col-4 col-form-label">HBA1C</label>
-                                    <input type="text" name="hba1c" id="hba1c" class="form-control col-8">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group row">
-                                    <label class="col-4 col-form-label">GDP</label>
-                                    <input type="text" name="gdp" id="gdp" class="form-control col-8">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group row">
-                                    <label class="col-4 col-form-label">Kontrol</label>
-                                    <input type="text" name="kontrol" id="kontrol" class="form-control col-8">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group row">
-                                    <label class="col-4 col-form-label">Kimia Darah</label>
-                                    <input type="text" name="kimiadarah" id="kimiadarah" class="form-control col-8">
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <div class="col-md-6">
                     <div class="row">
@@ -348,17 +298,6 @@
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Kunjungan Terakhir</label>
                                     <input type="date" name="kunjungan_terakhir" id="kunjungan_terakhir" class="form-control col-8">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group row">
-                                    <label class="col-4 col-form-label">Retensi</label>
-                                    <select name="retensi" id="retensi" class="form-control col-8">
-                                        <option value="0">Tidak</option>
-                                        <option value="1">Ya</option>
-                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -771,6 +710,10 @@
                 $('#rt').val(response.rt);
                 $('#rw').val(response.rw);
                 $('#alamat_dom').text(response.alamat_dom);
+                $('#alamat').attr('readonly', 'readonly');
+                $('#rt').attr('readonly', 'readonly');
+                $('#rw').attr('readonly', 'readonly');
+                $('#alamat_dom').attr('readonly', 'readonly');
                 if (response.alamat == response.alamat_dom){
                     $('.btn-same-address').prop('checked', true);
                 }
