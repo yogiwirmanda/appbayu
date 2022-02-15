@@ -467,6 +467,8 @@ $(document).on('click', '.btn-pilih-diagnosa', function(e){
         let rowDiagnosa = '<div class="row row-diagnosa row-diagnosa-'+rowCount+' mb-2"><input type="hidden" name="id_diagnosa[]" value="'+diagnosaId+'"></input><div class="col-3 col-md-3 col-sm-3"><input type="text" name="kodeIcd[]" class="form-control" value="'+kodeIcd+'" readonly></div><div class="col-6 col-md-6 col-sm-6"><input type="text" name="diagnosa[]" class="form-control" value="'+diagnosa+'" readonly></div><div class="col-1 col-md-1 col-sm-1"><a href="javascript:;" class="btn btn-danger btn-delete-diagnosa" data-row="'+rowCount+'">X</a></div></div>';
         elmDiagnosa.append(rowDiagnosa);
     }
+
+    $('#modal-cari-diagnosa').modal('hide');
 });
 
 $(document).on('click', '.btn-delete-diagnosa', function(e){
