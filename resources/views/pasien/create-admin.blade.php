@@ -766,6 +766,7 @@
                 $('#kepalaKeluarga').val(response.kepala_keluarga);
                 $('#kepalaKeluarga').attr('readonly', 'readonly');
                 $('#noRm').val(response.no_rm);
+                $('.input-form-nomorrm').val(response.no_rm);
                 $('#alamat').text(response.alamat);
                 $('#rt').val(response.rt);
                 $('#rw').val(response.rw);
