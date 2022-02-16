@@ -231,7 +231,7 @@ class PasienController extends Controller
             $dataStore['alamat'] = $request->alamat;
             $dataStore['agama'] = $request->agama;
             $dataStore['wilayah'] = $kodeWilayah;
-            $dataStore['no_hp'] = $request->no_hp;
+            $dataStore['no_hp'] = (strlen($request->no_hp) > 0) ? $request->no_hp : '' ;
             $dataStore['kategori'] = $kodeKategori ;
             $dataStore['kepala_keluarga'] = $request->kepala_keluarga;
             $dataStore['cara_bayar'] = $request->cara_bayar;
@@ -251,12 +251,7 @@ class PasienController extends Controller
             $dataStore['status_prb'] = $request->prb;
             $dataStore['status_prolanis'] = $request->prolanis;
             $dataStore['keterangan_prolanis'] = $request->status_prolanis;
-            $dataStore['gdp'] = $request->gdp;
-            $dataStore['hba1c'] = $request->hba1c;
-            $dataStore['kontrol'] = $request->kontrol;
-            $dataStore['kimia_darah'] = $request->kimia_darah;
             $dataStore['last_kunjungan'] = $request->kunjungan_terakhir;
-            $dataStore['last_kunjungan_prolanis'] = $request->kunjungan_terakhir_prolanis;
 
             $modelPasien = PasienAdmin::create($dataStore);
         }
