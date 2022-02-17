@@ -194,7 +194,7 @@ class PasienController extends Controller
             $nomorRMManual = $request->nomorrm;
             $kodeKategori = self::checkKategoriPasien($request->umur);
 
-            if (strlen($nomorRMManual) == 0){
+            if (strlen($nomorRMManual) == 0) {
                 $noRm = $request->noRm;
                 if (strlen($noRm) == 0 && strlen($pendatang == null)) {
                     $checkUsedRM = self::checkUsedRm($wilayah, $kodeKategori);
@@ -209,7 +209,6 @@ class PasienController extends Controller
                     $noRm = self::generateRMPendatang($request->nama, $kategori);
                     $lastRm = self::lastRmPendatang();
                 }
-
             } else {
                 $noRm = $nomorRMManual;
             }
@@ -224,9 +223,9 @@ class PasienController extends Controller
             $dataStore['no_rm'] = $noRm;
             $dataStore['no_urut'] = $lastRm;
             $dataStore['nama'] = $request->nama;
-            $dataStore['no_ktp'] = $request->no_ktp;
+            $dataStore['no_ktp'] = strlen($request->no_ktp) > 0 ? $request->no_ktp : '';
             $dataStore['tgl_lahir'] = $request->tgl_lahir;
-            $dataStore['tempat_lahir'] = $request->tempat_lahir;
+            $dataStore['tempat_lahir'] = strlen($request->tempat_lahir) > 0 ? $request->tempat_lahir : '';
             $dataStore['jk'] = $request->jk;
             $dataStore['alamat'] = $request->alamat;
             $dataStore['agama'] = $request->agama;
@@ -236,7 +235,7 @@ class PasienController extends Controller
             $dataStore['kepala_keluarga'] = $request->kepala_keluarga;
             $dataStore['cara_bayar'] = $request->cara_bayar;
             $dataStore['no_bpjs'] = $request->no_bpjs;
-            $dataStore['pekerjaan'] = $request->pekerjaan;
+            $dataStore['pekerjaan'] = strlen($request->pekerjaan) > 0 ? $request->pekerjaan : '';
             $dataStore['alamat_dom'] = $request->alamat_dom;
             $dataStore['rt'] = $request->rt;
             $dataStore['rw'] = $request->rw;
