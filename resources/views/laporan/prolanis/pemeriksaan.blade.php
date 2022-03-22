@@ -33,10 +33,19 @@
                 <div class="table-responsive py-4">
                     <table class="table table-flush" id="datatable-basic-with-export" style="text-transform: uppercase;">
                         <thead>
-                            <th>No</th>
-                            <th>No RM</th>
-                            <th>Nama Pasien</th>
-                            <th>Tgl Kunjungan Terakhir</th>
+                            <tr>
+                                <th rowspan="2">No</th>
+                                <th rowspan="2">No RM</th>
+                                <th rowspan="2">Nama Pasien</th>
+                                <th colspan="2">DM</th>
+                                <th colspan="2">HT</th>
+                            </tr>
+                            <tr>
+                                <th>GPD</th>
+                                <th>HBA1C</th>
+                                <th>Kontrol</th>
+                                <th>Kimia Darah</th>
+                            </tr>
                         </thead>
                         <tbody>
                             @foreach($dataLaporan as $key => $data)
@@ -44,7 +53,10 @@
                                 <td>{{$key + 1}}</td>
                                 <td>{{'POLI '.$data['no_rm']}}</td>
                                 <td>{{$data['nama']}}</td>
-                                <td>{{$data['last_kunjungan']}}</td>
+                                <td>{{(strlen($data['gdp']) > 0 ? $data['gdp'] : '')}}</td>
+                                <td>{{(strlen($data['hba1c']) > 0 ? $data['hba1c'] : '')}}</td>
+                                <td>{{(strlen($data['kontrol']) > 0 ? $data['kontrol'] : '')}}</td>
+                                <td>{{(strlen($data['kimia_darah']) > 0 ? $data['kimia_darah'] : '')}}</td>
                             </tr>
                             @endforeach
                         </tbody>
