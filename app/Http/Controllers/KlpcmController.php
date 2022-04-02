@@ -53,7 +53,7 @@ class KlpcmController extends Controller
         $getIcd = $request->kodeIcd;
         $getDiagnosa = $request->diagnosa;
         $diagnosaTemp = [];
-        if ($getDiagnosa != null){
+        if ($getDiagnosa != null) {
             foreach ($getDiagnosa as $key => $value) {
                 $tempArray = [];
                 $tempArray['kode_icd'] = $getIcd[$key];
@@ -110,10 +110,14 @@ class KlpcmController extends Controller
         ]);
 
         $kunjungan = Kunjungan::find($request->get('idKunjungan'));
-        if ($getDiagnosa != null){
+        if ($getDiagnosa != null) {
             $kunjungan->diagnosa = json_encode($diagnosaTemp);
             $kunjungan->diagnosa_main = $diagnosaId[0];
         }
+        $kunjungan->gdp = $request->gdp;
+        $kunjungan->hba1c = $request->hba1c;
+        $kunjungan->kontrol = $request->kontrol;
+        $kunjungan->kimia_darah = $request->kimia_darah;
         $kunjungan->is_edit = 1;
         $kunjungan->save();
 

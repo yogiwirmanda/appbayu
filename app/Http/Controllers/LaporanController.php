@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kunjungan;
 use App\Models\Pasien;
 use App\Models\Poli;
 use Illuminate\Http\Request;
@@ -72,6 +73,29 @@ class LaporanController extends Controller
         return view('laporan.prolanis.index', compact('dataLaporan', 'type', 'tanggal', 'navActive'));
     }
 
+    public function countByMonth($idPasien, $month)
+    {
+        $modelKunjungan = Kunjungan::select('*')
+            ->where('id_pasien', $idPasien)
+            ->whereMonth('created_at', $month)
+            ->orderBy('created_at', 'DESC')
+            ->first();
+
+        if ($modelKunjungan) {
+            $data['gdp'.$month] = $modelKunjungan['gdp'];
+            $data['hba1c'.$month] = $modelKunjungan['hba1c'];
+            $data['kontrol'.$month] = $modelKunjungan['kontrol'];
+            $data['kimiaDarah'.$month] = $modelKunjungan['kimia_darah'];
+        } else {
+            $data['gdp'.$month] = 0;
+            $data['hba1c'.$month] = 0;
+            $data['kontrol'.$month] = 0;
+            $data['kimiaDarah'.$month] = 0;
+        }
+
+        return $data;
+    }
+
     public function pemeriksaan($type = 'harian', $tanggal = '')
     {
         $navActive = 'prolanis';
@@ -79,9 +103,58 @@ class LaporanController extends Controller
             $tanggal = Date('Y-m-d');
         }
 
-        $dataLaporan = [];
+        $dataLaporanKunjungan = [];
+        $dataProlanisPasien = Pasien::where('status_prolanis', 1)
+            ->where('keterangan_prolanis', 'Diabetes Melitus')
+            ->get();
 
-        $dataLaporan = Pasien::where('status_prolanis', 1)->get();
-        return view('laporan.prolanis.pemeriksaan', compact('dataLaporan', 'type', 'tanggal', 'navActive'));
+        foreach ($dataProlanisPasien as $prolanis) {
+            $getProlanis[$prolanis->id] = [];
+            for ($i=1;$i<=12;$i++) {
+                $getCount = [];
+                $getCount = self::countByMonth($prolanis->id, $i);
+                $getProlanis[$prolanis->id] = array_merge($getProlanis[$prolanis->id], $getCount);
+            }
+            $pasienBuild = [];
+            $pasienBuild['id'] = $prolanis->id;
+            $pasienBuild['nama'] = $prolanis->nama;
+            $pasienBuild['no_rm'] = $prolanis->no_rm;
+            $getProlanis[$prolanis->id] = \array_merge($getProlanis[$prolanis->id], $pasienBuild);
+        }
+
+        $dataLaporanKunjungan = $getProlanis;
+
+        return view('laporan.prolanis.pemeriksaan', compact('dataLaporanKunjungan', 'type', 'tanggal', 'navActive'));
+    }
+
+    public function pemeriksaanHT($type = 'harian', $tanggal = '')
+    {
+        $navActive = 'prolanis';
+        if (strlen($tanggal) == 0) {
+            $tanggal = Date('Y-m-d');
+        }
+
+        $dataLaporanKunjungan = [];
+        $dataProlanisPasien = Pasien::where('status_prolanis', 1)
+            ->where('keterangan_prolanis', 'Hipertensi')
+            ->get();
+
+        foreach ($dataProlanisPasien as $prolanis) {
+            $getProlanis[$prolanis->id] = [];
+            for ($i=1;$i<=12;$i++) {
+                $getCount = [];
+                $getCount = self::countByMonth($prolanis->id, $i);
+                $getProlanis[$prolanis->id] = array_merge($getProlanis[$prolanis->id], $getCount);
+            }
+            $pasienBuild = [];
+            $pasienBuild['id'] = $prolanis->id;
+            $pasienBuild['nama'] = $prolanis->nama;
+            $pasienBuild['no_rm'] = $prolanis->no_rm;
+            $getProlanis[$prolanis->id] = \array_merge($getProlanis[$prolanis->id], $pasienBuild);
+        }
+
+        $dataLaporanKunjungan = $getProlanis;
+
+        return view('laporan.prolanis.pemeriksaan-ht', compact('dataLaporanKunjungan', 'type', 'tanggal', 'navActive'));
     }
 }

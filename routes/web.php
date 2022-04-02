@@ -20,7 +20,7 @@ use App\Http\Controllers\SuratSehatController;
 use App\Http\Controllers\UnitTestController;
 
 Route::get('/', [AuthController::class, 'showFormLogin'])->name('login');
-Route::get('login', [AuthController::class, 'showFormLogin'])->name('login');
+Route::get('login', [AuthController::class, 'showFormLogin'])->name('login_show');
 Route::post('login', [AuthController::class, 'login']);
 Route::get('register', [AuthController::class, 'showFormRegister'])->name('register');
 Route::post('register', [AuthController::class, 'register']);
@@ -113,13 +113,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('obat/destroy/{param}', [ObatController::class, 'delete'])->name('delete_obat');
 
     Route::get('laporan/klpcm', [LaporanController::class, 'klpcm'])->name('laporan_klpcm');
-    Route::get('laporan/klpcm/{type}/{date}', [LaporanController::class, 'klpcm'])->name('laporan_klpcm');
+    Route::get('laporan/klpcm/{type}/{date}', [LaporanController::class, 'klpcm'])->name('laporan_klpcm_filter');
 
     Route::get('laporan/prolanis', [LaporanController::class, 'prolanis'])->name('laporan_prolanis');
-    Route::get('laporan/prolanis/{type}/{date}', [LaporanController::class, 'prolanis'])->name('laporan_prolanis');
+    Route::get('laporan/prolanis/{type}/{date}', [LaporanController::class, 'prolanis'])->name('laporan_prolanis_filter');
 
     Route::get('laporan/pemeriksaan', [LaporanController::class, 'pemeriksaan'])->name('laporan_pemeriksaan');
-    Route::get('laporan/pemeriksaan/{type}/{date}', [LaporanController::class, 'pemeriksaan'])->name('laporan_pemeriksaan');
+    Route::get('laporan/pemeriksaan/ht', [LaporanController::class, 'pemeriksaanHT'])->name('laporan_pemeriksaan_ht');
+    Route::get('laporan/pemeriksaan/{type}/{date}', [LaporanController::class, 'pemeriksaan'])->name('laporan_pemeriksaan_filter');
 
     Route::get('klpcms/check/kasus', [KlpcmController::class, 'checkKasus'])->name('check_kasus');
 
