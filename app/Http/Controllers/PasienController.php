@@ -15,6 +15,7 @@ use App\Models\Wilayah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\DataTables;
 
 class PasienController extends Controller
 {
@@ -25,14 +26,37 @@ class PasienController extends Controller
 
     public function index()
     {
-        $dataPasien = DB::table('pasiens')
+        $navActive = $this->navActive;
+        return view('pasien.index', compact('navActive'));
+    }
+
+    public function dtAjax(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = Pasien::select('pasiens.*', 'districts.name AS namaWilayah')
                 ->join('districts', 'pasiens.district', '=', 'districts.id')
-                ->select('pasiens.*', 'districts.name AS namaWilayah')
                 ->orderBy('created_at', 'DESC')
                 ->get();
-        $navActive = $this->navActive;
 
-        return view('pasien.index', compact('dataPasien', 'navActive'));
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('umur', function ($row) {
+                    $tglLahir = date_create($row->tgl_lahir);
+                    $dateNow = date_create(Date('Y-m-d'));
+                    $dateDiff = date_diff($tglLahir, $dateNow);
+                    return $dateDiff->y;
+                })
+                ->addColumn('action', function ($row) {
+                    $urlKunjungan = route('kunjungan_pasien_create', $row->id);
+                    $urlEdit = route("edit_pasien", $row->id);
+                    $actionBtn = '<a href='.$urlKunjungan.' class="table-action" data-toggle="tooltip" data-original-title="Kunjungan"><i class="ni ni-book-bookmark"></i></a>';
+                    $actionBtn .= '<a href='.$urlEdit.' class="table-action" data-toggle="tooltip" data-original-title="Edit pasien"><i class="fas fa-user-edit"></i></a>';
+                    $actionBtn .= '<a href="javascript:;" class="table-action table-action-delete" data-pasien-id="'.$row->id.'" data-pasien-nama="'.$row->nama.'" data-toggle="tooltip" data-original-title="Delete pasien"><i class="fas fa-trash"></i></a>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
     }
 
     public function create()

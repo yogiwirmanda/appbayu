@@ -42,6 +42,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('pasien/check/getDetailPasien', [PasienController::class, 'getDetailPasien'])->name('get_detail_pasien');
     Route::get('pasien/cariData', [PasienController::class, 'cariData'])->name('cari_data_pasien');
     Route::get('pasiens/check/norm', [PasienController::class, 'checkNoRM'])->name('cek_no_rm');
+    Route::get('pasiens/dtAjax', [PasienController::class, 'dtAjax'])->name('ajax_load_pasien');
 
     Route::get('regency/check/city', [RegencyController::class, 'getDataCity'])->name('load_data_city');
     Route::get('regency/check/district', [RegencyController::class, 'getDataDistrict'])->name('load_data_district');

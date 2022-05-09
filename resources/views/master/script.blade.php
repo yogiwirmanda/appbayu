@@ -1,34 +1,50 @@
-  <!-- Core -->
-  <script src="{{asset('assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
-  <script src="{{asset('assets/vendor/js-cookie/js.cookie.js')}}"></script>
-  <script src="{{asset('assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js')}}"></script>
-  <script src="{{asset('assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js')}}"></script>
-  <!-- Optional JS -->
-  <script src="{{asset('assets/vendor/chart.js/dist/Chart.min.js')}}"></script>
-  <script src="{{asset('assets/vendor/chart.js/dist/Chart.extension.js')}}"></script>
-  <script src="{{asset('assets/vendor/datatables.net/js/jquery.dataTables.min.js')}}"></script>
-  <script src="{{asset('assets/vendor/datatables.net-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
-  <script src="{{asset('assets/vendor/datatables.net-buttons/js/dataTables.buttons.min.js')}}"></script>
-  <script src="{{asset('assets/vendor/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js')}}"></script>
-  <script src="{{asset('assets/vendor/datatables.net-buttons/js/buttons.html5.min.js')}}"></script>
-  <script src="{{asset('assets/vendor/datatables.net-buttons/js/buttons.flash.min.js')}}"></script>
-  <script src="{{asset('assets/vendor/datatables.net-buttons/js/buttons.print.min.js')}}"></script>
-  <script src="{{asset('assets/vendor/datatables.net-select/js/dataTables.select.min.js')}}"></script>
-  <script src="{{asset('assets/vendor/sweetalert2/dist/sweetalert2.min.js')}}"></script>
-  <script src="{{asset('assets/vendor/select2/dist/js/select2.min.js')}}"></script>
-  <script src="{{asset('assets/vendor/bootstrap-notify/bootstrap-notify.min.js')}}"></script>
-  <script src="{{asset('assets/vendor/holdonjs/HoldOn.min.js')}}"></script>
-  <!-- Argon JS -->
-  <script src="{{asset('assets/js/argon.js?v=1.1.0')}}"></script>
-  <script src="{{asset('js/app.js')}}"></script>
-  <!-- Demo JS - remove this in your project -->
-  <script src="{{asset('assets/js/demo.min.js')}}"></script>
-  <script>
-    $(document).ready(function(){
-      $('.select2').select2();
-      $('#datatable-basic-with-export').DataTable({
-          dom : 'Bfrtip',
-          buttons : ['copy', 'pdf', 'csv', 'excel', 'print']
-      });
-    })
-  </script>
+    <!-- latest jquery-->
+    <script src="{{asset('zeta/js/jquery-3.5.1.min.js')}}"></script>
+    <!-- Bootstrap js-->
+    <script src="{{asset('zeta/js/bootstrap/bootstrap.bundle.min.js')}}"></script>
+    <!-- feather icon js-->
+    <script src="{{asset('zeta/js/icons/feather-icon/feather.min.js')}}"></script>
+    <script src="{{asset('zeta/js/icons/feather-icon/feather-icon.js')}}"></script>
+    <!-- scrollbar js-->
+    <script src="{{asset('zeta/js/scrollbar/simplebar.js')}}"></script>
+    <script src="{{asset('zeta/js/scrollbar/custom.js')}}"></script>
+    <!-- Sidebar jquery-->
+    <script src="{{asset('zeta/js/config.js')}}"></script>
+    <!-- Plugins JS start-->
+    <script src="{{asset('zeta/js/sidebar-menu.js')}}"></script>
+    <script src="{{asset('zeta/js/chart/knob/knob.min.js')}}"></script>
+    <script src="{{asset('zeta/js/chart/knob/knob-chart.js')}}"></script>
+    <script src="{{asset('zeta/js/chart/apex-chart/apex-chart.js')}}"></script>
+    <script src="{{asset('zeta/js/chart/apex-chart/stock-prices.js')}}"></script>
+    <script src="{{asset('zeta/js/notify/bootstrap-notify.min.js')}}"></script>
+    <script src="{{asset('zeta/js/dashboard/default.js')}}"></script>
+    <script src="{{asset('zeta/js/notify/index.js')}}"></script>
+    <script src="{{asset('zeta/js/datepicker/date-picker/datepicker.js')}}"></script>
+    <script src="{{asset('zeta/js/datepicker/date-picker/datepicker.en.js')}}"></script>
+    <script src="{{asset('zeta/js/datepicker/date-picker/datepicker.custom.js')}}"></script>
+    <script src="{{asset('zeta/js/photoswipe/photoswipe.min.js')}}"></script>
+    <script src="{{asset('zeta/js/photoswipe/photoswipe-ui-default.min.js')}}"></script>
+    <script src="{{asset('zeta/js/photoswipe/photoswipe.js')}}"></script>
+    <script src="{{asset('zeta/js/typeahead/handlebars.js')}}"></script>
+    <script src="{{asset('zeta/js/typeahead/typeahead.bundle.js')}}"></script>
+    <script src="{{asset('zeta/js/typeahead/typeahead.custom.js')}}"></script>
+    <script src="{{asset('zeta/js/typeahead-search/handlebars.js')}}"></script>
+    <script src="{{asset('zeta/js/typeahead-search/typeahead-custom.js')}}"></script>
+    <script src="{{asset('zeta/js/height-equal.js')}}"></script>
+    <!-- Plugins JS Ends-->
+    <!-- Theme js-->
+    <script src="{{asset('zeta/js/script.js')}}"></script>
+    <script src="{{asset('zeta/js/theme-customizer/customizer.js')}}"></script>
+    <!-- login js-->
+    <!-- Plugin used-->
+    @yield('page-scripts')
+    <script>
+        $(document).ready(function () {
+            $('.select2').select2();
+            $('#datatable-basic-with-export').DataTable({
+                dom: 'Bfrtip',
+                buttons: ['copy', 'pdf', 'csv', 'excel', 'print']
+            });
+        })
+
+    </script>
