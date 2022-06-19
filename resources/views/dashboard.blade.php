@@ -513,3 +513,10 @@
 </div>
 <!-- Container-fluid Ends-->
 @endsection
+@section('page-modules')
+    <script src="{{asset('zeta/js/dashboard/default.js')}}"></script>
+    <script src="{{asset('zeta/js/typeahead/typeahead.bundle.js')}}"></script>
+    <script src="{{asset('zeta/js/typeahead/typeahead.custom.js')}}"></script>
+    <script src="{{asset('zeta/js/typeahead-search/handlebars.js')}}"></script>
+    <script src="{{asset('zeta/js/typeahead-search/typeahead-custom.js')}}"></script>
+@endsection

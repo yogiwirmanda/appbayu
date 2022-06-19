@@ -1,11 +1,11 @@
-var navActive = $('#navActive').val();
-if (navActive.length > 0){
-    let navActiveSplit = navActive.split('-');
-    let mainMenu = navActiveSplit[0];
-    let subMenu = navActiveSplit[1];
-    $('.'+mainMenu+'-menu').trigger('click');
-    $('.navbar-'+subMenu+' .nav-item').addClass('active');
-}
+// var navActive = $('#navActive').val();
+// if (navActive.length > 0){
+//     let navActiveSplit = navActive.split('-');
+//     let mainMenu = navActiveSplit[0];
+//     let subMenu = navActiveSplit[1];
+//     $('.'+mainMenu+'-menu').trigger('click');
+//     $('.navbar-'+subMenu+' .nav-item').addClass('active');
+// }
 
 PRC = {
     ajaxSubmit : function(form, redirectUrl){

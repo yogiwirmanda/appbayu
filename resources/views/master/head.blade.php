@@ -35,6 +35,9 @@
 <!-- Plugins css Ends-->
 <!-- Bootstrap css-->
 <link rel="stylesheet" type="text/css" href="{{asset('zeta/css/vendors/bootstrap.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('zeta/css/vendors/datatables.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('zeta/css/vendors/select2.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('zeta/js/holdonjs/HoldOn.min.css')}}">
 <!-- App css-->
 <link rel="stylesheet" type="text/css" href="{{asset('zeta/css/style.css')}}">
 <link id="color" rel="stylesheet" href="{{asset('zeta/css/color-1.css')}}" media="screen">

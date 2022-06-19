@@ -7,6 +7,7 @@ use App\Models\Pasien;
 use App\Models\Poli;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\DataTables;
 
 class KunjunganController extends Controller
 {
@@ -15,23 +16,48 @@ class KunjunganController extends Controller
         $this->navActive = 'transaksi-kunjungan';
     }
 
-    public function index($tanggal = null)
+    public function index()
     {
         $navActive = $this->navActive;
-        $dateNow = date('Y-m-d');
-        if ($tanggal == null) {
-            $tanggal = $dateNow;
-        }
         $title = 'Kunjungan Pasien';
-        $dataKunjungan = DB::table('kunjungans')
-                        ->join('pasiens', 'kunjungans.id_pasien', '=', 'pasiens.id')
-                        ->join('polis', 'kunjungans.id_poli', '=', 'polis.id')
-                        ->where('kunjungans.tanggal', '=', $tanggal)
-                        ->select('kunjungans.*', 'pasiens.*', 'polis.nama as namaPoli', 'kunjungans.id as kunjunganId')
-                        ->get();
         $navActive = $this->navActive;
+        $tanggal = Date('Y-m-d');
 
-        return view('kunjungan/index', compact('title', 'dataKunjungan', 'tanggal', 'navActive'));
+        return view('kunjungan.index', compact('title', 'tanggal', 'navActive'));
+    }
+
+    public function dtAjax(Request $request)
+    {
+        if ($request->ajax()) {
+            $tanggal = $request->tanggal;
+            $dateNow = date('Y-m-d');
+            if ($tanggal == null) {
+                $tanggal = $dateNow;
+            }
+            $dataKunjungan = DB::table('kunjungans')
+                ->join('pasiens', 'kunjungans.id_pasien', '=', 'pasiens.id')
+                ->join('polis', 'kunjungans.id_poli', '=', 'polis.id')
+                ->where('kunjungans.tanggal', '=', $tanggal)
+                ->select('kunjungans.*', 'pasiens.*', 'polis.nama as namaPoli', 'kunjungans.id as kunjunganId')
+                ->get();
+
+            return DataTables::of($dataKunjungan)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $urlKelengkapan = route('kunjungan_klpcm', $row->kunjunganId);
+                    $urlDetail = route("klpcm_index", $row->kunjunganId);
+                    $actionBtn = '<div class="d-flex justify-content-evenly">';
+                    if ($row->is_edit === 0) {
+                        $actionBtn .= '<a href='.$urlKelengkapan.' class="table-action btn btn-xs btn-pill btn-success"<i class="fa fa-plane"></i> Kelengkapan</a>';
+                    } else {
+                        $actionBtn .= '<a href='.$urlDetail.' class="table-action btn btn-xs btn-pill btn-info"><i class="fa fa-pencil-square-o"></i> Detail</a>';
+                    }
+                    $actionBtn .= '</div>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
     }
 
     public function create($idPasien)

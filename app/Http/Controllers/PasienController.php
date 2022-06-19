@@ -49,9 +49,11 @@ class PasienController extends Controller
                 ->addColumn('action', function ($row) {
                     $urlKunjungan = route('kunjungan_pasien_create', $row->id);
                     $urlEdit = route("edit_pasien", $row->id);
-                    $actionBtn = '<a href='.$urlKunjungan.' class="table-action" data-toggle="tooltip" data-original-title="Kunjungan"><i class="ni ni-book-bookmark"></i></a>';
-                    $actionBtn .= '<a href='.$urlEdit.' class="table-action" data-toggle="tooltip" data-original-title="Edit pasien"><i class="fas fa-user-edit"></i></a>';
-                    $actionBtn .= '<a href="javascript:;" class="table-action table-action-delete" data-pasien-id="'.$row->id.'" data-pasien-nama="'.$row->nama.'" data-toggle="tooltip" data-original-title="Delete pasien"><i class="fas fa-trash"></i></a>';
+                    $actionBtn = '<div class="d-flex justify-content-evenly">';
+                    $actionBtn .= '<a href='.$urlKunjungan.' class="table-action btn btn-xs btn-pill btn-success" data-toggle="tooltip" data-original-title="Kunjungan"><i class="fa fa-plane"></i> Kunjungan</a>';
+                    $actionBtn .= '<a href='.$urlEdit.' class="table-action btn btn-xs btn-pill btn-info" data-toggle="tooltip" data-original-title="Edit pasien"><i class="fa fa-pencil-square-o"></i> Edit</a>';
+                    $actionBtn .= '<a href="javascript:;" class="table-action btn btn-xs btn-pill btn-danger table-action-delete" data-pasien-id="'.$row->id.'" data-pasien-nama="'.$row->nama.'" data-toggle="tooltip" data-original-title="Delete pasien"><i class="fa fa-trash-o"></i> Hapus</a>';
+                    $actionBtn .= '</div>';
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])

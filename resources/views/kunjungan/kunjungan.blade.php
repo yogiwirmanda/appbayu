@@ -1,14 +1,27 @@
 @extends('master.main')
 @section('content')
-<div class="container-fluid mt--6">
+<div class="container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <h3>Form Kunjungan</h3>
+            </div>
+            <div class="col-12 col-sm-6">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/home"> <i data-feather="home"></i></a></li>
+                    <li class="breadcrumb-item"><a href="/kunjungan">Kunjungan</a></li>
+                    <li class="breadcrumb-item active">Form Kunjungan</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
     <div class="row">
-        <div class="col-md-12">
-            <div class="card strpied-tabled-with-hover">
-                <div class="card-header w-100 d-flex justify-content-between">
-                    <h4 class="card-title">{{$title}}</h4>
-                </div>
+        <div class="col-sm-12">
+            <div class="card">
                 <div class="card-body">
-                    <form class="form-horizontal bucket-form" method="post" action="{{route('kunjungan_pasien_save')}}"
+                    <form class="form theme-form" method="post" action="{{route('kunjungan_pasien_save')}}"
                         enctype="multipart/form-data" id="formKunjungan">
                         @csrf
                         <input type="hidden" name="id_pasien" value="{{$idPasien}}">
@@ -19,35 +32,35 @@
                             <div class="col-6">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label class="col-4 col-form-label">No RM</label>
-                                            <input type="text" name="noRm" id="noRm" class="form-control col-8"
+                                        <div class="form-group">
+                                            <label class="form-label">No RM</label>
+                                            <input type="text" name="noRm" id="noRm" class="form-control"
                                                 placeholder="No RM" value="{{$dataPasien->no_rm}}" readonly>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label class="col-4 col-form-label">Nama</label>
-                                            <input type="text" name="nama" id="nama" class="form-control col-8"
+                                        <div class="form-group">
+                                            <label class="form-label">Nama</label>
+                                            <input type="text" name="nama" id="nama" class="form-control"
                                                 placeholder="No RM" value="{{$dataPasien->nama}}" readonly>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label class="col-4 col-form-label">Alamat</label>
+                                        <div class="form-group">
+                                            <label class="form-label">Alamat</label>
                                             <textarea name="alamat" id="alamat" cols="30" rows="3"
-                                                class="form-control col-8" readonly>{{$dataPasien->alamat}}</textarea>
+                                                class="form-control" readonly>{{$dataPasien->alamat}}</textarea>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label class="col-4 col-form-label">Poli</label>
+                                        <div class="form-group">
+                                            <label class="form-label">Poli</label>
                                             <div class="col-8">
                                                 <select class="form-control select2" name="poli" id="poli">
                                                     @foreach($dataPoli as $poli)
@@ -62,19 +75,19 @@
                             <div class="col-6">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label class="col-4 col-form-label">Kepala Keluarga</label>
+                                        <div class="form-group">
+                                            <label class="form-label">Kepala Keluarga</label>
                                             <input type="text" name="kepalaKeluarga" id="kepalaKeluarga"
-                                                class="form-control col-8" placeholder="Kepala Keluarga"
+                                                class="form-control" placeholder="Kepala Keluarga"
                                                 value={{$dataPasien->kepala_keluarga}} readonly>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label class="col-4 col-form-label">Tanggal Lahir</label>
-                                            <input type="text" name="tglLahir" id="tglLahir" class="form-control col-8"
+                                        <div class="form-group">
+                                            <label class="form-label">Tanggal Lahir</label>
+                                            <input type="text" name="tglLahir" id="tglLahir" class="form-control"
                                                 placeholder="Tanggal Lahir"
                                                 value="{{$dataPasien->tgl_lahir}}" readonly>
                                         </div>
@@ -82,9 +95,9 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label class="col-4 col-form-label">Umur</label>
-                                            <input type="text" name="umur" id="umur" class="form-control col-8"
+                                        <div class="form-group">
+                                            <label class="form-label">Umur</label>
+                                            <input type="text" name="umur" id="umur" class="form-control"
                                                 placeholder="Umur" readonly>
                                         </div>
                                     </div>
@@ -110,6 +123,8 @@
         </div>
     </div>
 </div>
+@endsection
+@section('page-scripts')
 <script>
     $(document).ready(function (e) {
         var getDate = $('#tglLahir').val();
