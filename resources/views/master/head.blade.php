@@ -8,7 +8,7 @@
 <meta name="author" content="pixelstrap">
 <link rel="icon" href="../assets/images/logo/favicon-icon.png" type="image/x-icon">
 <link rel="shortcut icon" href="../assets/images/logo/favicon-icon.png" type="image/x-icon">
-<title>Zeta admin dashboard </title>
+<title>PRC</title>
 <!-- Google font-->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
