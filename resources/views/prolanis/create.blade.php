@@ -1,48 +1,81 @@
 @extends('master.main')
 @section('content')
-<div class="container-fluid mt--6">
+<div class="container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <h3>Tamah Prolanis</h3>
+            </div>
+            <div class="col-12 col-sm-6">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/home"><i data-feather="home"></i></a></li>
+                    <li class="breadcrumb-item">Prolanis</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
             <form action="{{route('save_prolanis')}}" id="form-prolanis" method="GET">
                 <input type="hidden" name="id_pasien" id="idPasien">
                 <div class="card">
                     <div class="card-body">
-                        <div class="row mb-5">
-                            <div class="col-md-12 d-flex justify-content-end">
-                                <button type="button" class="btn btn-block btn-default w-25" data-toggle="modal" data-target="#modal-cari-data">Cari Pasien</button>
+                        <div class="row">
+                            <div class="col-md-12 m-b-10">
+                                <button type="button" class="btn btn-primary btn-pill" data-toggle="modal" data-target="#modal-cari-data">Cari Pasien</button>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-6">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label class="col-4 col-form-label">No RM</label>
-                                            <input type="text" name="noRm" id="noRm" class="form-control col-8" placeholder="No RM" readonly>
+                                        <div class="form-group">
+                                            <label class="col-form-label">No RM</label>
+                                            <input type="text" name="noRm" id="noRm" class="form-control" placeholder="No RM" readonly>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label class="col-4 col-form-label">Nama</label>
-                                            <input type="text" name="nama" id="nama" class="form-control col-8" placeholder="Nama" readonly>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Nama</label>
+                                            <input type="text" name="nama" id="nama" class="form-control" placeholder="Nama" readonly>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label class="col-4 col-form-label">Alamat</label>
-                                            <textarea name="alamat" id="alamat" cols="30" rows="3" class="form-control col-8" placeholder="Alamat" readonly></textarea>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Alamat</label>
+                                            <textarea name="alamat" id="alamat" cols="30" rows="3" class="form-control" placeholder="Alamat" readonly></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Jenis Kelamin</label>
+                                            <input type="text" name="jk" id="jk" class="form-control" placeholder="Jenis Kelamin" readonly>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label class="col-4 col-form-label">Prolanis</label>
-                                            <select name="status_prolanis" id="status_prolanis" class="form-control col-8">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Tanggal Lahir</label>
+                                            <input type="text" name="tgl_lahir" id="tgl_lahir" class="form-control" placeholder="Tanggal Lahir" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Prolanis</label>
+                                            <select name="status_prolanis" id="status_prolanis" class="form-control select2">
                                                 <option value="Diabetes Melitus">Diabetes Melitus</option>
                                                 <option value="Hipertensi">Hipertensi</option>
                                             </select>
@@ -50,28 +83,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label class="col-4 col-form-label">Jenis Kelamin</label>
-                                            <input type="text" name="jk" id="jk" class="form-control col-8" placeholder="Jenis Kelamin" readonly>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label class="col-4 col-form-label">Tanggal Lahir</label>
-                                            <input type="text" name="tgl_lahir" id="tgl_lahir" class="form-control col-8" placeholder="Tanggal Lahir" readonly>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div class="row mx-2 my-3">
                             <div class="col-md-12">
-                                <div class="form-group row">
+                                <div class="form-group">
                                     <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                 </div>
                             </div>
@@ -133,7 +148,10 @@
         </div>
     </div>
 </div>
+@endsection
+@section('page-scripts')
 <script>
+    $('.select2').select2();
     $('.btn-cari-data').click(function(e){
         let form = $('#form-cari-data');
         let tbody = $('.table-cari-data').find('tbody');

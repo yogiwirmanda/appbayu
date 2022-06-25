@@ -49,10 +49,10 @@ class PasienController extends Controller
                 ->addColumn('action', function ($row) {
                     $urlKunjungan = route('kunjungan_pasien_create', $row->id);
                     $urlEdit = route("edit_pasien", $row->id);
-                    $actionBtn = '<div class="d-flex justify-content-evenly">';
-                    $actionBtn .= '<a href='.$urlKunjungan.' class="table-action btn btn-xs btn-pill btn-success" data-toggle="tooltip" data-original-title="Kunjungan"><i class="fa fa-plane"></i> Kunjungan</a>';
-                    $actionBtn .= '<a href='.$urlEdit.' class="table-action btn btn-xs btn-pill btn-info" data-toggle="tooltip" data-original-title="Edit pasien"><i class="fa fa-pencil-square-o"></i> Edit</a>';
-                    $actionBtn .= '<a href="javascript:;" class="table-action btn btn-xs btn-pill btn-danger table-action-delete" data-pasien-id="'.$row->id.'" data-pasien-nama="'.$row->nama.'" data-toggle="tooltip" data-original-title="Delete pasien"><i class="fa fa-trash-o"></i> Hapus</a>';
+                    $actionBtn = '<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Aksi</button><div class="dropdown-menu">';
+                    $actionBtn .= '<a href='.$urlKunjungan.' class="dropdown-item" data-toggle="tooltip" data-original-title="Kunjungan">Kunjungan</a>';
+                    $actionBtn .= '<a href='.$urlEdit.' class="dropdown-item" data-toggle="tooltip" data-original-title="Edit pasien">Edit</a>';
+                    $actionBtn .= '<a href="javascript:;" class="dropdown-item table-action-delete" data-pasien-id="'.$row->id.'" data-pasien-nama="'.$row->nama.'">Hapus</a>';
                     $actionBtn .= '</div>';
                     return $actionBtn;
                 })
@@ -620,6 +620,33 @@ class PasienController extends Controller
         $navActive = 'transaksi-prolanis';
 
         return view('prolanis.index', compact('dataPasien', 'navActive'));
+    }
+
+    public function dtAjaxProlanis(Request $request)
+    {
+        if ($request->ajax()) {
+            $type = $request->type;
+            $data = Pasien::where('status_prolanis', 1);
+            if (strlen($type) > 0 && $type != 'ALL') {
+                $data = $data->where('keterangan_prolanis', $type);
+            }
+            $data = $data->get();
+
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('umur', function ($row) {
+                    $tglLahir = date_create($row->tgl_lahir);
+                    $dateNow = date_create(Date('Y-m-d'));
+                    $dateDiff = date_diff($tglLahir, $dateNow);
+                    return $dateDiff->y;
+                })
+                ->addColumn('action', function ($row) {
+                    $actionBtn = '<a href="javascript:;" class="btn btn-primary btn-sm btn-send-whatsapp" data-pasien-id="'.$row->id.'">Kirim WA</a>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
     }
 
     public function prolanisFilter($param = '')

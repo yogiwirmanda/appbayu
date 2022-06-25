@@ -38,6 +38,7 @@
 <link rel="stylesheet" type="text/css" href="{{asset('zeta/css/vendors/datatables.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('zeta/css/vendors/select2.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('zeta/js/holdonjs/HoldOn.min.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('zeta/sweetalert2/dist/sweetalert2.min.css')}}">
 <!-- App css-->
 <link rel="stylesheet" type="text/css" href="{{asset('zeta/css/style.css')}}">
 <link id="color" rel="stylesheet" href="{{asset('zeta/css/color-1.css')}}" media="screen">

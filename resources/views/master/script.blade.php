@@ -31,6 +31,7 @@
     <script src="{{asset('zeta/js/height-equal.js')}}"></script>
     <script src="{{asset('zeta/js/sidebar-menu.js')}}"></script>
     <script src="{{asset('zeta/js/holdonjs/HoldOn.min.js')}}"></script>
+    <script src="{{asset('zeta/sweetalert2/dist/sweetalert2.min.js')}}"></script>
     <!-- Plugins JS Ends-->
     <!-- Theme js-->
     <script src="{{asset('zeta/js/script.js')}}"></script>
