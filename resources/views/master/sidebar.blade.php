@@ -19,6 +19,15 @@
                     </a>
                   </li>
                   <li class="sidebar-list">
+                    <a class="sidebar-link sidebar-title" href="javascript:;">
+                      <i data-feather="book"></i>
+                      <span>Master</span>
+                    </a>
+                    <ul class="sidebar-submenu">
+                      <li><a href="/dokter">Dokter</a></li>
+                    </ul>
+                  </li>
+                  <li class="sidebar-list">
                     <a class="sidebar-link" href="/pasien">
                       <i data-feather="users"></i>
                       <span>Pasien</span>

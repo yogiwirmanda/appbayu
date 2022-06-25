@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Dokter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\DataTables;
 
 class DokterController extends Controller
 {
@@ -15,17 +16,35 @@ class DokterController extends Controller
 
     public function index()
     {
-        $dataDokter = Dokter::all();
         $navActive = $this->navActive;
+        return view('dokter.index', compact('navActive'));
+    }
 
-        return view('dokter/index', compact('dataDokter', 'navActive'));
+    public function dtAjax(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = Dokter::all();
+
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $urlEdit = route('edit_dokter', $row->id);
+                    $actionBtn = '<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Aksi</button><div class="dropdown-menu">';
+                    $actionBtn .= '<a href="'.$urlEdit.'" class="dropdown-item table-action">Edit</a>';
+                    $actionBtn .= '<a href="javascript:;" class="dropdown-item table-action table-action-delete" data-dokter-id='.$row->id.' data-dokter-nama='.$row->nama.'>Hapus</a>';
+                    $actionBtn .= '</div>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
     }
 
     public function create()
     {
         $navActive = $this->navActive;
 
-        return view('dokter/create', compact('navActive'));
+        return view('dokter.create', compact('navActive'));
     }
 
     public function store(Request $request)

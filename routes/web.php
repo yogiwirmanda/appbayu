@@ -86,6 +86,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('dokter/edit/{param}', [DokterController::class, 'edit'])->name('edit_dokter');
     Route::post('dokter/update', [DokterController::class, 'update'])->name('update_dokter');
     Route::get('dokter/destroy/{param}', [DokterController::class, 'delete'])->name('delete_dokter');
+    Route::get('dokter/dtAjax', [DokterController::class, 'dtAjax'])->name('ajax_load_dokter');
 
     Route::get('diagnosa', [DiagnosaController::class, 'index'])->name('show_diagnosa');
     Route::get('diagnosa/create', [DiagnosaController::class, 'create'])->name('create_diagnosa');
