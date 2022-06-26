@@ -1,65 +1,83 @@
 @extends('master.main')
 @section('content')
-<div class="container-fluid mt--6">
-    <input type="hidden" name="type" id="type" value="{{$type}}">
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="mb-0">Filter Tanggal</h3>
-                </div>
-                <div class="card-body table-full-width table-responsive">
-                    <div class="col-6 d-flex justify-content-around">
-                        <input type="date" name="tanggal" id="tanggal" class="form-control" value="{{$tanggal}}">
-                        <a href="javascript:;" class="btn btn-info btn-fill pull-right btn-submit-filter ml-2">Filter</a>
-                    </div>
-                </div>
+<div class="container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <h3>Laporan Prolanis</h3>
+            </div>
+            <div class="col-12 col-sm-6">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/home"><i data-feather="home"></i></a></li>
+                    <li class="breadcrumb-item">Pasien</li>
+                </ol>
             </div>
         </div>
     </div>
+</div>
+<div class="container-fluid">
     <div class="row">
         <div class="col">
             <div class="card">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-8 text-left">
-                            <h3 class="mb-0">Pasien Prolanis</h3>
-                            <p class="text-sm mb-0">
-                                This is an exmaple of datatable using the well known datatables.net plugin.
-                            </p>
-                        </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-flush" id="table-laporan-prolanis" style="text-transform: uppercase;">
+                            <thead>
+                                <th>No</th>
+                                <th>No RM</th>
+                                <th>Nama Pasien</th>
+                                <th>Tgl Kunjungan Terakhir</th>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
                     </div>
-                </div>
-                <div class="table-responsive py-4">
-                    <table class="table table-flush" id="datatable-basic-with-export" style="text-transform: uppercase;">
-                        <thead>
-                            <th>No</th>
-                            <th>No RM</th>
-                            <th>Nama Pasien</th>
-                            <th>Tgl Kunjungan Terakhir</th>
-                        </thead>
-                        <tbody>
-                            @foreach($dataLaporan as $key => $data)
-                            <tr>
-                                <td>{{$key + 1}}</td>
-                                <td>{{'POLI '.$data['no_rm']}}</td>
-                                <td>{{$data['nama']}}</td>
-                                <td>{{$data['last_kunjungan']}}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
+@endsection
+@section('page-scripts')
 <script>
-    $('.btn-submit-filter').click(function (e) {
-        e.preventDefault();
-        let tanggal = $('#tanggal').val();
-        let type = $('#type').val();
-        window.location.href = '/laporan/klpcm/'+type+'/'+tanggal;
-    });
+    function loadTable(tanggal){
+        var table = $('#table-laporan-prolanis').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('ajax_load_laporan_prolanis')}}",
+                type: "GET",
+                data: function(d){
+                    d.tanggal = tanggal;
+                }
+            },
+            columns: [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                },
+                {
+                    data: 'no_rm',
+                    name: 'no_rm'
+                },
+                {
+                    data: 'nama',
+                    name: 'nama'
+                },
+                {
+                    data: 'last_kunjungan_prolanis',
+                    name: 'last_kunjungan_prolanis',
+                },
+            ]
+        });
+    }
+
+    loadTable('{{$tanggal}}');
+
+    // $('.btn-submit-filter').click(function (e) {
+    //     e.preventDefault();
+    //     let tanggal = $('#tanggal').val();
+    //     let type = $('#type').val();
+    //     loadTable(type, tanggal);
+    // });
 </script>
 @endsection

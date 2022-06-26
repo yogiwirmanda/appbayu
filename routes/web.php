@@ -120,11 +120,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('laporan/klpcm/{type}/{date}', [LaporanController::class, 'klpcm'])->name('laporan_klpcm_filter');
 
     Route::get('laporan/prolanis', [LaporanController::class, 'prolanis'])->name('laporan_prolanis');
-    Route::get('laporan/prolanis/{type}/{date}', [LaporanController::class, 'prolanis'])->name('laporan_prolanis_filter');
+    Route::get('laporan/prolanis/dtAjax', [LaporanController::class, 'dtAjaxProlanis'])->name('ajax_load_laporan_prolanis');
 
     Route::get('laporan/pemeriksaan', [LaporanController::class, 'pemeriksaan'])->name('laporan_pemeriksaan');
+    Route::get('laporan/pemeriksaan/dm', [LaporanController::class, 'pemeriksaanDM'])->name('laporan_pemeriksaan_dm');
     Route::get('laporan/pemeriksaan/ht', [LaporanController::class, 'pemeriksaanHT'])->name('laporan_pemeriksaan_ht');
-    Route::get('laporan/pemeriksaan/{type}/{date}', [LaporanController::class, 'pemeriksaan'])->name('laporan_pemeriksaan_filter');
+    // Route::get('laporan/pemeriksaan/{type}/{date}', [LaporanController::class, 'pemeriksaan'])->name('laporan_pemeriksaan_filter');
 
     Route::get('klpcms/check/kasus', [KlpcmController::class, 'checkKasus'])->name('check_kasus');
 

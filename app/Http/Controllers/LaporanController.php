@@ -7,6 +7,7 @@ use App\Models\Pasien;
 use App\Models\Poli;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\DataTables;
 
 class LaporanController extends Controller
 {
@@ -60,17 +61,23 @@ class LaporanController extends Controller
         return view('laporan.klpcm.index', compact('dataLaporan', 'navActive', 'tanggal', 'type'));
     }
 
-    public function prolanis($type = 'harian', $tanggal = '')
+    public function prolanis()
     {
         $navActive = 'prolanis';
-        if (strlen($tanggal) == 0) {
-            $tanggal = Date('Y-m-d');
+        $tanggal = Date('Y-m-d');
+        return view('laporan.prolanis.index', compact('navActive', 'tanggal'));
+    }
+
+    public function dtAjaxProlanis(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = Pasien::where('status_prolanis', 1);
+            $data = $data->get();
+
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->make(true);
         }
-
-        $dataLaporan = [];
-
-        $dataLaporan = Pasien::where('status_prolanis', 1)->get();
-        return view('laporan.prolanis.index', compact('dataLaporan', 'type', 'tanggal', 'navActive'));
     }
 
     public function countByMonth($idPasien, $month)
@@ -96,7 +103,14 @@ class LaporanController extends Controller
         return $data;
     }
 
-    public function pemeriksaan($type = 'harian', $tanggal = '')
+    public function pemeriksaan()
+    {
+        $navActive = 'pemeriksaan';
+        $tanggal = Date('Y-m-d');
+        return view('laporan.prolanis.pemeriksaan', compact('navActive', 'tanggal'));
+    }
+
+    public function pemeriksaanDM($type = 'harian', $tanggal = '')
     {
         $navActive = 'prolanis';
         if (strlen($tanggal) == 0) {
@@ -123,8 +137,9 @@ class LaporanController extends Controller
         }
 
         $dataLaporanKunjungan = $getProlanis;
-
-        return view('laporan.prolanis.pemeriksaan', compact('dataLaporanKunjungan', 'type', 'tanggal', 'navActive'));
+        return response()->json([
+            'html' => view('laporan.prolanis.pemeriksaan-dm', compact('dataLaporanKunjungan', 'type', 'tanggal', 'navActive'))->render()
+        ]);
     }
 
     public function pemeriksaanHT($type = 'harian', $tanggal = '')
@@ -154,7 +169,8 @@ class LaporanController extends Controller
         }
 
         $dataLaporanKunjungan = $getProlanis;
-
-        return view('laporan.prolanis.pemeriksaan-ht', compact('dataLaporanKunjungan', 'type', 'tanggal', 'navActive'));
+        return response()->json([
+            'html' => view('laporan.prolanis.pemeriksaan-ht', compact('dataLaporanKunjungan', 'type', 'tanggal', 'navActive'))->render()
+        ]);
     }
 }
