@@ -195,10 +195,10 @@ new Chartist.Bar('.sales-small-2', {
 // invoice-overviwe-chart start
 var options = {
   series: [{
-    name: 'Revenue',   
+    name: 'Revenue',
     data: [19, 28, 31, 25, 35, 18, 23]
   }, {
-    name: 'Free Cash Flow',   
+    name: 'Free Cash Flow',
     data: [25, 31, 35, 29, 39, 22, 28]
   }],
   chart: {
@@ -227,13 +227,13 @@ var options = {
     width: 1,
     colors: ['transparent']
   },
-  states: {          
+  states: {
       hover: {
         filter: {
           type: 'darken',
           value: 1,
         }
-      }           
+      }
     },
   xaxis: {
     categories: [ 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
@@ -255,10 +255,10 @@ var options = {
       show: false,
     },
   },
-  yaxis: {   
+  yaxis: {
     labels:{
       offsetX: 14,
-      offsetY: -5   
+      offsetY: -5
     },
     tooltip: {
       enabled: true
@@ -271,7 +271,7 @@ var options = {
   },
   fill: {
     opacity: 1
-  }, 
+  },
   tooltip: {
     y: {
       formatter: function (val) {
@@ -279,13 +279,13 @@ var options = {
       }
     }
   },
-  states: {          
+  states: {
       hover: {
         filter: {
           type: 'darken',
           value: 1,
         }
-      }           
+      }
   },
 };
 
@@ -297,7 +297,7 @@ chart.render();
 // special discount start
   $('.discount-slide').owlCarousel({
     loop: true,
-    margin: 10,    
+    margin: 10,
     dots: true,
     items:1,
     nav :false ,
@@ -379,8 +379,8 @@ var options = {
             height:60,
         }
       }
-    },           
-  ], 
+    },
+  ],
 };
 
 var chart = new ApexCharts(
@@ -394,8 +394,8 @@ chart.render();
 
 // revenue chart start
   var options = {
-      labels: ['Men', 'Women', 'Accessories','Children','Apperal'],
-      series: [44, 55, 41, 17, 15],
+      labels: ['GIGI', 'KIA', 'LANSIA','UMUM'],
+      series: [44, 55, 41, 17],
       chart: {
         type: 'donut',
         height: 320 ,
@@ -405,14 +405,14 @@ chart.render();
       },
       dataLabels: {
         enabled: false,
-      },      
-      states: {          
+      },
+      states: {
         hover: {
           filter: {
             type: 'darken',
             value: 1,
           }
-        }           
+        }
       },
       stroke: {
         width: 0,
@@ -425,7 +425,7 @@ chart.render();
                     height:310,
                 }
               }
-            },            
+            },
             {
               breakpoint: 481,
               options:{
@@ -435,7 +435,7 @@ chart.render();
               }
             }
 
-        ],     
+        ],
       colors:[zetaAdminConfig.primary,zetaAdminConfig.secondary,zetaAdminConfig.success,zetaAdminConfig.info,zetaAdminConfig.warning],
   };
   var chart = new ApexCharts(document.querySelector("#revenue-chart"), options);
@@ -445,12 +445,12 @@ chart.render();
 
 // discount timer start
 function makeTimer() {
-  var endTime = new Date("19 January 2022 20:00:00 GMT+5:30");      
+  var endTime = new Date("19 January 2022 20:00:00 GMT+5:30");
   endTime = (Date.parse(endTime) / 1000);
   var now = new Date();
   now = (Date.parse(now) / 1000);
   var timeLeft = endTime - now;
-  var days = Math.floor(timeLeft / 86400); 
+  var days = Math.floor(timeLeft / 86400);
   var hours = Math.floor((timeLeft - (days * 86400)) / 3600);
   var minutes = Math.floor((timeLeft - (days * 86400) - (hours * 3600 )) / 60);
   var seconds = Math.floor((timeLeft - (days * 86400) - (hours * 3600) - (minutes * 60)));
@@ -461,7 +461,7 @@ function makeTimer() {
   $(".days").html(days);
   $(".hours").html(hours);
   $(".minutes").html(minutes);
-  $(".seconds").html(seconds);    
+  $(".seconds").html(seconds);
 }
 
 setInterval(function() { makeTimer(); }, 1000);

@@ -23,6 +23,17 @@
     <script src="{{asset('zeta/js/photoswipe/photoswipe.min.js')}}"></script>
     <script src="{{asset('zeta/js/photoswipe/photoswipe-ui-default.min.js')}}"></script>
     <script src="{{asset('zeta/js/photoswipe/photoswipe.js')}}"></script>
+    <script src="{{asset('zeta/js/sidebar-menu.js')}}"></script>
+    <script src="{{asset('zeta/js/chart/chartjs/chart.min.js')}}"></script>
+    <script src="{{asset('zeta/js/chart/chartist/chartist.js')}}"></script>
+    <script src="{{asset('zeta/js/chart/chartist/chartist-plugin-tooltip.js')}}"></script>
+    <script src="{{asset('zeta/js/prism/prism.min.js')}}"></script>
+    <script src="{{asset('zeta/js/counter/jquery.waypoints.min.js')}}"></script>
+    <script src="{{asset('zeta/js/counter/jquery.counterup.min.js')}}"></script>
+    <script src="{{asset('zeta/js/counter/counter-custom.js')}}"></script>
+    <script src="{{asset('zeta/js/owlcarousel/owl.carousel.js')}}"></script>
+    <script src="{{asset('zeta/js/owlcarousel/owl-custom.js')}}"></script>
+    <script src="{{asset('zeta/js/tooltip-init.js')}}"></script>
     <script src="{{asset('zeta/js/typeahead/handlebars.js')}}"></script>
     <script src="{{asset('zeta/js/datatable/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('zeta/js/datatable/datatables/datatable.custom.js')}}"></script>
