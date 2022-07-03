@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->command('whapi:sendMessage')->everyMinute();
+        $schedule->command('whapi:sendMessage')->dailyAt('07:00');
     }
 
     /**
