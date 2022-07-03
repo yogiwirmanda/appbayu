@@ -49,8 +49,8 @@ class PasienController extends Controller
                 ->addColumn('action', function ($row) {
                     $urlKunjungan = route('kunjungan_pasien_create', $row->id);
                     $urlEdit = route("edit_pasien", $row->id);
-                    $actionBtn = '<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Aksi</button><div class="dropdown-menu">';
-                    $actionBtn .= '<a href='.$urlKunjungan.' class="dropdown-item" data-toggle="tooltip" data-original-title="Kunjungan">Kunjungan</a>';
+                    $actionBtn = '<a href='.$urlKunjungan.' class="btn btn-sm btn-success m-r-10">Kunjungan</a>';
+                    $actionBtn .= '<button class="btn btn-sm btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Aksi</button><div class="dropdown-menu">';
                     $actionBtn .= '<a href='.$urlEdit.' class="dropdown-item" data-toggle="tooltip" data-original-title="Edit pasien">Edit</a>';
                     $actionBtn .= '<a href="javascript:;" class="dropdown-item table-action-delete" data-pasien-id="'.$row->id.'" data-pasien-nama="'.$row->nama.'">Hapus</a>';
                     $actionBtn .= '</div>';

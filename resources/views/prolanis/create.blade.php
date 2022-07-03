@@ -24,7 +24,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12 m-b-10">
-                                <button type="button" class="btn btn-primary btn-pill" data-toggle="modal" data-target="#modal-cari-data">Cari Pasien</button>
+                                <button type="button" class="btn btn-primary btn-pill btn-open-modal" data-toggle="modal" data-target="#modal-cari-data">Cari Pasien</button>
                             </div>
                         </div>
                         <div class="row">
@@ -97,47 +97,35 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="modal-cari-data" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog modal- modal-dialog-centered modal-lg" role="document">
+<div class="modal fade bd-example-modal-lg" id="modal-cari-data" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
-             <div class="modal-header px-4">
-                <h6 class="modal-title" id="modal-title-default">Cari Data</h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span>
-                </button>
+            <div class="modal-header">
+                <h4 class="modal-title">Cari Data</h4>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body p-0">
-                <div class="card-body px-lg-4 py-lg-3">
-                    <form role="form" id="form-cari-data">
-                        <div class="form-group mb-3">
-                            <div class="input-group input-group-merge input-group-alternative">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="ni ni-single-copy-04"></i></span>
-                            </div>
-                            <input class="form-control" name="noRm" placeholder="No RM" type="text">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="input-group input-group-merge input-group-alternative">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="ni ni-single-02"></i></span>
-                            </div>
-                            <input class="form-control" name="namaPasien" placeholder="Nama Pasien" type="text">
-                            </div>
-                        </div>
-                        <div class="text-left">
-                            <button type="button" class="btn btn-primary btn-cari-data my-4">Cari</button>
-                        </div>
-                    </form>
+            <div class="modal-body">
+                <form role="form" id="form-cari-data" class="form form-theme">
+                    <div class="form-group mb-3">
+                        <input class="form-control" name="noRm" placeholder="No RM" type="text">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" name="namaKK" placeholder="Nama KK" type="text">
+                    </div>
+                    <div class="text-left">
+                        <button type="button" class="btn btn-primary btn-cari-data my-4">Cari</button>
+                    </div>
+                </form>
+                <div class="table-responsive">
                     <table class="table table-flush table-cari-data" id="datatable-basic">
                         <thead class="thead-light">
-                        <tr>
-                            <th>No</th>
-                            <th>No RM</th>
-                            <th>Nama</th>
-                            <th>Alamat</th>
-                            <th>Action</th>
-                        </tr>
+                            <tr>
+                                <th>No</th>
+                                <th>No RM</th>
+                                <th>Nama</th>
+                                <th>Alamat</th>
+                                <th>Action</th>
+                            </tr>
                         </thead>
                         <tbody>
                         </tbody>
@@ -145,13 +133,17 @@
                 </div>
             </div>
         </div>
-        </div>
     </div>
 </div>
 @endsection
 @section('page-scripts')
 <script>
     $('.select2').select2();
+
+    $('.btn-open-modal').click(function(e) {
+       $('#modal-cari-data').modal('show');
+    });
+
     $('.btn-cari-data').click(function(e){
         let form = $('#form-cari-data');
         let tbody = $('.table-cari-data').find('tbody');
@@ -169,7 +161,7 @@
                     let td3 = $('<td>', {text : element.nama});
                     let td4 = $('<td>', {text : element.alamat});
                     let td5 = $('<td>');
-                    let action = $('<a>', {href:'javascript:;', text:'Pilih', class:'btn btn-sm btn-neutral btn-pilih-member', member_id:element.id});
+                    let action = $('<a>', {href:'javascript:;', text:'Pilih', class:'btn btn-primary btn-pilih-member', member_id:element.id});
                     tr.append(td1);
                     tr.append(td2);
                     tr.append(td3);

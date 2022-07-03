@@ -1,10 +1,10 @@
 
 <div class="sidebar-wrapper">
   <div>
-    <div class="logo-wrapper"><a href="index.html"><img class="img-fluid for-light" src="{{asset('zeta/images/logo/small-logo.png')}}" alt=""><img class="img-fluid for-dark" src="../assets/images/logo/small-white-logo.png" alt=""></a>
+    <div class="logo-wrapper"><a href="index.html"><img class="img-fluid for-light" src="{{asset('zeta/images/logo/logo.png')}}" alt=""><img class="img-fluid for-dark" src="../assets/images/logo/small-white-logo.png" alt=""></a>
       <div class="back-btn"><i class="fa fa-angle-left"></i></div>
     </div>
-    <div class="logo-icon-wrapper"><a href="index.html"><img class="img-fluid" src="{{asset('zeta/images/logo-icon.png')}}" alt=""></a></div>
+    <div class="logo-icon-wrapper"><a href="index.html"><img class="img-fluid" src="{{asset('zeta/images/logo/logo.png')}}" alt=""></a></div>
     <nav class="sidebar-main">
       <div class="left-arrow" id="left-arrow"><i data-feather="arrow-left"></i></div>
       <div id="sidebar-menu">
