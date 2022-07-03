@@ -27,12 +27,9 @@ class Whapi extends Command
 
             $diff = round($datediff / (60 * 60 * 24));
             if ($diff >= 30) {
-                $response = Http::post('http://localhost:3000/api/sendMessage', [
-                    'apiKey' => '28fd5a102cf00cacb299a66d1fe866b3',
-                    'phone' => $pasien->no_hp,
-                    'message' => 'Selamat pagi Bapak / Ibu ' . $pasien->nama . ' anda terdaftar di program prolanis Puskesmas Rampal Celaket Kota Malang, tanggal kunjungan terakhir anda adalah : ' . $pasien->last_kunjungan . ' mohon segera kontrol',
-                    'file_name' => 'prcv3solid.png',
-                    'as_document' => 0,
+                $response = Http::post('http://localhost:8000/send-message', [
+                    'number' => $pasien->no_hp,
+                    'message' => 'Selamat pagi Bapak / Ibu ' . $pasien->nama . ' anda terdaftar di program prolanis Puskesmas Rampal Celaket Kota Malang, tanggal kunjungan terakhir anda adalah : ' . $pasien->last_kunjungan . ' mohon segera kontrol'
                 ]);
             }
         }
