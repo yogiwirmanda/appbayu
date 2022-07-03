@@ -9,13 +9,25 @@ $yearNow = (int) Date('Y');
 $yearPasien = (int) Date('Y', strtotime($dataKunjungan->tgl_lahir));
 $umur = $yearNow - $yearPasien;
 @endphp
-<div class="container-fluid mt--6">
+<div class="container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <h3>KLPCM</h3>
+            </div>
+            <div class="col-12 col-sm-6">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/home"></a></li>
+                    <li class="breadcrumb-item">KLPCM</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">{{$title}}</h4>
-                </div>
                 <div class="card-body">
                     <form method="POST" action="{{route('save_klpcm')}}" id="formKLPCM">
                         @csrf
@@ -29,7 +41,7 @@ $umur = $yearNow - $yearPasien;
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label>No RM</label>
+                                            <label class="col-form-label">No RM</label>
                                             <input type="text" class="form-control" id="noRm"
                                                 value="{{$dataKunjungan->no_rm}}" readonly>
                                         </div>
@@ -38,7 +50,7 @@ $umur = $yearNow - $yearPasien;
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label>Nama</label>
+                                            <label class="col-form-label">Nama</label>
                                             <input type="text" id="name" class="form-control"
                                                 value="{{$dataKunjungan->nama_pasien}}" readonly>
                                         </div>
@@ -47,7 +59,7 @@ $umur = $yearNow - $yearPasien;
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label>Tempat Lahir</label>
+                                            <label class="col-form-label">Tempat Lahir</label>
                                             <input type="text" id="tempatLahir" class="form-control"
                                                 value="{{$dataKunjungan->tempat_lahir}}" readonly>
                                         </div>
@@ -56,19 +68,19 @@ $umur = $yearNow - $yearPasien;
                                 <div class="row">
                                     <div class="col-md-8">
                                         <div class="form-group">
-                                            <label>Tanggal Lahir</label>
+                                            <label class="col-form-label">Tanggal Lahir</label>
                                             <input type="date" name="tglLahir" id="tglLahir" class="form-control"
                                                 value="{{$dataKunjungan->tgl_lahir}}" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>Umur</label>
+                                            <label class="col-form-label">Umur</label>
                                             <input type="text" id="umur" class="form-control" value="{{$umur}}" readonly>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row m-t-20">
                                     <div class="col-12 col-md-12 col-sm-12">
                                         <h5>Diagnosa</h5>
                                     </div>
@@ -83,7 +95,7 @@ $umur = $yearNow - $yearPasien;
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label>Rujukan</label>
+                                            <label class="col-form-label">Rujukan</label>
                                             <select name="status_rujukan" id="status_rujukan" class="form-control select2">
                                                 <option value="1">Dirujuk</option>
                                                 <option value="0" selected>Tidak</option>
@@ -94,7 +106,7 @@ $umur = $yearNow - $yearPasien;
                                 <div class="row rujukan-form d-none">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label>Poli Rujukan</label>
+                                            <label class="col-form-label">Poli Rujukan</label>
                                             <input type="text" name="poli_rujukan" id="poli_rujukan" class="form-control" value="">
                                         </div>
                                     </div>
@@ -102,7 +114,7 @@ $umur = $yearNow - $yearPasien;
                                 <div class="row rujukan-form d-none">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label>RS Rujukan</label>
+                                            <label class="col-form-label">RS Rujukan</label>
                                             <input type="text" name="rs_rujukan" id="rs_rujukan" class="form-control" value="">
                                         </div>
                                     </div>
@@ -112,7 +124,7 @@ $umur = $yearNow - $yearPasien;
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label>Poli</label>
+                                            <label class="col-form-label">Poli</label>
                                             <input type="text" class="form-control" id="poli"
                                                 value="{{$dataKunjungan->namaPoli}}" readonly>
                                         </div>
@@ -121,7 +133,7 @@ $umur = $yearNow - $yearPasien;
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label>Tanggal Kunjungan</label>
+                                            <label class="col-form-label">Tanggal Kunjungan</label>
                                             <input type="text" id="tglKunjungan" class="form-control"
                                                 value="{{$dataKunjungan->tanggal}}" readonly>
                                         </div>
@@ -130,7 +142,7 @@ $umur = $yearNow - $yearPasien;
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label>Alamat</label>
+                                            <label class="col-form-label">Alamat</label>
                                             <textarea id="alamat" class="form-control" cols="30" rows="10"
                                                 readonly>{{$dataKunjungan->alamat}}</textarea>
                                         </div>
@@ -139,7 +151,7 @@ $umur = $yearNow - $yearPasien;
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label>Jenis Kasus</label>
+                                            <label class="col-form-label">Jenis Kasus</label>
                                             <select name="jenis_kasus" id="jenis_kasus" class="form-control">
                                                 <option value="lama">Lama</option>
                                                 <option value="baru">Baru</option>
@@ -152,7 +164,7 @@ $umur = $yearNow - $yearPasien;
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label>Jenis Pemeriksaan</label>
+                                                    <label class="col-form-label">Jenis Pemeriksaan</label>
                                                     <select name="jenis_pemeriksaan" id="jenis_pemeriksaan" class="form-control select-pemeriksaan">
                                                         @foreach($jenisPemeriksaan as $pemeriksaan)
                                                             <option value="{{$pemeriksaan}}">{{$pemeriksaan}}</option>
@@ -164,7 +176,7 @@ $umur = $yearNow - $yearPasien;
                                         <div class="row pemeriksaan pemeriksaan-gdp">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label>GDP</label>
+                                                    <label class="col-form-label">GDP</label>
                                                     <input type="text" name="gdp" id="gdp" class="form-control" value="">
                                                 </div>
                                             </div>
@@ -172,7 +184,7 @@ $umur = $yearNow - $yearPasien;
                                         <div class="row pemeriksaan pemeriksaan-hba1c d-none">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label>HBA1C</label>
+                                                    <label class="col-form-label">HBA1C</label>
                                                     <input type="text" name="hba1c" id="hba1c" class="form-control" value="">
                                                 </div>
                                             </div>
@@ -180,7 +192,7 @@ $umur = $yearNow - $yearPasien;
                                         <div class="row pemeriksaan pemeriksaan-kontrol d-none">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label>Kontrol</label>
+                                                    <label class="col-form-label">Kontrol</label>
                                                     <input type="text" name="kontrol" id="kontrol" class="form-control" value="">
                                                 </div>
                                             </div>
@@ -188,7 +200,7 @@ $umur = $yearNow - $yearPasien;
                                         <div class="row pemeriksaan pemeriksaan-kimiadarah d-none">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label>Kimia Darah</label>
+                                                    <label class="col-form-label">Kimia Darah</label>
                                                     <input type="text" name="kimia_darah" id="kimia_darah" class="form-control" value="">
                                                 </div>
                                             </div>
@@ -302,7 +314,7 @@ $umur = $yearNow - $yearPasien;
                                 </table>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-info btn-fill pull-right btn-save-klpcm">Simpan</button>
+                        <button type="submit" class="btn btn-info btn-fill pull-right btn-save-klpcm m-t-20">Simpan</button>
                         <div class="clearfix"></div>
                     </form>
                 </div>
@@ -315,20 +327,13 @@ $umur = $yearNow - $yearPasien;
         <div class="modal-content">
              <div class="modal-header px-4">
                 <h6 class="modal-title" id="modal-title-default">Cari Data</h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span>
-                </button>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-0">
                 <div class="card-body px-lg-4 py-lg-3">
                     <form role="form" id="form-cari-diagnosa">
                         <div class="form-group mb-3">
-                            <div class="input-group input-group-merge input-group-alternative">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="ni ni-single-copy-04"></i></span>
-                            </div>
                             <input class="form-control" name="keyword" placeholder="Cari..." type="text">
-                            </div>
                         </div>
                         <div class="text-left">
                             <button type="button" class="btn btn-primary btn-cari-data my-4">Cari</button>
@@ -352,6 +357,8 @@ $umur = $yearNow - $yearPasien;
         </div>
     </div>
 </div>
+@endsection
+@section('page-scripts')
 <script>
 $('.btn-save-klpcm').click(function (e) {
     e.preventDefault();
@@ -398,7 +405,7 @@ $('#kodeIcd').change(function () {
 
 $('.btn-modal-diagnosa').click(function(e){
     e.preventDefault();
-    $('#modal-cari-diagnosa').modal();
+    $('#modal-cari-diagnosa').modal('show');
 });
 
 $('.btn-cari-data').click(function(e) {

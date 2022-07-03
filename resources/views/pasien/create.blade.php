@@ -47,7 +47,7 @@
                                 <div class="row input-nama-kk">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="form-label">Nama KK</label>
+                                            <label class="col-form-label">Nama KK</label>
                                             <input type="text" name="kepala_keluarga" id="kepalaKeluarga"
                                                 class="form-control input-form-kepala_keluarga"
                                                 placeholder="Nama Kepala Keluarga">
@@ -59,7 +59,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label class="form-label">No KTP</label>
+                                                <label class="col-form-label">No KTP</label>
                                                 <input type="text" name="no_ktp" id="noKtp" class="form-control"
                                                     placeholder="NIK KTP">
                                             </div>
@@ -68,7 +68,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label class="form-label">Nama</label>
+                                                <label class="col-form-label">Nama</label>
                                                 <input type="text" name="nama" id="nama"
                                                     class="form-control input-form-nama" placeholder="Nama">
                                                 <div class="invalid-feedback">Nama Pasien wajib di isi</div>
@@ -79,7 +79,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="form-label">Tempat Lahir</label>
+                                            <label class="col-form-label">Tempat Lahir</label>
                                             <input type="text" name="tempat_lahir" id="tempatLahir"
                                                 class="form-control " placeholder="Tempat Lahir"></input>
                                         </div>
@@ -88,7 +88,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="form-label">Tanggal Lahir</label>
+                                            <label class="col-form-label">Tanggal Lahir</label>
                                             <div class="d-flex justify-content-evenly">
                                                 <input type="date" name="tgl_lahir" id="tglLahir"
                                                     class="form-control mr-2 input-form-tgl_lahir">
@@ -102,7 +102,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="form-label">Jenis Kelamin</label>
+                                            <label class="col-form-label">Jenis Kelamin</label>
                                             <select class="form-control input-form-jk" name="jk" id="jk">
                                                 <option value="L">Laki-Laki</option>
                                                 <option value="P">Perempuan</option>
@@ -114,7 +114,7 @@
                                 <div class="row mb-3">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="form-label">No HP</label>
+                                            <label class="col-form-label">No HP</label>
                                             <input type="text" name="no_hp" id="noHp" class="form-control"
                                                 placeholder="No HP">
                                         </div>
@@ -125,7 +125,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="form-label">Agama</label>
+                                            <label class="col-form-label">Agama</label>
                                             <select name="agama" id="agama" class="form-control select2">
                                                 <option value="-" selected>Pilih Agama</option>
                                                 <option value="Islam">Islam</option>
@@ -141,7 +141,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="form-label">Status Perkawinan</label>
+                                            <label class="col-form-label">Status Perkawinan</label>
                                             <select name="status_kawin" id="status_kawin" class="form-control select2">
                                                 <option value="tidak-memilih">Pilih Status</option>
                                                 <option value="kawin">Kawin</option>
@@ -153,7 +153,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="form-label">Pekerjaan</label>
+                                            <label class="col-form-label">Pekerjaan</label>
                                             <input type="text" name="pekerjaan" id="pekerjaan" class="form-control">
                                         </div>
                                     </div>
@@ -161,7 +161,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="form-label">Kewarganegaraan</label>
+                                            <label class="col-form-label">Kewarganegaraan</label>
                                             <select name="warganegara" id="warganegara" class="form-control">
                                                 <option value="WNI">WNI</option>
                                                 <option value="WNA">WNA</option>
@@ -172,7 +172,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="form-label">Gol Darah</label>
+                                            <label class="col-form-label">Gol Darah</label>
                                             <select name="gol_darah" id="gol_darah" class="form-control">
                                                 <option value="-">-</option>
                                                 <option value="A">A</option>
@@ -186,7 +186,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="form-label">Cara Bayar</label>
+                                            <label class="col-form-label">Cara Bayar</label>
                                             <select name="cara_bayar" id="caraBayar" class="form-control">
                                                 <option value="UMUM">UMUM</option>
                                                 <option value="BPJS">BPJS</option>
@@ -198,7 +198,7 @@
                                 <div class="row d-none" id="noBPJS">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="form-label">No BPJS</label>
+                                            <label class="col-form-label">No BPJS</label>
                                             <input type="text" name="no_bpjs" id="noBpjs" value=""
                                                 class="form-control input-form-no_bpjs" placeholder="No BPJS">
                                             <div class="invalid-feedback">No BPJS wajib di isi</div>
@@ -212,7 +212,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="form-label">Alamat KTP</label>
+                                            <label class="col-form-label">Alamat KTP</label>
                                             <textarea name="alamat" id="alamat" class="form-control input-form-alamat"
                                                 cols="30" rows="2" autocomplete="new-text"
                                                 placeholder="Alamat KTP"></textarea>
@@ -223,7 +223,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="form-label">RT / RW</label>
+                                            <label class="col-form-label">RT / RW</label>
                                             <div class="d-flex">
                                                 <input type="text" name="rt" id="rt" class="form-control mr-2"
                                                     placeholder="RT">
@@ -236,7 +236,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="form-label">Alamat Domisii</label>
+                                            <label class="col-form-label">Alamat Domisii</label>
                                             <textarea name="alamat_dom" id="alamat_dom" class="form-control" cols="30"
                                                 rows="2" placeholder="Alamat Domisili"
                                                 autocomplete="new-text"></textarea>
@@ -256,7 +256,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="form-label">Provinsi</label>
+                                            <label class="col-form-label">Provinsi</label>
                                             <select class="form-control select2" name="province" id="select-province">
                                                 @foreach($dataProvince as $province)
                                                 <option value="{{$province->id}}">{{$province->name}}</option>
@@ -268,7 +268,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="form-label">Kota</label>
+                                            <label class="col-form-label">Kota</label>
                                             <select class="form-control select2" name="city" id="select-city" disabled>
                                             </select>
                                         </div>
@@ -277,7 +277,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="form-label">Kecamatan</label>
+                                            <label class="col-form-label">Kecamatan</label>
                                             <select class="form-control select2" name="district" id="select-district"
                                                 disabled>
                                             </select>
@@ -287,7 +287,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="form-label">Kelurahan</label>
+                                            <label class="col-form-label">Kelurahan</label>
                                             <select class="form-control select2 input-form-villages" name="villages"
                                                 id="select-villages" disabled>
                                             </select>

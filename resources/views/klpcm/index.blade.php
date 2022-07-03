@@ -3,13 +3,25 @@
 @php
     $dataDiagnosa = json_decode($dataKunjungan->diagnosa);
 @endphp
-<div class="container-fluid mt--6">
+<div class="container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <h3>KLPCM</h3>
+            </div>
+            <div class="col-12 col-sm-6">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/home"><i data-feather="home"></i></a></li>
+                    <li class="breadcrumb-item">KLPCM</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">{{$title}}</h4>
-                </div>
                 <div class="card-body">
                     <form method="POST" action="{{url('klpcms')}}" id="formKLPCM">
                         @csrf
@@ -291,6 +303,8 @@
         </div>
     </div>
 </div>
+@endsection
+@section('page-scripts')
 <script>
     var klnama = "<?php echo $dataKLPCM->klnama ?>";
     var klnorm = "<?php echo $dataKLPCM->klnorm ?>";

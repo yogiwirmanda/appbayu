@@ -73,7 +73,7 @@
                   </div>
                   <ul class="custom-scrollbar">
                     <li>
-                      <div class="media"><img class="img-fluid b-r-5 me-3 img-50" src="../assets/images/banner-1.jpg" alt="">
+                      <div class="media"><img class="img-fluid b-r-5 me-3 img-50" src="{{asset('zeta/images/banner-1.jpg')}}" alt="">
                         <div class="media-body">
                           <h5> <a href="product.html">Black shirt with jecket</a></h5>
                           <p class="f-w-700">$500</p>
@@ -85,7 +85,7 @@
                       </div>
                     </li>
                     <li>
-                      <div class="media"><img class="img-fluid b-r-5 me-3 img-50" src="../assets/images/product-4.png" alt="">
+                      <div class="media"><img class="img-fluid b-r-5 me-3 img-50" src="{{asset('zeta/images/product-4.png')}}" alt="">
                         <div class="media-body">
                           <h5> <a href="product.html">Yellow white shirt.</a></h5>
                           <p class="f-w-700">$500</p>
@@ -97,7 +97,7 @@
                       </div>
                     </li>
                     <li>
-                      <div class="media"><img class="img-fluid b-r-5 me-3 img-50" src="../assets/images/product-6.jpg" alt="">
+                      <div class="media"><img class="img-fluid b-r-5 me-3 img-50" src="{{asset('zeta/images/product-6.jpg')}}" alt="">
                         <div class="media-body">
                           <h5> <a href="product.html">Nike Black shoes !</a></h5>
                           <p class="f-w-700">$500</p>
@@ -188,7 +188,7 @@
                   <ul class="custom-scrollbar">
                     <li>
                       <div class="media">
-                        <div class="notification-img bg-light-primary"><img src="../assets/images/avtar/man.png" alt=""></div>
+                        <div class="notification-img bg-light-primary"><img src="{{asset('zeta/images/avtar/man.png')}}" alt=""></div>
                         <div class="media-body">
                           <h5> <a class="f-14 m-0" href="user-profile.html">Allie Grater</a></h5>
                           <p>Lorem ipsum dolor sit amet...</p><span>10:20</span>
@@ -198,7 +198,7 @@
                     </li>
                     <li>
                       <div class="media">
-                        <div class="notification-img bg-light-secondary"><img src="../assets/images/avtar/teacher.png" alt=""></div>
+                        <div class="notification-img bg-light-secondary"><img src="{{asset('zeta/images/avtar/teacher.png')}}" alt=""></div>
                         <div class="media-body">
                           <h5> <a class="f-14 m-0" href="user-profile.html">Olive Yew</a></h5>
                           <p>Lorem ipsum dolor sit amet...</p><span>09:20</span>
@@ -208,7 +208,7 @@
                     </li>
                     <li>
                       <div class="media">
-                        <div class="notification-img bg-light-info"><img src="../assets/images/avtar/teenager.png" alt=""></div>
+                        <div class="notification-img bg-light-info"><img src="{{asset('zeta/images/avtar/teenager.png')}}" alt=""></div>
                         <div class="media-body">
                           <h5> <a class="f-14 m-0" href="user-profile.html">Peg Legge</a></h5>
                           <p>Lorem ipsum dolor sit amet...</p><span>07:20</span>
@@ -218,7 +218,7 @@
                     </li>
                     <li>
                       <div class="media">
-                        <div class="notification-img bg-light-success"><img src="../assets/images/avtar/chinese.png" alt=""></div>
+                        <div class="notification-img bg-light-success"><img src="{{asset('zeta/images/avtar/chinese.png')}}" alt=""></div>
                         <div class="media-body">
                           <h5> <a class="f-14 m-0" href="user-profile.html">Teri Dactyl</a></h5>
                           <p>Lorem ipsum dolor sit amet...</p><span>05:20</span>
