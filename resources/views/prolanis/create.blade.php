@@ -110,7 +110,7 @@
                         <input class="form-control" name="noRm" placeholder="No RM" type="text">
                     </div>
                     <div class="form-group">
-                        <input class="form-control" name="namaKK" placeholder="Nama KK" type="text">
+                        <input class="form-control" name="namaPasien" placeholder="Nama Pasien" type="text">
                     </div>
                     <div class="text-left">
                         <button type="button" class="btn btn-primary btn-cari-data my-4">Cari</button>
