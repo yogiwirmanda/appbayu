@@ -26,11 +26,16 @@ class Whapi extends Command
             $datediff = $now - $lastKunjungan;
 
             $diff = round($datediff / (60 * 60 * 24));
-            if ($diff >= 30) {
-                $response = Http::post('http://localhost:8000/send-message', [
-                    'number' => $pasien->no_hp,
-                    'message' => 'Selamat pagi Bapak / Ibu ' . $pasien->nama . ' anda terdaftar di program prolanis Puskesmas Rampal Celaket Kota Malang, tanggal kunjungan terakhir anda adalah : ' . $pasien->last_kunjungan . ' mohon segera kontrol'
-                ]);
+            if ($pasien->count_send_reminder <=3) {
+                if ($diff >= 30) {
+                    $response = Http::post('http://localhost:8000/send-message', [
+                        'number' => $pasien->no_hp,
+                        'message' => 'Selamat pagi Bapak / Ibu ' . $pasien->nama . ' anda terdaftar di program prolanis Puskesmas Rampal Celaket Kota Malang, tanggal kunjungan terakhir anda adalah : ' . $pasien->last_kunjungan . ' mohon segera kontrol'
+                    ]);
+                    $dataPasien = Pasien::find($pasien->id);
+                    $dataPasien->count_send_reminder = $pasien->count_send_reminder + 1;
+                    $dataPasien->save();
+                }
             }
         }
 
