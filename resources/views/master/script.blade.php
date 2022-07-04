@@ -23,7 +23,7 @@
     <script src="{{asset('zeta/js/photoswipe/photoswipe.min.js')}}"></script>
     <script src="{{asset('zeta/js/photoswipe/photoswipe-ui-default.min.js')}}"></script>
     <script src="{{asset('zeta/js/photoswipe/photoswipe.js')}}"></script>
-    <script src="{{asset('zeta/js/sidebar-menu.js')}}"></script>
+    <!-- <script src="{{asset('zeta/js/sidebar-menu.js')}}"></script> -->
     <script src="{{asset('zeta/js/chart/chartjs/chart.min.js')}}"></script>
     <script src="{{asset('zeta/js/chart/chartist/chartist.js')}}"></script>
     <script src="{{asset('zeta/js/chart/chartist/chartist-plugin-tooltip.js')}}"></script>
