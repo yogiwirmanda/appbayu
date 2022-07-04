@@ -1,59 +1,72 @@
 @extends('master.main')
 @section('content')
-<div class="container-fluid mt--6">
+<div class="container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <h3>Data Poli</h3>
+            </div>
+            <div class="col-12 col-sm-6">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/home"><i data-feather="home"></i></a></li>
+                    <li class="breadcrumb-item">Poli</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
     <div class="row">
         <div class="col">
             <div class="card">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-8 text-left">
-                            <h3 class="mb-0">Poli</h3>
-                            <p class="text-sm mb-0">
-                                This is an exmaple of datatable using the well known datatables.net plugin.
-                            </p>
-                        </div>
-                        <div class="col-4 text-right">
-                            <a href="{{asset('poli/create')}}" class="btn btn-sm btn-neutral btn-round btn-icon" data-toggle="tooltip" data-original-title="Tambah Poli">
-                                <span class="btn-inner--icon"><i class="fas fa-user-edit"></i></span>
-                                <span class="btn-inner--text">Tambah</span>
-                            </a>
-                        </div>
-                    </div>
+                <div class="card-header pb-0">
+                    <a href="{{asset('poli/create')}}" class="btn btn-pill btn-primary">
+                        <span class="btn-inner--text">Tambah Poli</span>
+                    </a>
                 </div>
-                <div class="table-responsive py-4">
-                    <table class="table table-flush" id="datatable-basic" style="text-transform: uppercase;">
-                        <thead class="thead-light">
-                            <tr>
-                                <th>No</th>
-                                <th>Nama</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($dataPoli as $key => $poli)
-                            <tr>
-                                <td>{{$key + 1}}</td>
-                                <td>{{$poli->nama}}</td>
-                                <td class="table-actions">
-                                    <a href="{{route('edit_poli', $poli->id)}}" class="table-action" data-toggle="tooltip" data-original-title="Edit poli">
-                                        <i class="fas fa-user-edit"></i>
-                                    </a>
-                                    <a href="javascript:;" class="table-action table-action-delete" data-poli-id="{{$poli->id}}" data-poli-nama="{{$poli->nama}}" data-toggle="tooltip" data-original-title="Delete poli">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                <div class="card-body">
+                    <div class="table-responsive py-4">
+                        <table class="table table-flush" id="table-poli" style="text-transform: uppercase;">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+@endsection
+@section('page-scripts')
 <script>
-  $('.table-action-delete').each(function(){
-    $(this).click(function(){
+    var table = $('#table-poli').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{{ route('ajax_load_poli') }}",
+        columns: [{
+                data: 'DT_RowIndex',
+                name: 'DT_RowIndex'
+            },
+            {
+                data: 'nama',
+                name: 'nama'
+            },
+            {
+                data: 'action',
+                name: 'action',
+                orderable: false,
+                searchable: false
+            },
+        ]
+    });
+
+    $(document).on('click', '.table-action-delete', function(){
       let dataPoliId = $(this).attr('data-poli-id');
       let namaPoli = $(this).attr('data-poli-nama');
       swal({
@@ -84,7 +97,6 @@
           });
         }
       })
-    })
-  })
+    });
 </script>
 @endsection

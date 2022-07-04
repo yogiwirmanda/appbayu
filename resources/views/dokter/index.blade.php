@@ -76,39 +76,37 @@
         ]
     });
 
-  $('.table-action-delete').each(function(){
-    $(this).click(function(){
-      let dataDokterId = $(this).attr('data-dokter-id');
-      let namaDokter = $(this).attr('data-dokter-nama');
-      swal({
-          title: 'Apakah anda yakin?',
-          text: 'Menghapus data pasien atas nama '+namaDokter,
-          type: 'question',
-          buttonsStyling: false,
-          showCancelButton: true,
-          confirmButtonClass: 'btn btn-success btn-delete-pasien',
-          confirmButtonText: 'Hapus',
-          cancelButtonClass: 'btn btn-danger',
-          cancelButtonText: 'Batal',
-      }).then((result) => {
-        if (result.value == true){
-          $.ajax({
-            url : "dokter/destroy/"+dataDokterId,
-            method : "GET",
-            dataType : "json",
-            data : {dataDokterId: dataDokterId},
-            success : function (response) {
-              if (response.errCode == 0){
-                $.notify('Dokter Berhasil dihapus', 'success');
-                setTimeout(() => {
-                  window.location.reload();
-                }, 2000);
-              }
+    $(document).on('click', '.table-action-delete', function(e){
+        let dataDokterId = $(this).attr('data-dokter-id');
+        let namaDokter = $(this).attr('data-dokter-nama');
+        swal({
+            title: 'Apakah anda yakin?',
+            text: 'Menghapus data pasien atas nama '+namaDokter,
+            type: 'question',
+            buttonsStyling: false,
+            showCancelButton: true,
+            confirmButtonClass: 'btn btn-success btn-delete-pasien',
+            confirmButtonText: 'Hapus',
+            cancelButtonClass: 'btn btn-danger',
+            cancelButtonText: 'Batal',
+        }).then((result) => {
+            if (result.value == true){
+            $.ajax({
+                url : "dokter/destroy/"+dataDokterId,
+                method : "GET",
+                dataType : "json",
+                data : {dataDokterId: dataDokterId},
+                success : function (response) {
+                if (response.errCode == 0){
+                    $.notify('Dokter Berhasil dihapus', 'success');
+                    setTimeout(() => {
+                    window.location.reload();
+                    }, 2000);
+                }
+                }
+            });
             }
-          });
-        }
-      })
-    })
-  })
+        })
+    });
 </script>
 @endsection

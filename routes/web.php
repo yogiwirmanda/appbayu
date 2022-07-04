@@ -94,6 +94,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('diagnosa/edit/{param}', [DiagnosaController::class, 'edit'])->name('edit_diagnosa');
     Route::post('diagnosa/update', [DiagnosaController::class, 'update'])->name('update_diagnosa');
     Route::get('diagnosa/destroy/{param}', [DiagnosaController::class, 'delete'])->name('delete_diagnosa');
+    Route::get('diagnosa/dtAjax', [DiagnosaController::class, 'dtAjax'])->name('ajax_load_diagnosa');
 
     Route::get('poli', [PoliController::class, 'index'])->name('show_poli');
     Route::get('poli/create', [PoliController::class, 'create'])->name('create_poli');
@@ -101,6 +102,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('poli/edit/{param}', [PoliController::class, 'edit'])->name('edit_poli');
     Route::post('poli/update', [PoliController::class, 'update'])->name('update_poli');
     Route::get('poli/destroy/{param}', [PoliController::class, 'delete'])->name('delete_poli');
+    Route::get('poli/dtAjax}', [PoliController::class, 'dtAjax'])->name('ajax_load_poli');
 
     Route::get('surat-sehat', [SuratSehatController::class, 'index'])->name('show_surat_sehat');
     Route::get('surat-sehat/create', [SuratSehatController::class, 'create'])->name('create_surat_sehat');

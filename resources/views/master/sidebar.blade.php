@@ -27,6 +27,8 @@
               <li><a href="/dokter">Dokter</a></li>
               <li><a href="/pasien">Pasien</a></li>
               <li><a href="/prolanis">Prolanis</a></li>
+              <li><a href="/poli">Poli</a></li>
+              <li><a href="/diagnosa">Diagnosa</a></li>
             </ul>
           </li>
           <li class="sidebar-list">

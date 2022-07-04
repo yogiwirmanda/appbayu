@@ -7,6 +7,7 @@ use App\Models\Dokter;
 use App\Models\Poli;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\DataTables;
 
 class PoliController extends Controller
 {
@@ -17,10 +18,27 @@ class PoliController extends Controller
 
     public function index()
     {
-        $dataPoli = Poli::all();
         $navActive = $this->navActive;
 
-        return view('poli/index', compact('dataPoli', 'navActive'));
+        return view('poli.index', compact('navActive'));
+    }
+
+    public function dtAjax(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = Poli::all();
+
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $urlEdit = route("edit_poli", $row->id);
+                    $actionBtn = '<a href='.$urlEdit.' class="btn btn-sm btn-primary m-r-10">Edit</a>';
+                    $actionBtn .= '<a href="javascript:;" class="btn btn-sm btn-danger table-action-delete" data-poli-id="'.$row->id.'" data-poli-nama="'.$row->nama.'">Hapus</a>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
     }
 
     public function create()
