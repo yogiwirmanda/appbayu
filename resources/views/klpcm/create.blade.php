@@ -505,7 +505,7 @@ $('.select-pemeriksaan').change(function(e){
         case 'kontrol':
             $('.pemeriksaan-kontrol').removeClass('d-none');
             break;
-        case 'kimiadarah':
+        case 'kimia darah':
             $('.pemeriksaan-kimiadarah').removeClass('d-none');
             break;
 
