@@ -126,6 +126,8 @@ class KlpcmController extends Controller
         $pasien->hba1c = $request->hba1c;
         $pasien->kontrol = $request->kontrol;
         $pasien->kimia_darah = $request->kimia_darah;
+        $pasien->last_kunjungan_prolanis = Date('Y-m-d');
+        $pasien->last_kunjungan = Date('Y-m-d');
         $pasien->save();
 
         $klpcm->save();

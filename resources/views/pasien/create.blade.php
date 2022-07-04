@@ -500,7 +500,7 @@
 
     $('#caraBayar').change(function () {
         var getValue = $(this).val();
-        if (getValue === 'UMUM') {
+        if (getValue === 'UMUM' || getValue === 'UKS') {
             $('#noBPJS').addClass('d-none');
         } else {
             $('#noBPJS').removeClass('d-none');
