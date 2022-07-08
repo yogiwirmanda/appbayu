@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Obat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\DataTables;
 
 class ObatController extends Controller
 {
@@ -15,15 +16,32 @@ class ObatController extends Controller
 
     public function index()
     {
-        $dataObat = Obat::all();
         $navActive = $this->navActive;
-        return view('obat/index', compact('dataObat', 'navActive'));
+        return view('obat.index', compact('navActive'));
+    }
+
+    public function dtAjax(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = Obat::all();
+
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $urlEdit = route("edit_obat", $row->id);
+                    $actionBtn = '<a href='.$urlEdit.' class="btn btn-sm btn-primary m-r-10">Edit</a>';
+                    $actionBtn .= '<a href="javascript:;" class="btn btn-sm btn-danger table-action-delete" data-obat-id="'.$row->id.'" data-obta-nama="'.$row->nama.'">Hapus</a>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
     }
 
     public function create()
     {
         $navActive = $this->navActive;
-        return view('obat/create', compact('navActive'));
+        return view('obat.create', compact('navActive'));
     }
 
     public function store(Request $request)

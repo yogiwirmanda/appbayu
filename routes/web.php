@@ -117,6 +117,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('obat/edit/{param}', [ObatController::class, 'edit'])->name('edit_obat');
     Route::post('obat/update', [ObatController::class, 'update'])->name('update_obat');
     Route::get('obat/destroy/{param}', [ObatController::class, 'delete'])->name('delete_obat');
+    Route::get('obat/dtAjax', [ObatController::class, 'dtAjax'])->name('ajax_load_obat');
 
     Route::get('laporan/klpcm', [LaporanController::class, 'klpcm'])->name('laporan_klpcm');
     Route::get('laporan/klpcm/{type}/{date}', [LaporanController::class, 'klpcm'])->name('laporan_klpcm_filter');

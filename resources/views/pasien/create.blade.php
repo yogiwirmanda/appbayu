@@ -734,6 +734,14 @@
         }
     });
 
+    $('.input-surat-sehat').change(function (e) {
+        if ($(this).is(':checked')) {
+            $('.input-nama-kk').addClass('d-none');
+        } else {
+            $('.input-nama-kk').removeClass('d-none');
+        }
+    });
+
     $('#form-pasien').submit(function (e) {
         e.preventDefault();
         PRC.disabledValidation();

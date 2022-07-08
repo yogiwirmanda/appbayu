@@ -57,6 +57,8 @@
         </div>
     </div>
 </div>
+@endsection
+@section('page-scripts')
 <script>
     function totalChecked(){
         let count = 0;

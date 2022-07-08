@@ -26,7 +26,7 @@ class Whapi extends Command
             $datediff = $now - $lastKunjungan;
 
             $diff = round($datediff / (60 * 60 * 24));
-            if ($pasien->count_send_reminder <=3) {
+            if ($pasien->count_send_reminder < 3) {
                 if ($diff >= 30) {
                     $response = Http::post('http://localhost:8000/send-message', [
                         'number' => $pasien->no_hp,

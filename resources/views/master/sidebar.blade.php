@@ -29,6 +29,7 @@
               <li><a href="/prolanis">Prolanis</a></li>
               <li><a href="/poli">Poli</a></li>
               <li><a href="/diagnosa">Diagnosa</a></li>
+              <li><a href="/obat">Obat</a></li>
             </ul>
           </li>
           <li class="sidebar-list">

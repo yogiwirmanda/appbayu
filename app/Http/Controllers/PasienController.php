@@ -33,8 +33,8 @@ class PasienController extends Controller
     public function dtAjax(Request $request)
     {
         if ($request->ajax()) {
-            $data = Pasien::select('pasiens.*', 'districts.name AS namaWilayah')
-                ->join('districts', 'pasiens.district', '=', 'districts.id')
+            $data = Pasien::select('pasiens.*')
+                ->where('status_retensi', 0)
                 ->orderBy('created_at', 'DESC')
                 ->get();
 
