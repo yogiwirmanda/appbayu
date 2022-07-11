@@ -39,6 +39,12 @@
             </a>
           </li>
           <li class="sidebar-list">
+            <a class="sidebar-link" href="/prb">
+              <i data-feather="navigation"></i>
+              <span>PRB</span>
+            </a>
+          </li>
+          <li class="sidebar-list">
             <a class="sidebar-link sidebar-title" href="javascript:;">
               <i data-feather="book"></i>
               <span>Laporan</span>
