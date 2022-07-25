@@ -7,6 +7,7 @@ use App\Models\Pasien;
 use App\Models\rmcanuse;
 use App\Models\Wilayah;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class SettingController extends Controller
 {
@@ -91,5 +92,52 @@ class SettingController extends Controller
         }
 
         return json_encode('success');
+    }
+
+    public function kk()
+    {
+        $navActive = $this->navActive;
+
+        return view('setting.kk', compact('navActive'));
+    }
+
+    public function dtAjaxSetKK(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = Pasien::select('pasiens.*')
+                ->where('status_retensi', 0)
+                ->where('kepala_keluarga', '')
+                ->orderBy('created_at', 'DESC')
+                ->get();
+
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('umur', function ($row) {
+                    $tglLahir = date_create($row->tgl_lahir);
+                    $dateNow = date_create(Date('Y-m-d'));
+                    $dateDiff = date_diff($tglLahir, $dateNow);
+                    return $dateDiff->y;
+                })
+                ->addColumn('action', function ($row) {
+                    $actionBtn = '<a href="javascript:;" class="btn btn-primary table-action-setkk" data-pasien-id="'.$row->id.'" data-pasien-nama="'.$row->nama.'">Set Kepala Keluarga</a>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+    }
+
+    public function saveKK(Request $request)
+    {
+        $error = 0;
+        $errMessage = '';
+
+        $pasiens = Pasien::find($request->id_pasien);
+        $pasiens->kepala_keluarga = $request->kepala_keluarga;
+        $pasiens->save();
+
+        return response()->json(
+            ['error'=> $error, 'messages'=>'Pasien berhasil di perbarui'],
+        );
     }
 }

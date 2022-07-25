@@ -24,48 +24,64 @@
                         <span class="btn-inner--text">Tambah PRB</span>
                     </a>
                 </div>
-                <div class="table-responsive py-4">
-                    <table class="table table-flush" id="datatable-basic" style="text-transform: uppercase;">
-                        <thead class="thead-light">
-                            <tr>
-                                <th>No</th>
-                                <th>No RM</th>
-                                <th>Name</th>
-                                <th>Alamat</th>
-                                <th>Nama Dokter</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($dataPasienPrb as $key => $pasien)
-                            <tr>
-                                <td>{{$key + 1}}</td>
-                                <td>{{$pasien->noRm}}</td>
-                                <td>{{$pasien->namaPasien}}</td>
-                                <td>{{$pasien->alamatPasien}}</td>
-                                <td>{{$pasien->namaDokter}}</td>
-                                <td class="table-actions">
-                                    <a href="{{route('edit_prb', $pasien->id)}}" class="table-action"
-                                        data-toggle="tooltip" data-original-title="Edit product">
-                                        <i class="fas fa-user-edit"></i>
-                                    </a>
-                                    <a href="javascript:;" class="table-action table-action-delete" data-pasien-id="{{$pasien->id}}" data-pasien-nama="{{$pasien->nama}}" data-toggle="tooltip"
-                                        data-original-title="Delete product">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                <div class="card-body">
+                    <div class="table-responsive py-4">
+                        <table class="table table-flush" id="table-prb" style="text-transform: uppercase;">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>No</th>
+                                    <th>No RM</th>
+                                    <th>Name</th>
+                                    <th>Alamat</th>
+                                    <th>Nama Dokter</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+@endsection
+@section('page-scripts')
 <script>
-  $('.table-action-delete').each(function(){
-    $(this).click(function(){
+    var table = $('#table-prb').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{{ route('ajax_load_prb') }}",
+        columns: [{
+                data: 'DT_RowIndex',
+                name: 'DT_RowIndex'
+            },
+            {
+                data: 'noRm',
+                name: 'noRm'
+            },
+            {
+                data: 'namaPasien',
+                name: 'namaPasien'
+            },
+            {
+                data: 'alamatPasien',
+                name: 'alamatPasien'
+            },
+            {
+                data: 'namaDokter',
+                name: 'namaDokter'
+            },
+            {
+                data: 'action',
+                name: 'action',
+                orderable: false,
+                searchable: false
+            },
+        ]
+    });
+
+    $(document).on('click', '.table-action-delete', function(){
       let dataPasienId = $(this).attr('data-pasien-id');
       let namaPasien = $(this).attr('data-pasien-nama');
       swal({
@@ -97,6 +113,5 @@
         }
       })
     })
-  })
 </script>
 @endsection

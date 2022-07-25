@@ -7,6 +7,7 @@ use App\Models\Pasien;
 use App\Models\Prb;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\DataTables;
 
 class PrbController extends Controller
 {
@@ -17,13 +18,30 @@ class PrbController extends Controller
 
     public function index()
     {
-        $dataPasienPrb = Prb::select('prbs.*', 'dokters.nama as namaDokter', 'pasiens.nama as namaPasien', 'pasiens.alamat as alamatPasien', 'pasiens.no_rm as noRm')
-            ->join('pasiens', 'pasiens.id', '=', 'prbs.id_pasien')
-            ->join('dokters', 'dokters.id', '=', 'prbs.id_dokter')
-            ->get();
         $navActive = $this->navActive;
+        return view('prb.index', compact('navActive'));
+    }
 
-        return view('prb.index', compact('dataPasienPrb', 'navActive'));
+    public function dtAjax(Request $request)
+    {
+        if ($request->ajax()) {
+            $dataPasienPrb = Prb::select('prbs.*', 'dokters.nama as namaDokter', 'pasiens.nama as namaPasien', 'pasiens.alamat as alamatPasien', 'pasiens.no_rm as noRm')
+                ->join('pasiens', 'pasiens.id', '=', 'prbs.id_pasien')
+                ->join('dokters', 'dokters.id', '=', 'prbs.id_dokter')
+                ->get();
+
+
+            return DataTables::of($dataPasienPrb)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $urlEdit = route("edit_prb", $row->id);
+                    $actionBtn = '<a href='.$urlEdit.' class="btn btn-sm btn-primary m-r-10">Edit</a>';
+                    $actionBtn .= '<a href="javascript:;" class="btn btn-sm btn-danger table-action-delete" data-pasien-id=' . $row->id . ' data-pasien-nama=' . $row->nama .'>Hapus</a>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
     }
 
     public function create()

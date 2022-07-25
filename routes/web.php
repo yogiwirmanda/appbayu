@@ -68,6 +68,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('setting/nomor', [SettingController::class, 'index'])->name('setting_nomor');
     Route::get('setting/cek', [SettingController::class, 'nomorCek'])->name('setting_cek');
     Route::get('setting/set/nomor', [SettingController::class, 'reusedRM'])->name('setting_set_nomor');
+    Route::get('setting/kk', [SettingController::class, 'kk'])->name('setting_kk');
+    Route::get('setting/dtAjax', [SettingController::class, 'dtAjaxSetKK'])->name('ajax_load_set_kk');
+    Route::post('setting/save/kk', [SettingController::class, 'saveKK'])->name('setting_save_kk');
 
     Route::get('prolanis', [PasienController::class, 'prolanis'])->name('show_prolanis');
     Route::get('prolanis/filter/{val}', [PasienController::class, 'prolanisFilter'])->name('show_prolanis_filter');
@@ -78,7 +81,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('prb', [PrbController::class, 'index'])->name('show_prb');
     Route::get('prb/create', [PrbController::class, 'create'])->name('create_prb');
     Route::post('prb/save', [PrbController::class, 'store'])->name('save_prb');
-    Route::post('prb/edit', [PrbController::class, 'edit'])->name('edit_prb');
+    Route::get('prb/edit', [PrbController::class, 'edit'])->name('edit_prb');
+    Route::get('prb/dtAjax', [PrbController::class, 'dtAjax'])->name('ajax_load_prb');
 
     Route::get('dokter', [DokterController::class, 'index'])->name('show_dokter');
     Route::get('dokter/create', [DokterController::class, 'create'])->name('create_dokter');

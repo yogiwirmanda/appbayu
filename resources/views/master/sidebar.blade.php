@@ -40,7 +40,7 @@
           </li>
           <li class="sidebar-list">
             <a class="sidebar-link" href="/prb">
-              <i data-feather="navigation"></i>
+              <i data-feather="shield"></i>
               <span>PRB</span>
             </a>
           </li>
@@ -52,6 +52,16 @@
             <ul class="sidebar-submenu">
               <li><a href="/laporan/prolanis">Prolanis</a></li>
               <li><a href="/laporan/pemeriksaan">Pemeriksaan</a></li>
+            </ul>
+          </li>
+          <li class="sidebar-list">
+            <a class="sidebar-link sidebar-title" href="javascript:;">
+              <i data-feather="settings"></i>
+              <span>Setting</span>
+            </a>
+            <ul class="sidebar-submenu">
+              <li><a href="/setting/nomor">Nomor RM</a></li>
+              <li><a href="/setting/kk">Kepala Keluarga</a></li>
             </ul>
           </li>
         </ul>

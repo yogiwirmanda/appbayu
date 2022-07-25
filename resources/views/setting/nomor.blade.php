@@ -1,10 +1,22 @@
 @extends('master.main')
 @section('content')
-<div class="container-fluid mt--6">
-    <div class="card mb-4">
-        <div class="card-header d-flex justify-content-between">
-            <h3 class="mb-0">Setting RM</h3>
+<div class="container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <h3>Setting Nomor RM</h3>
+            </div>
+            <div class="col-12 col-sm-6">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/home"><i data-feather="home"></i></a></li>
+                    <li class="breadcrumb-item">Setting</li>
+                </ol>
+            </div>
         </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="card mb-4">
         <div class="card-body">
             <form action="{{route('setting_cek')}}" method="GET" id="formCek">
                 <div class="row">

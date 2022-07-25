@@ -1,13 +1,24 @@
 @extends('master.main')
 @section('content')
+<div class="container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <h3>Tambah Pasien PRB</h3>
+            </div>
+            <div class="col-12 col-sm-6">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/home"><i data-feather="home"></i></a></li>
+                    <li class="breadcrumb-item">PRB</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="container-fluid mt--6">
     <div class="card mb-4">
-        <div class="card-header d-flex justify-content-between">
-            <h3 class="mb-0">Tambah Pasien PRB</h3>
-            <button type="button" class="btn btn-block btn-default w-25" data-toggle="modal" data-target="#modal-cari-data">Cari Pasien</button>
-        </div>
         <div class="card-body">
-            <form action="{{route('save_prb')}}" id="form-prb" method="POST" enctype="multipart/form-data">
+            <form action="{{route('save_prb')}}" id="form-prb" class="form theme-form" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="idPasien" id="idPasien">
                 <input type="hidden" name="noRm" id="noRm">
@@ -15,24 +26,24 @@
                     <div class="col-6 col-md-6 col-sm-6">
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="form-group row">
-                                    <label class="col-4 col-form-label">Nama</label>
+                                <div class="form-group">
+                                    <label class="col-form-label">Nama</label>
                                     <input type="text" name="namaPasien" id="namaPasien" class="form-control col-8" placeholder="Nama Pasien" readonly>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="form-group row">
-                                    <label class="col-4 col-form-label">Alamat KTP</label>
+                                <div class="form-group">
+                                    <label class="col-form-label">Alamat KTP</label>
                                     <textarea name="alamat" id="alamat" class="form-control col-8" cols="30" rows="2" autocomplete="new-text" placeholder="Alamat KTP" readonly></textarea>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="form-group row">
-                                    <label class="col-4 col-form-label">RT / RW</label>
+                                <div class="form-group">
+                                    <label class="col-form-label">RT / RW</label>
                                     <input type="text" name="rt" id="rt" class="form-control col mr-2" placeholder="RT" readonly>
                                     <input type="text" name="rw" id="rw" class="form-control col" placeholder="RW" readonly>
                                 </div>
@@ -40,16 +51,16 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="form-group row">
-                                    <label class="col-4 col-form-label">Alamat Domisili</label>
+                                <div class="form-group">
+                                    <label class="col-form-label">Alamat Domisili</label>
                                     <textarea name="alamat_dom" id="alamat_dom" class="form-control col-8" cols="30" rows="2" placeholder="Alamat Domisili" autocomplete="new-text" readonly></textarea>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="form-group row">
-                                    <label class="col-4 col-form-label">Dokter</label>
+                                <div class="form-group">
+                                    <label class="col-form-label">Dokter</label>
                                     <select name="dokter" id="dokter" class="form-control selectize col-8">
                                         @foreach($dataDokter as $dokter)
                                             <option value="{{$dokter->id}}">{{$dokter->nama}}</option>
@@ -62,8 +73,8 @@
                     <div class="col-6 col-md-6 col-sm-6">
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="form-group row">
-                                    <label class="col-4 col-form-label">Tensi</label>
+                                <div class="form-group">
+                                    <label class="col-form-label">Tensi</label>
                                     <input type="text" name="tensi" id="tensi" class="form-control col-8 input-form-tensi" placeholder="Tensi">
                                     <div class="offset-md-4 col-10 invalid-feedback">Tensi wajib di isi</div>
                                 </div>
@@ -71,8 +82,8 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="form-group row">
-                                    <label class="col-4 col-form-label">Nadi</label>
+                                <div class="form-group">
+                                    <label class="col-form-label">Nadi</label>
                                     <input type="text" name="nadi" id="nadi" class="form-control col-8 input-form-nadi" placeholder="Nadi">
                                     <div class="offset-md-4 col-10 invalid-feedback">Nadi wajib di isi</div>
                                 </div>
@@ -80,8 +91,8 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="form-group row">
-                                    <label class="col-4 col-form-label">Suhu</label>
+                                <div class="form-group">
+                                    <label class="col-form-label">Suhu</label>
                                     <input type="text" name="suhu" id="suhu" class="form-control col-8 input-form-suhu" placeholder="Suhu">
                                     <div class="offset-md-4 col-10 invalid-feedback">Suhu wajib di isi</div>
                                 </div>
@@ -89,8 +100,8 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="form-group row">
-                                    <label class="col-4 col-form-label">Berat Badan</label>
+                                <div class="form-group">
+                                    <label class="col-form-label">Berat Badan</label>
                                     <input type="text" name="berat_badan" id="berat_badan" class="form-control col-8 input-form-berat_badan" placeholder="Berat Badan">
                                     <div class="offset-md-4 col-10 invalid-feedback">Berat badan wajib di isi</div>
                                 </div>
@@ -98,8 +109,8 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="form-group row">
-                                    <label class="col-4 col-form-label">Tinggi Badan</label>
+                                <div class="form-group">
+                                    <label class="col-form-label">Tinggi Badan</label>
                                     <input type="text" name="tinggi_badan" id="tinggi_badan" class="form-control col-8 input-form-tinggi_badan" placeholder="Tinggi Badan">
                                     <div class="offset-md-4 col-10 invalid-feedback">Tinggi badan wajib di isi</div>
                                 </div>
@@ -128,22 +139,15 @@
 <div class="modal fade" id="modal-cari-obat" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal- modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
-             <div class="modal-header px-4">
-                <h6 class="modal-title" id="modal-title-default">Cari Data</h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span>
-                </button>
+            <div class="modal-header">
+                <h4 class="modal-title">Cari Data</h4>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-0">
                 <div class="card-body px-lg-4 py-lg-3">
-                    <form role="form" id="form-cari-obat">
+                    <form role="form" class="form theme-form" id="form-cari-obat">
                         <div class="form-group mb-3">
-                            <div class="input-group input-group-merge input-group-alternative">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="ni ni-single-copy-04"></i></span>
-                            </div>
                             <input class="form-control" name="keyword" placeholder="Cari..." type="text">
-                            </div>
                         </div>
                         <div class="text-left">
                             <button type="button" class="btn btn-primary btn-cari-obat my-4">Cari</button>
@@ -169,22 +173,15 @@
 <div class="modal fade" id="modal-cari-data" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal- modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
-             <div class="modal-header px-4">
-                <h6 class="modal-title" id="modal-title-default">Cari Data</h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span>
-                </button>
+            <div class="modal-header">
+                <h4 class="modal-title">Cari Data</h4>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-0">
                 <div class="card-body px-lg-4 py-lg-3">
-                    <form role="form" id="form-cari-data">
-                        <div class="form-group mb-3">
-                            <div class="input-group input-group-merge input-group-alternative">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="ni ni-single-copy-04"></i></span>
-                            </div>
+                    <form role="form" class="form theme-form" id="form-cari-data">
+                        <div class="form-group">
                             <input class="form-control" name="noRm" placeholder="No RM" type="text">
-                            </div>
                         </div>
                         <div class="form-group">
                             <div class="input-group input-group-merge input-group-alternative">
@@ -217,6 +214,8 @@
         </div>
     </div>
 </div>
+@endsection
+@section('page-scripts')
 <script>
     $('input').attr('autocomplete', 'off');
 
@@ -288,7 +287,7 @@
 
     $('.btn-modal-obat').click(function(e){
         e.preventDefault();
-        $('#modal-cari-obat').modal();
+        $('#modal-cari-obat').modal('show');
     });
 
     $('.btn-cari-obat').click(function(e) {
