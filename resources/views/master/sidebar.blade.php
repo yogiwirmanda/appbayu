@@ -27,6 +27,7 @@
               <li><a href="/dokter">Dokter</a></li>
               <li><a href="/pasien">Pasien</a></li>
               <li><a href="/prolanis">Prolanis</a></li>
+              <li><a href="/prb">PRB</a></li>
               <li><a href="/poli">Poli</a></li>
               <li><a href="/diagnosa">Diagnosa</a></li>
               <li><a href="/obat">Obat</a></li>
@@ -36,12 +37,6 @@
             <a class="sidebar-link" href="/kunjungan">
               <i data-feather="navigation"></i>
               <span>Kunjungan</span>
-            </a>
-          </li>
-          <li class="sidebar-list">
-            <a class="sidebar-link" href="/prb">
-              <i data-feather="shield"></i>
-              <span>PRB</span>
             </a>
           </li>
           <li class="sidebar-list">
@@ -55,12 +50,17 @@
             </ul>
           </li>
           <li class="sidebar-list">
+            <a class="sidebar-link" href="/retensi">
+              <i data-feather="shield"></i>
+              <span>Retensi</span>
+            </a>
+          </li>
+          <li class="sidebar-list">
             <a class="sidebar-link sidebar-title" href="javascript:;">
               <i data-feather="settings"></i>
               <span>Setting</span>
             </a>
             <ul class="sidebar-submenu">
-              <li><a href="/retensi">Retensi</a></li>
               <li><a href="/setting/nomor">Nomor RM</a></li>
               <li><a href="/setting/kk">Kepala Keluarga</a></li>
             </ul>
