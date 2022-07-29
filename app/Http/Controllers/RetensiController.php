@@ -6,6 +6,7 @@ use App\Models\Kunjungan;
 use App\Models\Pasien;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\DataTables;
 
 class RetensiController extends Controller
 {
@@ -16,15 +17,30 @@ class RetensiController extends Controller
 
     public function index()
     {
-        $dataRetensi = Pasien::select('kunjungans.*', 'pasiens.nama', 'pasiens.no_rm')
-                    ->join('kunjungans', 'pasiens.id', '=', 'kunjungans.id_pasien')
-                    ->where('pasiens.status_retensi', 0)
-                    ->whereRaw('year(pasiens.last_kunjungan) <= 2016')
-                    ->get();
-
         $navActive = $this->navActive;
 
-        return view('retensi.index', compact('dataRetensi', 'navActive'));
+        return view('retensi.index', compact('navActive'));
+    }
+
+    public function dtAjax(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = Pasien::select('kunjungans.*', 'pasiens.nama', 'pasiens.no_rm')
+                ->join('kunjungans', 'pasiens.id', '=', 'kunjungans.id_pasien')
+                ->where('pasiens.status_retensi', 0)
+                ->whereRaw('year(pasiens.last_kunjungan) <= 2016')
+                ->get();
+
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('pilih', function ($row) {
+                    return '<input type="checkbox" name="pasien[]" class="checkbox-retensi" value="'.$pasien->id_pasien.'">';
+                })
+                ->addColumn('diagnosa', function ($row) {
+                    return strlen($row->diagnosa) > 0 ? $row->diagnosa : '-';
+                })
+                ->make(true);
+        }
     }
 
     public function store(Request $request)

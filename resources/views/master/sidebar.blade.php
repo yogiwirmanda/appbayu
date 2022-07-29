@@ -60,6 +60,7 @@
               <span>Setting</span>
             </a>
             <ul class="sidebar-submenu">
+              <li><a href="/retensi">Retensi</a></li>
               <li><a href="/setting/nomor">Nomor RM</a></li>
               <li><a href="/setting/kk">Kepala Keluarga</a></li>
             </ul>

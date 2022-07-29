@@ -1,53 +1,45 @@
 @extends('master.main')
 @section('content')
-<div class="container-fluid mt--6">
+<div class="container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <h3>List Retensi</h3>
+            </div>
+            <div class="col-12 col-sm-6">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/home"><i data-feather="home"></i></a></li>
+                    <li class="breadcrumb-item">Retensi</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header card-header-primary d-flex justify-content-between">
-                    <div class="header-pasien">
-                        <h4 class="card-title ">Data Pasien</h4>
-                        <p class="card-category"> Here is a subtitle for this table</p>
-                    </div>
                     <div class="d-flex justify-content-around align-items-center action-retensi">
-                        <a href="javascript:;" class="btn btn-danger btn-reset-retensi mr-2">Reset</a>
-                        <a href="javascript:;" class="btn btn-success btn-select-all mr-2">Select All</a>
+                        <a href="javascript:;" class="btn btn-danger btn-reset-retensi m-r-10">Reset</a>
+                        <a href="javascript:;" class="btn btn-success btn-select-all m-r-10">Select All</a>
                         <a href="javascript:;" class="btn btn-info btn-retensi">Retensi</a>
                     </div>
                 </div>
                 <form action="{{route('retensi_save')}}" method="POST" class="form-retensi">
                     @csrf
                     <div class="card-body">
-                        <div class="table-responsive py-4">
-                            <table class="table table-flush" id="datatable-basic" style="text-transform: uppercase;">
+                        <div class="table-responsive">
+                            <table class="table" id="table-list-retensi">
                                 <thead class="thead-light">
-                                    <th>Pilih</th>
                                     <th>No</th>
+                                    <th>Pilih</th>
                                     <th>No RM</th>
                                     <th>Nama Pasien</th>
                                     <th>Diagnosa</th>
                                     <th>Keterangan</th>
                                 </thead>
                                 <tbody>
-                                    @foreach($dataRetensi as $key => $pasien)
-                                    @php
-                                        $diagnosaGet = json_decode($pasien->diagnosa);
-                                    @endphp
-                                    <tr>
-                                        <td><input type="checkbox" name="pasien[]" class="checkbox-retensi" value="{{$pasien->id_pasien}}"></td>
-                                        <td>{{$key+1}}</td>
-                                        <td>{{$pasien->no_rm}}</td>
-                                        <td>{{$pasien->nama}}</td>
-                                        <td>
-                                            @if (is_array($diagnosaGet))
-                                                @foreach($diagnosaGet as $item)
-                                                    {{$item->diagnosa . ', '}}
-                                                @endforeach
-                                            @endif
-                                        </td>
-                                        <td>{{$pasien->keterangan}}</td>
-                                    </tr>
-                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -60,6 +52,38 @@
 @endsection
 @section('page-scripts')
 <script>
+    console.log($('#table-list-retensi'));
+    var table = $('#table-list-retensi').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{{ route('ajax_load_retensi') }}",
+        columns: [{
+                data: 'DT_RowIndex',
+                name: 'DT_RowIndex'
+            },
+            {
+                data: 'pilih',
+                name: 'pilih'
+            },
+            {
+                data: 'no_rm',
+                name: 'no_rm'
+            },
+            {
+                data: 'nama',
+                name: 'nama'
+            },
+            {
+                data: 'diagnosa',
+                name: 'diagnosa'
+            },
+            {
+                data: 'keterangan',
+                name: 'keterangan'
+            }
+        ]
+    });
+
     function totalChecked(){
         let count = 0;
         let elmCheckbox = $('.checkbox-retensi');

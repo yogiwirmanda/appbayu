@@ -142,6 +142,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('retensi', [RetensiController::class, 'index'])->name('retensi_index');
     Route::get('retensi/save', [RetensiController::class, 'store'])->name('retensi_save');
     Route::get('retensi/report', [RetensiController::class, 'report'])->name('retensi_report');
+    Route::get('retensi/ajaxDt', [RetensiController::class, 'dtAjax'])->name('ajax_load_retensi');
 
     Route::get('send/whatsapp/{pasienId}', [UnitTestController::class, 'send'])->name('prolanis.send');
 });
