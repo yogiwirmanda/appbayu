@@ -117,6 +117,8 @@ class LaporanController extends Controller
             $tanggal = Date('Y-m-d');
         }
 
+        $getProlanis = [];
+
         $dataLaporanKunjungan = [];
         $dataProlanisPasien = Pasien::where('status_prolanis', 1)
             ->where('keterangan_prolanis', 'Diabetes Melitus')
@@ -148,6 +150,8 @@ class LaporanController extends Controller
         if (strlen($tanggal) == 0) {
             $tanggal = Date('Y-m-d');
         }
+
+        $getProlanis = [];
 
         $dataLaporanKunjungan = [];
         $dataProlanisPasien = Pasien::where('status_prolanis', 1)

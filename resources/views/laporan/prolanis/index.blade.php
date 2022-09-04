@@ -73,11 +73,11 @@
 
     loadTable('{{$tanggal}}');
 
-    // $('.btn-submit-filter').click(function (e) {
-    //     e.preventDefault();
-    //     let tanggal = $('#tanggal').val();
-    //     let type = $('#type').val();
-    //     loadTable(type, tanggal);
-    // });
+    $('.btn-submit-filter').click(function (e) {
+        console.log('tes');
+        e.preventDefault();
+        let tanggal = $('#tanggal').val();
+        loadTable(type, tanggal);
+    });
 </script>
 @endsection

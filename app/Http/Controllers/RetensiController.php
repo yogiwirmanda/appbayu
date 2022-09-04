@@ -25,10 +25,12 @@ class RetensiController extends Controller
     public function dtAjax(Request $request)
     {
         if ($request->ajax()) {
+            $year = Date('Y');
+            $yearRetensi = $year - 2;
             $data = Pasien::select('kunjungans.*', 'pasiens.nama', 'pasiens.no_rm')
                 ->join('kunjungans', 'pasiens.id', '=', 'kunjungans.id_pasien')
                 ->where('pasiens.status_retensi', 0)
-                ->whereRaw('year(pasiens.last_kunjungan) <= 2016')
+                ->whereRaw('year(pasiens.last_kunjungan) <= ' . $yearRetensi)
                 ->get();
 
             return DataTables::of($data)

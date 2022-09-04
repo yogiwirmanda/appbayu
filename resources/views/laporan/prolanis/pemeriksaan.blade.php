@@ -16,6 +16,7 @@
     </div>
 </div>
 <div class="container-fluid">
+    <input type="hidden" name="type" id="type" value="dm">
     <div class="card">
         <div class="card-body">
             <div class="col-6 d-flex justify-content-around m-b-10">
@@ -49,9 +50,12 @@
 <script>
     $('.btn-submit-filter').click(function (e) {
         e.preventDefault();
-        let tanggal = $('#tanggal').val();
         let type = $('#type').val();
-        // window.location.href = '/laporan/klpcm/' + type + '/' + tanggal;
+        if (type == 'dm'){
+            loadDM();
+        } else {
+            loadHT();
+        }
     });
 
     function loadDM(){
@@ -83,11 +87,13 @@
     loadDM();
 
     $('.btn-load-dm').click(function(e){
+        $('#type').val('dm');
         $('.nav-link').removeClass('active');
         $(this).addClass('active');
         loadDM();
     });
     $('.btn-load-ht').click(function(e){
+        $('#type').val('ht');
         $('.nav-link').removeClass('active');
         $(this).addClass('active');
         loadHT();

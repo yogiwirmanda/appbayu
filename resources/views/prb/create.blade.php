@@ -18,6 +18,9 @@
 <div class="container-fluid mt--6">
     <div class="card mb-4">
         <div class="card-body">
+            <div class="form-group align-items-center m-b-10">
+                <a href="javascript:;" class="btn btn-pill btn-primary btn-modal-cari">Cari Data</a>
+            </div>
             <form action="{{route('save_prb')}}" id="form-prb" class="form theme-form" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="idPasien" id="idPasien">
@@ -170,47 +173,41 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="modal-cari-data" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog modal- modal-dialog-centered modal-lg" role="document">
+<div class="modal fade bd-example-modal-lg" id="modal-cari-data" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Cari Data</h4>
                 <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body p-0">
-                <div class="card-body px-lg-4 py-lg-3">
-                    <form role="form" class="form theme-form" id="form-cari-data">
-                        <div class="form-group">
-                            <input class="form-control" name="noRm" placeholder="No RM" type="text">
-                        </div>
-                        <div class="form-group">
-                            <div class="input-group input-group-merge input-group-alternative">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="ni ni-single-02"></i></span>
-                            </div>
-                            <input class="form-control" name="namaPasien" placeholder="Nama Pasien" type="text">
-                            </div>
-                        </div>
-                        <div class="text-left">
-                            <button type="button" class="btn btn-primary btn-cari-data my-4">Cari</button>
-                        </div>
-                    </form>
+            <div class="modal-body">
+                <form role="form" id="form-cari-data" class="form form-theme">
+                    <div class="form-group mb-3">
+                        <input class="form-control" name="noRm" placeholder="No RM" type="text">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" name="namaKK" placeholder="Nama KK" type="text">
+                    </div>
+                    <div class="text-left">
+                        <button type="button" class="btn btn-primary btn-cari-data my-4">Cari</button>
+                    </div>
+                </form>
+                <div class="table-responsive">
                     <table class="table table-flush table-cari-data" id="datatable-basic">
                         <thead class="thead-light">
-                        <tr>
-                            <th>No</th>
-                            <th>No RM</th>
-                            <th>Nama</th>
-                            <th>Alamat</th>
-                            <th>Action</th>
-                        </tr>
+                            <tr>
+                                <th>No</th>
+                                <th>No RM</th>
+                                <th>Nama</th>
+                                <th>Alamat</th>
+                                <th>Action</th>
+                            </tr>
                         </thead>
                         <tbody>
                         </tbody>
                     </table>
                 </div>
             </div>
-        </div>
         </div>
     </div>
 </div>
@@ -340,6 +337,10 @@
         PRC.disabledValidation();
         let form = $(this);
         PRC.ajaxSubmit(form, '/prb');
+    });
+
+    $('.btn-modal-cari').click(function (e) {
+        $('#modal-cari-data').modal('show');
     });
 </script>
 @endsection

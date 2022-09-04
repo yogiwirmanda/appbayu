@@ -43,6 +43,16 @@ class KunjunganController extends Controller
 
             return DataTables::of($dataKunjungan)
                 ->addIndexColumn()
+                ->addColumn('nama', function ($row) {
+                    $html = '<div>'.$row->nama.'</div>';
+                    if ($row->status_prolanis == 1) {
+                        $html .= '<span class="badge badge-danger">Prolanis</span>';
+                    }
+                    if ($row->status_prb == 1) {
+                        $html .= '<span class="badge badge-info">Prb</span>';
+                    }
+                    return $html;
+                })
                 ->addColumn('action', function ($row) {
                     $urlKelengkapan = route('kunjungan_klpcm', $row->kunjunganId);
                     $urlDetail = route("klpcm_index", $row->kunjunganId);
@@ -55,7 +65,7 @@ class KunjunganController extends Controller
                     $actionBtn .= '</div>';
                     return $actionBtn;
                 })
-                ->rawColumns(['action'])
+                ->rawColumns(['action', 'nama'])
                 ->make(true);
         }
     }
