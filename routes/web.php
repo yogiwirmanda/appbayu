@@ -129,6 +129,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('laporan/prolanis', [LaporanController::class, 'prolanis'])->name('laporan_prolanis');
     Route::get('laporan/prolanis/dtAjax', [LaporanController::class, 'dtAjaxProlanis'])->name('ajax_load_laporan_prolanis');
 
+    Route::get('laporan/kunjungan', [LaporanController::class, 'kunjungan'])->name('laporan_kunjungan');
+
     Route::get('laporan/pemeriksaan', [LaporanController::class, 'pemeriksaan'])->name('laporan_pemeriksaan');
     Route::get('laporan/pemeriksaan/dm', [LaporanController::class, 'pemeriksaanDM'])->name('laporan_pemeriksaan_dm');
     Route::get('laporan/pemeriksaan/ht', [LaporanController::class, 'pemeriksaanHT'])->name('laporan_pemeriksaan_ht');

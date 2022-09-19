@@ -47,6 +47,8 @@
             <ul class="sidebar-submenu">
               <li><a href="/laporan/prolanis">Prolanis</a></li>
               <li><a href="/laporan/pemeriksaan">Pemeriksaan</a></li>
+              <li><a href="/laporan/klpcm">KLPCM</a></li>
+              <li><a href="/laporan/kunjungan">Kunjungan</a></li>
             </ul>
           </li>
           <li class="sidebar-list">

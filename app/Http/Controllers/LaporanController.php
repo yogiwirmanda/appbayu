@@ -177,4 +177,57 @@ class LaporanController extends Controller
             'html' => view('laporan.prolanis.pemeriksaan-ht', compact('dataLaporanKunjungan', 'type', 'tanggal', 'navActive'))->render()
         ]);
     }
+
+    private function getDataFromAge($yearStart, $yearEnd, $dateKunjungan)
+    {
+        $data = Kunjungan::select(DB::raw('SUM(CASE WHEN p.jk = "L" then 1 ELSE 0 END) as male, SUM(CASE WHEN p.jk = "P" then 1 ELSE 0 END) as female'))
+            ->whereYear('p.tgl_lahir', '>=', $yearStart)
+            ->whereYear('p.tgl_lahir', '<=', $yearEnd)
+            ->whereDate('kunjungans.created_at', $dateKunjungan)
+            ->join('pasiens as p', 'kunjungans.id_pasien', 'p.id')
+            ->groupBy('p.id')
+            ->first();
+
+        return $data;
+    }
+
+    private function getDataFromModel($result, $key, $defaultValue = [])
+    {
+        $resultValue = $defaultValue;
+        if ($result != null) {
+            $resultValue = (int) $result->{$key};
+        }
+        return $resultValue;
+    }
+
+    public function kunjungan()
+    {
+        $navActive = $this->navActive;
+        $dataReturn = [];
+        $yearNow = Date('Y');
+        $monthNow = Date('m');
+        $totalDayInMonth = cal_days_in_month(CAL_GREGORIAN, $monthNow, $yearNow);
+
+        for ($i=1; $i < $totalDayInMonth; $i++) {
+            $age6Start = $yearNow - 6;
+            $age55Start = $yearNow - 55;
+            $ageMoreThan60 = $yearNow - 60;
+            $dateKunjungan = $yearNow . '-' . $monthNow . '-' . $i;
+            $age6List = self::getDataFromAge($age6Start, $yearNow, $dateKunjungan);
+            $age6Between55List = self::getDataFromAge($age55Start, $age6Start, $dateKunjungan);
+            $ageMoreThan60 = self::getDataFromAge($ageMoreThan60, 1900, $dateKunjungan);
+
+            $tempArr = [];
+            $tempArr['below6Male'] = self::getDataFromModel($age6List, 'male', 0);
+            $tempArr['below6Female'] = self::getDataFromModel($age6List, 'female', 0);
+            $tempArr['below6Between55Male'] = self::getDataFromModel($age6Between55List, 'male', 0);
+            $tempArr['below6Between55Female'] = self::getDataFromModel($age6Between55List, 'female', 0);
+            $tempArr['moreThan60Male'] = self::getDataFromModel($ageMoreThan60, 'male', 0);
+            $tempArr['moreThan60Female'] = self::getDataFromModel($ageMoreThan60, 'female', 0);
+            $tempArr['total'] = $tempArr['below6Male'] + $tempArr['below6Female'] + $tempArr['below6Between55Male'] + $tempArr['below6Between55Female'] + $tempArr['moreThan60Male'] + $tempArr['moreThan60Female'];
+            $dataReturn[] = $tempArr;
+        }
+
+        return view('laporan.kunjungan.bulanan', compact('navActive', 'dataReturn'));
+    }
 }

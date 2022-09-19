@@ -1,65 +1,74 @@
 @extends('master.main')
 @section('content')
-<div class="container-fluid mt--6">
+<div class="container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <h3>Laporan KLPCM</h3>
+            </div>
+            <div class="col-12 col-sm-6">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/home"> <i data-feather="home"></i></a></li>
+                    <li class="breadcrumb-item">Laporan KLPCM</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
     <input type="hidden" name="type" id="type" value="{{$type}}">
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-header">
-                    <h3 class="mb-0">Filter Tanggal</h3>
-                </div>
-                <div class="card-body table-full-width table-responsive">
-                    <div class="col-6 d-flex justify-content-around">
-                        <input type="date" name="tanggal" id="tanggal" class="form-control" value="{{$tanggal}}">
-                        <a href="javascript:;" class="btn btn-info btn-fill pull-right btn-submit-filter ml-2">Filter</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <div class="card">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-8 text-left">
-                            <h3 class="mb-0">Klpcm {{ucfirst($type)}} Per Poli</h3>
-                            <p class="text-sm mb-0">
-                                This is an exmaple of datatable using the well known datatables.net plugin.
-                            </p>
+                <div class="card-body">
+                    <div class="row m-b-20">
+                        <div class="col-md-12">
+                            <div class="col-6 d-flex justify-content-around">
+                                <input type="date" name="tanggal" id="tanggal" class="form-control"
+                                    value="{{$tanggal}}">
+                                <a href="javascript:;" class="btn btn-info btn-fill pull-right btn-submit-filter m-l-10">Filter</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="table-responsive py-4">
-                    <table class="table table-flush" id="datatable-basic-with-export" style="text-transform: uppercase;">
-                        <thead>
-                            <th>No</th>
-                            <th>Nama Ruang</th>
-                            <th>Lengkap</th>
-                            <th>Tidak Lengkap</th>
-                        </thead>
-                        <tbody>
-                            @foreach($dataLaporan as $key => $data)
-                            <tr>
-                                <td>{{$key + 1}}</td>
-                                <td>{{'POLI '.$data['namaPoli']}}</td>
-                                <td>{{$data['totalPasienLengkap'].'%'}}</td>
-                                <td>{{$data['totalPasienTidakLengkap'].'%'}}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-flush" id="datatable-basic-with-export"
+                                    style="text-transform: uppercase;">
+                                    <thead>
+                                        <th>No</th>
+                                        <th>Nama Ruang</th>
+                                        <th>Lengkap</th>
+                                        <th>Tidak Lengkap</th>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($dataLaporan as $key => $data)
+                                        <tr>
+                                            <td>{{$key + 1}}</td>
+                                            <td>{{'POLI '.$data['namaPoli']}}</td>
+                                            <td>{{$data['totalPasienLengkap'].'%'}}</td>
+                                            <td>{{$data['totalPasienTidakLengkap'].'%'}}</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+@endsection
+@section('page-scripts')
 <script>
     $('.btn-submit-filter').click(function (e) {
         e.preventDefault();
         let tanggal = $('#tanggal').val();
         let type = $('#type').val();
-        window.location.href = '/laporan/klpcm/'+type+'/'+tanggal;
+        window.location.href = '/laporan/klpcm/' + type + '/' + tanggal;
     });
+
 </script>
 @endsection
