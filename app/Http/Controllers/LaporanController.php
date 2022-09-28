@@ -180,7 +180,7 @@ class LaporanController extends Controller
 
     private function getDataFromAge($yearStart, $yearEnd, $dateKunjungan)
     {
-        $data = Kunjungan::select(DB::raw('SUM(CASE WHEN p.jk = "L" then 1 ELSE 0 END) as male, SUM(CASE WHEN p.jk = "P" then 1 ELSE 0 END) as female, SUM(kunjungans.id) as total'))
+        $data = Kunjungan::select(DB::raw('SUM(CASE WHEN p.jk = "L" then 1 ELSE 0 END) as male, SUM(CASE WHEN p.jk = "P" then 1 ELSE 0 END) as female, count(p.id) as total'))
             ->whereYear('p.tgl_lahir', '>=', $yearStart)
             ->whereYear('p.tgl_lahir', '<=', $yearEnd)
             ->whereDate('kunjungans.created_at', $dateKunjungan)
@@ -193,7 +193,7 @@ class LaporanController extends Controller
 
     private function getDataFromBayar($dateKunjungan, $type)
     {
-        $data = Kunjungan::select(DB::raw('SUM(CASE WHEN p.jk = "L" then 1 ELSE 0 END) as male, SUM(CASE WHEN p.jk = "P" then 1 ELSE 0 END) as female, SUM(kunjungans.id) as total'))
+        $data = Kunjungan::select(DB::raw('SUM(CASE WHEN p.jk = "L" then 1 ELSE 0 END) as male, SUM(CASE WHEN p.jk = "P" then 1 ELSE 0 END) as female, count(p.id) as total'))
             ->join('pasiens as p', 'kunjungans.id_pasien', 'p.id')
             ->where('p.cara_bayar', $type)
             ->whereDate('kunjungans.created_at', $dateKunjungan)
@@ -205,7 +205,7 @@ class LaporanController extends Controller
 
     private function getDataFromPoli($dateKunjungan, $idPoli)
     {
-        $data = Kunjungan::select(DB::raw('SUM(CASE WHEN p.jk = "L" then 1 ELSE 0 END) as male, SUM(CASE WHEN p.jk = "P" then 1 ELSE 0 END) as female, SUM(kunjungans.id) as total'))
+        $data = Kunjungan::select(DB::raw('SUM(CASE WHEN p.jk = "L" then 1 ELSE 0 END) as male, SUM(CASE WHEN p.jk = "P" then 1 ELSE 0 END) as female, count(p.id) as total'))
             ->join('pasiens as p', 'kunjungans.id_pasien', 'p.id')
             ->where('kunjungans.id_poli', $idPoli)
             ->whereDate('kunjungans.created_at', $dateKunjungan)
