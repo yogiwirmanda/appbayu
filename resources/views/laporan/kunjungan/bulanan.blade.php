@@ -31,8 +31,25 @@
                                             <th colspan="2"><?php echo "Usia 6-55 TH" ?></th>
                                             <th colspan="2"><?php echo "Usia >=60 TH" ?></th>
                                             <th rowspan="2">Total</th>
+                                            <th colspan="2"><?php echo "UMUM" ?></th>
+                                            <th colspan="2"><?php echo "BPJS" ?></th>
+                                            <th rowspan="2">Total</th>
+                                            <th colspan="2"><?php echo "UMUM" ?></th>
+                                            <th colspan="2"><?php echo "KIA" ?></th>
+                                            <th colspan="2"><?php echo "GIGI" ?></th>
+                                            <th rowspan="2">Total</th>
                                         </tr>
                                         <tr>
+                                            <th>L</th>
+                                            <th>P</th>
+                                            <th>L</th>
+                                            <th>P</th>
+                                            <th>L</th>
+                                            <th>P</th>
+                                            <th>L</th>
+                                            <th>P</th>
+                                            <th>L</th>
+                                            <th>P</th>
                                             <th>L</th>
                                             <th>P</th>
                                             <th>L</th>
@@ -52,6 +69,18 @@
                                             <td>{{$val['moreThan60Male']}}</td>
                                             <td>{{$val['moreThan60Male']}}</td>
                                             <td>{{$val['total']}}</td>
+                                            <td>{{$val['umumMale']}}</td>
+                                            <td>{{$val['umumFemale']}}</td>
+                                            <td>{{$val['bpjsMale']}}</td>
+                                            <td>{{$val['bpjsFemale']}}</td>
+                                            <td>{{$val['totalCaraBayar']}}</td>
+                                            <td>{{$val['poliUmumMale']}}</td>
+                                            <td>{{$val['poliUmumFemale']}}</td>
+                                            <td>{{$val['poliKiaMale']}}</td>
+                                            <td>{{$val['poliKiaFemale']}}</td>
+                                            <td>{{$val['poliGigiMale']}}</td>
+                                            <td>{{$val['poliGigiFemale']}}</td>
+                                            <td>{{$val['totalPoli']}}</td>
                                         </tr>
                                         @endforeach
                                     </tbody>
