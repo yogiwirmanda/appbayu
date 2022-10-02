@@ -215,6 +215,30 @@ class LaporanController extends Controller
         return $data;
     }
 
+    private function getDataFromPoliByBayar($dateKunjungan, $idPoli)
+    {
+        $data = Kunjungan::select(DB::raw('SUM(CASE WHEN p.cara_bayar = "UMUM" then 1 ELSE 0 END) as umum, SUM(CASE WHEN p.cara_bayar = "BPJS" then 1 ELSE 0 END) as bpjs, count(p.id) as total'))
+            ->join('pasiens as p', 'kunjungans.id_pasien', 'p.id')
+            ->where('kunjungans.id_poli', $idPoli)
+            ->whereDate('kunjungans.created_at', $dateKunjungan)
+            ->groupBy('p.id')
+            ->first();
+
+        return $data;
+    }
+
+    private function getDataRujuk($dateKunjungan)
+    {
+        $data = Kunjungan::select(DB::raw('count(klpcm.id) as total'))
+            ->join('pasiens as p', 'kunjungans.id_pasien', 'p.id')
+            ->join('klpcms as klpcm', 'kunjungans.id', 'klpcm.id_kunjungan')
+            ->whereDate('kunjungans.created_at', $dateKunjungan)
+            ->groupBy('p.id')
+            ->first();
+
+        return $data;
+    }
+
     private function getDataFromModel($result, $key, $defaultValue = [])
     {
         $resultValue = $defaultValue;
@@ -245,6 +269,10 @@ class LaporanController extends Controller
             $poliUmum = self::getDataFromPoli($dateKunjungan, 1);
             $poliKia = self::getDataFromPoli($dateKunjungan, 3);
             $poliGigi = self::getDataFromPoli($dateKunjungan, 4);
+            $poliUmumBayar = self::getDataFromPoliByBayar($dateKunjungan, 1);
+            $poliKiaBayar = self::getDataFromPoliByBayar($dateKunjungan, 3);
+            $poliGigiBayar = self::getDataFromPoliByBayar($dateKunjungan, 4);
+            $rujuk = self::getDataRujuk($dateKunjungan);
 
             $tempArr = [];
             $tempArr['below6Male'] = self::getDataFromModel($age6List, 'male', 0);
@@ -266,6 +294,14 @@ class LaporanController extends Controller
             $tempArr['poliGigiMale'] = self::getDataFromModel($poliGigi, 'male', 0);
             $tempArr['poliGigiFemale'] = self::getDataFromModel($poliGigi, 'female', 0);
             $tempArr['totalPoli'] = self::getDataFromModel($poliGigi, 'total', 0) + self::getDataFromModel($poliKia, 'total', 0) + self::getDataFromModel($poliGigi, 'total', 0);
+            $tempArr['poliUmumUmum'] = self::getDataFromModel($poliUmumBayar, 'umum', 0);
+            $tempArr['poliUmumBpjs'] = self::getDataFromModel($poliUmumBayar, 'bpjs', 0);
+            $tempArr['poliKiaUmum'] = self::getDataFromModel($poliKiaBayar, 'umum', 0);
+            $tempArr['poliKiaBpjs'] = self::getDataFromModel($poliKiaBayar, 'bpjs', 0);
+            $tempArr['poliGigiUmum'] = self::getDataFromModel($poliGigiBayar, 'umum', 0);
+            $tempArr['poliGigiBpjs'] = self::getDataFromModel($poliGigiBayar, 'bpjs', 0);
+            $tempArr['totalPoliBayar'] = self::getDataFromModel($poliGigiBayar, 'total', 0) + self::getDataFromModel($poliKiaBayar, 'total', 0) + self::getDataFromModel($poliGigiBayar, 'total', 0);
+            $tempArr['totalRujuk'] = self::getDataFromModel($rujuk, 'total', 0);
             $dataReturn[] = $tempArr;
         }
 

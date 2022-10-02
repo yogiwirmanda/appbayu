@@ -38,6 +38,11 @@
                                             <th colspan="2"><?php echo "KIA" ?></th>
                                             <th colspan="2"><?php echo "GIGI" ?></th>
                                             <th rowspan="2">Total</th>
+                                            <th colspan="2"><?php echo "UMUM" ?></th>
+                                            <th colspan="2"><?php echo "KIA" ?></th>
+                                            <th colspan="2"><?php echo "GIGI" ?></th>
+                                            <th rowspan="2">Total</th>
+                                            <th rowspan="2">Dirujuk</th>
                                         </tr>
                                         <tr>
                                             <th>L</th>
@@ -56,6 +61,12 @@
                                             <th>P</th>
                                             <th>L</th>
                                             <th>P</th>
+                                            <th>UMUM</th>
+                                            <th>BPJS</th>
+                                            <th>UMUM</th>
+                                            <th>BPJS</th>
+                                            <th>UMUM</th>
+                                            <th>BPJS</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -81,6 +92,14 @@
                                             <td>{{$val['poliGigiMale']}}</td>
                                             <td>{{$val['poliGigiFemale']}}</td>
                                             <td>{{$val['totalPoli']}}</td>
+                                            <td>{{$val['poliUmumUmum']}}</td>
+                                            <td>{{$val['poliUmumBpjs']}}</td>
+                                            <td>{{$val['poliKiaUmum']}}</td>
+                                            <td>{{$val['poliKiaBpjs']}}</td>
+                                            <td>{{$val['poliGigiUmum']}}</td>
+                                            <td>{{$val['poliGigiBpjs']}}</td>
+                                            <td>{{$val['totalPoliBayar']}}</td>
+                                            <td>{{$val['totalRujuk']}}</td>
                                         </tr>
                                         @endforeach
                                     </tbody>
