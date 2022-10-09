@@ -113,7 +113,6 @@ class PasienController extends Controller
         } else {
             $wilayah = self::generateWilayah($request->villages);
             $kategori = 'U';
-            $lastRm = '';
             $pendatang = $request->pendatang;
 
             if ($request->umur >= 60) {
@@ -121,6 +120,7 @@ class PasienController extends Controller
             }
 
             $kodeKategori = self::checkKategoriPasien($request->umur);
+            $lastRm = self::checkUsedRm($wilayah, $kodeKategori);
             $noRm = $request->noRm;
             if (strlen($noRm) == 0 && strlen($pendatang == null)) {
                 $checkUsedRM = self::checkUsedRm($wilayah, $kodeKategori);
@@ -131,7 +131,9 @@ class PasienController extends Controller
                     $noRm = self::generateRmUsed($checkUsedRM, $wilayah, $kategori);
                     $lastRm = $checkUsedRM;
                 }
-            } else {
+            }
+
+            if ($pendatang != null) {
                 $noRm = self::generateRMPendatang($request->nama, $kategori);
                 $lastRm = self::lastRmPendatang();
             }
@@ -173,7 +175,7 @@ class PasienController extends Controller
         }
 
         return response()->json(
-            ['error'=> $error, 'messages'=>'Pasien berhasil di tambahkan'],
+            ['error'=> $error, 'messages'=>'Pasien berhasil di tambahkan', 'dataId' => $modelPasien->id],
         );
     }
 

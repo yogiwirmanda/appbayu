@@ -24,6 +24,7 @@
                     <form class="form theme-form" method="post" action="{{route('kunjungan_pasien_save')}}"
                         enctype="multipart/form-data" id="formKunjungan">
                         @csrf
+                        <input type="hidden" name="type" value="{{$type}}">
                         <input type="hidden" name="id_pasien" value="{{$idPasien}}">
                         <input type="hidden" name="tanggal" value="{{date('Y-m-d')}}">
                         <input type="hidden" name="caraBayar" value="{{$dataPasien->cara_bayar}}">

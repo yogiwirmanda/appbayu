@@ -248,6 +248,30 @@ class LaporanController extends Controller
         return $resultValue;
     }
 
+    private function getDataFromKunjunganBaru($dateKunjungan)
+    {
+        $data = Kunjungan::select(DB::raw('SUM(CASE WHEN p.jk = "L" then 1 ELSE 0 END) as male, SUM(CASE WHEN p.jk = "P" then 1 ELSE 0 END) as female, count(p.id) as total'))
+            ->where('kunjungans.type', 1)
+            ->whereDate('kunjungans.created_at', $dateKunjungan)
+            ->join('pasiens as p', 'kunjungans.id_pasien', 'p.id')
+            ->groupBy('p.id')
+            ->first();
+
+        return $data;
+    }
+
+    private function getDataFromKunjunganLama($dateKunjungan)
+    {
+        $data = Kunjungan::select(DB::raw('SUM(CASE WHEN p.jk = "L" then 1 ELSE 0 END) as male, SUM(CASE WHEN p.jk = "P" then 1 ELSE 0 END) as female, count(p.id) as total'))
+            ->where('kunjungans.type', 0)
+            ->whereDate('kunjungans.created_at', $dateKunjungan)
+            ->join('pasiens as p', 'kunjungans.id_pasien', 'p.id')
+            ->groupBy('p.id')
+            ->first();
+
+        return $data;
+    }
+
     public function kunjungan()
     {
         $navActive = $this->navActive;
@@ -273,8 +297,14 @@ class LaporanController extends Controller
             $poliKiaBayar = self::getDataFromPoliByBayar($dateKunjungan, 3);
             $poliGigiBayar = self::getDataFromPoliByBayar($dateKunjungan, 4);
             $rujuk = self::getDataRujuk($dateKunjungan);
+            $kunjunganBaru = self::getDataFromKunjunganBaru($dateKunjungan);
+            $kunjunganLama = self::getDataFromKunjunganLama($dateKunjungan);
 
             $tempArr = [];
+            $tempArr['kunjunganBaruMale'] = self::getDataFromModel($kunjunganBaru, 'male', 0);
+            $tempArr['kunjunganBaruFemale'] = self::getDataFromModel($kunjunganBaru, 'female', 0);
+            $tempArr['kunjunganLamaMale'] = self::getDataFromModel($kunjunganLama, 'male', 0);
+            $tempArr['kunjunganLamaFemale'] = self::getDataFromModel($kunjunganLama, 'female', 0);
             $tempArr['below6Male'] = self::getDataFromModel($age6List, 'male', 0);
             $tempArr['below6Female'] = self::getDataFromModel($age6List, 'female', 0);
             $tempArr['below6Between55Male'] = self::getDataFromModel($age6Between55List, 'male', 0);

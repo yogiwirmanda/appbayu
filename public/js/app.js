@@ -8,7 +8,7 @@
 // }
 
 PRC = {
-    ajaxSubmit : function(form, redirectUrl){
+    ajaxSubmit : function(form, redirectUrl, pasien = false){
         form.find('.btn').attr('disabled', 'disabled');
         $.ajax({
             url : form.attr('action'),
@@ -26,9 +26,15 @@ PRC = {
                 } else {
                     let messages = response.messages;
                     $.notify(messages, 'success');
-                    setTimeout(() => {
-                        window.location.href = redirectUrl;
-                    }, 1000);
+                    if (pasien != false){
+                        setTimeout(() => {
+                            window.location.href = redirectUrl + '/' + response.dataId + '/baru';
+                        }, 1000);
+                    } else {
+                        setTimeout(() => {
+                            window.location.href = redirectUrl;
+                        }, 1000);
+                    }
                 }
                 HoldOn.close();
             }

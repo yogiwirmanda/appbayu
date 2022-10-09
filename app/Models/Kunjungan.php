@@ -21,6 +21,7 @@ class Kunjungan extends Model
         'gdp',
         'hba1c',
         'kontrol',
-        'kimia_darah'
+        'kimia_darah',
+        'type'
     ];
 }

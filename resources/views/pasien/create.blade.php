@@ -746,7 +746,7 @@
         e.preventDefault();
         PRC.disabledValidation();
         let form = $(this);
-        PRC.ajaxSubmit(form, '/pasien');
+        PRC.ajaxSubmit(form, '/kunjungan/create', true);
     });
 
     $('.btn-cari-data').click(function (e) {

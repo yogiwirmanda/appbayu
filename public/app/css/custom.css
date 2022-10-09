@@ -1,3 +1,16 @@
 .page-wrapper.compact-wrapper .page-body-wrapper div.sidebar-wrapper .sidebar-main .simplebar-offset{
     height: 100% !important;
 }
+.table-laporan-kunjungan th{
+    border: 1px solid black;
+    vertical-align: middle;
+    border-bottom : 1px solid black !important;
+    border-color : black !important;
+}
+
+.table-laporan-kunjungan td{
+    border: 1px solid black;
+    vertical-align: middle;
+    border-bottom : 1px solid black !important;
+    border-color : black !important;
+}

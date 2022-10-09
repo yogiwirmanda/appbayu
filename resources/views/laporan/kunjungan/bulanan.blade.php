@@ -23,10 +23,12 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="table-responsive">
-                                <table class="table table-flush text-center">
+                                <table class="table table-flush text-center table-laporan-kunjungan">
                                     <thead>
                                         <tr>
                                             <th rowspan="2">Tanggal</th>
+                                            <th colspan="2">Kunjungan Baru</th>
+                                            <th colspan="2">Kunjungan Lama</th>
                                             <th colspan="2"><?php echo "Usia <6 TH" ?></th>
                                             <th colspan="2"><?php echo "Usia 6-55 TH" ?></th>
                                             <th colspan="2"><?php echo "Usia >=60 TH" ?></th>
@@ -61,6 +63,10 @@
                                             <th>P</th>
                                             <th>L</th>
                                             <th>P</th>
+                                            <th>L</th>
+                                            <th>P</th>
+                                            <th>L</th>
+                                            <th>P</th>
                                             <th>UMUM</th>
                                             <th>BPJS</th>
                                             <th>UMUM</th>
@@ -73,6 +79,10 @@
                                         @foreach($dataReturn as $key => $val)
                                         <tr>
                                             <td>{{$key + 1}}</td>
+                                            <td>{{$val['kunjunganBaruMale']}}</td>
+                                            <td>{{$val['kunjunganBaruFemale']}}</td>
+                                            <td>{{$val['kunjunganLamaMale']}}</td>
+                                            <td>{{$val['kunjunganLamaFemale']}}</td>
                                             <td>{{$val['below6Male']}}</td>
                                             <td>{{$val['below6Female']}}</td>
                                             <td>{{$val['below6Between55Male']}}</td>

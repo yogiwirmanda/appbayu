@@ -70,13 +70,14 @@ class KunjunganController extends Controller
         }
     }
 
-    public function create($idPasien)
+    public function create($idPasien = '', $type = 0)
     {
         $navActive = $this->navActive;
         $title = "Kunjungan Pasien";
         $dataPasien = Pasien::find($idPasien);
         $dataPoli = Poli::all();
-        return view('kunjungan.kunjungan', compact('title', 'dataPasien', 'dataPoli', 'idPasien', 'navActive'));
+        $type = (int) $type;
+        return view('kunjungan.kunjungan', compact('title', 'dataPasien', 'dataPoli', 'idPasien', 'type', 'navActive'));
     }
 
 
@@ -89,6 +90,7 @@ class KunjunganController extends Controller
             'tanggal' => $request->get('tanggal'),
             'bayar' => $request->get('caraBayar'),
             'no_bpjs' => $request->get('noBpjs'),
+            'type' => $request->get('type'),
             'is_edit' => 0,
         ]);
         $kunjungans->save();

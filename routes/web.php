@@ -50,7 +50,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('regency/check/villages', [RegencyController::class, 'getDataVillages'])->name('load_data_villages');
 
     Route::get('kunjungan', [KunjunganController::class, 'index'])->name('kunjungan_pasien');
-    Route::get('kunjungan/create/{param}', [KunjunganController::class, 'create'])->name('kunjungan_pasien_create');
+    Route::get('kunjungan/create/{param}/{type?}', [KunjunganController::class, 'create'])->name('kunjungan_pasien_create');
     Route::get('kunjungan/pasien/save', [KunjunganController::class, 'store'])->name('kunjungan_pasien_save');
     Route::get('kunjungans/klpcm/{param}', [KunjunganController::class, 'klpcm'])->name('kunjungan_klpcm');
     Route::get('kunjungans/harian/{param}', [KunjunganController::class, 'index'])->name('kunjunganHarian');
