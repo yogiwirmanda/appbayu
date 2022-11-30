@@ -130,6 +130,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('laporan/prolanis/dtAjax', [LaporanController::class, 'dtAjaxProlanis'])->name('ajax_load_laporan_prolanis');
 
     Route::get('laporan/kunjungan', [LaporanController::class, 'kunjungan'])->name('laporan_kunjungan');
+    Route::get('laporan/lb1', [LaporanController::class, 'lb1'])->name('laporan_lb1');
 
     Route::get('laporan/pemeriksaan', [LaporanController::class, 'pemeriksaan'])->name('laporan_pemeriksaan');
     Route::get('laporan/pemeriksaan/dm', [LaporanController::class, 'pemeriksaanDM'])->name('laporan_pemeriksaan_dm');

@@ -44,7 +44,7 @@ class PasienController extends Controller
                     $tglLahir = date_create($row->tgl_lahir);
                     $dateNow = date_create(Date('Y-m-d'));
                     $dateDiff = date_diff($tglLahir, $dateNow);
-                    return $dateDiff->y;
+                    return $dateDiff->y . ' Tahun '. $dateDiff->m. ' Bulan '. $dateDiff->d . ' Hari';
                 })
                 ->addColumn('action', function ($row) {
                     $urlKunjungan = route('kunjungan_pasien_create', $row->id);

@@ -61,7 +61,8 @@
             },
             {
                 data: 'nama',
-                name: 'nama'
+                name: 'nama',
+                class : 'no-uppercase'
             },
             {
                 data: 'nip',

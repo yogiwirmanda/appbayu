@@ -22,6 +22,7 @@ class Kunjungan extends Model
         'hba1c',
         'kontrol',
         'kimia_darah',
-        'type'
+        'type',
+        'jenis_kasus'
     ];
 }

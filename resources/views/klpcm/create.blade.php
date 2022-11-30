@@ -153,8 +153,8 @@ $umur = $yearNow - $yearPasien;
                                         <div class="form-group">
                                             <label class="col-form-label">Jenis Kasus</label>
                                             <select name="jenis_kasus" id="jenis_kasus" class="form-control">
-                                                <option value="lama">Lama</option>
-                                                <option value="baru">Baru</option>
+                                                <option value="0">Lama</option>
+                                                <option value="1">Baru</option>
                                             </select>
                                         </div>
                                     </div>

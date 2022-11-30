@@ -76,8 +76,12 @@ class KunjunganController extends Controller
         $title = "Kunjungan Pasien";
         $dataPasien = Pasien::find($idPasien);
         $dataPoli = Poli::all();
+        $tglLahir = date_create($dataPasien->tgl_lahir);
+        $dateNow = date_create(Date('Y-m-d'));
+        $dateDiff = date_diff($tglLahir, $dateNow);
+        $umur = $dateDiff->y . ' Tahun '. $dateDiff->m. ' Bulan '. $dateDiff->d . ' Hari';
         $type = (int) $type;
-        return view('kunjungan.kunjungan', compact('title', 'dataPasien', 'dataPoli', 'idPasien', 'type', 'navActive'));
+        return view('kunjungan.kunjungan', compact('title', 'dataPasien', 'dataPoli', 'idPasien', 'type', 'umur', 'navActive'));
     }
 
 

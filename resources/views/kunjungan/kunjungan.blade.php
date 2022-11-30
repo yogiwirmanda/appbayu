@@ -36,7 +36,7 @@
                                         <div class="form-group">
                                             <label class="form-label">No RM</label>
                                             <input type="text" name="noRm" id="noRm" class="form-control"
-                                                placeholder="No RM" value="{{$dataPasien->no_rm}}" readonly>
+                                                placeholder="No RM" value="{{$dataPasien->no_rm}}" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -45,7 +45,7 @@
                                         <div class="form-group">
                                             <label class="form-label">Nama</label>
                                             <input type="text" name="nama" id="nama" class="form-control"
-                                                placeholder="No RM" value="{{$dataPasien->nama}}" readonly>
+                                                placeholder="No RM" value="{{$dataPasien->nama}}" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -54,7 +54,7 @@
                                         <div class="form-group">
                                             <label class="form-label">Alamat</label>
                                             <textarea name="alamat" id="alamat" cols="30" rows="3"
-                                                class="form-control" readonly>{{$dataPasien->alamat}}</textarea>
+                                                class="form-control" disabled>{{$dataPasien->alamat}}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -80,7 +80,7 @@
                                             <label class="form-label">Kepala Keluarga</label>
                                             <input type="text" name="kepalaKeluarga" id="kepalaKeluarga"
                                                 class="form-control" placeholder="Kepala Keluarga"
-                                                value={{$dataPasien->kepala_keluarga}} readonly>
+                                                value={{$dataPasien->kepala_keluarga}} disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -90,7 +90,7 @@
                                             <label class="form-label">Tanggal Lahir</label>
                                             <input type="text" name="tglLahir" id="tglLahir" class="form-control"
                                                 placeholder="Tanggal Lahir"
-                                                value="{{$dataPasien->tgl_lahir}}" readonly>
+                                                value="{{$dataPasien->tgl_lahir}}" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -99,7 +99,7 @@
                                         <div class="form-group">
                                             <label class="form-label">Umur</label>
                                             <input type="text" name="umur" id="umur" class="form-control"
-                                                placeholder="Umur" readonly>
+                                                placeholder="Umur" value="{{$umur}}" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -127,15 +127,6 @@
 @endsection
 @section('page-scripts')
 <script>
-    $(document).ready(function (e) {
-        var getDate = $('#tglLahir').val();
-        var getSplit = getDate.split('-');
-        var date = new Date();
-        var getYear = date.getFullYear();
-        var age = parseInt(getYear - getSplit[0]);
-        $('#umur').val(age);
-    })
-
     $('.btn-batal-kunjungan').click(function (e) {
         e.preventDefault();
         window.location.href = '/pasiens';

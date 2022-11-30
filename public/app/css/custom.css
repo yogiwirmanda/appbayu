@@ -14,3 +14,13 @@
     border-bottom : 1px solid black !important;
     border-color : black !important;
 }
+.form-control:disabled, .form-control[readonly]{
+    background-color: #e9ecef !important;
+    opacity: 1;
+}
+.no-uppercase{
+    text-transform: none !important;
+}
+.table-responsive .btn{
+    padding: 5px !important;
+}

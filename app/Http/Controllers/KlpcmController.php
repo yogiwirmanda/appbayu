@@ -119,6 +119,7 @@ class KlpcmController extends Controller
         $kunjungan->kontrol = $request->kontrol;
         $kunjungan->kimia_darah = $request->kimia_darah;
         $kunjungan->is_edit = 1;
+        $kunjungan->jenis_kasus = $request->get('jenis_kasus');
         $kunjungan->save();
 
         $pasien = Pasien::find($kunjungan->id_pasien);
