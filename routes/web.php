@@ -55,6 +55,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('kunjungans/klpcm/{param}', [KunjunganController::class, 'klpcm'])->name('kunjungan_klpcm');
     Route::get('kunjungans/harian/{param}', [KunjunganController::class, 'index'])->name('kunjunganHarian');
     Route::get('kunjungan/dtAjax', [KunjunganController::class, 'dtAjax'])->name('ajax_load_kunjungan');
+    Route::get('kunjungan/form', [KunjunganController::class, 'formKunjungan'])->name('formKunjungan');
 
     Route::get('klpcms/check/icd', [KlpcmController::class, 'checkIcd'])->name('cari_data_diagnosa');
     Route::get('klpcms/check/obat', [KlpcmController::class, 'checkObat'])->name('cari_data_obat');

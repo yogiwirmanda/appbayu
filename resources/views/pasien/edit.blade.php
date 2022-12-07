@@ -106,13 +106,13 @@
                                 <div class="form-group">
                                     <label class="form-label">Agama</label>
                                     <select name="agama" id="agama" class="form-control select2">
-                                        <option value="0" selected>Pilih Agama</option>
-                                        <option value="1">Islam</option>
-                                        <option value="2">Katolik</option>
-                                        <option value="3">Kristen</option>
-                                        <option value="4">Buddha</option>
-                                        <option value="5">Hindu</option>
-                                        <option value="6">Konghucu</option>
+                                        <option value="-" selected>Pilih Agama</option>
+                                        <option value="Islam">Islam</option>
+                                        <option value="Katolik">Katolik</option>
+                                        <option value="Kristen">Kristen</option>
+                                        <option value="Buddha">Buddha</option>
+                                        <option value="Hindu">Hindu</option>
+                                        <option value="Konghucu">Konghucu</option>
                                     </select>
                                 </div>
                             </div>
@@ -122,6 +122,7 @@
                                 <div class="form-group">
                                     <label class="form-label">Status Perkawinan</label>
                                     <select name="status_kawin" id="status_kawin" class="form-control select2">
+                                        <option value="tidak-memilih">Pilih Status</option>
                                         <option value="kawin">Kawin</option>
                                         <option value="belum">Belum Kawin</option>
                                     </select>
@@ -153,6 +154,7 @@
                                 <div class="form-group">
                                     <label class="form-label">Gol Darah</label>
                                     <select name="gol_darah" id="gol_darah" class="form-control">
+                                        <option value="-">-</option>
                                         <option value="A">A</option>
                                         <option value="AB">AB</option>
                                         <option value="B">B</option>
@@ -308,6 +310,9 @@
         var jk = '{{$pasiens->jk}}';
         var golDarah = '{{$pasiens->gol_darah}}';
         var warganegara = '{{$pasiens->kewarganegaraan}}';
+
+        console.log(agama);
+        console.log(statusKawin);
 
         $('#select-province').val(provinceSelected);
         $('#select-city').val(citySelected);

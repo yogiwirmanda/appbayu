@@ -127,7 +127,7 @@
                                         <div class="form-group">
                                             <label class="col-form-label">Agama</label>
                                             <select name="agama" id="agama" class="form-control select2">
-                                                <option value="-" selected>Pilih Agama</option>
+                                                <option value="-" selected>-</option>
                                                 <option value="Islam">Islam</option>
                                                 <option value="Katolik">Katolik</option>
                                                 <option value="Kristen">Kristen</option>
@@ -143,7 +143,7 @@
                                         <div class="form-group">
                                             <label class="col-form-label">Status Perkawinan</label>
                                             <select name="status_kawin" id="status_kawin" class="form-control select2">
-                                                <option value="tidak-memilih">Pilih Status</option>
+                                                <option value="tidak-memilih">Tidak Memilih</option>
                                                 <option value="kawin">Kawin</option>
                                                 <option value="belum">Belum Kawin</option>
                                             </select>
