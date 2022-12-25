@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Export\BuildExport;
 use App\Models\Diagnosa;
 use App\Models\Kunjungan;
 use App\Models\Pasien;
@@ -9,6 +10,7 @@ use App\Models\Poli;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
+use Excel;
 
 class LaporanController extends Controller
 {
@@ -104,11 +106,70 @@ class LaporanController extends Controller
         return $data;
     }
 
+    public function countByMonthPrb($idPasien, $month)
+    {
+        $modelKunjungan = Kunjungan::select('*')
+            ->where('id_pasien', $idPasien)
+            ->where('is_prb', 1)
+            ->whereMonth('created_at', $month)
+            ->whereYear('created_at', Date('Y'))
+            ->orderBy('created_at', 'DESC')
+            ->first();
+
+        if ($modelKunjungan) {
+            $data[$month] = 1;
+        } else {
+            $data[$month] = 0;
+        }
+
+        return $data;
+    }
+
     public function pemeriksaan()
     {
         $navActive = 'pemeriksaan';
         $tanggal = Date('Y-m-d');
         return view('laporan.prolanis.pemeriksaan', compact('navActive', 'tanggal'));
+    }
+
+    public function pemeriksaanPrb()
+    {
+        $navActive = 'pemeriksaan';
+        $tanggal = Date('Y-m-d');
+        return view('laporan.prb.pemeriksaan', compact('navActive', 'tanggal'));
+    }
+
+    public function loadPrb($type = 'harian', $tanggal = '')
+    {
+        $navActive = 'prolanis';
+        if (strlen($tanggal) == 0) {
+            $tanggal = Date('Y-m-d');
+        }
+
+        $getPrb = [];
+
+        $dataLaporanKunjungan = [];
+        $dataPrbPasien = Pasien::where('status_prb', 1)
+            ->get();
+
+        foreach ($dataPrbPasien as $prb) {
+            $getPrb[$prb->id] = [];
+            for ($i=1;$i<=12;$i++) {
+                $getCount = [];
+                $getCount = self::countByMonthPrb($prb->id, $i);
+                $getPrb[$prb->id] = array_merge($getPrb[$prb->id], $getCount);
+            }
+            $pasienBuild = [];
+            $pasienBuild['id'] = $prb->id;
+            $pasienBuild['nama'] = $prb->nama;
+            $pasienBuild['no_rm'] = $prb->no_rm;
+            $getPrb[$prb->id] = \array_merge($getPrb[$prb->id], $pasienBuild);
+        }
+
+        $dataLaporanKunjungan = $getPrb;
+        return response()->json([
+            'html' => view('laporan.prb.pemeriksaan-prb', compact('dataLaporanKunjungan', 'type', 'tanggal', 'navActive'))->render()
+        ]);
     }
 
     public function pemeriksaanDM($type = 'harian', $tanggal = '')
@@ -355,35 +416,6 @@ class LaporanController extends Controller
 
     public function lb1()
     {
-        $dataDiagnosaActive = Diagnosa::select('diagnosas.diagnosa as nama_diagnosa', 'diagnosas.kode_icd as kode_icd', 'kunjungans.*')->join('kunjungans', 'kunjungans.diagnosa_main', 'diagnosas.id')->get();
-        $dataTemp = [];
-        $endDate7 = Date('Y-m-d');
-        $startDate7 = Date('Y-m-d', strtotime(' - 7 days'));
-        $endDate28 = Date('Y-m-d', strtotime(' - 28 days'));
-        $startDate28 = Date('Y-m-d', strtotime(' - 8 days'));
-        $startDateBelow1Year = Date('Y-m-d', strtotime(' - 29 days'));
-        $endDateBelow1Year = Date('Y-m-d', strtotime(' - 1 year'));
-        $monthKunjungan = Date('m');
-        $days7AgeOld = self::getDataFromAgeByDay($startDate7, $endDate7, $monthKunjungan, 0);
-        $days7AgeNew = self::getDataFromAgeByDay($startDate7, $endDate7, $monthKunjungan, 1);
-        $days28AgeOld = self::getDataFromAgeByDay($startDate28, $endDate28, $monthKunjungan, 0);
-        $days28AgeNew = self::getDataFromAgeByDay($startDate28, $endDate28, $monthKunjungan, 1);
-        $below1YearAgeOld = self::getDataFromAgeByDay($startDateBelow1Year, $endDateBelow1Year, $monthKunjungan, 0);
-        $below1YearAgeNew = self::getDataFromAgeByDay($startDateBelow1Year, $endDateBelow1Year, $monthKunjungan, 1);
-        foreach ($dataDiagnosaActive as $diagnosa) {
-            $dataTemp['kode_icd'] = $diagnosa->kode_icd;
-            $dataTemp['diagnosa'] = $diagnosa->nama_diagnosa;
-            $dataTemp['7DaysNewMale'] = self::getDataFromModel($days7AgeNew, 'male', 0);
-            $dataTemp['7DaysNewFemale'] = self::getDataFromModel($days7AgeNew, 'female', 0);
-            $dataTemp['7DaysOldMale'] = self::getDataFromModel($days7AgeOld, 'male', 0);
-            $dataTemp['7DaysOldFemale'] = self::getDataFromModel($days7AgeOld, 'female', 0);
-            $dataTemp['28DaysNewdMale'] = self::getDataFromModel($days28AgeNew, 'male', 0);
-            $dataTemp['28DaysNewFemale'] = self::getDataFromModel($days28AgeNew, 'female', 0);
-            $dataTemp['28DaysOldMale'] = self::getDataFromModel($days28AgeOld, 'male', 0);
-            $dataTemp['28DaysOldFemale'] = self::getDataFromModel($days28AgeOld, 'female', 0);
-            $dataTemp['below1YearOldMale'] = self::getDataFromModel($below1YearAgeOld, 'male', 0);
-            $dataTemp['below1YearOldFemale'] = self::getDataFromModel($below1YearAgeNew, 'female', 0);
-        }
-        dd($dataTemp);
+        return Excel::download(new BuildExport, 'lb1.xlsx');
     }
 }

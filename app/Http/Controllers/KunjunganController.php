@@ -87,6 +87,15 @@ class KunjunganController extends Controller
 
     public function store(Request $request)
     {
+        $isPrb = $request->is_prb;
+        $isProlanis = $request->is_prolanis;
+        if ($isPrb == null) {
+            $isPrb = 0;
+        }
+        if ($isProlanis == null) {
+            $isProlanis = 0;
+        }
+
         $kunjungans = new Kunjungan([
             'id_pasien' => $request->get('id_pasien'),
             'no_rm' => $request->get('noRm'),
@@ -95,6 +104,8 @@ class KunjunganController extends Controller
             'bayar' => $request->get('caraBayar'),
             'no_bpjs' => $request->get('noBpjs'),
             'type' => $request->get('type'),
+            'is_prb' => $isPrb,
+            'is_prolanis' => $isProlanis,
             'is_edit' => 0,
         ]);
         $kunjungans->save();

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\District;
 use App\Models\Kategori;
+use App\Models\Kunjungan;
 use App\Models\Pasien;
 use App\Models\PasienAdmin;
 use App\Models\Poli;
@@ -28,6 +29,13 @@ class PasienController extends Controller
     {
         $navActive = $this->navActive;
         return view('pasien.index', compact('navActive'));
+    }
+
+    public function riwayat($pasienId = null)
+    {
+        $pasien = Pasien::find($pasienId);
+        $navActive = $this->navActive;
+        return view('prolanis.riwayat', compact('navActive', 'pasienId', 'pasien'));
     }
 
     public function dtAjax(Request $request)
@@ -636,11 +644,41 @@ class PasienController extends Controller
 
             return DataTables::of($data)
                 ->addIndexColumn()
+                ->addColumn('no_rm', function ($row) {
+                    return '<a href="/prolanis/riwayat/' . $row->id . '">' . $row->no_rm . '</a>';
+                })
                 ->addColumn('umur', function ($row) {
                     $tglLahir = date_create($row->tgl_lahir);
                     $dateNow = date_create(Date('Y-m-d'));
                     $dateDiff = date_diff($tglLahir, $dateNow);
                     return $dateDiff->y;
+                })
+                ->addColumn('action', function ($row) {
+                    $actionBtn = '<a href="javascript:;" class="btn btn-primary btn-sm btn-send-whatsapp" data-pasien-id="'.$row->id.'">Kirim WA</a>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action', 'no_rm'])
+                ->make(true);
+        }
+    }
+
+    public function dtAjaxProlanisRiwayat(Request $request)
+    {
+        if ($request->ajax()) {
+            $pasienId = $request->pasienId;
+            $data = Kunjungan::select('pasiens.nama', 'diagnosas.kode_icd', 'diagnosas.diagnosa as diagnosa_nama', 'kunjungans.*')
+                ->join('pasiens', 'pasiens.id', 'kunjungans.id_pasien')
+                ->join('diagnosas', 'diagnosas.id', 'kunjungans.diagnosa_main')
+                ->where('kunjungans.id_pasien', $pasienId)
+                ->get();
+
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('tgl_kunjungan', function ($row) {
+                    return Date('d-m-Y', strtotime($row->created_at));
+                })
+                ->addColumn('diagnosa_show', function ($row) {
+                    return $row->kode_icd . ' ' . $row->diagnosa_nama;
                 })
                 ->addColumn('action', function ($row) {
                     $actionBtn = '<a href="javascript:;" class="btn btn-primary btn-sm btn-send-whatsapp" data-pasien-id="'.$row->id.'">Kirim WA</a>';

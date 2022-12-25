@@ -23,6 +23,8 @@ class Kunjungan extends Model
         'kontrol',
         'kimia_darah',
         'type',
-        'jenis_kasus'
+        'jenis_kasus',
+        'is_prb',
+        'is_prolanis'
     ];
 }

@@ -29,6 +29,26 @@
                         <input type="hidden" name="tanggal" value="{{date('Y-m-d')}}">
                         <input type="hidden" name="caraBayar" value="{{$dataPasien->cara_bayar}}">
                         <input type="hidden" name="noBpjs" value="{{$dataPasien->no_bpjs}}">
+                        @if($dataPasien->status_prb || $dataPasien->status_prolanis)
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h5>Tipe Kunjungan</h5>
+                            </div>
+                        </div>
+                        <div class="row align-items-center">
+                            @if($dataPasien->status_prb)
+                                <div class="form-group col-md-2 align-items-center">
+                                    <input type="checkbox" name="is_prb" class="input-pendatang mr-2" value="1">
+                                    <label class="col-form-label">Prb</label>
+                                </div>
+                            @else
+                                <div class="form-group col-md-2 align-items-center">
+                                    <input type="checkbox" name="is_prolanis" class="input-pendatang mr-2" value="1">
+                                    <label class="col-form-label">Prolanis</label>
+                                </div>
+                            @endif
+                        </div>
+                        @endif
                         <div class="row">
                             <div class="col-6">
                                 <div class="row">
@@ -36,7 +56,7 @@
                                         <div class="form-group">
                                             <label class="form-label">No RM</label>
                                             <input type="text" name="noRm" id="noRm" class="form-control"
-                                                placeholder="No RM" value="{{$dataPasien->no_rm}}" disabled>
+                                                placeholder="No RM" value="{{$dataPasien->no_rm}}" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -45,7 +65,7 @@
                                         <div class="form-group">
                                             <label class="form-label">Nama</label>
                                             <input type="text" name="nama" id="nama" class="form-control"
-                                                placeholder="No RM" value="{{$dataPasien->nama}}" disabled>
+                                                placeholder="No RM" value="{{$dataPasien->nama}}" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -54,7 +74,7 @@
                                         <div class="form-group">
                                             <label class="form-label">Alamat</label>
                                             <textarea name="alamat" id="alamat" cols="30" rows="3"
-                                                class="form-control" disabled>{{$dataPasien->alamat}}</textarea>
+                                                class="form-control" readonly>{{$dataPasien->alamat}}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -80,7 +100,7 @@
                                             <label class="form-label">Kepala Keluarga</label>
                                             <input type="text" name="kepalaKeluarga" id="kepalaKeluarga"
                                                 class="form-control" placeholder="Kepala Keluarga"
-                                                value={{$dataPasien->kepala_keluarga}} disabled>
+                                                value={{$dataPasien->kepala_keluarga}} readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -90,7 +110,7 @@
                                             <label class="form-label">Tanggal Lahir</label>
                                             <input type="text" name="tglLahir" id="tglLahir" class="form-control"
                                                 placeholder="Tanggal Lahir"
-                                                value="{{$dataPasien->tgl_lahir}}" disabled>
+                                                value="{{$dataPasien->tgl_lahir}}" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -99,7 +119,7 @@
                                         <div class="form-group">
                                             <label class="form-label">Umur</label>
                                             <input type="text" name="umur" id="umur" class="form-control"
-                                                placeholder="Umur" value="{{$umur}}" disabled>
+                                                placeholder="Umur" value="{{$umur}}" readonly>
                                         </div>
                                     </div>
                                 </div>
