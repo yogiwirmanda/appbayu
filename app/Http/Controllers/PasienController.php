@@ -96,7 +96,6 @@ class PasienController extends Controller
 
         $options = [
             'nama' => 'required',
-            'kepala_keluarga' => 'required',
             'tgl_lahir' => 'required',
             'jk' => 'required',
             'alamat' => 'required',
@@ -111,7 +110,6 @@ class PasienController extends Controller
         $optionsValidate = array_merge($options, $optionsAdd);
 
         $validator = Validator::make($request->all(), $optionsValidate);
-
 
         if ($validator->fails()) {
             $error = 1;
@@ -140,6 +138,7 @@ class PasienController extends Controller
                     $lastRm = $checkUsedRM;
                 }
             }
+
 
             if ($pendatang != null) {
                 $noRm = self::generateRMPendatang($request->nama, $kategori);
@@ -558,7 +557,7 @@ class PasienController extends Controller
         if (strlen($namaPasien) > 0) {
             $result = $result->orWhere('nama', 'like', '%'.$namaPasien.'%');
         }
-        $result = $result->groupBy('kepala_keluarga')->get();
+        $result = $result->get();
 
         echo json_encode($result);
     }
@@ -570,12 +569,14 @@ class PasienController extends Controller
             ->where('kategori', $kategori)
             ->where('status', '>', 0)
             ->first();
+
         if ($query) {
             $result = $query->no_urut;
             $updated = rmcanuse::find($query->id);
             $updated->status = 0;
             $updated->update();
         }
+
         return $result;
     }
 

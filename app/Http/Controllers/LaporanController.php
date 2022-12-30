@@ -406,7 +406,7 @@ class LaporanController extends Controller
             $tempArr['poliKiaBpjs'] = self::getDataFromModel($poliKiaBayar, 'bpjs', 0);
             $tempArr['poliGigiUmum'] = self::getDataFromModel($poliGigiBayar, 'umum', 0);
             $tempArr['poliGigiBpjs'] = self::getDataFromModel($poliGigiBayar, 'bpjs', 0);
-            $tempArr['totalPoliBayar'] = self::getDataFromModel($poliGigiBayar, 'total', 0) + self::getDataFromModel($poliKiaBayar, 'total', 0) + self::getDataFromModel($poliGigiBayar, 'total', 0);
+            $tempArr['totalPoliBayar'] = self::getDataFromModel($poliUmumBayar, 'total', 0) + self::getDataFromModel($poliGigiBayar, 'total', 0) + self::getDataFromModel($poliKiaBayar, 'total', 0) + self::getDataFromModel($poliGigiBayar, 'total', 0);
             $tempArr['totalRujuk'] = self::getDataFromModel($rujuk, 'total', 0);
             $dataReturn[] = $tempArr;
         }

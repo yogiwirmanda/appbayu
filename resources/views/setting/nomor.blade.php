@@ -64,6 +64,8 @@
         </div>
     </div>
 </div>
+@endsection
+@section('page-scripts')
 <script>
     $('.btn-cek-nomor').click(function () {
         let formElm = $('#formCek');

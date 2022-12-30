@@ -74,13 +74,16 @@ class PrbController extends Controller
             $takaran = $request->takaran;
             $dataObat = [];
 
-            foreach ($obatId as $key => $obatVal) {
-                $tempArray = [];
-                $tempArray['id'] = $obatVal;
-                $tempArray['nama'] = $obat[$key];
-                $tempArray['takaran'] = $takaran[$key];
-                $dataObat[] = $tempArray;
+            if (\is_array($obatId)) {
+                foreach ($obatId as $key => $obatVal) {
+                    $tempArray = [];
+                    $tempArray['id'] = $obatVal;
+                    $tempArray['nama'] = $obat[$key];
+                    $tempArray['takaran'] = $takaran[$key];
+                    $dataObat[] = $tempArray;
+                }
             }
+
 
             $prb = new Prb([
                 'id_pasien' => $request->idPasien,
