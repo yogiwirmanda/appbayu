@@ -23,7 +23,7 @@
                     <div class="row">
                         <div class="col-6">
                             <div class="d-flex justify-content-around m-b-20">
-                                <input type="date" name="tanggal" id="tanggal" class="form-control" value="">
+                                <input class="datepicker-here form-control digits" type="text" data-range="true" data-multiple-dates-separator=" - " data-language="en">
                                 <a href="javascript:;"
                                     class="btn btn-info btn-fill pull-right btn-submit-filter m-l-15">Filter</a>
                             </div>
@@ -92,7 +92,7 @@
 @endsection
 @section('page-scripts')
 <script>
-    function loadTable(tanggal){
+    function loadTable(tanggalAwal, tanggalAkhir){
         $('#table-kunjungan').dataTable().fnClearTable();
         $('#table-kunjungan').dataTable().fnDestroy();
         var table = $('#table-kunjungan').DataTable({
@@ -102,7 +102,8 @@
                 url: "{{ route('ajax_load_kunjungan') }}",
                 type: "GET",
                 data: function(d){
-                    d.tanggal = tanggal;
+                    d.tanggalAwal = tanggalAwal;
+                    d.tanggalAkhir = tanggalAkhir;
                 }
             },
             columns: [{
@@ -138,8 +139,9 @@
     $('.btn-submit-filter').click(function (e) {
         e.preventDefault();
         e.stopImmediatePropagation();
-        var tanggal = $('#tanggal').val();
-        loadTable(tanggal);
+        var tanggal = $('.datepicker-here').val();
+        
+        // loadTable(tanggalAwal, tanggalAkhir);
     });
 
     var options = {

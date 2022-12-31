@@ -735,4 +735,9 @@ class PasienController extends Controller
     {
         return view('pasien.form');
     }
+
+    public function detailPasien()
+    {
+        return view('pasien.detail');
+    }
 }

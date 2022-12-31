@@ -45,6 +45,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('pasiens/dtAjax', [PasienController::class, 'dtAjax'])->name('ajax_load_pasien');
     Route::get('pasiens/dtAjaxProlanis', [PasienController::class, 'dtAjaxProlanis'])->name('ajax_load_prolanis');
     Route::get('pasiens/dtAjaxProlanisRiwayat', [PasienController::class, 'dtAjaxProlanisRiwayat'])->name('ajax_load_prolanis_riwayat');
+    Route::get('pasiens/detail', [PasienController::class, 'detailPasien'])->name('detail_pasien');
 
     Route::get('regency/check/city', [RegencyController::class, 'getDataCity'])->name('load_data_city');
     Route::get('regency/check/district', [RegencyController::class, 'getDataDistrict'])->name('load_data_district');
