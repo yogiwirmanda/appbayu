@@ -53,6 +53,7 @@ class KlpcmController extends Controller
         $getIcd = $request->kodeIcd;
         $getDiagnosa = $request->diagnosa;
         $diagnosaTemp = [];
+
         if ($getDiagnosa != null) {
             foreach ($getDiagnosa as $key => $value) {
                 $tempArray = [];

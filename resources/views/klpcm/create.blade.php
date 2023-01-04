@@ -360,33 +360,41 @@ $umur = $yearNow - $yearPasien;
 @endsection
 @section('page-scripts')
 <script>
+
 $('.btn-save-klpcm').click(function (e) {
     e.preventDefault();
-    var frm = $('#formKLPCM');
-    var dataForm = frm.serializeArray();
-    var items = 0;
-    var count = 0;
-    var countDaftar = 0;
-    var countPoli = 0;
-    dataForm.forEach(function (data) {
-        var getValue = data['value'];
-        if (items >= 6 && items <= 11) {
-            if (getValue === '1') {
-                countDaftar = countDaftar + 1;
-                count = count + 1;
+
+    let rowDiagnosa = $('.row-diagnosa').length;
+    if (rowDiagnosa == 0){
+        $.notify('Diagnosa harus di isi', 'danger');
+        return false;
+    } else {
+        var frm = $('#formKLPCM');
+        var dataForm = frm.serializeArray();
+        var items = 0;
+        var count = 0;
+        var countDaftar = 0;
+        var countPoli = 0;
+        dataForm.forEach(function (data) {
+            var getValue = data['value'];
+            if (items >= 6 && items <= 11) {
+                if (getValue === '1') {
+                    countDaftar = countDaftar + 1;
+                    count = count + 1;
+                }
+            } else if (items >= 12 && items <= 20) {
+                if (getValue === '1') {
+                    countPoli = countPoli + 1;
+                    count = count + 1;
+                }
             }
-        } else if (items >= 12 && items <= 20) {
-            if (getValue === '1') {
-                countPoli = countPoli + 1;
-                count = count + 1;
-            }
-        }
-        items = items + 1;
-    });
-    $('#jmlLengkap').val(count);
-    $('#jmlLengkapDaftar').val(countDaftar);
-    $('#jmlLengkapPoli').val(countPoli);
-    $('#formKLPCM').submit();
+            items = items + 1;
+        });
+        $('#jmlLengkap').val(count);
+        $('#jmlLengkapDaftar').val(countDaftar);
+        $('#jmlLengkapPoli').val(countPoli);
+        $('#formKLPCM').submit();
+    }
 });
 
 $('#kodeIcd').change(function () {

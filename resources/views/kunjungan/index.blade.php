@@ -24,8 +24,7 @@
                         <div class="col-6">
                             <div class="d-flex justify-content-around m-b-20">
                                 <input class="datepicker-here form-control digits" type="text" data-range="true" data-multiple-dates-separator=" - " data-language="en">
-                                <a href="javascript:;"
-                                    class="btn btn-info btn-fill pull-right btn-submit-filter m-l-15">Filter</a>
+                                <a href="javascript:;" class="btn btn-info btn-fill pull-right btn-submit-filter m-l-15">Filter</a>
                             </div>
                         </div>
                         <div class="col-6">
@@ -135,13 +134,20 @@
             ]
         });
     }
-    loadTable('{{$tanggal}}');
+    loadTable();
     $('.btn-submit-filter').click(function (e) {
         e.preventDefault();
         e.stopImmediatePropagation();
         var tanggal = $('.datepicker-here').val();
-        
-        // loadTable(tanggalAwal, tanggalAkhir);
+        tanggal = tanggal.replace(/\s+/g, '');
+        let separateTanggal = tanggal.split("-");
+        let separateAwal = separateTanggal[0].split("/");
+        let separateAkhir = separateTanggal[1].split("/");
+
+        let tanggalAwal = separateAwal[2] + '-' + separateAwal[1] + '-' + separateAwal[0];
+        let tanggalAkhir = separateAkhir[2] + '-' + separateAkhir[1] + '-' + separateAkhir[0];
+
+        loadTable(tanggalAwal, tanggalAkhir);
     });
 
     var options = {

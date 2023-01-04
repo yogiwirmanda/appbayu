@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kunjungan;
 use App\Models\Pasien;
 use App\Models\Poli;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
@@ -29,15 +30,17 @@ class KunjunganController extends Controller
     public function dtAjax(Request $request)
     {
         if ($request->ajax()) {
-            $tanggal = $request->tanggal;
-            $dateNow = date('Y-m-d');
-            if ($tanggal == null) {
-                $tanggal = $dateNow;
+            $tanggalAwal = $request->tanggalAwal;
+            $tanggalAkhir = $request->tanggalAkhir;
+            if ($tanggalAwal == null || $tanggalAkhir == null) {
+                $tanggalAwal = Carbon::now()->startOfMonth();
+                $tanggalAkhir = Carbon::now();
             }
             $dataKunjungan = DB::table('kunjungans')
                 ->join('pasiens', 'kunjungans.id_pasien', '=', 'pasiens.id')
                 ->join('polis', 'kunjungans.id_poli', '=', 'polis.id')
-                ->where('kunjungans.tanggal', '=', $tanggal)
+                ->where('kunjungans.tanggal', '>=', $tanggalAwal)
+                ->where('kunjungans.tanggal', '<=', $tanggalAkhir)
                 ->select('kunjungans.*', 'pasiens.*', 'polis.nama as namaPoli', 'kunjungans.id as kunjunganId')
                 ->get();
 
