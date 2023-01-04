@@ -45,7 +45,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('pasiens/dtAjax', [PasienController::class, 'dtAjax'])->name('ajax_load_pasien');
     Route::get('pasiens/dtAjaxProlanis', [PasienController::class, 'dtAjaxProlanis'])->name('ajax_load_prolanis');
     Route::get('pasiens/dtAjaxProlanisRiwayat', [PasienController::class, 'dtAjaxProlanisRiwayat'])->name('ajax_load_prolanis_riwayat');
-    Route::get('pasiens/detail', [PasienController::class, 'detailPasien'])->name('detail_pasien');
+    Route::get('pasiens/detail/{pasienId}', [PasienController::class, 'detailPasien'])->name('detail_pasien');
+    Route::get('pasiens/dtAjaxKunjungan/{pasienId}', [PasienController::class, 'dtAjaxKunjungan'])->name('dtAjaxKunjungan');
 
     Route::get('regency/check/city', [RegencyController::class, 'getDataCity'])->name('load_data_city');
     Route::get('regency/check/district', [RegencyController::class, 'getDataDistrict'])->name('load_data_district');
@@ -138,11 +139,14 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('laporan/pemeriksaan', [LaporanController::class, 'pemeriksaan'])->name('laporan_pemeriksaan');
     Route::get('laporan/pemeriksaan/dm', [LaporanController::class, 'pemeriksaanDM'])->name('laporan_pemeriksaan_dm');
+    Route::get('laporan/pemeriksaan/dm/{idPasien}', [LaporanController::class, 'pemeriksaanDMWithId'])->name('laporan_pemeriksaan_dm_with_id');
     Route::get('laporan/pemeriksaan/ht', [LaporanController::class, 'pemeriksaanHT'])->name('laporan_pemeriksaan_ht');
+    Route::get('laporan/pemeriksaan/ht/{idPasien}', [LaporanController::class, 'pemeriksaanHTWithId'])->name('laporan_pemeriksaan_ht_with_id');
     // Route::get('laporan/pemeriksaan/{type}/{date}', [LaporanController::class, 'pemeriksaan'])->name('laporan_pemeriksaan_filter');
 
     Route::get('laporan/pemeriksaanPrb', [LaporanController::class, 'pemeriksaanPrb'])->name('laporan_pemeriksaan_prb');
     Route::get('laporan/pemeriksaan/prb', [LaporanController::class, 'loadPrb'])->name('loadPrb');
+    Route::get('laporan/pemeriksaan/prb/{idPasien}', [LaporanController::class, 'loadPrbWithId'])->name('loadPrbWithId');
 
     Route::get('klpcms/check/kasus', [KlpcmController::class, 'checkKasus'])->name('check_kasus');
 

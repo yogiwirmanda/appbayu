@@ -45,10 +45,10 @@ class KunjunganController extends Controller
                 ->addIndexColumn()
                 ->addColumn('nama', function ($row) {
                     $html = '<div>'.$row->nama.'</div>';
-                    if ($row->status_prolanis == 1) {
+                    if ($row->is_prolanis == 1) {
                         $html .= '<span class="badge badge-danger">Prolanis</span>';
                     }
-                    if ($row->status_prb == 1) {
+                    if ($row->is_prb == 1) {
                         $html .= '<span class="badge badge-info">Prb</span>';
                     }
                     return $html;

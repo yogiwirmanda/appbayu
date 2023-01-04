@@ -1,5 +1,10 @@
 @extends('master.main')
 @section('content')
+@php
+if(!isset($tanggal)){
+  $tanggal = Date('Y-m-d');
+}
+@endphp
 <div class="container-fluid">
     <div class="page-title">
         <div class="row">
@@ -23,7 +28,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12">
-        <div class="row projectmore">
+        <div class="row">
               <div class="col-xl-7 xl-100">
                 <div class="card">
                   <div class="card-body">
@@ -31,12 +36,16 @@
                         <div class="media-body">
                             <div class="d-flex w-100">
                               <div class="m-r-15">
-                                <h5>Yogi Wirmanda</h5>
-                                <p>01-0001-22 U</p>
+                                <h3>{{$pasien->nama}}</h3>
+                                <p>{{$pasien->no_rm}}</p>
                               </div>
                               <div class="d-flex align-items-start ml-2">
-                                <span class="badge badge-danger">Prolanis</span>
-                                <span class="badge badge-success">Prb</span>
+                                @if($pasien->status_prolanis == 1)
+                                 <span class="badge badge-danger">Prolanis</span>
+                                @endif
+                                @if($pasien->status_prb == 1)
+                                  <span class="badge badge-success">Prb</span>
+                                @endif
                               </div>
                             </div>
                         </div>
@@ -45,27 +54,32 @@
                     <div class="details">
                         <div class="row">
                           <div class="col-3"><span> Kepala Keluarga</span></div>
-                          <div class="col-4">Bayu Yudha</div>
+                          <div class="col-9">{{$pasien->no_rm}}</div>
                         </div>
                         <div class="row">
                           <div class="col-3"><span> No KTP</span></div>
-                          <div class="col-4">3573012010960004</div>
+                          <div class="col-9">{{$pasien->no_ktp}}</div>
                         </div>
                         <div class="row">
                           <div class="col-3"><span> Tanggal Lahir</span></div>
-                          <div class="col-6">20-10-1996 (Umur 26 Tahun 10 Bulan 5 Hari)</div>
+                          @php
+                            $tglLahir = date_create($pasien->tgl_lahir);
+                            $dateNow = date_create(Date('Y-m-d'));
+                            $dateDiff = date_diff($tglLahir, $dateNow);
+                          @endphp
+                          <div class="col-9">{{Date('d-m-Y', strtotime($pasien->tgl_lahir))}} ({{$dateDiff->y . ' Tahun '. $dateDiff->m. ' Bulan '. $dateDiff->d . ' Hari'}})</div>
                         </div>
                         <div class="row">
                           <div class="col-3"><span> Alamat</span></div>
-                          <div class="col-4">Jalan Teluk Pelabuhan Ratu no 38 B</div>
+                          <div class="col-9">{{$pasien->alamat}}</div>
                         </div>
                         <div class="row">
                           <div class="col-3"><span> No HP</span></div>
-                          <div class="col-4">08121708168</div>
+                          <div class="col-9">{{$pasien->no_hp}}</div>
                         </div>
                         <div class="row">
                           <div class="col-3"><span> Jenis Bayar</span></div>
-                          <div class="col-4">BPJS (1738817263172312)</div>
+                          <div class="col-9">{{$pasien->cara_bayar}} {{($pasien->cara_bayar == 'BPJS') ? $pasien->no_bpjs : ''}}</div>
                         </div>
                     </div>
                   </div>
@@ -83,31 +97,49 @@
                       <li class="nav-item"><a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">PRB</a></li>
                     </ul>
                     <div class="tab-content" id="myTabContent">
-                      <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        <table class="table table-bordered table-responsive mt-2">
+                      <div class="tab-pane fade show active m-t-10" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <table class="table table-bordered table-responsive" id="table-kunjungan">
                           <thead>
                             <tr>
+                              <th>No</th>
                               <th>Tanggal Kunjungan</th>
                               <th>Poli</th>
                               <th>Diagnosa</th>
                               <th>Rujukan</th>
                             </tr>
                           </thead>
-                          <tbody>
-                            <tr>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                            </tr>
-                          </tbody>
+                          <tbody></tbody>
                         </table>
                       </div>
                       <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                        <p class="mb-0 m-t-30">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
+                        <input type="hidden" name="type" id="type" value="dm">
+                          <div class="card">
+                              <div class="card-body">
+                                  <ul class="nav nav-tabs border-tab" id="top-tab" role="tablist">
+                                      <li class="nav-item"><a class="nav-link active btn-load-dm" id="top-home-tab" data-bs-toggle="tab" href="#top-home"
+                                              role="tab" aria-controls="top-home" aria-selected="true">DM</a></li>
+                                      <li class="nav-item"><a class="nav-link btn-load-ht" id="profile-top-tab" data-bs-toggle="tab" href="#top-profile"
+                                              role="tab" aria-controls="top-profile" aria-selected="false">HT</a></li>
+                                  </ul>
+                                  <div class="tab-content" id="top-tabContent">
+                                      <div class="tab-pane fade show active" id="top-home" role="tabpanel" aria-labelledby="top-home-tab">
+                                          <div class="table-responsive" id="load-dm">
+
+                                          </div>
+                                      </div>
+                                      <div class="tab-pane fade" id="top-profile" role="tabpanel" aria-labelledby="profile-top-tab">
+                                          <div class="table-responsive" id="load-ht">
+
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
                       </div>
                       <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                        <p class="mb-0 m-t-30">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
+                        <div class="table-responsive" id="load-table-prb">
+
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -117,4 +149,86 @@
         </div>
     </div>
 </div>
+@endsection
+@section('page-scripts')
+<script>
+      var table = $('#table-kunjungan').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "/pasiens/dtAjaxKunjungan/{{$pasien->id}}",
+        columns: [{
+                data: 'DT_RowIndex',
+                name: 'DT_RowIndex'
+            },
+            {
+                data: 'tanggal',
+                name: 'tanggal'
+            },
+            {
+                data: 'nama',
+                name: 'nama'
+            },
+            {
+                data: 'diagnosa',
+                name: 'diagnosa'
+            }
+        ]
+    });
+
+    function loadDM(){
+        $.ajax({
+            url : '/laporan/pemeriksaan/dm/{{$pasien->id}}',
+            dataType : 'json',
+            method : 'GET',
+            data : [],
+            success : function(response){
+                $('#load-dm').html('');
+                $('#load-dm').html(response.html);
+            }
+        })
+    }
+
+    function loadHT(){
+        $.ajax({
+            url : '/laporan/pemeriksaan/ht/{{$pasien->id}}',
+            dataType : 'json',
+            method : 'GET',
+            data : [],
+            success : function(response){
+                $('#load-ht').html('');
+                $('#load-ht').html(response.html);
+            }
+        })
+    }
+
+    loadDM();
+
+    $('.btn-load-dm').click(function(e){
+        $('#type').val('dm');
+        $('.nav-link').removeClass('active');
+        $(this).addClass('active');
+        loadDM();
+    });
+    $('.btn-load-ht').click(function(e){
+        $('#type').val('ht');
+        $('.nav-link').removeClass('active');
+        $(this).addClass('active');
+        loadHT();
+    });
+
+    function loadTablePrb(){
+        $.ajax({
+            url : '/laporan/pemeriksaan/prb/{{$pasien->id}}',
+            dataType : 'json',
+            method : 'GET',
+            data : [],
+            success : function(response){
+                $('#load-table-prb').html('');
+                $('#load-table-prb').html(response.html);
+            }
+        })
+    }
+
+    loadTablePrb();
+</script>
 @endsection

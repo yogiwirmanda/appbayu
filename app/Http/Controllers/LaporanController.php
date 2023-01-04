@@ -172,6 +172,35 @@ class LaporanController extends Controller
         ]);
     }
 
+    public function loadPrbWithId($idPasien)
+    {
+        $getPrb = [];
+
+        $dataLaporanKunjungan = [];
+        $dataPrbPasien = Pasien::where('status_prb', 1)
+            ->where('id', $idPasien)
+            ->get();
+
+        foreach ($dataPrbPasien as $prb) {
+            $getPrb[$prb->id] = [];
+            for ($i=1;$i<=12;$i++) {
+                $getCount = [];
+                $getCount = self::countByMonthPrb($prb->id, $i);
+                $getPrb[$prb->id] = array_merge($getPrb[$prb->id], $getCount);
+            }
+            $pasienBuild = [];
+            $pasienBuild['id'] = $prb->id;
+            $pasienBuild['nama'] = $prb->nama;
+            $pasienBuild['no_rm'] = $prb->no_rm;
+            $getPrb[$prb->id] = \array_merge($getPrb[$prb->id], $pasienBuild);
+        }
+
+        $dataLaporanKunjungan = $getPrb;
+        return response()->json([
+            'html' => view('laporan.prb.pemeriksaan-prb', compact('dataLaporanKunjungan'))->render()
+        ]);
+    }
+
     public function pemeriksaanDM($type = 'harian', $tanggal = '')
     {
         $navActive = 'prolanis';
@@ -206,6 +235,40 @@ class LaporanController extends Controller
         ]);
     }
 
+    public function pemeriksaanDMWithId($idPasien = '')
+    {
+        $getProlanis = [];
+
+        $dataLaporanKunjungan = [];
+        $dataProlanisPasien = Pasien::where('status_prolanis', 1)
+            ->where('keterangan_prolanis', 'Diabetes Melitus')
+            ->where('id', $idPasien)
+            ->get();
+
+        foreach ($dataProlanisPasien as $prolanis) {
+            $getProlanis[$prolanis->id] = [];
+            for ($i=1;$i<=12;$i++) {
+                $getCount = [];
+                $getCount = self::countByMonth($prolanis->id, $i);
+                $getProlanis[$prolanis->id] = array_merge($getProlanis[$prolanis->id], $getCount);
+            }
+            $pasienBuild = [];
+            $pasienBuild['id'] = $prolanis->id;
+            $pasienBuild['nama'] = $prolanis->nama;
+            $pasienBuild['no_rm'] = $prolanis->no_rm;
+            $getProlanis[$prolanis->id] = \array_merge($getProlanis[$prolanis->id], $pasienBuild);
+        }
+
+        $type = 'dm';
+
+        $dataLaporanKunjungan = $getProlanis;
+        return response()->json([
+            'html' => view('laporan.prolanis.pemeriksaan-dm', compact('dataLaporanKunjungan', 'type'))->render()
+        ]);
+    }
+
+
+
     public function pemeriksaanHT($type = 'harian', $tanggal = '')
     {
         $navActive = 'prolanis';
@@ -239,6 +302,41 @@ class LaporanController extends Controller
             'html' => view('laporan.prolanis.pemeriksaan-ht', compact('dataLaporanKunjungan', 'type', 'tanggal', 'navActive'))->render()
         ]);
     }
+
+    public function pemeriksaanHTWithId($idPasien)
+    {
+        $type = 'ht';
+
+        $getProlanis = [];
+
+        $dataLaporanKunjungan = [];
+        $dataProlanisPasien = Pasien::where('status_prolanis', 1)
+            ->where('keterangan_prolanis', 'Hipertensi')
+            ->where('id', $idPasien)
+            ->get();
+
+        foreach ($dataProlanisPasien as $prolanis) {
+            $getProlanis[$prolanis->id] = [];
+            for ($i=1;$i<=12;$i++) {
+                $getCount = [];
+                $getCount = self::countByMonth($prolanis->id, $i);
+                $getProlanis[$prolanis->id] = array_merge($getProlanis[$prolanis->id], $getCount);
+            }
+            $pasienBuild = [];
+            $pasienBuild['id'] = $prolanis->id;
+            $pasienBuild['nama'] = $prolanis->nama;
+            $pasienBuild['no_rm'] = $prolanis->no_rm;
+            $getProlanis[$prolanis->id] = \array_merge($getProlanis[$prolanis->id], $pasienBuild);
+        }
+
+        $type = 'ht';
+
+        $dataLaporanKunjungan = $getProlanis;
+        return response()->json([
+            'html' => view('laporan.prolanis.pemeriksaan-ht', compact('dataLaporanKunjungan', 'type'))->render()
+        ]);
+    }
+
 
     private function getDataFromAge($yearStart, $yearEnd, $dateKunjungan)
     {

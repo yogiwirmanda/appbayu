@@ -48,6 +48,16 @@ class PasienController extends Controller
 
             return DataTables::of($data)
                 ->addIndexColumn()
+                ->addColumn('nama', function ($row) {
+                    $html = '<a href="/pasiens/detail/'.$row->id.'">'.$row->nama.'</a>';
+                    if ($row->status_prolanis == 1) {
+                        $html .= '<span class="badge badge-danger">Prolanis</span>';
+                    }
+                    if ($row->status_prb == 1) {
+                        $html .= '<span class="badge badge-info">Prb</span>';
+                    }
+                    return $html;
+                })
                 ->addColumn('umur', function ($row) {
                     $tglLahir = date_create($row->tgl_lahir);
                     $dateNow = date_create(Date('Y-m-d'));
@@ -64,7 +74,7 @@ class PasienController extends Controller
                     $actionBtn .= '</div>';
                     return $actionBtn;
                 })
-                ->rawColumns(['action'])
+                ->rawColumns(['action', 'nama'])
                 ->make(true);
         }
     }
@@ -736,8 +746,25 @@ class PasienController extends Controller
         return view('pasien.form');
     }
 
-    public function detailPasien()
+    public function detailPasien($idPasien = '')
     {
-        return view('pasien.detail');
+        $modelPasien = Pasien::find($idPasien);
+
+        $data = [];
+        $data['pasien'] = $modelPasien;
+        return view('pasien.detail', $data);
+    }
+
+    public function dtAjaxKunjungan($idPasien = '')
+    {
+        $modelKunjungan = Kunjungan::select('kunjungans.tanggal', 'polis.nama', 'diagnosas.diagnosa')
+            ->leftJoin('polis', 'polis.id', 'kunjungans.id_poli')
+            ->leftJoin('diagnosas', 'diagnosas.id', 'kunjungans.diagnosa_main')
+            ->where('kunjungans.id_pasien', $idPasien)
+            ->get();
+
+        return DataTables::of($modelKunjungan)
+            ->addIndexColumn()
+            ->make(true);
     }
 }
