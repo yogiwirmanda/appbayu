@@ -64,7 +64,8 @@
             },
             {
                 data: 'no_rm',
-                name: 'no_rm'
+                name: 'no_rm',
+                searchable: false
             },
             {
                 data: 'nama',
@@ -72,11 +73,13 @@
             },
             {
                 data: 'umur',
-                name: 'umur'
+                name: 'umur',
+                searchable: false
             },
             {
                 data: 'alamat',
-                name: 'alamat'
+                name: 'alamat',
+                searchable: false
             },
             {
                 data: 'action',
