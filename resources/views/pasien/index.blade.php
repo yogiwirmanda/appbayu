@@ -58,6 +58,7 @@
         processing: true,
         serverSide: true,
         ajax: "{{ route('ajax_load_pasien') }}",
+        searchDelay: 1500,
         columns: [{
                 data: 'DT_RowIndex',
                 name: 'DT_RowIndex'
