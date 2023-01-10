@@ -97,6 +97,10 @@ class PrbController extends Controller
             ]);
 
             $prb->save();
+
+            $pasien = Pasien::find($request->idPasien);
+            $pasien->status_prb = 1;
+            $pasien->save();
         }
 
         return response()->json(

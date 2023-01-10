@@ -108,8 +108,7 @@ class PasienController extends Controller
             'nama' => 'required',
             'tgl_lahir' => 'required',
             'jk' => 'required',
-            'alamat' => 'required',
-            'villages' => 'required',
+            'alamat' => 'required'
         ];
 
         $caraBayar = $request->cara_bayar;
@@ -613,7 +612,11 @@ class PasienController extends Controller
             ->orderBy('created_at', 'DESC')
             ->first();
 
-        $getYearPasien = Date('Y', strtotime($dataPasien->created_at));
+        $getYearPasien = Date('Y');
+        if ($dataPasien) {
+            $getYearPasien = Date('Y', strtotime($dataPasien->created_at));
+        }
+
         $yearNow = Date('Y');
         $firstLetter = substr($nama, 0, 1);
 
