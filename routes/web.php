@@ -54,7 +54,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('kunjungan', [KunjunganController::class, 'index'])->name('kunjungan_pasien');
     Route::get('kunjungan/create/{param}/{type?}', [KunjunganController::class, 'create'])->name('kunjungan_pasien_create');
-    Route::get('kunjungan/pasien/save', [KunjunganController::class, 'store'])->name('kunjungan_pasien_save');
+    Route::post('kunjungan/pasien/save', [KunjunganController::class, 'store'])->name('kunjungan_pasien_save');
     Route::get('kunjungans/klpcm/{param}', [KunjunganController::class, 'klpcm'])->name('kunjungan_klpcm');
     Route::get('kunjungans/harian/{param}', [KunjunganController::class, 'index'])->name('kunjunganHarian');
     Route::get('kunjungan/dtAjax', [KunjunganController::class, 'dtAjax'])->name('ajax_load_kunjungan');
@@ -159,4 +159,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('retensi/ajaxDt', [RetensiController::class, 'dtAjax'])->name('ajax_load_retensi');
 
     Route::get('send/whatsapp/{pasienId}', [UnitTestController::class, 'send'])->name('prolanis.send');
+
+    Route::get('reformat/tanggal', [UnitTestController::class, 'reformat'])->name('reformat');
 });

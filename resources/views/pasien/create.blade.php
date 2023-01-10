@@ -665,13 +665,17 @@
 
     function setVillage(villageId) {
         $("#select-villages").val(villageId).trigger('change');
-        $("#select-villages").prop("disabled", true);
+        if (villageId != null) {
+            $("#select-villages").prop("disabled", true);
+        }
         HoldOn.close();
     }
 
     function setDistrict(districtId, villageId) {
         $("#select-district").val(districtId).trigger('change');
-        $("#select-district").prop("disabled", true);
+        if (districtId != null) {
+            $("#select-district").prop("disabled", true);
+        }
         setTimeout(function () {
             setVillage(villageId);
         }, 1000)
@@ -679,7 +683,9 @@
 
     function setCity(regencyId, districtId, villageId) {
         $("#select-city").val(regencyId).trigger('change');
-        $("#select-city").prop("disabled", true);
+        if (regencyId != null) {
+            $("#select-city").prop("disabled", true);
+        }
         setTimeout(function () {
             setDistrict(districtId, villageId);
         }, 1000)
@@ -687,7 +693,9 @@
 
     function setProvince(provinceId, regencyId, districtId, villageId) {
         $("#select-province").val(provinceId).trigger('change');
-        $("#select-province").prop("disabled", true);
+        if (provinceId != null) {
+            $("#select-province").prop("disabled", true);
+        }
         setTimeout(function () {
             setCity(regencyId, districtId, villageId);
         }, 1000)

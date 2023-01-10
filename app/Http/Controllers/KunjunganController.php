@@ -90,6 +90,7 @@ class KunjunganController extends Controller
 
     public function store(Request $request)
     {
+        $error = 0;
         $isPrb = $request->is_prb;
         $isProlanis = $request->is_prolanis;
         if ($isPrb == null) {
@@ -99,20 +100,33 @@ class KunjunganController extends Controller
             $isProlanis = 0;
         }
 
-        $kunjungans = new Kunjungan([
-            'id_pasien' => $request->get('id_pasien'),
-            'no_rm' => $request->get('noRm'),
-            'id_poli' => $request->get('poli'),
-            'tanggal' => $request->get('tanggal'),
-            'bayar' => $request->get('caraBayar'),
-            'no_bpjs' => $request->get('noBpjs'),
-            'type' => $request->get('type'),
-            'is_prb' => $isPrb,
-            'is_prolanis' => $isProlanis,
-            'is_edit' => 0,
-        ]);
-        $kunjungans->save();
-        return redirect('/kunjungan');
+        $checkKunjungan = Kunjungan::where('id_pasien', $request->get('id_pasien'))
+            ->where('id_poli', $request->get('poli'))
+            ->where('tanggal', $request->get('tanggal'))
+            ->first();
+
+        if ($checkKunjungan == null) {
+            $kunjungans = new Kunjungan([
+                'id_pasien' => $request->get('id_pasien'),
+                'no_rm' => $request->get('noRm'),
+                'id_poli' => $request->get('poli'),
+                'tanggal' => $request->get('tanggal'),
+                'bayar' => $request->get('caraBayar'),
+                'no_bpjs' => $request->get('noBpjs'),
+                'type' => $request->get('type'),
+                'is_prb' => $isPrb,
+                'is_prolanis' => $isProlanis,
+                'is_edit' => 0,
+            ]);
+            $kunjungans->save();
+            return response()->json(
+                ['error'=> 0, 'messages'=>'Pasien berhasil di tambahkan', 'dataId' => $kunjungans->id],
+            );
+        } else {
+            return response()->json(
+                ['error'=> 1, 'messages'=>'Pasien sudah terdafatar di poli yang sama hari ini'],
+            );
+        }
     }
 
     public function klpcm($idKunjungan)

@@ -17,14 +17,15 @@ PRC = {
             data : form.serialize(),
             success : function(response){
                 let error = response.error;
+                let messages = response.messages;
                 if (error === 1){
+                    $.notify(messages, 'error');
                     let field = response.field;
                     $.each(field, function(key, value){
                         $('.input-form-'+value).addClass('is-invalid');
                     });
                     form.find('.btn').removeAttr('disabled');
                 } else {
-                    let messages = response.messages;
                     $.notify(messages, 'success');
                     if (pasien != false){
                         setTimeout(() => {

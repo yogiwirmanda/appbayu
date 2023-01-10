@@ -100,7 +100,7 @@
                                             <label class="form-label">Kepala Keluarga</label>
                                             <input type="text" name="kepalaKeluarga" id="kepalaKeluarga"
                                                 class="form-control" placeholder="Kepala Keluarga"
-                                                value={{$dataPasien->kepala_keluarga}} readonly>
+                                                value="{{$dataPasien->kepala_keluarga}}" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -174,15 +174,9 @@
 
     $('#formKunjungan').submit(function (e) {
         e.preventDefault();
-        var frm = $(this);
-        $.ajax({
-            url: frm.attr('action'),
-            type: 'GET',
-            data: frm.serialize(),
-            success: function (response) {
-                window.location.href = '/kunjungan';
-            }
-        })
-    })
+        PRC.disabledValidation();
+        let form = $(this);
+        PRC.ajaxSubmit(form, '/kunjungan', false);
+    });
 </script>
 @endsection

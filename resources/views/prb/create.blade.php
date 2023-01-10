@@ -226,11 +226,11 @@
             data : form.serialize(),
             success : function(response){
                 tbody.html('');
-                response.forEach(element => {
+                response.forEach(function(element, index) {
                     let tr = $('<tr>');
-                    let td1 = $('<td>', {text : '1'});
+                    let td1 = $('<td>', {text : index + 1});
                     let td2 = $('<td>', {text : element.no_rm});
-                    let td3 = $('<td>', {text : element.kepala_keluarga});
+                    let td3 = $('<td>', {text : element.nama});
                     let td4 = $('<td>', {text : element.alamat});
                     let td5 = $('<td>');
                     let action = $('<a>', {href:'javascript:;', text:'Pilih', class:'btn btn-sm btn-neutral btn-pilih-member', member_id:element.id});

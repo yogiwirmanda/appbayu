@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pasien;
+use App\Models\Reformat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -48,5 +49,21 @@ class UnitTestController extends Controller
             }
         }
         dd($dataTemp);
+    }
+
+    public function reformat()
+    {
+        $model = Reformat::all();
+        foreach ($model as $data) {
+            $modelPasien = Pasien::find($data->id);
+            if (strlen($data->tgl) > 0) {
+                $modelPasien->tgl_lahir = $data->tgl;
+            } else {
+                $modelPasien->tgl_lahir = Date('Y-m-d');
+            }
+            $modelPasien->created_at = Date('Y-m-d');
+            $modelPasien->updated_at = Date('Y-m-d');
+            $modelPasien->save();
+        }
     }
 }
