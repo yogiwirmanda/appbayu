@@ -596,7 +596,11 @@ class PasienController extends Controller
             ->orderBy('created_at', 'DESC')
             ->first();
 
-        $getYearPasien = Date('Y', strtotime($dataPasien->created_at));
+        $getYearPasien = Date('Y');
+        if ($dataPasien) {
+            $getYearPasien = Date('Y', strtotime($dataPasien->created_at));
+        }
+
         $yearNow = Date('Y');
         $noUrut = $dataPasien->no_urut + 1;
         if ($yearNow != $getYearPasien) {
