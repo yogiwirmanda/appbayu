@@ -115,8 +115,8 @@ class KlpcmController extends Controller
             $kunjungan->diagnosa = json_encode($diagnosaTemp);
             $kunjungan->diagnosa_main = $diagnosaId[0];
         }
-        $kunjungan->gdp = $request->gdp;
-        $kunjungan->hba1c = $request->hba1c;
+        $kunjungan->gdp = $request->gdp ?: 0;
+        $kunjungan->hba1c = $request->hba1c ?: 0;
         $kunjungan->kontrol = $request->kontrol;
         $kunjungan->kimia_darah = $request->kimia_darah;
         $kunjungan->is_edit = 1;
@@ -124,8 +124,8 @@ class KlpcmController extends Controller
         $kunjungan->save();
 
         $pasien = Pasien::find($kunjungan->id_pasien);
-        $pasien->gdp = $request->gdp;
-        $pasien->hba1c = $request->hba1c;
+        $pasien->gdp = $request->gdp ?: 0;
+        $pasien->hba1c = $request->hba1c ?: 0;
         $pasien->kontrol = $request->kontrol;
         $pasien->kimia_darah = $request->kimia_darah;
         $pasien->last_kunjungan_prolanis = Date('Y-m-d');

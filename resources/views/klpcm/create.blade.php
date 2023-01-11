@@ -426,9 +426,9 @@ $('.btn-cari-data').click(function(e) {
         data : form.serialize(),
         success : function(response){
             tbody.html('');
-            response.forEach(element => {
+            response.forEach(function(element, index) {
                 let tr = $('<tr>');
-                let td1 = $('<td>', {text : '1'});
+                let td1 = $('<td>', {text : index});
                 let td2 = $('<td>', {text : element.kode_icd});
                 let td3 = $('<td>', {text : element.diagnosa});
                 let td4 = $('<td>');
