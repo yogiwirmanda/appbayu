@@ -159,7 +159,7 @@ $umur = $yearNow - $yearPasien;
                                         </div>
                                     </div>
                                 </div>
-                                @if ($dataKunjungan->is_prolanis == 1 || $dataKunjungan->is_prb == 1)
+                                @if ($dataKunjungan->is_prolanis == 1)
                                     @if($dataKunjungan->keterangan_prolanis)
                                         <div class="row">
                                             <div class="col-md-12">
