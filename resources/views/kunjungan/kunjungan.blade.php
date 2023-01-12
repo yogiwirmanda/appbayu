@@ -41,7 +41,8 @@
                                     <input type="checkbox" name="is_prb" class="input-pendatang mr-2" value="1">
                                     <label class="col-form-label">Prb</label>
                                 </div>
-                            @else
+                            @endif
+                            @if($dataPasien->status_prolanis)
                                 <div class="form-group col-md-2 align-items-center">
                                     <input type="checkbox" name="is_prolanis" class="input-pendatang mr-2" value="1">
                                     <label class="col-form-label">Prolanis</label>
