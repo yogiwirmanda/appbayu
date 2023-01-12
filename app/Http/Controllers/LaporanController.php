@@ -87,6 +87,7 @@ class LaporanController extends Controller
     {
         $modelKunjungan = Kunjungan::select('*')
             ->where('id_pasien', $idPasien)
+            ->where('is_prolanis', 1)
             ->whereMonth('created_at', $month)
             ->orderBy('created_at', 'DESC')
             ->first();
@@ -152,18 +153,20 @@ class LaporanController extends Controller
         $dataPrbPasien = Pasien::where('status_prb', 1)
             ->get();
 
-        foreach ($dataPrbPasien as $prb) {
-            $getPrb[$prb->id] = [];
-            for ($i=1;$i<=12;$i++) {
-                $getCount = [];
-                $getCount = self::countByMonthPrb($prb->id, $i);
-                $getPrb[$prb->id] = array_merge($getPrb[$prb->id], $getCount);
+        if ($dataPrbPasien) {
+            foreach ($dataPrbPasien as $prb) {
+                $getPrb[$prb->id] = [];
+                for ($i=1;$i<=12;$i++) {
+                    $getCount = [];
+                    $getCount = self::countByMonthPrb($prb->id, $i);
+                    $getPrb[$prb->id] = array_merge($getPrb[$prb->id], $getCount);
+                }
+                $pasienBuild = [];
+                $pasienBuild['id'] = $prb->id;
+                $pasienBuild['nama'] = $prb->nama;
+                $pasienBuild['no_rm'] = $prb->no_rm;
+                $getPrb[$prb->id] = \array_merge($getPrb[$prb->id], $pasienBuild);
             }
-            $pasienBuild = [];
-            $pasienBuild['id'] = $prb->id;
-            $pasienBuild['nama'] = $prb->nama;
-            $pasienBuild['no_rm'] = $prb->no_rm;
-            $getPrb[$prb->id] = \array_merge($getPrb[$prb->id], $pasienBuild);
         }
 
         $dataLaporanKunjungan = $getPrb;

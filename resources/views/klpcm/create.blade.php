@@ -118,7 +118,7 @@ $umur = $yearNow - $yearPasien;
                                             <input type="text" name="rs_rujukan" id="rs_rujukan" class="form-control" value="">
                                         </div>
                                     </div>
-</div>
+                                </div>
                             </div>
                             <div class="col-6 col-md-6 col-sm-6">
                                 <div class="row">
@@ -159,7 +159,7 @@ $umur = $yearNow - $yearPasien;
                                         </div>
                                     </div>
                                 </div>
-                                @if ($dataKunjungan->status_prolanis == 1 || $dataKunjungan->status_prb == 1)
+                                @if ($dataKunjungan->is_prolanis == 1 || $dataKunjungan->is_prb == 1)
                                     @if($dataKunjungan->keterangan_prolanis)
                                         <div class="row">
                                             <div class="col-md-12">
