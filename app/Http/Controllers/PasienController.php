@@ -597,12 +597,13 @@ class PasienController extends Controller
             ->first();
 
         $getYearPasien = Date('Y');
+        $noUrut = 1;
         if ($dataPasien) {
             $getYearPasien = Date('Y', strtotime($dataPasien->created_at));
+            $noUrut = $dataPasien->no_urut + 1;
         }
 
         $yearNow = Date('Y');
-        $noUrut = $dataPasien->no_urut + 1;
         if ($yearNow != $getYearPasien) {
             $noUrut = 1;
         }
