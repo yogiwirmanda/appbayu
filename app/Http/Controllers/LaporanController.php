@@ -83,13 +83,18 @@ class LaporanController extends Controller
         }
     }
 
-    public function countByMonth($idPasien, $month)
+    public function countByMonth($idPasien, $month, $year)
     {
         $modelKunjungan = Kunjungan::select('*')
             ->where('id_pasien', $idPasien)
             ->where('is_prolanis', 1)
-            ->whereMonth('created_at', $month)
-            ->orderBy('created_at', 'DESC')
+            ->whereMonth('created_at', $month);
+
+        if (strlen($year) > 0) {
+            $modelKunjungan = $modelKunjungan->whereYear('created_at', $year);
+        }
+
+        $modelKunjungan = $modelKunjungan->orderBy('created_at', 'DESC')
             ->first();
 
         if ($modelKunjungan) {
@@ -107,14 +112,18 @@ class LaporanController extends Controller
         return $data;
     }
 
-    public function countByMonthPrb($idPasien, $month)
+    public function countByMonthPrb($idPasien, $month, $year)
     {
         $modelKunjungan = Kunjungan::select('*')
             ->where('id_pasien', $idPasien)
             ->where('is_prb', 1)
-            ->whereMonth('created_at', $month)
-            ->whereYear('created_at', Date('Y'))
-            ->orderBy('created_at', 'DESC')
+            ->whereMonth('created_at', $month);
+
+        if (strlen($year) > 0) {
+            $modelKunjungan = $modelKunjungan->whereYear('created_at', $year);
+        }
+
+        $modelKunjungan = $modelKunjungan->orderBy('created_at', 'DESC')
             ->first();
 
         if ($modelKunjungan) {
@@ -140,12 +149,10 @@ class LaporanController extends Controller
         return view('laporan.prb.pemeriksaan', compact('navActive', 'tanggal'));
     }
 
-    public function loadPrb($type = 'harian', $tanggal = '')
+    public function loadPrb(Request $request)
     {
         $navActive = 'prolanis';
-        if (strlen($tanggal) == 0) {
-            $tanggal = Date('Y-m-d');
-        }
+        $year = $request->year;
 
         $getPrb = [];
 
@@ -158,7 +165,7 @@ class LaporanController extends Controller
                 $getPrb[$prb->id] = [];
                 for ($i=1;$i<=12;$i++) {
                     $getCount = [];
-                    $getCount = self::countByMonthPrb($prb->id, $i);
+                    $getCount = self::countByMonthPrb($prb->id, $i, $year);
                     $getPrb[$prb->id] = array_merge($getPrb[$prb->id], $getCount);
                 }
                 $pasienBuild = [];
@@ -171,7 +178,7 @@ class LaporanController extends Controller
 
         $dataLaporanKunjungan = $getPrb;
         return response()->json([
-            'html' => view('laporan.prb.pemeriksaan-prb', compact('dataLaporanKunjungan', 'type', 'tanggal', 'navActive'))->render()
+            'html' => view('laporan.prb.pemeriksaan-prb', compact('dataLaporanKunjungan', 'navActive'))->render()
         ]);
     }
 
@@ -188,7 +195,7 @@ class LaporanController extends Controller
             $getPrb[$prb->id] = [];
             for ($i=1;$i<=12;$i++) {
                 $getCount = [];
-                $getCount = self::countByMonthPrb($prb->id, $i);
+                $getCount = self::countByMonthPrb($prb->id, $i, '');
                 $getPrb[$prb->id] = array_merge($getPrb[$prb->id], $getCount);
             }
             $pasienBuild = [];
@@ -204,12 +211,10 @@ class LaporanController extends Controller
         ]);
     }
 
-    public function pemeriksaanDM($type = 'harian', $tanggal = '')
+    public function pemeriksaanDM(Request $request)
     {
         $navActive = 'prolanis';
-        if (strlen($tanggal) == 0) {
-            $tanggal = Date('Y-m-d');
-        }
+        $year = $request->year;
 
         $getProlanis = [];
 
@@ -222,7 +227,7 @@ class LaporanController extends Controller
             $getProlanis[$prolanis->id] = [];
             for ($i=1;$i<=12;$i++) {
                 $getCount = [];
-                $getCount = self::countByMonth($prolanis->id, $i);
+                $getCount = self::countByMonth($prolanis->id, $i, $year);
                 $getProlanis[$prolanis->id] = array_merge($getProlanis[$prolanis->id], $getCount);
             }
             $pasienBuild = [];
@@ -234,7 +239,7 @@ class LaporanController extends Controller
 
         $dataLaporanKunjungan = $getProlanis;
         return response()->json([
-            'html' => view('laporan.prolanis.pemeriksaan-dm', compact('dataLaporanKunjungan', 'type', 'tanggal', 'navActive'))->render()
+            'html' => view('laporan.prolanis.pemeriksaan-dm', compact('dataLaporanKunjungan', 'year', 'navActive'))->render()
         ]);
     }
 
@@ -252,7 +257,7 @@ class LaporanController extends Controller
             $getProlanis[$prolanis->id] = [];
             for ($i=1;$i<=12;$i++) {
                 $getCount = [];
-                $getCount = self::countByMonth($prolanis->id, $i);
+                $getCount = self::countByMonth($prolanis->id, $i, '');
                 $getProlanis[$prolanis->id] = array_merge($getProlanis[$prolanis->id], $getCount);
             }
             $pasienBuild = [];
@@ -272,12 +277,10 @@ class LaporanController extends Controller
 
 
 
-    public function pemeriksaanHT($type = 'harian', $tanggal = '')
+    public function pemeriksaanHT(Request $request)
     {
         $navActive = 'prolanis';
-        if (strlen($tanggal) == 0) {
-            $tanggal = Date('Y-m-d');
-        }
+        $year = $request->year;
 
         $getProlanis = [];
 
@@ -290,7 +293,7 @@ class LaporanController extends Controller
             $getProlanis[$prolanis->id] = [];
             for ($i=1;$i<=12;$i++) {
                 $getCount = [];
-                $getCount = self::countByMonth($prolanis->id, $i);
+                $getCount = self::countByMonth($prolanis->id, $i, $year);
                 $getProlanis[$prolanis->id] = array_merge($getProlanis[$prolanis->id], $getCount);
             }
             $pasienBuild = [];
@@ -302,7 +305,7 @@ class LaporanController extends Controller
 
         $dataLaporanKunjungan = $getProlanis;
         return response()->json([
-            'html' => view('laporan.prolanis.pemeriksaan-ht', compact('dataLaporanKunjungan', 'type', 'tanggal', 'navActive'))->render()
+            'html' => view('laporan.prolanis.pemeriksaan-ht', compact('dataLaporanKunjungan', 'year', 'navActive'))->render()
         ]);
     }
 
@@ -322,7 +325,7 @@ class LaporanController extends Controller
             $getProlanis[$prolanis->id] = [];
             for ($i=1;$i<=12;$i++) {
                 $getCount = [];
-                $getCount = self::countByMonth($prolanis->id, $i);
+                $getCount = self::countByMonth($prolanis->id, $i, '');
                 $getProlanis[$prolanis->id] = array_merge($getProlanis[$prolanis->id], $getCount);
             }
             $pasienBuild = [];

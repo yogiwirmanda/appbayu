@@ -44,7 +44,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="row input-nama-kk">
+                                <div class="row input-nama-kk not-ss">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Nama KK</label>
@@ -76,7 +76,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row not-ss">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Tempat Lahir</label>
@@ -111,7 +111,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row mb-3">
+                                <div class="row mb-3 not-ss">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="col-form-label">No HP</label>
@@ -122,7 +122,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="row">
+                                <div class="row not-ss">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Agama</label>
@@ -138,7 +138,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row not-ss">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Status Perkawinan</label>
@@ -158,7 +158,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row not-ss">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Kewarganegaraan</label>
@@ -169,7 +169,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row not-ss">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Gol Darah</label>
@@ -183,7 +183,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row not-ss">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Cara Bayar</label>
@@ -195,7 +195,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row d-none" id="noBPJS">
+                                <div class="row d-none not-ss" id="noBPJS">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="col-form-label">No BPJS</label>
@@ -220,7 +220,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row not-ss">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="col-form-label">RT / RW</label>
@@ -233,7 +233,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row not-ss">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Alamat Domisii</label>
@@ -243,7 +243,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row not-ss">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <input type="checkbox" name="same_as_alamat" class="btn-same-address mr-2">
@@ -252,7 +252,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 not-ss">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
@@ -752,9 +752,9 @@
 
     $('.input-surat-sehat').change(function (e) {
         if ($(this).is(':checked')) {
-            $('.input-nama-kk').addClass('d-none');
+            $('.not-ss').addClass('d-none');
         } else {
-            $('.input-nama-kk').removeClass('d-none');
+            $('.not-ss').removeClass('d-none');
         }
     });
 

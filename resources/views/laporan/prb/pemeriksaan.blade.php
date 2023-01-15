@@ -19,9 +19,11 @@
     <div class="card">
         <div class="card-body">
             <div class="col-6 d-flex justify-content-around m-b-10">
-                <input type="date" name="tanggal" id="tanggal" class="form-control" value="{{$tanggal}}">
-                <a href="javascript:;"
-                    class="btn btn-info btn-fill pull-right btn-submit-filter m-l-10">Filter</a>
+                <select name="tahun" id="select-tahun" class="form-control select2">
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023" selected>2023</option>
+                </select>
             </div>
             <div class="tab-content" id="top-tabContent">
                 <div class="tab-pane fade show active" id="top-home" role="tabpanel" aria-labelledby="top-home-tab">
@@ -42,11 +44,12 @@
     });
 
     function loadTable(){
+        let getTahun = $('#select-tahun').val();
         $.ajax({
             url : '{{route("loadPrb")}}',
             dataType : 'json',
             method : 'GET',
-            data : [],
+            data : {year : getTahun},
             success : function(response){
                 $('#load-table').html('');
                 $('#load-table').html(response.html);
@@ -55,5 +58,9 @@
     }
 
     loadTable();
+
+    $('#select-tahun').change(function(){
+        loadTable();
+    });
 </script>
 @endsection

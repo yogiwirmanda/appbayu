@@ -134,19 +134,26 @@ class PasienController extends Controller
                 $kategori = 'L';
             }
 
-            $kodeKategori = self::checkKategoriPasien($request->umur);
-            $lastRm = self::checkUsedRm($wilayah, $kodeKategori);
-            $noRm = $request->noRm;
-            if (strlen($noRm) == 0 && strlen($pendatang == null)) {
-                $checkUsedRM = self::checkUsedRm($wilayah, $kodeKategori);
-                if ($checkUsedRM == null) {
-                    $noRm = self::checkNoRM($wilayah, $kategori, $kodeKategori);
-                    $lastRm = self::getLastNumber($wilayah, $kodeKategori);
-                } else {
-                    $noRm = self::generateRmUsed($checkUsedRM, $wilayah, $kategori);
-                    $lastRm = $checkUsedRM;
+            if ($request->suratSehat != 1) {
+                $kodeKategori = self::checkKategoriPasien($request->umur);
+                $lastRm = self::checkUsedRm($wilayah, $kodeKategori);
+                $noRm = $request->noRm;
+                if (strlen($noRm) == 0 && strlen($pendatang == null)) {
+                    $checkUsedRM = self::checkUsedRm($wilayah, $kodeKategori);
+                    if ($checkUsedRM == null) {
+                        $noRm = self::checkNoRM($wilayah, $kategori, $kodeKategori);
+                        $lastRm = self::getLastNumber($wilayah, $kodeKategori);
+                    } else {
+                        $noRm = self::generateRmUsed($checkUsedRM, $wilayah, $kategori);
+                        $lastRm = $checkUsedRM;
+                    }
                 }
+            } else {
+                $lastRm = self::lastRmSuratSehat();
+                $noRm = 'SS-' . $lastRm;
+                $kodeKategori = 3;
             }
+
 
 
             if ($pendatang != null) {
@@ -607,6 +614,21 @@ class PasienController extends Controller
         if ($yearNow != $getYearPasien) {
             $noUrut = 1;
         }
+        return $noUrut;
+    }
+
+    public function lastRmSuratSehat()
+    {
+        $dataPasien = DB::table('pasiens')
+            ->where('kategori', '=', 3)
+            ->orderBy('created_at', 'DESC')
+            ->first();
+
+        $noUrut = 1;
+        if ($dataPasien) {
+            $noUrut = $dataPasien->no_urut + 1;
+        }
+
         return $noUrut;
     }
 

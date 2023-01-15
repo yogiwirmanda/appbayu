@@ -20,9 +20,11 @@
     <div class="card">
         <div class="card-body">
             <div class="col-6 d-flex justify-content-around m-b-10">
-                <input type="date" name="tanggal" id="tanggal" class="form-control" value="{{$tanggal}}">
-                <a href="javascript:;"
-                    class="btn btn-info btn-fill pull-right btn-submit-filter m-l-10">Filter</a>
+                <select name="tahun" id="select-tahun" class="form-control select2">
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023" selected>2023</option>
+                </select>
             </div>
             <ul class="nav nav-tabs border-tab" id="top-tab" role="tablist">
                 <li class="nav-item"><a class="nav-link active btn-load-dm" id="top-home-tab" data-bs-toggle="tab" href="#top-home"
@@ -50,20 +52,16 @@
 <script>
     $('.btn-submit-filter').click(function (e) {
         e.preventDefault();
-        let type = $('#type').val();
-        if (type == 'dm'){
-            loadDM();
-        } else {
-            loadHT();
-        }
+        loadDM();
     });
 
     function loadDM(){
+        let getTahun = $('#select-tahun').val();
         $.ajax({
             url : '{{route("laporan_pemeriksaan_dm")}}',
             dataType : 'json',
             method : 'GET',
-            data : [],
+            data : {year : getTahun},
             success : function(response){
                 $('#load-dm').html('');
                 $('#load-dm').html(response.html);
@@ -72,11 +70,12 @@
     }
 
     function loadHT(){
+        let getTahun = $('#select-tahun').val();
         $.ajax({
             url : '{{route("laporan_pemeriksaan_ht")}}',
             dataType : 'json',
             method : 'GET',
-            data : [],
+            data : {year : getTahun},
             success : function(response){
                 $('#load-ht').html('');
                 $('#load-ht').html(response.html);
@@ -97,6 +96,10 @@
         $('.nav-link').removeClass('active');
         $(this).addClass('active');
         loadHT();
+    });
+
+    $('#select-tahun').change(function(){
+        loadDM();
     });
 </script>
 @endsection

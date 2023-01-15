@@ -32,8 +32,10 @@ class SettingController extends Controller
         $kategori = $request->kategori;
         $wilayah = $request->wilayah;
 
-        $result = Pasien::where('no_urut', '>=', $nomorAwal)
-            ->where('no_urut', '<=', $nomorAkhir)
+        dd($request);
+
+        $result = Pasien::where('no_urut', '>', $nomorAwal)
+            ->where('no_urut', '<', $nomorAkhir)
             ->where('kategori', $kategori)
             ->where('wilayah', $wilayah)
             ->orderBy('no_urut', 'asc')
