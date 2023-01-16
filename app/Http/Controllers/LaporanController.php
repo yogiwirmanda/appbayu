@@ -164,6 +164,7 @@ class LaporanController extends Controller
             foreach ($dataPrbPasien as $prb) {
                 $getPrb[$prb->id] = [];
                 for ($i=1;$i<=12;$i++) {
+                    dd($i);
                     $getCount = [];
                     $getCount = self::countByMonthPrb($prb->id, $i, $year);
                     $getPrb[$prb->id] = array_merge($getPrb[$prb->id], $getCount);
