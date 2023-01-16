@@ -22,7 +22,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="table-responsive">
+                            <div class="table-responsive tableFixHead">
                                 <table class="table table-flush text-center table-laporan-kunjungan">
                                     <thead>
                                         <tr>
