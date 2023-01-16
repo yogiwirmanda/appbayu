@@ -166,9 +166,9 @@ class LaporanController extends Controller
                 for ($i=1;$i<=12;$i++) {
                     $getCount = [];
                     $getCount = self::countByMonthPrb($prb->id, $i, $year);
-                    dd($getCount);
                     $getPrb[$prb->id] = array_merge($getPrb[$prb->id], $getCount);
                 }
+                dd($getPrb[$prb->id]);
                 $pasienBuild = [];
                 $pasienBuild['id'] = $prb->id;
                 $pasienBuild['nama'] = $prb->nama;
