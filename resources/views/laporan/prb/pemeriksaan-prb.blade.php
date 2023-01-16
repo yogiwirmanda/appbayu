@@ -26,6 +26,7 @@
                 <td>{{$key + 1}}</td>
                 <td>{{$data['no_rm']}}</td>
                 <td>{{$data['nama']}}</td>
+                <td>{{$data[0]}}</td>
                 <td>{{$data[1]}}</td>
                 <td>{{$data[2]}}</td>
                 <td>{{$data[3]}}</td>
@@ -37,7 +38,6 @@
                 <td>{{$data[9]}}</td>
                 <td>{{$data[10]}}</td>
                 <td>{{$data[11]}}</td>
-                <td>{{$data[12]}}</td>
             </tr>
             @endforeach
         @else

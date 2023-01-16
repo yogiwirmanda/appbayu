@@ -168,7 +168,6 @@ class LaporanController extends Controller
                     $getCount = self::countByMonthPrb($prb->id, $i, $year);
                     $getPrb[$prb->id] = array_merge($getPrb[$prb->id], $getCount);
                 }
-                dd($getPrb[$prb->id]);
                 $pasienBuild = [];
                 $pasienBuild['id'] = $prb->id;
                 $pasienBuild['nama'] = $prb->nama;
@@ -178,7 +177,6 @@ class LaporanController extends Controller
         }
 
         $dataLaporanKunjungan = $getPrb;
-        dd($dataLaporanKunjungan);
         return response()->json([
             'html' => view('laporan.prb.pemeriksaan-prb', compact('dataLaporanKunjungan', 'navActive'))->render()
         ]);
