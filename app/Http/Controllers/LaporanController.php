@@ -177,6 +177,7 @@ class LaporanController extends Controller
         }
 
         $dataLaporanKunjungan = $getPrb;
+        dd($dataLaporanKunjungan);
         return response()->json([
             'html' => view('laporan.prb.pemeriksaan-prb', compact('dataLaporanKunjungan', 'navActive'))->render()
         ]);
