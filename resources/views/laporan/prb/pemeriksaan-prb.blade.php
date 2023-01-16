@@ -26,18 +26,18 @@
                 <td>{{$key + 1}}</td>
                 <td>{{$data['no_rm']}}</td>
                 <td>{{$data['nama']}}</td>
-                <td>{{$data['januari']}}</td>
-                <td>{{$data['februari']}}</td>
-                <td>{{$data['maret']}}</td>
-                <td>{{$data['april']}}</td>
-                <td>{{$data['mei']}}</td>
-                <td>{{$data['juni']}}</td>
-                <td>{{$data['juli']}}</td>
-                <td>{{$data['agustus']}}</td>
-                <td>{{$data['september']}}</td>
-                <td>{{$data['oktober']}}</td>
-                <td>{{$data['november']}}</td>
-                <td>{{$data['desember']}}</td>
+                <td>{{$data[1]}}</td>
+                <td>{{$data[2]}}</td>
+                <td>{{$data[3]}}</td>
+                <td>{{$data[4]}}</td>
+                <td>{{$data[5]}}</td>
+                <td>{{$data[6]}}</td>
+                <td>{{$data[7]}}</td>
+                <td>{{$data[8]}}</td>
+                <td>{{$data[9]}}</td>
+                <td>{{$data[10]}}</td>
+                <td>{{$data[11]}}</td>
+                <td>{{$data[12]}}</td>
             </tr>
             @endforeach
         @else
