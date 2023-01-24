@@ -129,7 +129,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('obat/dtAjax', [ObatController::class, 'dtAjax'])->name('ajax_load_obat');
 
     Route::get('laporan/klpcm', [LaporanController::class, 'klpcm'])->name('laporan_klpcm');
-    Route::get('laporan/klpcm/{type}/{date}', [LaporanController::class, 'klpcm'])->name('laporan_klpcm_filter');
+    Route::get('laporan/klpcm/load', [LaporanController::class, 'loadKlpcm'])->name('laporan_klpcm_filter');
 
     Route::get('laporan/prolanis', [LaporanController::class, 'prolanis'])->name('laporan_prolanis');
     Route::get('laporan/prolanis/dtAjax', [LaporanController::class, 'dtAjaxProlanis'])->name('ajax_load_laporan_prolanis');

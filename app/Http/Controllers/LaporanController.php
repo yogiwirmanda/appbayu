@@ -27,23 +27,33 @@ class LaporanController extends Controller
         return $modelPasien;
     }
 
-    public function klpcm($type = 'harian', $tanggal = '')
+    public function klpcm()
     {
         $navActive = $this->navActive;
-        if (strlen($tanggal) == 0) {
-            $tanggal = Date('Y-m-d');
+
+        return view('laporan.klpcm.index', compact('navActive'));
+    }
+
+    public function loadKlpcm(Request $request)
+    {
+        $dataPoli = Poli::all();
+        $startDate = $request->startDate;
+        $endDate = $request->endDate;
+
+        if (strlen($startDate) == 0) {
+            $startDate = Date('Y-m-d');
         }
 
-        $dataPoli = Poli::all();
+        if (strlen($endDate) == 0) {
+            $endDate = Date('Y-m-d');
+        }
+
         $dataLaporan = [];
         foreach ($dataPoli as $poli) {
             $modelKunjungan = DB::table('klpcms')
                 ->join('kunjungans', 'klpcms.id_kunjungan', '=', 'kunjungans.id');
-            if ($type == 'harian') {
-                $modelKunjungan = $modelKunjungan->where('kunjungans.tanggal', '=', $tanggal);
-            } else {
-                $modelKunjungan = $modelKunjungan->whereMonth('kunjungans.tanggal', '=', $tanggal);
-            }
+            $modelKunjungan = $modelKunjungan->whereDate('kunjungans.tanggal', '>=', $startDate)
+                ->where('kunjungans.tanggal', '<=', $endDate);
             $modelKunjungan = $modelKunjungan->where('kunjungans.id_poli', $poli->id);
 
             $totalPasienPoli = $modelKunjungan->count('klpcms.id');
@@ -61,7 +71,9 @@ class LaporanController extends Controller
             $dataLaporan[] = $dataTemp;
         }
 
-        return view('laporan.klpcm.index', compact('dataLaporan', 'navActive', 'tanggal', 'type'));
+        return response()->json([
+            'html' => view('laporan.klpcm.table', compact('dataLaporan'))->render()
+        ]);
     }
 
     public function prolanis()

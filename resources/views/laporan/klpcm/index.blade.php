@@ -16,7 +16,6 @@
     </div>
 </div>
 <div class="container-fluid">
-    <input type="hidden" name="type" id="type" value="{{$type}}">
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -24,35 +23,14 @@
                     <div class="row m-b-20">
                         <div class="col-md-12">
                             <div class="col-6 d-flex justify-content-around">
-                                <input type="date" name="tanggal" id="tanggal" class="form-control"
-                                    value="{{$tanggal}}">
-                                <a href="javascript:;" class="btn btn-info btn-fill pull-right btn-submit-filter m-l-10">Filter</a>
+                                <input class="datepicker-here form-control digits" type="text" data-range="true" data-multiple-dates-separator=" - " data-language="en">
+                                <a href="javascript:;" class="btn btn-info btn-fill pull-right btn-submit-filter m-l-15">Filter</a>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="table-responsive">
-                                <table class="table table-flush" id="datatable-basic-with-export"
-                                    style="text-transform: uppercase;">
-                                    <thead>
-                                        <th>No</th>
-                                        <th>Nama Ruang</th>
-                                        <th>Lengkap</th>
-                                        <th>Tidak Lengkap</th>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($dataLaporan as $key => $data)
-                                        <tr>
-                                            <td>{{$key + 1}}</td>
-                                            <td>{{'POLI '.$data['namaPoli']}}</td>
-                                            <td>{{$data['totalPasienLengkap'].'%'}}</td>
-                                            <td>{{$data['totalPasienTidakLengkap'].'%'}}</td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
+                            <div id="load-klpcm"></div>
                         </div>
                     </div>
                 </div>
@@ -63,12 +41,36 @@
 @endsection
 @section('page-scripts')
 <script>
+
+    function loadTable(startDate = '', endDate = ''){
+        $.ajax({
+            url : '{{route("laporan_klpcm_filter")}}',
+            dataType : 'json',
+            method : 'GET',
+            data : {startDate : startDate, endDate : endDate},
+            success : function(response){
+                $('#load-klpcm').html('');
+                $('#load-klpcm').html(response.html);
+            }
+        })
+    }
+
     $('.btn-submit-filter').click(function (e) {
         e.preventDefault();
-        let tanggal = $('#tanggal').val();
-        let type = $('#type').val();
-        window.location.href = '/laporan/klpcm/' + type + '/' + tanggal;
+        e.stopImmediatePropagation();
+        var tanggal = $('.datepicker-here').val();
+        tanggal = tanggal.replace(/\s+/g, '');
+        let separateTanggal = tanggal.split("-");
+        let separateAwal = separateTanggal[0].split("/");
+        let separateAkhir = separateTanggal[1].split("/");
+
+        let tanggalAwal = separateAwal[2] + '-' + separateAwal[1] + '-' + separateAwal[0];
+        let tanggalAkhir = separateAkhir[2] + '-' + separateAkhir[1] + '-' + separateAkhir[0];
+
+        loadTable(tanggalAwal, tanggalAkhir);
     });
+
+    loadTable();
 
 </script>
 @endsection
