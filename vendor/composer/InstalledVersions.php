@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '8d0a4d09821b17790381aefea3b98e06cd6e7145',
+    'reference' => '272cc00c5fcac6a71ec44091506964c64ffe6659',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -451,6 +451,15 @@ private static $installed = array (
         0 => '*',
       ),
     ),
+    'laminas/laminas-escaper' => 
+    array (
+      'pretty_version' => '2.12.0',
+      'version' => '2.12.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'ee7a4c37bf3d0e8c03635d5bddb5bb3184ead490',
+    ),
     'laravel/framework' => 
     array (
       'pretty_version' => 'v8.83.27',
@@ -467,7 +476,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '8d0a4d09821b17790381aefea3b98e06cd6e7145',
+      'reference' => '272cc00c5fcac6a71ec44091506964c64ffe6659',
     ),
     'laravel/sail' => 
     array (
@@ -647,6 +656,15 @@ private static $installed = array (
       ),
       'reference' => 'f59bbe44bf7d96f24f3e2b4ddc21cd52c1d2adbc',
     ),
+    'novay/laravel-word-template' => 
+    array (
+      'pretty_version' => 'v1.1',
+      'version' => '1.1.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '9d9423547456420bc9780040b27828022445d548',
+    ),
     'nunomaduro/collision' => 
     array (
       'pretty_version' => 'v5.11.0',
@@ -691,6 +709,15 @@ private static $installed = array (
       array (
       ),
       'reference' => 'a317a09e7def49852400a4b3eca4a4b0790ceeb5',
+    ),
+    'phpoffice/phpword' => 
+    array (
+      'pretty_version' => '1.0.0',
+      'version' => '1.0.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '8521612b39edeec9055d3688ad555342a40857dd',
     ),
     'phpoption/phpoption' => 
     array (

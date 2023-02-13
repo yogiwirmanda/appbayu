@@ -8,7 +8,7 @@
 // }
 
 PRC = {
-    ajaxSubmit : function(form, redirectUrl, pasien = false){
+    ajaxSubmit : function(form, redirectUrl, pasien = false, withRedirect = true){
         form.find('.btn').attr('disabled', 'disabled');
         $.ajax({
             url : form.attr('action'),
@@ -27,14 +27,16 @@ PRC = {
                     form.find('.btn').removeAttr('disabled');
                 } else {
                     $.notify(messages, 'success');
-                    if (pasien != false){
-                        setTimeout(() => {
-                            window.location.href = redirectUrl + '/' + response.dataId + '/baru';
-                        }, 1000);
-                    } else {
-                        setTimeout(() => {
-                            window.location.href = redirectUrl;
-                        }, 1000);
+                    if (withRedirect == true){
+                        if (pasien != false){
+                            setTimeout(() => {
+                                window.location.href = redirectUrl + '/' + response.dataId + '/baru';
+                            }, 1000);
+                        } else {
+                            setTimeout(() => {
+                                window.location.href = redirectUrl;
+                            }, 1000);
+                        }
                     }
                 }
                 HoldOn.close();

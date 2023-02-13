@@ -25,7 +25,7 @@ class PrbController extends Controller
     public function dtAjax(Request $request)
     {
         if ($request->ajax()) {
-            $dataPasienPrb = Prb::select('prbs.*', 'dokters.nama as namaDokter', 'pasiens.nama as namaPasien', 'pasiens.alamat as alamatPasien', 'pasiens.no_rm as noRm')
+            $dataPasienPrb = Prb::select('prbs.*', 'dokters.nama as namaDokter', 'pasiens.nama as namaPasien', 'pasiens.alamat as alamatPasien', 'pasiens.no_rm as noRm', 'pasiens.id as pasienId')
                 ->join('pasiens', 'pasiens.id', '=', 'prbs.id_pasien')
                 ->join('dokters', 'dokters.id', '=', 'prbs.id_dokter')
                 ->get();
@@ -33,13 +33,18 @@ class PrbController extends Controller
 
             return DataTables::of($dataPasienPrb)
                 ->addIndexColumn()
+                ->addColumn('download', function ($row) {
+                    $actionBtn = '<a href="/prb/download/'.$row->pasienId.'" target="_blank" class="btn btn-sm btn-warning m-r-10">SPP</a>';
+                    $actionBtn .= '<a href="/prb/downloadDokter/'.$row->pasienId.'" target="_blank" class="btn btn-sm btn-info">SPD</a>';
+                    return $actionBtn;
+                })
                 ->addColumn('action', function ($row) {
                     $urlEdit = route("edit_prb", $row->id);
                     $actionBtn = '<a href='.$urlEdit.' class="btn btn-sm btn-primary m-r-10">Edit</a>';
                     $actionBtn .= '<a href="javascript:;" class="btn btn-sm btn-danger table-action-delete" data-pasien-id=' . $row->id . ' data-pasien-nama=' . $row->nama .'>Hapus</a>';
                     return $actionBtn;
                 })
-                ->rawColumns(['action'])
+                ->rawColumns(['action', 'download'])
                 ->make(true);
         }
     }
@@ -106,5 +111,41 @@ class PrbController extends Controller
         return response()->json(
             ['error'=>$error, 'messages'=>'Prb berhasil di tambahkan'],
         );
+    }
+
+    public function download($idPasien = null)
+    {
+        $modelPasien = Pasien::find($idPasien);
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('doc/SURAT PERNYATAAN PERSETUJUAN PRB.docx');
+        $templateProcessor->setValue('nama_pasien', $modelPasien->nama);
+        $templateProcessor->setValue('no_bpjs', $modelPasien->no_bpjs);
+        $templateProcessor->setValue('tanggal_lahir', $modelPasien->tgl_lahir);
+        $templateProcessor->setValue('alamat', $modelPasien->alamat);
+        $templateProcessor->setValue('no_hp', $modelPasien->no_hp);
+        $templateProcessor->setValue('tanggal_ttd', Date('d F Y'));
+        header("Content-Disposition: attachment; filename=" . $modelPasien->nama . " _SPP.docx");
+    }
+
+    public function downloadDokter($idPasien = null)
+    {
+        $modelPasien = Pasien::find($idPasien);
+        $modelPrb = Prb::where('id_pasien', $idPasien)->first();
+        $modelDokter = Dokter::find($modelPrb->id_dokter);
+        $templateProcessorDokter = new \PhpOffice\PhpWord\TemplateProcessor('doc/SURAT PERNYATAAN DOKTER PRB.docx');
+        $templateProcessorDokter->setValue('nama_dokter', $modelDokter->nama);
+        $templateProcessorDokter->setValue('nama_pasien', $modelPasien->nama);
+        $templateProcessorDokter->setValue('no_bpjs', $modelPasien->no_bpjs);
+        $templateProcessorDokter->setValue('tanggal_lahir', $modelPasien->tgl_lahir);
+        $templateProcessorDokter->setValue('alamat_pasien', $modelPasien->alamat);
+        $templateProcessorDokter->setValue('tensi', $modelPrb->tensi);
+        $templateProcessorDokter->setValue('suhu', $modelPrb->suhu);
+        $templateProcessorDokter->setValue('nadi', $modelPrb->nadi);
+        $templateProcessorDokter->setValue('berat_badan', $modelPrb->berat_badan);
+        $templateProcessorDokter->setValue('tinggi_badan', $modelPrb->tinggi_badan);
+        $templateProcessorDokter->setValue('obat', $modelPrb->obat);
+        $templateProcessorDokter->setValue('tanggal_ttd', Date('d F Y'));
+        header("Content-Disposition: attachment; filename=" . $modelPasien->nama . " _SPD.docx");
+
+        $templateProcessorDokter->saveAs('php://output');
     }
 }

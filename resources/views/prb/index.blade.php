@@ -34,6 +34,7 @@
                                     <th>Name</th>
                                     <th>Alamat</th>
                                     <th>Nama Dokter</th>
+                                    <th>Download</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -71,6 +72,10 @@
             {
                 data: 'namaDokter',
                 name: 'namaDokter'
+            },
+            {
+                data: 'download',
+                name: 'download'
             },
             {
                 data: 'action',

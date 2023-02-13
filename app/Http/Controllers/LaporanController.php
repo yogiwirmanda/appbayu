@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Export\BuildExport;
-use App\Models\Diagnosa;
 use App\Models\Kunjungan;
 use App\Models\Pasien;
 use App\Models\Poli;
@@ -11,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 use Excel;
+use TemplateProcessor;
 
 class LaporanController extends Controller
 {

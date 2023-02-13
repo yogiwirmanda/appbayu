@@ -336,7 +336,11 @@
         e.preventDefault();
         PRC.disabledValidation();
         let form = $(this);
-        PRC.ajaxSubmit(form, '/prb');
+        PRC.ajaxSubmit(form, '/prb', false, false);
+
+        setTimeout(() => {
+            window.location.href = '/prb';
+        }, 1000);
     });
 
     $('.btn-modal-cari').click(function (e) {

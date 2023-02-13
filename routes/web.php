@@ -88,6 +88,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('prb/save', [PrbController::class, 'store'])->name('save_prb');
     Route::get('prb/edit', [PrbController::class, 'edit'])->name('edit_prb');
     Route::get('prb/dtAjax', [PrbController::class, 'dtAjax'])->name('ajax_load_prb');
+    Route::get('prb/download/{idPasien}', [PrbController::class, 'download'])->name('prb_download');
+    Route::get('prb/downloadDokter/{idPasien}', [PrbController::class, 'downloadDokter'])->name('prb_download_dokter');
 
     Route::get('dokter', [DokterController::class, 'index'])->name('show_dokter');
     Route::get('dokter/create', [DokterController::class, 'create'])->name('create_dokter');
