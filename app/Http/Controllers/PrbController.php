@@ -124,7 +124,8 @@ class PrbController extends Controller
         $templateProcessor->setValue('no_hp', $modelPasien->no_hp);
         $templateProcessor->setValue('tanggal_ttd', Date('d F Y'));
         header("Content-Disposition: attachment; filename=" . $modelPasien->nama . " _SPP.docx");
-        $templateProcessorDokter->saveAs('php://output');
+
+        $templateProcessor->saveAs('php://output');
     }
 
     public function downloadDokter($idPasien = null)
