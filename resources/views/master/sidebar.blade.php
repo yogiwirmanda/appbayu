@@ -50,6 +50,7 @@
               <li><a href="/laporan/pemeriksaanPrb">PRB</a></li>
               <li><a href="/laporan/klpcm">KLPCM</a></li>
               <li><a href="/laporan/kunjungan">Kunjungan</a></li>
+              <li><a href="/laporan/lb1">LB1</a></li>
             </ul>
           </li>
           <li class="sidebar-list">

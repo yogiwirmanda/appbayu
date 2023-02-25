@@ -145,7 +145,7 @@ class PrbController extends Controller
         $templateProcessorDokter->setValue('berat_badan', $modelPrb->berat_badan);
         $templateProcessorDokter->setValue('tinggi_badan', $modelPrb->tinggi_badan);
         $templateProcessorDokter->setValue('obat', $modelPrb->obat);
-        $templateProcessorDokter->setValue('tanggal_ttd', Date('d F Y'));
+        $templateProcessorDokter->setValue('tanggal_ttd', Date('d m Y'));
         header("Content-Disposition: attachment; filename=" . $modelPasien->nama . " _SPD.docx");
 
         $templateProcessorDokter->saveAs('php://output');

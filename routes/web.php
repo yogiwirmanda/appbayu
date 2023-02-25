@@ -138,6 +138,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('laporan/kunjungan', [LaporanController::class, 'kunjungan'])->name('laporan_kunjungan');
     Route::get('laporan/lb1', [LaporanController::class, 'lb1'])->name('laporan_lb1');
+    Route::get('laporan/lb1Download', [LaporanController::class, 'lb1Download'])->name('laporan_lb1_download');
 
     Route::get('laporan/pemeriksaan', [LaporanController::class, 'pemeriksaan'])->name('laporan_pemeriksaan');
     Route::get('laporan/pemeriksaan/dm', [LaporanController::class, 'pemeriksaanDM'])->name('laporan_pemeriksaan_dm');
