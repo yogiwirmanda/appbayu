@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dokter;
+use App\Models\Obat;
 use App\Models\Pasien;
 use App\Models\Prb;
 use Illuminate\Http\Request;
@@ -119,7 +120,7 @@ class PrbController extends Controller
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('doc/SURAT PERNYATAAN PERSETUJUAN PRB.docx');
         $templateProcessor->setValue('nama_pasien', $modelPasien->nama);
         $templateProcessor->setValue('no_bpjs', $modelPasien->no_bpjs);
-        $templateProcessor->setValue('tanggal_lahir', $modelPasien->tgl_lahir);
+        $templateProcessor->setValue('tanggal_lahir', Date('d-m-Y', \strtotime($modelPasien->tgl_lahir)));
         $templateProcessor->setValue('alamat', $modelPasien->alamat);
         $templateProcessor->setValue('no_hp', $modelPasien->no_hp);
         $templateProcessor->setValue('tanggal_ttd', Date('d F Y'));
@@ -133,19 +134,30 @@ class PrbController extends Controller
         $modelPasien = Pasien::find($idPasien);
         $modelPrb = Prb::where('id_pasien', $idPasien)->first();
         $modelDokter = Dokter::find($modelPrb->id_dokter);
+
+        $dataArrObat = json_decode($modelPrb->obat);
+        $tmpArrObat = [];
+
+        foreach ($dataArrObat as $key => $value) {
+            $modelObatFind = Obat::find($value->id);
+            $tmpArrObat[] = $value->nama . ' (' . $value->takaran . ') ' . $modelObatFind->dosis;
+        }
+
+        $showObat = join(', ', $tmpArrObat);
+
         $templateProcessorDokter = new \PhpOffice\PhpWord\TemplateProcessor('doc/SURAT PERNYATAAN DOKTER PRB.docx');
         $templateProcessorDokter->setValue('nama_dokter', $modelDokter->nama);
         $templateProcessorDokter->setValue('nama_pasien', $modelPasien->nama);
         $templateProcessorDokter->setValue('no_bpjs', $modelPasien->no_bpjs);
-        $templateProcessorDokter->setValue('tanggal_lahir', $modelPasien->tgl_lahir);
+        $templateProcessorDokter->setValue('tanggal_lahir', Date('d-m-Y', \strtotime($modelPasien->tgl_lahir)));
         $templateProcessorDokter->setValue('alamat_pasien', $modelPasien->alamat);
         $templateProcessorDokter->setValue('tensi', $modelPrb->tensi);
         $templateProcessorDokter->setValue('suhu', $modelPrb->suhu);
         $templateProcessorDokter->setValue('nadi', $modelPrb->nadi);
         $templateProcessorDokter->setValue('berat_badan', $modelPrb->berat_badan);
         $templateProcessorDokter->setValue('tinggi_badan', $modelPrb->tinggi_badan);
-        $templateProcessorDokter->setValue('obat', $modelPrb->obat);
-        $templateProcessorDokter->setValue('tanggal_ttd', Date('d m Y'));
+        $templateProcessorDokter->setValue('obat', $showObat);
+        $templateProcessorDokter->setValue('tanggal_ttd', Date('d F Y'));
         header("Content-Disposition: attachment; filename=" . $modelPasien->nama . " _SPD.docx");
 
         $templateProcessorDokter->saveAs('php://output');

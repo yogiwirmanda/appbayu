@@ -197,6 +197,5 @@
         var chartPie = new ApexCharts(document.querySelector("#chartPie"), options);
         chartPie.render();
 
-
 </script>
 @endsection
