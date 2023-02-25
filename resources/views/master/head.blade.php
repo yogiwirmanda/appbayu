@@ -6,8 +6,8 @@
 <meta name="keywords"
     content="ehealth, prc, puskesmas, malang">
 <meta name="author" content="pixelstrap">
-<link rel="icon" href="../assets/images/logo/favicon-icon.png" type="image/x-icon">
-<link rel="shortcut icon" href="../assets/images/logo/favicon-icon.png" type="image/x-icon">
+<link rel="icon" href="{{asset('zeta/images/logo/favicon-96x96.png')}}" type="image/x-icon">
+<link rel="shortcut icon" href="{{asset('zeta/images/logo/favicon-96x96.png')}}" type="image/x-icon">
 <title>PRC</title>
 <!-- Google font-->
 <link rel="preconnect" href="https://fonts.googleapis.com">
