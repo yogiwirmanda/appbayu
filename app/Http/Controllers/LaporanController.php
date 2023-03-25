@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Export\BuildExport;
+use App\Models\Klpcm;
 use App\Models\Kunjungan;
 use App\Models\Pasien;
 use App\Models\Poli;
@@ -31,7 +32,60 @@ class LaporanController extends Controller
     {
         $navActive = $this->navActive;
 
-        return view('laporan.klpcm.index', compact('navActive'));
+        $modelKunjunganUmum = Kunjungan::where('id_poli', 1)->get();
+        $jmlTotalPoliUmum = count($modelKunjunganUmum) * 15;
+        $jmlLengkapPoliUmum = 0;
+        $jmlTidakLengkapPoliUmum = 0;
+        foreach ($modelKunjunganUmum as $kunjungan) {
+            $modelKlpcm = Klpcm::where('id_kunjungan', $kunjungan->id)->first();
+            if ($modelKlpcm) {
+                $jmlLengkapPoliUmum = $jmlLengkapPoliUmum + $modelKlpcm->jml_lengkap;
+                $jmlTidakLengkapPoliUmum = $jmlTidakLengkapPoliUmum + $modelKlpcm->jml_tidak_lengkap;
+            }
+        }
+
+        $modelKunjunganLansia = Kunjungan::where('id_poli', 2)->get();
+        $jmlTotalPoliLansia = count($modelKunjunganLansia) * 15;
+        $jmlLengkapPoliLansia = 0;
+        $jmlTidakLengkapPoliLansia = 0;
+        foreach ($modelKunjunganLansia as $kunjungan) {
+            $modelKlpcm = Klpcm::where('id_kunjungan', $kunjungan->id)->first();
+            if ($modelKlpcm) {
+                $jmlLengkapPoliLansia = $jmlLengkapPoliLansia + $modelKlpcm->jml_lengkap;
+                $jmlTidakLengkapPoliLansia = $jmlTidakLengkapPoliLansia + $modelKlpcm->jml_tidak_lengkap;
+            }
+        }
+
+        $modelKunjunganKia = Kunjungan::where('id_poli', 3)->get();
+        $jmlTotalPoliKia = count($modelKunjunganKia) * 15;
+        $jmlLengkapPoliKia = 0;
+        $jmlTidakLengkapPoliKia = 0;
+        foreach ($modelKunjunganKia as $kunjungan) {
+            $modelKlpcm = Klpcm::where('id_kunjungan', $kunjungan->id)->first();
+            if ($modelKlpcm) {
+                $jmlLengkapPoliKia = $jmlLengkapPoliKia + $modelKlpcm->jml_lengkap;
+                $jmlTidakLengkapPoliKia = $jmlTidakLengkapPoliKia + $modelKlpcm->jml_tidak_lengkap;
+            }
+        }
+
+        $modelKunjunganGigi = Kunjungan::where('id_poli', 4)->get();
+        $jmlTotalPoliGigi = count($modelKunjunganGigi) * 15;
+        $jmlLengkapPoliGigi = 0;
+        $jmlTidakLengkapPoliGigi = 0;
+        foreach ($modelKunjunganGigi as $kunjungan) {
+            $modelKlpcm = Klpcm::where('id_kunjungan', $kunjungan->id)->first();
+            if ($modelKlpcm) {
+                $jmlLengkapPoliGigi = $jmlLengkapPoliGigi + $modelKlpcm->jml_lengkap;
+                $jmlTidakLengkapPoliGigi = $jmlTidakLengkapPoliGigi + $modelKlpcm->jml_tidak_lengkap;
+            }
+        }
+
+        $dataUmum = [$jmlLengkapPoliUmum, $jmlTidakLengkapPoliUmum];
+        $dataLansia = [$jmlLengkapPoliLansia, $jmlTidakLengkapPoliLansia];
+        $dataKia = [$jmlLengkapPoliKia, $jmlTidakLengkapPoliKia];
+        $dataGigi = [$jmlLengkapPoliGigi, $jmlTidakLengkapPoliGigi];
+
+        return view('laporan.klpcm.index', compact('navActive', 'dataUmum', 'dataLansia', 'dataKia', 'dataGigi'));
     }
 
     public function loadKlpcm(Request $request)

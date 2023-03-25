@@ -49,8 +49,50 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
+                <div class="card-title text-center mt-3"><h3>Chart Tidak Lengkap per Poli</h3></div>
                 <div class="card-body">
-                    <div id="chartPie"></div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="chart-umum">
+                        <div class="card">
+                          <div class="card-title text-center">Poli Umum</div>
+                          <div class="card-body">
+                            <div id="chartPieUmum"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="chart-lansia">
+                        <div class="card">
+                          <div class="card-title text-center">Poli Lansia</div>
+                          <div class="card-body">
+                            <div id="chartPieLansia"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="chart-kia">
+                        <div class="card">
+                          <div class="card-title text-center">Poli Kia</div>
+                          <div class="card-body">
+                            <div id="chartPieKia"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="chart-gigi">
+                        <div class="card">
+                          <div class="card-title text-center">Poli Gigi</div>
+                          <div class="card-body">
+                            <div id="chartPieGigi"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
             </div>
         </div>
@@ -92,8 +134,8 @@
 
     var options = {
           series: [{
-          name: 'Inflation',
-          data: [40, 50, 35, 70]
+          name: 'Lengkap',
+          data: [@json($dataUmum[1]), @json($dataLansia[1]), @json($dataKia[1]), @json($dataGigi[1])]
         }],
           chart: {
           height: 350,
@@ -174,13 +216,13 @@
         chart.render();
 
 
-        var options = {
-          series: [44, 55, 13, 43],
+      var optionsUmum = {
+          series: @json($dataUmum),
           chart: {
           width: 380,
           type: 'pie',
         },
-        labels: ['UMUM', 'LANSIA', 'KIA', 'GIGI'],
+        labels: ['LENGKAP', 'TIDAK LENGKAP'],
         responsive: [{
           breakpoint: 480,
           options: {
@@ -194,8 +236,77 @@
         }]
         };
 
-        var chartPie = new ApexCharts(document.querySelector("#chartPie"), options);
-        chartPie.render();
+        var chartPieUmum = new ApexCharts(document.querySelector("#chartPieUmum"), optionsUmum);
+        chartPieUmum.render();
+
+        var optionsLansia = {
+          series: @json($dataLansia),
+          chart: {
+          width: 380,
+          type: 'pie',
+        },
+        labels: ['LENGKAP', 'TIDAK LENGKAP'],
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }]
+        };
+
+        var chartPieLansia = new ApexCharts(document.querySelector("#chartPieLansia"), optionsLansia);
+        chartPieLansia.render();
+
+        var optionsKia = {
+          series: @json($dataKia),
+          chart: {
+          width: 380,
+          type: 'pie',
+        },
+        labels: ['LENGKAP', 'TIDAK LENGKAP'],
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }]
+        };
+
+        var chartPieKia = new ApexCharts(document.querySelector("#chartPieKia"), optionsKia);
+        chartPieKia.render();
+
+        var optionsGigi = {
+          series: @json($dataGigi),
+          chart: {
+          width: 380,
+          type: 'pie',
+        },
+        labels: ['LENGKAP', 'TIDAK LENGKAP'],
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }]
+        };
+
+        var chartPieGigi = new ApexCharts(document.querySelector("#chartPieGigi"), optionsGigi);
+        chartPieGigi.render();
 
 </script>
 @endsection
