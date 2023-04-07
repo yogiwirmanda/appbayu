@@ -164,4 +164,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('send/whatsapp/{pasienId}', [UnitTestController::class, 'send'])->name('prolanis.send');
 
     Route::get('reformat/tanggal', [UnitTestController::class, 'reformat'])->name('reformat');
+    Route::get('count-tidak-lengkap/{idPoli}', [LaporanController::class, 'countTidakLengkap'])->name('count-tidak-lengkap');
+    Route::get('/laporan/klpcm/report/{idPoli}', [LaporanController::class, 'loadListTidakLengkap'])->name('report-tidak-lengkap');
 });

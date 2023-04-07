@@ -55,9 +55,10 @@
                     <div class="col-md-6">
                       <div class="chart-umum">
                         <div class="card">
-                          <div class="card-title text-center">Poli Umum</div>
-                          <div class="card-body">
+                          <div class="card-title text-center mt-4">Poli Umum</div>
+                          <div class="card-body text-center">
                             <div id="chartPieUmum"></div>
+                            <a href="/laporan/klpcm/report/1" class="mt-3">Lihat Daftar</a>
                           </div>
                         </div>
                       </div>
@@ -65,9 +66,10 @@
                     <div class="col-md-6">
                       <div class="chart-lansia">
                         <div class="card">
-                          <div class="card-title text-center">Poli Lansia</div>
-                          <div class="card-body">
+                          <div class="card-title text-center mt-4">Poli Lansia</div>
+                          <div class="card-body text-center">
                             <div id="chartPieLansia"></div>
+                            <a href="/laporan/klpcm/report/2" class="mt-3">Lihat Daftar</a>
                           </div>
                         </div>
                       </div>
@@ -75,9 +77,10 @@
                     <div class="col-md-6">
                       <div class="chart-kia">
                         <div class="card">
-                          <div class="card-title text-center">Poli Kia</div>
-                          <div class="card-body">
+                          <div class="card-title text-center mt-4">Poli Kia</div>
+                          <div class="card-body text-center">
                             <div id="chartPieKia"></div>
+                            <a href="/laporan/klpcm/report/3" class="mt-3">Lihat Daftar</a>
                           </div>
                         </div>
                       </div>
@@ -85,9 +88,10 @@
                     <div class="col-md-6">
                       <div class="chart-gigi">
                         <div class="card">
-                          <div class="card-title text-center">Poli Gigi</div>
-                          <div class="card-body">
+                          <div class="card-title text-center mt-4">Poli Gigi</div>
+                          <div class="card-body text-center">
                             <div id="chartPieGigi"></div>
+                            <a href="/laporan/klpcm/report/4" class="mt-3">Lihat Daftar</a>
                           </div>
                         </div>
                       </div>

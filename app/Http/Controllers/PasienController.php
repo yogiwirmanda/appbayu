@@ -134,24 +134,36 @@ class PasienController extends Controller
                 $kategori = 'L';
             }
 
-            if ($request->suratSehat != 1) {
-                $kodeKategori = self::checkKategoriPasien($request->umur);
-                $lastRm = self::checkUsedRm($wilayah, $kodeKategori);
-                $noRm = $request->noRm;
-                if (strlen($noRm) == 0 && strlen($pendatang == null)) {
-                    $checkUsedRM = self::checkUsedRm($wilayah, $kodeKategori);
-                    if ($checkUsedRM == null) {
-                        $noRm = self::checkNoRM($wilayah, $kategori, $kodeKategori);
-                        $lastRm = self::getLastNumber($wilayah, $kodeKategori);
-                    } else {
-                        $noRm = self::generateRmUsed($checkUsedRM, $wilayah, $kategori);
-                        $lastRm = $checkUsedRM;
+            $kodeKategori = self::checkKategoriPasien($request->umur);
+
+            if ($request->id_selected == null){
+                if ($request->suratSehat != 1) {
+                    $kodeKategori = self::checkKategoriPasien($request->umur);
+                    $lastRm = self::checkUsedRm($wilayah, $kodeKategori);
+                    $noRm = $request->noRm;
+                    if (strlen($noRm) == 0 && strlen($pendatang == null)) {
+                        $checkUsedRM = self::checkUsedRm($wilayah, $kodeKategori);
+                        if ($checkUsedRM == null) {
+                            $noRm = self::checkNoRM($wilayah, $kategori, $kodeKategori);
+                            $lastRm = self::getLastNumber($wilayah, $kodeKategori);
+                        } else {
+                            $noRm = self::generateRmUsed($checkUsedRM, $wilayah, $kategori);
+                            $lastRm = $checkUsedRM;
+                        }
                     }
+                } else {
+                    $lastRm = self::lastRmSuratSehat();
+                    $noRm = 'SS-' . $lastRm;
+                    $kodeKategori = 3;
                 }
             } else {
-                $lastRm = self::lastRmSuratSehat();
-                $noRm = 'SS-' . $lastRm;
-                $kodeKategori = 3;
+                $getPasienKK = Pasien::find($request->id_selected);
+                $countKK = Pasien::where('kepala_keluarga', $getPasienKK->kepala_keluarga)->get()->count();
+                $getNoRm = $getPasienKK->no_rm;
+                $explodeNoRm = \explode('-', $getNoRm);
+                $lastRm = $explodeNoRm[2];
+                $newLastRm = $countKK + 1;
+                $noRm = $explodeNoRm[0].'-'.$explodeNoRm[1].'-'.$newLastRm.' '.$kategori;
             }
 
 

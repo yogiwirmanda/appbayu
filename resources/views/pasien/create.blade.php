@@ -27,6 +27,7 @@
                     <input type="hidden" name="wilayah" id="input-wilayah">
                     <input type="hidden" name="kode-usia" id="kode-usia">
                     <input type="hidden" name="kode-daerah" id="kode-daerah">
+                    <input type="hidden" name="id_selected" id="idSelected">
                     <input type="hidden" name="noRm" id="noRm">
                     <div class="card-body">
                         <div class="row align-items-center">
@@ -721,6 +722,7 @@
 
                 HoldOn.open(options);
 
+                $('#idSelected').val(response.id);
                 $('#kepalaKeluarga').val(response.kepala_keluarga);
                 $('#kepalaKeluarga').attr('readonly', 'readonly');
                 $('#noRm').val(response.no_rm);

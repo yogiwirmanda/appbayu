@@ -88,6 +88,127 @@ class LaporanController extends Controller
         return view('laporan.klpcm.index', compact('navActive', 'dataUmum', 'dataLansia', 'dataKia', 'dataGigi'));
     }
 
+    public function countTidakLengkap($idPoli)
+    {
+        $klnorm = 0;
+        $klnama = 0;
+        $kltgl_lahir = 0;
+        $kljk = 0;
+        $klalamat = 0;
+        $klnobpjs = 0;
+        $kls = 0;
+        $klo = 0;
+        $kla = 0;
+        $klp = 0;
+        $klkie = 0;
+        $kldx = 0;
+        $kldy = 0;
+        $klnama_petugas = 0;
+        $klttd_petugas = 0;
+        $tesKl = [];
+
+        $modelKunjungan = Kunjungan::where('id_poli', $idPoli)->get();
+
+        foreach($modelKunjungan as $kunjungan){
+            $klnorm = ((int) Klpcm::select('klnorm')->where('id_kunjungan', $kunjungan->id)->first()->klnorm) + $klnorm;
+            $klnama = ((int) Klpcm::select('klnama')->where('id_kunjungan', $kunjungan->id)->first()->klnama) + $klnama;
+            $kltgl_lahir = ((int) Klpcm::select('kltgl_lahir')->where('id_kunjungan', $kunjungan->id)->first()->kltgl_lahir) + $kltgl_lahir;
+            $kljk = ((int) Klpcm::select('kljk')->where('id_kunjungan', $kunjungan->id)->first()->kljk) + $kljk;
+            $klalamat = ((int) Klpcm::select('klalamat')->where('id_kunjungan', $kunjungan->id)->first()->klalamat) + $klalamat;
+            $klnobpjs = ((int) Klpcm::select('klno_bpjs')->where('id_kunjungan', $kunjungan->id)->first()->klno_bpjs) + $klnobpjs;
+            $kls = ((int) Klpcm::select('kls')->where('id_kunjungan', $kunjungan->id)->first()->kls) + $kls;
+            $klo = ((int) Klpcm::select('klo')->where('id_kunjungan', $kunjungan->id)->first()->klo) + $klo;
+            $kla = ((int) Klpcm::select('kla')->where('id_kunjungan', $kunjungan->id)->first()->kla) + $kla;
+            $klp = ((int) Klpcm::select('klp')->where('id_kunjungan', $kunjungan->id)->first()->klp) + $klp;
+            $klkie = ((int) Klpcm::select('klkie')->where('id_kunjungan', $kunjungan->id)->first()->klkie) + $klkie;
+            $kldx = ((int) Klpcm::select('kldx')->where('id_kunjungan', $kunjungan->id)->first()->kldx) + $kldx;
+            $kldy = ((int) Klpcm::select('kldy')->where('id_kunjungan', $kunjungan->id)->first()->kldy) + $kldy;
+            $klnama_petugas = ((int) Klpcm::select('klnama_petugas')->where('id_kunjungan', $kunjungan->id)->first()->klnama_petugas) + $klnama_petugas;
+            $klttd_petugas = ((int) Klpcm::select('klttd_petugas')->where('id_kunjungan', $kunjungan->id)->first()->klttd_petugas) + $klttd_petugas;
+        }
+
+        $data['klnorm'] = $klnorm;
+        $data['klnama'] = $klnama;
+        $data['kltgl_lahir'] = $kltgl_lahir;
+        $data['kljk'] = $kljk;
+        $data['klalamat'] = $klalamat;
+        $data['klnobpjs'] = $klnobpjs;
+        $data['kls'] = $kls;
+        $data['klo'] = $klo;
+        $data['kla'] = $kla;
+        $data['klp'] = $klp;
+        $data['klkie'] = $klkie;
+        $data['kldx'] = $kldx;
+        $data['kldy'] = $kldy;
+        $data['klnama_petugas'] = $klnama_petugas;
+        $data['klttd_petugas'] = $klttd_petugas;
+
+        return $data;
+    }
+
+    public function loadListTidakLengkap($idPoli){
+        $klnorm = 0;
+        $klnama = 0;
+        $kltgl_lahir = 0;
+        $kljk = 0;
+        $klalamat = 0;
+        $klnobpjs = 0;
+        $kls = 0;
+        $klo = 0;
+        $kla = 0;
+        $klp = 0;
+        $klkie = 0;
+        $kldx = 0;
+        $kldy = 0;
+        $klnama_petugas = 0;
+        $klttd_petugas = 0;
+        $tesKl = [];
+
+        $modelKunjungan = Kunjungan::where('id_poli', $idPoli)->get();
+
+        foreach($modelKunjungan as $kunjungan){
+            $klnorm = ((int) Klpcm::select('klnorm')->where('id_kunjungan', $kunjungan->id)->first()->klnorm) + $klnorm;
+            $klnama = ((int) Klpcm::select('klnama')->where('id_kunjungan', $kunjungan->id)->first()->klnama) + $klnama;
+            $kltgl_lahir = ((int) Klpcm::select('kltgl_lahir')->where('id_kunjungan', $kunjungan->id)->first()->kltgl_lahir) + $kltgl_lahir;
+            $kljk = ((int) Klpcm::select('kljk')->where('id_kunjungan', $kunjungan->id)->first()->kljk) + $kljk;
+            $klalamat = ((int) Klpcm::select('klalamat')->where('id_kunjungan', $kunjungan->id)->first()->klalamat) + $klalamat;
+            $klnobpjs = ((int) Klpcm::select('klno_bpjs')->where('id_kunjungan', $kunjungan->id)->first()->klno_bpjs) + $klnobpjs;
+            $kls = ((int) Klpcm::select('kls')->where('id_kunjungan', $kunjungan->id)->first()->kls) + $kls;
+            $klo = ((int) Klpcm::select('klo')->where('id_kunjungan', $kunjungan->id)->first()->klo) + $klo;
+            $kla = ((int) Klpcm::select('kla')->where('id_kunjungan', $kunjungan->id)->first()->kla) + $kla;
+            $klp = ((int) Klpcm::select('klp')->where('id_kunjungan', $kunjungan->id)->first()->klp) + $klp;
+            $klkie = ((int) Klpcm::select('klkie')->where('id_kunjungan', $kunjungan->id)->first()->klkie) + $klkie;
+            $kldx = ((int) Klpcm::select('kldx')->where('id_kunjungan', $kunjungan->id)->first()->kldx) + $kldx;
+            $kldy = ((int) Klpcm::select('kldy')->where('id_kunjungan', $kunjungan->id)->first()->kldy) + $kldy;
+            $klnama_petugas = ((int) Klpcm::select('klnama_petugas')->where('id_kunjungan', $kunjungan->id)->first()->klnama_petugas) + $klnama_petugas;
+            $klttd_petugas = ((int) Klpcm::select('klttd_petugas')->where('id_kunjungan', $kunjungan->id)->first()->klttd_petugas) + $klttd_petugas;
+        }
+
+        $data['No RM'] = $klnorm;
+        $data['Nama'] = $klnama;
+        $data['Tanggal Lahir'] = $kltgl_lahir;
+        $data['Jenis Kelamin'] = $kljk;
+        $data['Alamat'] = $klalamat;
+        $data['No BPJS'] = $klnobpjs;
+        $data['Subjek'] = $kls;
+        $data['Objek'] = $klo;
+        $data['Assesmen'] = $kla;
+        $data['Plan'] = $klp;
+        $data['Komunikasi Informasi Edukasi'] = $klkie;
+        $data['Diagnosa'] = $kldx;
+        $data['Kode Diagnosa'] = $kldy;
+        $data['Nama Petugas'] = $klnama_petugas;
+        $data['Ttd Petugas'] = $klttd_petugas;
+
+        $totalTransaksi = $modelKunjungan->count();
+
+        $dataReport = $data;
+
+        asort($dataReport);
+
+        return view('laporan.klpcm.report', \compact('dataReport', 'totalTransaksi'));
+    }
+
     public function loadKlpcm(Request $request)
     {
         $dataPoli = Poli::all();
