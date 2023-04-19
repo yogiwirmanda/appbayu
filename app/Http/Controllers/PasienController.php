@@ -42,9 +42,15 @@ class PasienController extends Controller
     {
         if ($request->ajax()) {
             $data = Pasien::select('pasiens.*')
-                ->where('status_retensi', 0)
-                ->orderBy('created_at', 'DESC')
-                ->get();
+                ->where('status_retensi', 0);
+
+            if (strlen($request->name) > 0){
+                $data = $data->where('nama', 'like', '%' . $request->name . '%')
+                    ->orWhere('no_rm', 'like', '%' . $request->name . '%')
+                    ->orWhere('kepala_keluarga', 'like', '%' . $request->name . '%');
+            }
+
+            $data = $data->orderBy('created_at', 'DESC')->get();
 
             return DataTables::of($data)
                 ->addIndexColumn()
@@ -808,5 +814,85 @@ class PasienController extends Controller
         return DataTables::of($modelKunjungan)
             ->addIndexColumn()
             ->make(true);
+    }
+
+    public function downloadCI($idPasien = null)
+    {
+        $modelPasien = Pasien::find($idPasien);
+        $tglLahir = date_create($modelPasien->tgl_lahir);
+        $dateNow = date_create(Date('Y-m-d'));
+        $dateDiff = date_diff($tglLahir, $dateNow);
+        $umur = $dateDiff->y;
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('doc/CATATAN TERINTEGRASI.docx');
+        $templateProcessor->setValue('nama_pasien', $modelPasien->nama);
+        $templateProcessor->setValue('no_bpjs', $modelPasien->no_bpjs);
+        $templateProcessor->setValue('tgl_lahir', Date('d-m-Y', \strtotime($modelPasien->tgl_lahir)));
+        $templateProcessor->setValue('alamat', $modelPasien->alamat);
+        $templateProcessor->setValue('telepon', $modelPasien->no_hp);
+        $templateProcessor->setValue('no_rm', $modelPasien->no_rm);
+        $templateProcessor->setValue('nik', $modelPasien->no_ktp);
+        $templateProcessor->setValue('umur', $umur);
+        $templateProcessor->setValue('jk', $modelPasien->jk);
+        $templateProcessor->setValue('kel', District::find($modelPasien->district)->name);
+        $templateProcessor->setValue('pekerjaan', $modelPasien->pekerjaan);
+        $templateProcessor->setValue('agama', $modelPasien->agama);
+        $templateProcessor->setValue('rt', $modelPasien->rt ? $modelPasien->rt : '-');
+        $templateProcessor->setValue('rw', $modelPasien->rw ? $modelPasien->rw : '-');
+        $templateProcessor->setValue('tanggal_ttd', Date('d F Y'));
+        header("Content-Disposition: attachment; filename=" . $modelPasien->nama . " _CPPT.docx");
+
+        $templateProcessor->saveAs('php://output');
+    }
+
+    public function downloadCI2($idPasien = null)
+    {
+        $modelPasien = Pasien::find($idPasien);
+        $tglLahir = date_create($modelPasien->tgl_lahir);
+        $dateNow = date_create(Date('Y-m-d'));
+        $dateDiff = date_diff($tglLahir, $dateNow);
+        $umur = $dateDiff->y;
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('doc/CATATAN TERINTEGRASI_2.docx');
+        $templateProcessor->setValue('nama_pasien', $modelPasien->nama);
+        $templateProcessor->setValue('no_bpjs', $modelPasien->no_bpjs);
+        $templateProcessor->setValue('tgl_lahir', Date('d-m-Y', \strtotime($modelPasien->tgl_lahir)));
+        $templateProcessor->setValue('alamat', $modelPasien->alamat);
+        $templateProcessor->setValue('telepon', $modelPasien->no_hp);
+        $templateProcessor->setValue('no_rm', $modelPasien->no_rm);
+        $templateProcessor->setValue('nik', $modelPasien->no_ktp);
+        $templateProcessor->setValue('umur', $umur);
+        $templateProcessor->setValue('jk', $modelPasien->jk);
+        $templateProcessor->setValue('kel', District::find($modelPasien->district)->name);
+        $templateProcessor->setValue('agama', $modelPasien->agama);
+        $templateProcessor->setValue('rt', $modelPasien->rt ? $modelPasien->rt : '-');
+        $templateProcessor->setValue('rw', $modelPasien->rw ? $modelPasien->rw : '-');
+        header("Content-Disposition: attachment; filename=" . $modelPasien->nama . " _CPPT2.docx");
+
+        $templateProcessor->saveAs('php://output');
+    }
+
+    public function downloadGigiMulut($idPasien = null)
+    {
+        $modelPasien = Pasien::find($idPasien);
+        $tglLahir = date_create($modelPasien->tgl_lahir);
+        $dateNow = date_create(Date('Y-m-d'));
+        $dateDiff = date_diff($tglLahir, $dateNow);
+        $umur = $dateDiff->y;
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('doc/POLI GIGI DAN MULUT.docx');
+        $templateProcessor->setValue('nama_pasien', $modelPasien->nama);
+        $templateProcessor->setValue('no_bpjs', $modelPasien->no_bpjs);
+        $templateProcessor->setValue('tgl_lahir', Date('d-m-Y', \strtotime($modelPasien->tgl_lahir)));
+        $templateProcessor->setValue('alamat', $modelPasien->alamat);
+        $templateProcessor->setValue('telepon', $modelPasien->no_hp);
+        $templateProcessor->setValue('no_rm', $modelPasien->no_rm);
+        $templateProcessor->setValue('nik', $modelPasien->nik);
+        $templateProcessor->setValue('umur', $umur);
+        $templateProcessor->setValue('jk', $modelPasien->jk);
+        $templateProcessor->setValue('kel', District::find($modelPasien->district)->name);
+        $templateProcessor->setValue('agama', $modelPasien->agama);
+        $templateProcessor->setValue('rt', $modelPasien->rt ? $modelPasien->rt : '-');
+        $templateProcessor->setValue('rw', $modelPasien->rw ? $modelPasien->rw : '-');
+        header("Content-Disposition: attachment; filename=" . $modelPasien->nama . " _PGM.docx");
+
+        $templateProcessor->saveAs('php://output');
     }
 }

@@ -25,10 +25,25 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header pb-0">
-                    <a href="{{asset('pasien/create')}}" class="btn btn-pill btn-primary"
-                        data-toggle="tooltip" data-original-title="Tambah Pasien">
-                        <span class="btn-inner--text">Tambah Pasien</span>
-                    </a>
+                    <div class="row">
+                        <div class="col-md-12 d-flex justify-content-between mb-3">
+                            <h2>Filter Data Pasien</h2>
+                            <a href="{{asset('pasien/create')}}" class="btn btn-pill btn-primary"
+                                data-toggle="tooltip" data-original-title="Tambah Pasien">
+                                <span class="btn-inner--text">Tambah Pasien</span>
+                            </a>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Kata Kunci</label>
+                                <input type="text" name="nama" id="nama" class="form-control"
+                                    placeholder="Nama">
+                            </div>
+                            <div class="form-group mt-2">
+                                <a href="javascript:;" class="btn btn-primary btn-filter-pasien">Cari Data</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -54,42 +69,62 @@
 @endsection
 @section('page-scripts')
 <script>
-    var table = $('#table-pasien').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: "{{ route('ajax_load_pasien') }}",
-        searchDelay: 1500,
-        columns: [{
-                data: 'DT_RowIndex',
-                name: 'DT_RowIndex'
+
+    var table = '';
+
+    function loadTable(getName = ''){
+        table = $('#table-pasien').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url : "{{ route('ajax_load_pasien') }}",
+                type :  "GET",
+                data : {
+                    name : getName
+                }
             },
-            {
-                data: 'no_rm',
-                name: 'no_rm',
-                searchable: false
-            },
-            {
-                data: 'nama',
-                name: 'nama'
-            },
-            {
-                data: 'umur',
-                name: 'umur',
-                searchable: false
-            },
-            {
-                data: 'alamat',
-                name: 'alamat',
-                searchable: false
-            },
-            {
-                data: 'action',
-                name: 'action',
-                orderable: false,
-                searchable: false
-            },
-        ]
-    });
+            searchDelay: 1500,
+            columns: [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                },
+                {
+                    data: 'no_rm',
+                    name: 'no_rm',
+                    searchable: false
+                },
+                {
+                    data: 'nama',
+                    name: 'nama'
+                },
+                {
+                    data: 'umur',
+                    name: 'umur',
+                    searchable: false
+                },
+                {
+                    data: 'alamat',
+                    name: 'alamat',
+                    searchable: false
+                },
+                {
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
+                },
+            ]
+        });
+    }
+
+    loadTable();
+
+    $('.btn-filter-pasien').click(function(e){
+        let getValue = $('#nama').val();
+        table.destroy();
+        loadTable(getValue);
+    })
+
 
     $(document).on('click', '.table-action-delete', function () {
         let dataPasienId = $(this).attr('data-pasien-id');

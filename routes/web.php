@@ -48,6 +48,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('pasiens/detail/{pasienId}', [PasienController::class, 'detailPasien'])->name('detail_pasien');
     Route::get('pasiens/dtAjaxKunjungan/{pasienId}', [PasienController::class, 'dtAjaxKunjungan'])->name('dtAjaxKunjungan');
 
+    Route::get('pasien/download/ci/{idPasien}', [PasienController::class, 'downloadCI'])->name('pasien_download_ci');
+    Route::get('pasien/download/ci2/{idPasien}', [PasienController::class, 'downloadCI2'])->name('pasien_download_ci2');
+    Route::get('pasien/download/gigimulut/{idPasien}', [PasienController::class, 'downloadGigiMulut'])->name('pasien_download_gigi_mulut');
+
     Route::get('regency/check/city', [RegencyController::class, 'getDataCity'])->name('load_data_city');
     Route::get('regency/check/district', [RegencyController::class, 'getDataDistrict'])->name('load_data_district');
     Route::get('regency/check/villages', [RegencyController::class, 'getDataVillages'])->name('load_data_villages');

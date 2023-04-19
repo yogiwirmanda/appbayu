@@ -82,6 +82,17 @@ if(!isset($tanggal)){
                           <div class="col-9">{{$pasien->cara_bayar}} {{($pasien->cara_bayar == 'BPJS') ? $pasien->no_bpjs : ''}}</div>
                         </div>
                     </div>
+                    <div class="row mt-4">
+                      <div class="col-md-3">
+                        <a href="/pasien/download/gigimulut/{{$pasien->id}}" target="_blank" class="btn btn-primary btn-download-poli-gigi">Poli Gigi & Mulut</a>
+                      </div>
+                      <div class="col-md-3">
+                        <a href="/pasien/download/ci/{{$pasien->id}}" target="_blank" class="btn btn-primary btn-download-catatan-integrasi">Catatan Integrasi</a>
+                      </div>
+                      <div class="col-md-3">
+                        <a href="/pasien/download/ci2/{{$pasien->id}}" target="_blank" class="btn btn-primary btn-download-catatan-integrasi-2">Catatan Integrasi 2</a>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
