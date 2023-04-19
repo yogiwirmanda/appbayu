@@ -47,7 +47,7 @@ class PasienController extends Controller
             if (strlen($request->name) > 0){
                 $data = $data->where('nama', 'like', '%' . $request->name . '%')
                     ->orWhere('no_rm', 'like', '%' . $request->name . '%')
-                    ->orWhere('kepala_keluarga', 'like', '%' . $request->name . '%');
+                    ->orWhere('alamat', 'like', '%' . $request->name . '%');
             }
 
             $data = $data->orderBy('created_at', 'DESC')->get();
