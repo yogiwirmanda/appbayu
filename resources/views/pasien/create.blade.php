@@ -100,6 +100,8 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-md-6">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
@@ -121,8 +123,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
                                 <div class="row not-ss">
                                     <div class="col-md-12">
                                         <div class="form-group">
@@ -139,7 +139,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row not-ss">
+                                <!-- <div class="row not-ss">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Status Perkawinan</label>
@@ -150,7 +150,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
@@ -159,7 +159,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row not-ss">
+                                <!-- <div class="row not-ss">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Kewarganegaraan</label>
@@ -169,8 +169,8 @@
                                             </select>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row not-ss">
+                                </div> -->
+                                <!-- <div class="row not-ss">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Gol Darah</label>
@@ -183,7 +183,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="row not-ss">
                                     <div class="col-md-12">
                                         <div class="form-group">
@@ -666,17 +666,11 @@
 
     function setVillage(villageId) {
         $("#select-villages").val(villageId).trigger('change');
-        if (villageId != null) {
-            $("#select-villages").prop("disabled", true);
-        }
         HoldOn.close();
     }
 
     function setDistrict(districtId, villageId) {
         $("#select-district").val(districtId).trigger('change');
-        if (districtId != null) {
-            $("#select-district").prop("disabled", true);
-        }
         setTimeout(function () {
             setVillage(villageId);
         }, 1000)
@@ -684,9 +678,6 @@
 
     function setCity(regencyId, districtId, villageId) {
         $("#select-city").val(regencyId).trigger('change');
-        if (regencyId != null) {
-            $("#select-city").prop("disabled", true);
-        }
         setTimeout(function () {
             setDistrict(districtId, villageId);
         }, 1000)
@@ -694,9 +685,6 @@
 
     function setProvince(provinceId, regencyId, districtId, villageId) {
         $("#select-province").val(provinceId).trigger('change');
-        if (provinceId != null) {
-            $("#select-province").prop("disabled", true);
-        }
         setTimeout(function () {
             setCity(regencyId, districtId, villageId);
         }, 1000)

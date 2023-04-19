@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pasien;
 use App\Models\Reformat;
+use App\Models\Wilayah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -65,5 +66,43 @@ class UnitTestController extends Controller
             $modelPasien->updated_at = Date('Y-m-d');
             $modelPasien->save();
         }
+    }
+
+    public function getWilayah($code)
+    {
+        $modelWilayah = Wilayah::where('kode', $code)->first();
+        if ($modelWilayah){
+            return $modelWilayah->id;
+        } else {
+            return 10;
+        }
+    }
+
+    public function reformatDistrict()
+    {
+        $modelPasien = Pasien::all();
+        foreach ($modelPasien as $key => $value) {
+            $norm = $value->no_rm;
+            $explodeRm = \explode('-', $norm);
+            $rawCode = $explodeRm[0];
+            $getModelPasien = Pasien::find($value->id);
+            $getModelPasien->wilayah = self::getWilayah($rawCode);
+            $getModelPasien->update();
+        }
+
+    }
+
+    public function reformatHeadRM()
+    {
+        $modelPasien = Pasien::all();
+        foreach ($modelPasien as $key => $value) {
+            $norm = $value->no_rm;
+            $explodeRm = \explode('-', $norm);
+            $rawCode = $explodeRm[0].'-'.$explodeRm[1];
+            $getModelPasien = Pasien::find($value->id);
+            $getModelPasien->head_rm = $rawCode;
+            $getModelPasien->update();
+        }
+
     }
 }

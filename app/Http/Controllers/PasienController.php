@@ -145,10 +145,10 @@ class PasienController extends Controller
             if ($request->id_selected == null){
                 if ($request->suratSehat != 1) {
                     $kodeKategori = self::checkKategoriPasien($request->umur);
-                    $lastRm = self::checkUsedRm($wilayah, $kodeKategori);
+                    $lastRm = self::checkUsedRm($wilayah, $kodeKategori, false);
                     $noRm = $request->noRm;
                     if (strlen($noRm) == 0 && strlen($pendatang == null)) {
-                        $checkUsedRM = self::checkUsedRm($wilayah, $kodeKategori);
+                        $checkUsedRM = self::checkUsedRm($wilayah, $kodeKategori, true);
                         if ($checkUsedRM == null) {
                             $noRm = self::checkNoRM($wilayah, $kategori, $kodeKategori);
                             $lastRm = self::getLastNumber($wilayah, $kodeKategori);
@@ -156,27 +156,36 @@ class PasienController extends Controller
                             $noRm = self::generateRmUsed($checkUsedRM, $wilayah, $kategori);
                             $lastRm = $checkUsedRM;
                         }
+
+                        $getPasienKK = Pasien::where('no_rm', $noRm)->get()->count();
+                        $explodeNoRm = \explode('-', $noRm);
+                        $lastRm = $explodeNoRm[2];
+                        $newLastRm = $getPasienKK + 1;
+                        $noRm = $explodeNoRm[0].'-'.$explodeNoRm[1].'-'.$newLastRm.' '.$kategori;
+                        $headRm = $explodeNoRm[0].'-'.$explodeNoRm[1];
                     }
                 } else {
                     $lastRm = self::lastRmSuratSehat();
                     $noRm = 'SS-' . $lastRm;
                     $kodeKategori = 3;
                 }
+
             } else {
-                $getPasienKK = Pasien::find($request->id_selected);
-                $countKK = Pasien::where('kepala_keluarga', $getPasienKK->kepala_keluarga)->get()->count();
-                $getNoRm = $getPasienKK->no_rm;
-                $explodeNoRm = \explode('-', $getNoRm);
-                $lastRm = $explodeNoRm[2];
-                $newLastRm = $countKK + 1;
+                $getSelectedPasien = Pasien::find($request->id_selected);
+                $headRm = $getSelectedPasien->head_rm;
+
+                $getPasienKK = Pasien::where('head_rm', $headRm)->get()->count();
+                $explodeNoRm = \explode('-', $headRm);
+                $newLastRm = $getPasienKK + 1;
+                $lastRm = $newLastRm;
                 $noRm = $explodeNoRm[0].'-'.$explodeNoRm[1].'-'.$newLastRm.' '.$kategori;
             }
-
 
 
             if ($pendatang != null) {
                 $noRm = self::generateRMPendatang($request->nama, $kategori);
                 $lastRm = self::lastRmPendatang();
+                $headRm = $noRm;
             }
 
             $kodeWilayah = $wilayah;
@@ -207,10 +216,11 @@ class PasienController extends Controller
             $dataStore['province'] = $request->province;
             $dataStore['regency'] = $request->city;
             $dataStore['district'] = $request->district;
-            $dataStore['kewarganegaraan'] = $request->warganegara;
-            $dataStore['gol_darah'] = $request->gol_darah;
-            $dataStore['status_kawin'] = $request->status_kawin;
+            // $dataStore['kewarganegaraan'] = $request->warganegara;
+            // $dataStore['gol_darah'] = $request->gol_darah;
+            // $dataStore['status_kawin'] = $request->status_kawin;
             $dataStore['village'] = $request->villages;
+            $dataStore['head_rm'] = $headRm;
 
             $modelPasien = Pasien::create($dataStore);
         }
@@ -266,7 +276,7 @@ class PasienController extends Controller
             if (strlen($nomorRMManual) == 0) {
                 $noRm = $request->noRm;
                 if (strlen($noRm) == 0 && strlen($pendatang == null)) {
-                    $checkUsedRM = self::checkUsedRm($wilayah, $kodeKategori);
+                    $checkUsedRM = self::checkUsedRm($wilayah, $kodeKategori, true);
                     if ($checkUsedRM == null) {
                         $noRm = self::checkNoRM($wilayah, $kategori, $kodeKategori);
                         $lastRm = self::getLastNumber($wilayah, $kodeKategori);
@@ -596,7 +606,7 @@ class PasienController extends Controller
         echo json_encode($result);
     }
 
-    public function checkUsedRm($wilayah, $kategori)
+    public function checkUsedRm($wilayah, $kategori, $withUpdate = false)
     {
         $result = null;
         $query = rmcanuse::where('wilayah', $wilayah)
@@ -606,9 +616,11 @@ class PasienController extends Controller
 
         if ($query) {
             $result = $query->no_urut;
-            $updated = rmcanuse::find($query->id);
-            $updated->status = 0;
-            $updated->update();
+            if ($withUpdate){
+                $updated = rmcanuse::find($query->id);
+                $updated->status = 0;
+                $updated->update();
+            }
         }
 
         return $result;

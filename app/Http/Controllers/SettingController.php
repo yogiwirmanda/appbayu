@@ -32,15 +32,13 @@ class SettingController extends Controller
         $kategori = $request->kategori;
         $wilayah = $request->wilayah;
 
-        dd($request);
-
         $result = Pasien::where('no_urut', '>', $nomorAwal)
             ->where('no_urut', '<', $nomorAkhir)
+            ->whereNotNull('no_urut')
             ->where('kategori', $kategori)
             ->where('wilayah', $wilayah)
             ->orderBy('no_urut', 'asc')
             ->get();
-
         $data['total'] = count($result);
         return json_encode($data);
     }
