@@ -715,8 +715,8 @@ class PasienController extends Controller
 
             return DataTables::of($data)
                 ->addIndexColumn()
-                ->addColumn('no_rm', function ($row) {
-                    return '<a href="/prolanis/riwayat/' . $row->id . '">' . $row->no_rm . '</a>';
+                ->addColumn('nama', function ($row) {
+                    return '<a href="/prolanis/riwayat/' . $row->id . '">' . $row->nama . '</a>';
                 })
                 ->addColumn('umur', function ($row) {
                     $tglLahir = date_create($row->tgl_lahir);
@@ -728,7 +728,7 @@ class PasienController extends Controller
                     $actionBtn = '<a href="javascript:;" class="btn btn-primary btn-sm btn-send-whatsapp" data-pasien-id="'.$row->id.'">Kirim WA</a>';
                     return $actionBtn;
                 })
-                ->rawColumns(['action', 'no_rm'])
+                ->rawColumns(['action', 'nama'])
                 ->make(true);
         }
     }
@@ -845,7 +845,7 @@ class PasienController extends Controller
         $templateProcessor->setValue('nik', $modelPasien->no_ktp);
         $templateProcessor->setValue('umur', $umur);
         $templateProcessor->setValue('jk', $modelPasien->jk);
-        $templateProcessor->setValue('kel', District::find($modelPasien->district)->name);
+        $templateProcessor->setValue('kel', $modelPasien->district ? District::find($modelPasien->district)->name : '-');
         $templateProcessor->setValue('pekerjaan', $modelPasien->pekerjaan);
         $templateProcessor->setValue('agama', $modelPasien->agama);
         $templateProcessor->setValue('rt', $modelPasien->rt ? $modelPasien->rt : '-');
@@ -873,7 +873,7 @@ class PasienController extends Controller
         $templateProcessor->setValue('nik', $modelPasien->no_ktp);
         $templateProcessor->setValue('umur', $umur);
         $templateProcessor->setValue('jk', $modelPasien->jk);
-        $templateProcessor->setValue('kel', District::find($modelPasien->district)->name);
+        $templateProcessor->setValue('kel', $modelPasien->district ? District::find($modelPasien->district)->name : '-');
         $templateProcessor->setValue('agama', $modelPasien->agama);
         $templateProcessor->setValue('rt', $modelPasien->rt ? $modelPasien->rt : '-');
         $templateProcessor->setValue('rw', $modelPasien->rw ? $modelPasien->rw : '-');
@@ -899,12 +899,19 @@ class PasienController extends Controller
         $templateProcessor->setValue('nik', $modelPasien->nik);
         $templateProcessor->setValue('umur', $umur);
         $templateProcessor->setValue('jk', $modelPasien->jk);
-        $templateProcessor->setValue('kel', District::find($modelPasien->district)->name);
+        $templateProcessor->setValue('kel', $modelPasien->district ? District::find($modelPasien->district)->name : '-');
         $templateProcessor->setValue('agama', $modelPasien->agama);
         $templateProcessor->setValue('rt', $modelPasien->rt ? $modelPasien->rt : '-');
         $templateProcessor->setValue('rw', $modelPasien->rw ? $modelPasien->rw : '-');
         header("Content-Disposition: attachment; filename=" . $modelPasien->nama . " _PGM.docx");
 
         $templateProcessor->saveAs('php://output');
+    }
+
+    public function tesPrint()
+    {
+        $modelPasien = Pasien::find(3);
+
+        return view('tes.cetak', \compact('modelPasien'));
     }
 }

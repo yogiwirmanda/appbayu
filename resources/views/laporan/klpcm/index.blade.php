@@ -105,7 +105,6 @@
 @endsection
 @section('page-scripts')
 <script>
-
     function loadTable(startDate = '', endDate = ''){
         $.ajax({
             url : '{{route("laporan_klpcm_filter")}}',
@@ -144,92 +143,134 @@
 
     loadTable();
 
-    var options = {
-          series: [{
-          name: 'Lengkap',
-          data: [@json($dataUmum[1]), @json($dataLansia[1]), @json($dataKia[1]), @json($dataGigi[1])]
-        }],
-          chart: {
-          height: 350,
-          type: 'bar',
-        },
-        plotOptions: {
-          bar: {
-            borderRadius: 10,
-            dataLabels: {
-              position: 'top', // top, center, bottom
-            },
-          }
-        },
-        dataLabels: {
-          enabled: true,
-          formatter: function (val) {
-            return val + "%";
-          },
-          offsetY: -20,
-          style: {
-            fontSize: '12px',
-            colors: ["#304758"]
-          }
-        },
+    function loadDiagramLengkapPoli(){
 
-        xaxis: {
-          categories: ["UMUM", "LANSIA", "KIA", "GIGI"],
-          position: 'top',
-          axisBorder: {
-            show: false
+      let dataUmum = [];
+      $.ajax({
+        url : '/laporan/klpcm/umum',
+        method : 'GET',
+        data : {},
+        success : function(response){
+          dataUmum = response;
+        }
+      });
+
+      let dataLansia = [];
+      $.ajax({
+        url : '/laporan/klpcm/lansia',
+        method : 'GET',
+        data : {},
+        success : function(response){
+          dataLansia = response;
+        }
+      });
+
+      let dataKia = []
+      $.ajax({
+        url : '/laporan/klpcm/kia',
+        method : 'GET',
+        data : {},
+        success : function(response){
+          dataKia = response;
+        }
+      });
+
+      let dataGigi = []
+      $.ajax({
+        url : '/laporan/klpcm/gigi',
+        method : 'GET',
+        data : {},
+        success : function(response){
+          dataGigi = response;
+        }
+      });
+
+      setTimeout(() => {
+        var options = {
+            series: [{
+            name: 'Lengkap',
+            data: [dataUmum[1], dataLansia[1], dataKia[1], dataGigi[1]]
+          }],
+            chart: {
+            height: 350,
+            type: 'bar',
           },
-          axisTicks: {
-            show: false
-          },
-          crosshairs: {
-            fill: {
-              type: 'gradient',
-              gradient: {
-                colorFrom: '#D8E3F0',
-                colorTo: '#BED1E6',
-                stops: [0, 100],
-                opacityFrom: 0.4,
-                opacityTo: 0.5,
-              }
+          plotOptions: {
+            bar: {
+              borderRadius: 10,
+              dataLabels: {
+                position: 'top', // top, center, bottom
+              },
             }
           },
-          tooltip: {
+          dataLabels: {
             enabled: true,
-          }
-        },
-        yaxis: {
-          axisBorder: {
-            show: false
-          },
-          axisTicks: {
-            show: false,
-          },
-          labels: {
-            show: false,
             formatter: function (val) {
               return val + "%";
+            },
+            offsetY: -20,
+            style: {
+              fontSize: '12px',
+              colors: ["#304758"]
+            }
+          },
+
+          xaxis: {
+            categories: ["UMUM", "LANSIA", "KIA", "GIGI"],
+            position: 'top',
+            axisBorder: {
+              show: false
+            },
+            axisTicks: {
+              show: false
+            },
+            crosshairs: {
+              fill: {
+                type: 'gradient',
+                gradient: {
+                  colorFrom: '#D8E3F0',
+                  colorTo: '#BED1E6',
+                  stops: [0, 100],
+                  opacityFrom: 0.4,
+                  opacityTo: 0.5,
+                }
+              }
+            },
+            tooltip: {
+              enabled: true,
+            }
+          },
+          yaxis: {
+            axisBorder: {
+              show: false
+            },
+            axisTicks: {
+              show: false,
+            },
+            labels: {
+              show: false,
+              formatter: function (val) {
+                return val + "%";
+              }
+            }
+
+          },
+          title: {
+            text: 'Diagram Lengkap Tiap Poli',
+            floating: true,
+            offsetY: 330,
+            align: 'center',
+            style: {
+              color: '#444'
             }
           }
-
-        },
-        title: {
-          text: 'Diagram Lengkap Tiap Poli',
-          floating: true,
-          offsetY: 330,
-          align: 'center',
-          style: {
-            color: '#444'
-          }
-        }
         };
 
-        var chart = new ApexCharts(document.querySelector("#chart"), options);
-        chart.render();
+          var chart = new ApexCharts(document.querySelector("#chart"), options);
+          chart.render();
 
-
-      var optionsUmum = {
-          series: @json($dataUmum),
+        var optionsUmum = {
+          series: dataUmum,
           chart: {
           width: 380,
           type: 'pie',
@@ -252,7 +293,7 @@
         chartPieUmum.render();
 
         var optionsLansia = {
-          series: @json($dataLansia),
+          series: dataLansia,
           chart: {
           width: 380,
           type: 'pie',
@@ -275,7 +316,7 @@
         chartPieLansia.render();
 
         var optionsKia = {
-          series: @json($dataKia),
+          series: dataKia,
           chart: {
           width: 380,
           type: 'pie',
@@ -298,7 +339,7 @@
         chartPieKia.render();
 
         var optionsGigi = {
-          series: @json($dataGigi),
+          series: dataGigi,
           chart: {
           width: 380,
           type: 'pie',
@@ -319,6 +360,9 @@
 
         var chartPieGigi = new ApexCharts(document.querySelector("#chartPieGigi"), optionsGigi);
         chartPieGigi.render();
+      }, 1000);
+    }
 
+    loadDiagramLengkapPoli();
 </script>
 @endsection

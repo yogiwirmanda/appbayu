@@ -40,9 +40,9 @@ class PrbController extends Controller
                     return $actionBtn;
                 })
                 ->addColumn('action', function ($row) {
-                    $urlEdit = route("edit_prb", $row->id);
+                    $urlEdit = route("edit_prb", $row->pasienId);
                     $actionBtn = '<a href='.$urlEdit.' class="btn btn-sm btn-primary m-r-10">Edit</a>';
-                    $actionBtn .= '<a href="javascript:;" class="btn btn-sm btn-danger table-action-delete" data-pasien-id=' . $row->id . ' data-pasien-nama=' . $row->nama .'>Hapus</a>';
+                    $actionBtn .= '<a href="javascript:;" class="btn btn-sm btn-danger table-action-delete" data-pasien-id=' . $row->pasienId . ' data-pasien-nama=' . $row->namaPasien .'>Hapus</a>';
                     return $actionBtn;
                 })
                 ->rawColumns(['action', 'download'])

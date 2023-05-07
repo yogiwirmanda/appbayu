@@ -28,7 +28,11 @@ class LaporanController extends Controller
         return $modelPasien;
     }
 
-    public function klpcm()
+    public function klpcm(){
+        return view('laporan.klpcm.index');
+    }
+
+    public function loadGraphUmum()
     {
         $navActive = $this->navActive;
 
@@ -44,6 +48,12 @@ class LaporanController extends Controller
             }
         }
 
+        $dataUmum = [$jmlLengkapPoliUmum, $jmlTidakLengkapPoliUmum];
+
+        return $dataUmum;
+    }
+
+    public function loadGraphLansia(){
         $modelKunjunganLansia = Kunjungan::where('id_poli', 2)->get();
         $jmlTotalPoliLansia = count($modelKunjunganLansia) * 15;
         $jmlLengkapPoliLansia = 0;
@@ -56,6 +66,12 @@ class LaporanController extends Controller
             }
         }
 
+        $dataLansia = [$jmlLengkapPoliLansia, $jmlTidakLengkapPoliLansia];
+
+        return $dataLansia;
+    }
+
+    public function loadGraphKia(){
         $modelKunjunganKia = Kunjungan::where('id_poli', 3)->get();
         $jmlTotalPoliKia = count($modelKunjunganKia) * 15;
         $jmlLengkapPoliKia = 0;
@@ -68,6 +84,12 @@ class LaporanController extends Controller
             }
         }
 
+        $dataKia = [$jmlLengkapPoliKia, $jmlTidakLengkapPoliKia];
+
+        return $dataKia;
+    }
+
+    public function loadGraphGigi(){
         $modelKunjunganGigi = Kunjungan::where('id_poli', 4)->get();
         $jmlTotalPoliGigi = count($modelKunjunganGigi) * 15;
         $jmlLengkapPoliGigi = 0;
@@ -80,12 +102,10 @@ class LaporanController extends Controller
             }
         }
 
-        $dataUmum = [$jmlLengkapPoliUmum, $jmlTidakLengkapPoliUmum];
-        $dataLansia = [$jmlLengkapPoliLansia, $jmlTidakLengkapPoliLansia];
-        $dataKia = [$jmlLengkapPoliKia, $jmlTidakLengkapPoliKia];
         $dataGigi = [$jmlLengkapPoliGigi, $jmlTidakLengkapPoliGigi];
 
-        return view('laporan.klpcm.index', compact('navActive', 'dataUmum', 'dataLansia', 'dataKia', 'dataGigi'));
+        return $dataGigi;
+
     }
 
     public function countTidakLengkap($idPoli)
