@@ -38,6 +38,46 @@ class PasienController extends Controller
         return view('prolanis.riwayat', compact('navActive', 'pasienId', 'pasien'));
     }
 
+    public function addName($idPasien) {
+        $modelPasien = Pasien::find($idPasien);
+        $addName = '';
+
+        if ($modelPasien->jk == 'L' && $modelPasien->status_kawin == 'kawin'){
+            $addName = 'Tn. ';
+        }
+
+        if ($modelPasien->jk == 'L' && $modelPasien->status_kawin == 'belum'){
+            $addName = 'Sdr. ';
+        }
+
+        if ($modelPasien->jk == 'P' && $modelPasien->status_kawin == 'kawin'){
+            $addName = 'Ny. ';
+        }
+
+        if ($modelPasien->jk == 'P' && $modelPasien->status_kawin == 'belum'){
+            $addName = 'Nn. ';
+        }
+
+        $tglLahir = date_create($modelPasien->tgl_lahir);
+        $dateNow = date_create(Date('Y-m-d'));
+        $dateDiff = date_diff($tglLahir, $dateNow);
+        $umur = $dateDiff->y;
+
+        if ($umur <= 12){
+            $addName = 'An. ';
+        }
+
+        if ($modelPasien->jk == 'L' && $umur >= 30){
+            $addName = 'Tn. ';
+        }
+
+        if ($modelPasien->jk == 'P' && $umur >= 30){
+            $addName = 'Ny. ';
+        }
+
+        return $addName;
+    }
+
     public function dtAjax(Request $request)
     {
         if ($request->ajax()) {
@@ -55,7 +95,7 @@ class PasienController extends Controller
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('nama', function ($row) {
-                    $html = '<a href="/pasiens/detail/'.$row->id.'">'.$row->nama.'</a>';
+                    $html = '<a href="/pasiens/detail/'. $row->id.'">'.self::addName($row->id) . $row->nama.'</a>';
                     if ($row->status_prolanis == 1) {
                         $html .= '<span class="badge badge-danger">Prolanis</span>';
                     }
@@ -817,9 +857,10 @@ class PasienController extends Controller
 
     public function dtAjaxKunjungan($idPasien = '')
     {
-        $modelKunjungan = Kunjungan::select('kunjungans.tanggal', 'polis.nama', 'diagnosas.diagnosa')
+        $modelKunjungan = Kunjungan::select('kunjungans.tanggal', 'polis.nama', 'diagnosas.diagnosa', 'klpcms.rs_rujukan')
             ->leftJoin('polis', 'polis.id', 'kunjungans.id_poli')
             ->leftJoin('diagnosas', 'diagnosas.id', 'kunjungans.diagnosa_main')
+            ->leftJoin('klpcms', 'klpcms.id_kunjungan', 'kunjungans.id')
             ->where('kunjungans.id_pasien', $idPasien)
             ->get();
 
@@ -836,7 +877,9 @@ class PasienController extends Controller
         $dateDiff = date_diff($tglLahir, $dateNow);
         $umur = $dateDiff->y;
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('doc/CATATAN TERINTEGRASI.docx');
-        $templateProcessor->setValue('nama_pasien', $modelPasien->nama);
+
+
+        $templateProcessor->setValue('nama_pasien', self::addName($idPasien) . $modelPasien->nama);
         $templateProcessor->setValue('no_bpjs', $modelPasien->no_bpjs);
         $templateProcessor->setValue('tgl_lahir', Date('d-m-Y', \strtotime($modelPasien->tgl_lahir)));
         $templateProcessor->setValue('alamat', $modelPasien->alamat);
@@ -864,7 +907,7 @@ class PasienController extends Controller
         $dateDiff = date_diff($tglLahir, $dateNow);
         $umur = $dateDiff->y;
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('doc/CATATAN TERINTEGRASI_2.docx');
-        $templateProcessor->setValue('nama_pasien', $modelPasien->nama);
+        $templateProcessor->setValue('nama_pasien', self::addName($idPasien) . $modelPasien->nama);
         $templateProcessor->setValue('no_bpjs', $modelPasien->no_bpjs);
         $templateProcessor->setValue('tgl_lahir', Date('d-m-Y', \strtotime($modelPasien->tgl_lahir)));
         $templateProcessor->setValue('alamat', $modelPasien->alamat);
@@ -890,7 +933,7 @@ class PasienController extends Controller
         $dateDiff = date_diff($tglLahir, $dateNow);
         $umur = $dateDiff->y;
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('doc/POLI GIGI DAN MULUT.docx');
-        $templateProcessor->setValue('nama_pasien', $modelPasien->nama);
+        $templateProcessor->setValue('nama_pasien', self::addName($idPasien) . $modelPasien->nama);
         $templateProcessor->setValue('no_bpjs', $modelPasien->no_bpjs);
         $templateProcessor->setValue('tgl_lahir', Date('d-m-Y', \strtotime($modelPasien->tgl_lahir)));
         $templateProcessor->setValue('alamat', $modelPasien->alamat);

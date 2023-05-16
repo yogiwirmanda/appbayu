@@ -182,6 +182,10 @@ if(!isset($tanggal)){
             {
                 data: 'diagnosa',
                 name: 'diagnosa'
+            },
+            {
+                data: 'rs_rujukan',
+                name: 'rs_rujukan'
             }
         ]
     });
