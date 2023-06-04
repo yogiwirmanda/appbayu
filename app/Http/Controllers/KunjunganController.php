@@ -7,6 +7,7 @@ use App\Models\Pasien;
 use App\Models\Poli;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 
@@ -60,7 +61,7 @@ class KunjunganController extends Controller
                     $urlKelengkapan = route('kunjungan_klpcm', $row->kunjunganId);
                     $urlDetail = route("klpcm_index", $row->kunjunganId);
                     $actionBtn = '<div class="d-flex justify-content-evenly">';
-                    if ($row->is_edit === 0) {
+                    if ($row->is_edit === 0 && $row->diagnosa_main != 435) {
                         $actionBtn .= '<a href='.$urlKelengkapan.' class="table-action btn btn-xs btn-pill btn-success"<i class="fa fa-plane"></i> Kelengkapan</a>';
                     } else {
                         $actionBtn .= '<a href='.$urlDetail.' class="table-action btn btn-xs btn-pill btn-info"><i class="fa fa-pencil-square-o"></i> Detail</a>';
@@ -105,8 +106,16 @@ class KunjunganController extends Controller
             ->where('tanggal', $request->get('tanggal'))
             ->first();
 
+        $dataPasien = Pasien::find($request->get('id_pasien'));
+
+        $checkSuratSehat = $dataPasien->no_rm;
+        $isSuratSehat = false;
+        if (\str_contains($checkSuratSehat, 'SS') == true){
+            $isSuratSehat = true;
+        }
+
         if ($checkKunjungan == null) {
-            $kunjungans = new Kunjungan([
+            $dataKunjungan = [
                 'id_pasien' => $request->get('id_pasien'),
                 'no_rm' => $request->get('noRm'),
                 'id_poli' => $request->get('poli'),
@@ -117,8 +126,21 @@ class KunjunganController extends Controller
                 'is_prb' => $isPrb,
                 'is_prolanis' => $isProlanis,
                 'is_edit' => 0,
-            ]);
+            ];
+
+            if ($isSuratSehat == true){
+                $kunjungansSehat = [
+                    'diagnosa' => '[{"kode_icd":"Z00.0","diagnosa":"Pemeriksaan kesehatan"}]',
+                    'diagnosa_main' => 435,
+                ];
+
+                $dataKunjungan = \array_merge($dataKunjungan, $kunjungansSehat);
+            }
+
+            $kunjungans = new Kunjungan($dataKunjungan);
+
             $kunjungans->save();
+
             return response()->json(
                 ['error'=> 0, 'messages'=>'Pasien berhasil di tambahkan', 'dataId' => $kunjungans->id],
             );

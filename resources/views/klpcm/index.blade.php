@@ -73,6 +73,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                @if($suratSehat == 0)
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
@@ -137,6 +138,7 @@
                                         </div>
                                     @endif
                                 @endif
+                                @endif
                             </div>
                             <div class="col-6 col-md-6 col-sm-6">
                                 <div class="row">
@@ -197,6 +199,7 @@
                                 </div>
                             </div>
                         </div>
+                        @if($suratSehat == 0)
                         <div class="row">
                             <div class="col-6 col-md-6 col-sm-6">
                                 <table class="table table-hover table-striped">
@@ -296,6 +299,7 @@
                                 </table>
                             </div>
                         </div>
+                        @endif
                         <div class="clearfix"></div>
                     </form>
                 </div>
@@ -305,38 +309,39 @@
 </div>
 @endsection
 @section('page-scripts')
-<script>
-    var klnama = "<?php echo $dataKLPCM->klnama ?>";
-    var klnorm = "<?php echo $dataKLPCM->klnorm ?>";
-    var kltgllahir = "<?php echo $dataKLPCM->kltgl_lahir ?>";
-    var kljk = "<?php echo $dataKLPCM->kljk ?>";
-    var klalamat = "<?php echo $dataKLPCM->klalamat ?>";
-    var klnoBpjs = "<?php echo $dataKLPCM->klno_bpjs ?>";
-    var kls = "<?php echo $dataKLPCM->kls ?>";
-    var klo = "<?php echo $dataKLPCM->klo ?>";
-    var kla = "<?php echo $dataKLPCM->kla ?>";
-    var klp = "<?php echo $dataKLPCM->klp ?>";
-    var klkie = "<?php echo $dataKLPCM->klkie ?>";
-    var kldx = "<?php echo $dataKLPCM->kldx ?>";
-    var kldy = "<?php echo $dataKLPCM->kldy ?>";
-    var klnamaPetugas = "<?php echo $dataKLPCM->klnama_petugas ?>";
-    var klttdPetugas = "<?php echo $dataKLPCM->klttd_petugas ?>";
-    $("input[type='radio']").attr('disabled', 'true');
-    $("input[name='klnama'][value='" + klnama + "']").prop('checked', true);
-    $("input[name='klnorm'][value='" + klnorm + "']").prop('checked', true);
-    $("input[name='kltglLahir'][value='" + kltgllahir + "']").prop('checked', true);
-    $("input[name='kljk'][value='" + kljk + "']").prop('checked', true);
-    $("input[name='klalamat'][value='" + klalamat + "']").prop('checked', true);
-    $("input[name='klnoBpjs'][value='" + klnoBpjs + "']").prop('checked', true);
-    $("input[name='kls'][value='" + kls + "']").prop('checked', true);
-    $("input[name='klo'][value='" + klo + "']").prop('checked', true);
-    $("input[name='kla'][value='" + kla + "']").prop('checked', true);
-    $("input[name='klp'][value='" + klp + "']").prop('checked', true);
-    $("input[name='klkie'][value='" + klkie + "']").prop('checked', true);
-    $("input[name='kldx'][value='" + kldx + "']").prop('checked', true);
-    $("input[name='kldy'][value='" + kldy + "']").prop('checked', true);
-    $("input[name='namaPetugas'][value='" + klnamaPetugas + "']").prop('checked', true);
-    $("input[name='ttdPetugas'][value='" + klttdPetugas + "']").prop('checked', true);
-
-</script>
+@if($suratSehat == 0)
+    <script>
+        var klnama = "<?php echo $dataKLPCM->klnama ?>";
+        var klnorm = "<?php echo $dataKLPCM->klnorm ?>";
+        var kltgllahir = "<?php echo $dataKLPCM->kltgl_lahir ?>";
+        var kljk = "<?php echo $dataKLPCM->kljk ?>";
+        var klalamat = "<?php echo $dataKLPCM->klalamat ?>";
+        var klnoBpjs = "<?php echo $dataKLPCM->klno_bpjs ?>";
+        var kls = "<?php echo $dataKLPCM->kls ?>";
+        var klo = "<?php echo $dataKLPCM->klo ?>";
+        var kla = "<?php echo $dataKLPCM->kla ?>";
+        var klp = "<?php echo $dataKLPCM->klp ?>";
+        var klkie = "<?php echo $dataKLPCM->klkie ?>";
+        var kldx = "<?php echo $dataKLPCM->kldx ?>";
+        var kldy = "<?php echo $dataKLPCM->kldy ?>";
+        var klnamaPetugas = "<?php echo $dataKLPCM->klnama_petugas ?>";
+        var klttdPetugas = "<?php echo $dataKLPCM->klttd_petugas ?>";
+        $("input[type='radio']").attr('disabled', 'true');
+        $("input[name='klnama'][value='" + klnama + "']").prop('checked', true);
+        $("input[name='klnorm'][value='" + klnorm + "']").prop('checked', true);
+        $("input[name='kltglLahir'][value='" + kltgllahir + "']").prop('checked', true);
+        $("input[name='kljk'][value='" + kljk + "']").prop('checked', true);
+        $("input[name='klalamat'][value='" + klalamat + "']").prop('checked', true);
+        $("input[name='klnoBpjs'][value='" + klnoBpjs + "']").prop('checked', true);
+        $("input[name='kls'][value='" + kls + "']").prop('checked', true);
+        $("input[name='klo'][value='" + klo + "']").prop('checked', true);
+        $("input[name='kla'][value='" + kla + "']").prop('checked', true);
+        $("input[name='klp'][value='" + klp + "']").prop('checked', true);
+        $("input[name='klkie'][value='" + klkie + "']").prop('checked', true);
+        $("input[name='kldx'][value='" + kldx + "']").prop('checked', true);
+        $("input[name='kldy'][value='" + kldy + "']").prop('checked', true);
+        $("input[name='namaPetugas'][value='" + klnamaPetugas + "']").prop('checked', true);
+        $("input[name='ttdPetugas'][value='" + klttdPetugas + "']").prop('checked', true);
+    </script>
+@endif
 @endsection

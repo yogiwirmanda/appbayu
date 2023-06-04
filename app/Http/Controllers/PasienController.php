@@ -208,6 +208,7 @@ class PasienController extends Controller
                     $lastRm = self::lastRmSuratSehat();
                     $noRm = 'SS-' . $lastRm;
                     $kodeKategori = 3;
+                    $headRm = $lastRm;
                 }
 
             } else {

@@ -28,8 +28,12 @@ class KlpcmController extends Controller
             ->select('kunjungans.*', 'pasiens.*', 'pasiens.nama as nama_pasien', 'polis.nama as namaPoli', 'kunjungans.id as kunjunganId')
             ->first();
         $dataKLPCM = Klpcm::where('id_kunjungan', '=', $idKunjungan)->first();
+        $suratSehat = 0;
+        if ($dataKunjungan->diagnosa_main == 435){
+            $suratSehat = 1;
+        }
 
-        return view('klpcm.index', compact('title', 'dataKunjungan', 'idKunjungan', 'dataKLPCM', 'nav'));
+        return view('klpcm.index', compact('title', 'dataKunjungan', 'idKunjungan', 'dataKLPCM', 'nav', 'suratSehat'));
     }
 
 
