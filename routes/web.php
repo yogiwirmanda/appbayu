@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AntreanController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DiagnosaController;
 use App\Http\Controllers\DokterController;
@@ -24,6 +25,13 @@ Route::get('login', [AuthController::class, 'showFormLogin'])->name('login_show'
 Route::post('login', [AuthController::class, 'login'])->name('login_post');
 Route::get('register', [AuthController::class, 'showFormRegister'])->name('register');
 Route::post('register', [AuthController::class, 'register']);
+Route::get('regency/check/city', [RegencyController::class, 'getDataCity'])->name('load_data_city');
+Route::get('regency/check/district', [RegencyController::class, 'getDataDistrict'])->name('load_data_district');
+Route::get('regency/check/villages', [RegencyController::class, 'getDataVillages'])->name('load_data_villages');
+
+Route::get('/antrean-online', [AntreanController::class, 'index'])->name('antrean-online');
+Route::post('/antrean-online/save', [AntreanController::class, 'store'])->name('save_antrean');
+Route::get('/antrean-online/result/{id}', [AntreanController::class, 'result'])->name('result_antrean');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('home', [HomeController::class, 'index'])->name('home');
@@ -51,10 +59,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('pasien/download/ci/{idPasien}', [PasienController::class, 'downloadCI'])->name('pasien_download_ci');
     Route::get('pasien/download/ci2/{idPasien}', [PasienController::class, 'downloadCI2'])->name('pasien_download_ci2');
     Route::get('pasien/download/gigimulut/{idPasien}', [PasienController::class, 'downloadGigiMulut'])->name('pasien_download_gigi_mulut');
-
-    Route::get('regency/check/city', [RegencyController::class, 'getDataCity'])->name('load_data_city');
-    Route::get('regency/check/district', [RegencyController::class, 'getDataDistrict'])->name('load_data_district');
-    Route::get('regency/check/villages', [RegencyController::class, 'getDataVillages'])->name('load_data_villages');
 
     Route::get('kunjungan', [KunjunganController::class, 'index'])->name('kunjungan_pasien');
     Route::get('kunjungan/create/{param}/{type?}', [KunjunganController::class, 'create'])->name('kunjungan_pasien_create');
@@ -179,4 +183,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/laporan/klpcm/kia', [LaporanController::class, 'loadGraphKia'])->name('load-klpcm-kia');
     Route::get('/laporan/klpcm/gigi', [LaporanController::class, 'loadGraphGigi'])->name('load-klpcm-gigi');
     Route::get('/laporan/klpcm/lansia', [LaporanController::class, 'loadGraphLansia'])->name('load-klpcm-lansia');
+
+    Route::get('/antrean/list', [AntreanController::class, 'list'])->name('list_antrean');
+    Route::get('/antrean/dtAjax', [AntreanController::class, 'dtAjax'])->name('ajax_load_antrean');
 });

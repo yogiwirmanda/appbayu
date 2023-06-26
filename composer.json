@@ -14,6 +14,7 @@
         "maatwebsite/excel": "^3.1",
         "novay/laravel-word-template": "^1.1",
         "phpoffice/phpword": "^1.0",
+        "simplesoftwareio/simple-qrcode": "^4.2",
         "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {

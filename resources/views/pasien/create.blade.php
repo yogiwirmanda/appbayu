@@ -32,11 +32,13 @@
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="form-group col-md-2 align-items-center">
-                                <input type="checkbox" name="pendatang" class="input-pendatang input-type-pasien mr-2" value="1">
+                                <input type="checkbox" name="pendatang" class="input-pendatang input-type-pasien mr-2"
+                                    value="1">
                                 <label class="col-form-label">Pendatang</label>
                             </div>
                             <div class="form-group col-md-2 align-items-center">
-                                <input type="checkbox" name="suratSehat" class="input-surat-sehat input-type-pasien mr-2" value="1">
+                                <input type="checkbox" name="suratSehat"
+                                    class="input-surat-sehat input-type-pasien mr-2" value="1">
                                 <label class="col-form-label">Surat Sehat</label>
                             </div>
                             <div class="form-group col-md-4 align-items-center">

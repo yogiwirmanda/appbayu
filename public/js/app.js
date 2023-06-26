@@ -28,9 +28,13 @@ PRC = {
                 } else {
                     $.notify(messages, 'success');
                     if (withRedirect == true){
-                        if (pasien != false){
+                        if (pasien != false && pasien != 'antrean'){
                             setTimeout(() => {
                                 window.location.href = redirectUrl + '/' + response.dataId + '/baru';
+                            }, 1000);
+                        } else if (pasien == 'antrean'){
+                            setTimeout(() => {
+                                window.location.href = redirectUrl + '/' + response.dataId;
                             }, 1000);
                         } else {
                             setTimeout(() => {
