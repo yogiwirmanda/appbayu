@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Export\PasienExport;
 use App\Models\District;
 use App\Models\Kategori;
 use App\Models\Kunjungan;
@@ -17,6 +18,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\DataTables;
+use Excel;
+use TemplateProcessor;
 
 class PasienController extends Controller
 {
@@ -957,5 +960,9 @@ class PasienController extends Controller
         $modelPasien = Pasien::find(3);
 
         return view('tes.cetak', \compact('modelPasien'));
+    }
+
+    public function export() {
+        return Excel::download(new PasienExport, 'pasien-'.Date('Y-m-d').'.xlsx');
     }
 }

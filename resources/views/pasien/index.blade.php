@@ -28,16 +28,19 @@
                     <div class="row">
                         <div class="col-md-12 d-flex justify-content-between mb-3">
                             <h2>Filter Data Pasien</h2>
-                            <a href="{{asset('pasien/create')}}" class="btn btn-pill btn-primary"
-                                data-toggle="tooltip" data-original-title="Tambah Pasien">
+                            <a href="{{asset('pasien/create')}}" class="btn btn-pill btn-primary" data-toggle="tooltip"
+                                data-original-title="Tambah Pasien">
                                 <span class="btn-inner--text">Tambah Pasien</span>
+                            </a>
+                            <a href="{{asset('pasien/export')}}" class="btn btn-pill btn-success" data-toggle="tooltip"
+                                data-original-title="Export Pasien">
+                                <span class="btn-inner--text">Export Pasien</span>
                             </a>
                         </div>
                         <div class="col-md-6 col-sm-6">
                             <div class="form-group">
                                 <label class="col-form-label">Kata Kunci</label>
-                                <input type="text" name="nama" id="nama" class="form-control"
-                                    placeholder="Nama">
+                                <input type="text" name="nama" id="nama" class="form-control" placeholder="Nama">
                             </div>
                             <div class="form-group mt-2">
                                 <a href="javascript:;" class="btn btn-primary btn-filter-pasien">Cari Data</a>
@@ -69,7 +72,6 @@
 @endsection
 @section('page-scripts')
 <script>
-
     var table = '';
 
     function loadTable(getName = ''){
