@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Province;
 use App\Models\Antrean;
+use App\Models\Pasien;
 use App\Models\Poli;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -21,6 +22,21 @@ class AntreanController extends Controller
     public function list()
     {
         return view('antrean.list');
+    }
+
+    public function cek($id = '')
+    {
+        $getDetail = Antrean::find($id);
+        $listPasien = Pasien::where('nama', $getDetail->nama)->orWhere('no_ktp', $getDetail->nik)->get();
+        return view('antrean.cek', compact('id', 'listPasien'));
+    }
+
+    public function choose($id = '', $pasien = '')
+    {
+        $getDetail = Antrean::find($id);
+        $getDetail->id_pasien = $pasien;
+        $getDetail->save();
+        return redirect('/antrean');
     }
 
     function makeKodeAntrean($poli){
@@ -87,6 +103,12 @@ class AntreanController extends Controller
                 ->get();
 
             return DataTables::of($data)
+                ->addColumn('action', function ($row) {
+                    $urlCekData = '/antrean/cek-data/' . $row->id;
+                    $actionBtn = '<a href='.$urlCekData.' class="btn btn-sm btn-success m-r-10">Cek Data</a>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
                 ->addIndexColumn()
                 ->make(true);
         }

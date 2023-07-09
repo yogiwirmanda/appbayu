@@ -4,7 +4,7 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-sm-6">
-                <h3>Data Antrean</h3>
+                <h3>Cek Data Antrean</h3>
             </div>
             <div class="col-12 col-sm-6">
                 <ol class="breadcrumb">
@@ -21,19 +21,33 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <a href="/pasien/choose/{{$id}}" class="btn btn-primary mb-4">Input Baru</a>
+                            </div>
+                        </div>
                         <table class="table table-flush" id="table-antrean" style="text-transform: uppercase;">
                             <thead class="thead-light">
                                 <tr>
-                                    <th>No</th>
-                                    <th>Kode Antrean</th>
                                     <th>Nama</th>
                                     <th>Nik</th>
-                                    <th>Poli</th>
-                                    <th>Tanggal</th>
+                                    <th>Nama KK</th>
+                                    <th>Alamat</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody></tbody>
+                            <tbody>
+                                @foreach ($listPasien as $item)
+                                <tr>
+                                    <td>{{ $item->nama }}</td>
+                                    <td>{{ $item->no_ktp }}</td>
+                                    <td>{{ $item->kepala_keluarga }}</td>
+                                    <td>{{ $item->alamat }}</td>
+                                    <td><a href='{{"/antrean/choose-pasien/" . $id . ' /' . $item->id}}'
+                                            class="btn btn-sm btn-success m-r-10">Pilih Pasien</a></td>
+                                </tr>
+                                @endforeach
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -41,42 +55,4 @@
         </div>
     </div>
 </div>
-@endsection
-@section('page-scripts')
-<script>
-    var table = $('#table-antrean').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: "{{ route('ajax_load_antrean') }}",
-        columns: [{
-                data: 'DT_RowIndex',
-                name: 'DT_RowIndex'
-            },
-            {
-                data: 'kode',
-                name: 'kode'
-            },
-            {
-                data: 'nama',
-                name: 'nama'
-            },
-            {
-                data: 'nik',
-                name: 'nik'
-            },
-            {
-                data: 'namaPoli',
-                name: 'namaPoli'
-            },
-            {
-                data: 'tanggal',
-                name: 'tanggal'
-            },
-            {
-                data: 'action',
-                name: 'action'
-            }
-        ]
-    });
-</script>
 @endsection

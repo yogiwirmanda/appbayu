@@ -39,6 +39,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('pasien', [PasienController::class, 'index'])->name('daftar_pasien');
     Route::get('pasien/create', [PasienController::class, 'create'])->name('tambah_pasien');
+    Route::get('pasien/choose/{id}', [PasienController::class, 'choose'])->name('choose_pasien');
     Route::get('pasien/createAdmin', [PasienController::class, 'createAdmin'])->name('tambah_pasien_admin');
     Route::post('pasien/store', [PasienController::class, 'store'])->name('save_pasien');
     Route::post('pasien/storeAdmin', [PasienController::class, 'storeAdmin'])->name('save_pasien_admin');
@@ -158,6 +159,8 @@ Route::group(['middleware' => 'auth'], function () {
     // Route::get('laporan/pemeriksaan/{type}/{date}', [LaporanController::class, 'pemeriksaan'])->name('laporan_pemeriksaan_filter');
 
     Route::get('antrean/', [AntreanController::class, 'list'])->name('admin-antrean');
+    Route::get('antrean/cek-data/{id}', [AntreanController::class, 'cek'])->name('antrean_cek_data');
+    Route::get('antrean/choose-pasien/{id}/{pasien}', [AntreanController::class, 'choose'])->name('antrean_choose_pasien');
 
     Route::get('laporan/pemeriksaanPrb', [LaporanController::class, 'pemeriksaanPrb'])->name('laporan_pemeriksaan_prb');
     Route::get('laporan/pemeriksaan/prb', [LaporanController::class, 'loadPrb'])->name('loadPrb');

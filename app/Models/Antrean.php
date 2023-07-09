@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Antrean extends Model
 {
     use HasFactory;
-    protected $fillable = ['nik', 'kode', 'nama', 'tgl_lahir', 'alamat', 'provinsi', 'kota', 'kecamatan', 'kelurahan', 'cara_bayar', 'poli', 'tanggal'];
+    protected $fillable = ['id_pasien', 'nik', 'kode', 'nama', 'tgl_lahir', 'alamat', 'provinsi', 'kota', 'kecamatan', 'kelurahan', 'cara_bayar', 'poli', 'tanggal'];
 }

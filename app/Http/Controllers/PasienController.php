@@ -7,6 +7,7 @@ use App\Models\District;
 use App\Models\Kategori;
 use App\Models\Kunjungan;
 use App\Models\Pasien;
+use App\Models\Antrean;
 use App\Models\PasienAdmin;
 use App\Models\Poli;
 use App\Models\Province;
@@ -402,6 +403,20 @@ class PasienController extends Controller
         $navActive = $this->navActive;
 
         return view('pasien.edit', compact('pasiens', 'id', 'dataProvince', 'dataCity', 'dataDistrict', 'dataVillages', 'navActive'));
+    }
+
+    public function choose($id)
+    {
+        $pasien = Antrean::find($id);
+        $dataProvince = Province::all();
+        $dataWilayah = Wilayah::all();
+        $navActive = $this->navActive;
+        $dataProvince = Province::all();
+        $dataCity = Regency::where('province_id', $pasien->provinsi)->get();
+        $dataDistrict = District::where('regency_id', $pasien->kota)->get();
+        $dataVillages = Village::where('district_id', $pasien->kecamatan)->get();
+
+        return view('pasien.choose', compact('dataWilayah', 'dataProvince', 'dataCity', 'dataDistrict', 'dataVillages', 'navActive', 'pasien'));
     }
 
 
