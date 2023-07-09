@@ -148,6 +148,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('laporan/lb1', [LaporanController::class, 'lb1'])->name('laporan_lb1');
     Route::get('laporan/lb1Download', [LaporanController::class, 'lb1Download'])->name('laporan_lb1_download');
     Route::get('pasien/export', [PasienController::class, 'export'])->name('pasien_export_daily');
+    Route::get('pasien/export/{date}', [PasienController::class, 'export'])->name('pasien_export_date');
 
     Route::get('laporan/pemeriksaan', [LaporanController::class, 'pemeriksaan'])->name('laporan_pemeriksaan');
     Route::get('laporan/pemeriksaan/dm', [LaporanController::class, 'pemeriksaanDM'])->name('laporan_pemeriksaan_dm');
@@ -155,6 +156,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('laporan/pemeriksaan/ht', [LaporanController::class, 'pemeriksaanHT'])->name('laporan_pemeriksaan_ht');
     Route::get('laporan/pemeriksaan/ht/{idPasien}', [LaporanController::class, 'pemeriksaanHTWithId'])->name('laporan_pemeriksaan_ht_with_id');
     // Route::get('laporan/pemeriksaan/{type}/{date}', [LaporanController::class, 'pemeriksaan'])->name('laporan_pemeriksaan_filter');
+
+    Route::get('antrean/', [AntreanController::class, 'list'])->name('admin-antrean');
 
     Route::get('laporan/pemeriksaanPrb', [LaporanController::class, 'pemeriksaanPrb'])->name('laporan_pemeriksaan_prb');
     Route::get('laporan/pemeriksaan/prb', [LaporanController::class, 'loadPrb'])->name('loadPrb');

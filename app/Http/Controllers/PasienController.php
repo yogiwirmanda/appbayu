@@ -93,6 +93,10 @@ class PasienController extends Controller
                     ->orWhere('alamat', 'like', '%' . $request->name . '%');
             }
 
+            if (strlen($request->tgl) > 0){
+                $data = $data->whereDate('created_at', $request->tgl);
+            }
+
             $data = $data->orderBy('created_at', 'DESC')->get();
 
             return DataTables::of($data)
@@ -962,7 +966,11 @@ class PasienController extends Controller
         return view('tes.cetak', \compact('modelPasien'));
     }
 
-    public function export() {
-        return Excel::download(new PasienExport, 'pasien-'.Date('Y-m-d').'.xlsx');
+    public function export($date = '') {
+        $tgl = Date('Y-m-d');
+        if (strlen($date) > 0){
+            $tgl = $date;
+        }
+        return Excel::download(new PasienExport($tgl), 'pasien-'.$tgl.'.xlsx');
     }
 }

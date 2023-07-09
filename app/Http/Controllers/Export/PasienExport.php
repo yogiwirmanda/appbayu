@@ -17,10 +17,10 @@ class PasienExport implements FromView
         $dataReturn['hr'] = $dateDiff->d;
         return $dataReturn;
     }
-    public function getData()
+    public function getData($tgl)
     {
 
-        $data = Pasien::whereDate('created_at', Date('Y-m-d'))->get();
+        $data = Pasien::whereDate('created_at', $tgl)->get();
         $dataReturn = [];
         foreach ($data as $key => $value) {
             $dataTemp = [];
@@ -33,9 +33,9 @@ class PasienExport implements FromView
         return $dataReturn;
     }
 
-    public function view(): View
+    public function view($tgl = ''): View
     {
-        $pasien = self::getData();
+        $pasien = self::getData($tgl);
         return view('pasien.export', ['dataPasien' => $pasien]);
     }
 }

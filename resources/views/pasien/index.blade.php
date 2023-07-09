@@ -32,19 +32,25 @@
                                 data-original-title="Tambah Pasien">
                                 <span class="btn-inner--text">Tambah Pasien</span>
                             </a>
-                            <a href="{{asset('pasien/export')}}" class="btn btn-pill btn-success" data-toggle="tooltip"
-                                data-original-title="Export Pasien">
+                            <a href="javascript:;" class="btn btn-pill btn-success btn-export-pasien"
+                                data-toggle="tooltip" data-original-title="Export Pasien">
                                 <span class="btn-inner--text">Export Pasien</span>
                             </a>
                         </div>
-                        <div class="col-md-6 col-sm-6">
+                        <div class="col-md-4 col-sm-4">
                             <div class="form-group">
                                 <label class="col-form-label">Kata Kunci</label>
                                 <input type="text" name="nama" id="nama" class="form-control" placeholder="Nama">
                             </div>
-                            <div class="form-group mt-2">
-                                <a href="javascript:;" class="btn btn-primary btn-filter-pasien">Cari Data</a>
+                        </div>
+                        <div class="col-md-3 col-sm-3">
+                            <div class="form-group">
+                                <label class="col-form-label">Tanggal</label>
+                                <input type="date" name="tanggal" id="tgl" class="form-control" placeholder="Tanggal">
                             </div>
+                        </div>
+                        <div class="form-group mt-2">
+                            <a href="javascript:;" class="btn btn-primary btn-filter-pasien">Cari Data</a>
                         </div>
                     </div>
                 </div>
@@ -74,7 +80,7 @@
 <script>
     var table = '';
 
-    function loadTable(getName = ''){
+    function loadTable(getName = '', getTanggal){
         table = $('#table-pasien').DataTable({
             processing: true,
             serverSide: true,
@@ -82,7 +88,8 @@
                 url : "{{ route('ajax_load_pasien') }}",
                 type :  "GET",
                 data : {
-                    name : getName
+                    name : getName,
+                    tgl : getTanggal
                 }
             },
             searchDelay: 1500,
@@ -123,8 +130,19 @@
 
     $('.btn-filter-pasien').click(function(e){
         let getValue = $('#nama').val();
+        let tanggal = $('#tgl').val();
         table.destroy();
-        loadTable(getValue);
+        loadTable(getValue, tanggal);
+    })
+
+    $('.btn-export-pasien').click(function(e){
+        console.log('run')
+        let getValue = $('#tgl').val();
+        if (getValue.length > 0){
+            window.location.href = '/pasien/export/' + getValue;
+        } else {
+            window.location.href = '/pasien/export/';
+        }
     })
 
 
