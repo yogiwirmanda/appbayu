@@ -43,7 +43,7 @@
                                     <td>{{ $item->no_ktp }}</td>
                                     <td>{{ $item->kepala_keluarga }}</td>
                                     <td>{{ $item->alamat }}</td>
-                                    <td><a href='{{"/antrean/choose-pasien/" . $id . ' /' . $item->id}}'
+                                    <td><a href='{{"/antrean/choose-pasien/" . $id . "/" . $item->id}}'
                                             class="btn btn-sm btn-success m-r-10">Pilih Pasien</a></td>
                                 </tr>
                                 @endforeach
