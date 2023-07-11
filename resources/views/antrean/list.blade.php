@@ -19,6 +19,16 @@
     <div class="row">
         <div class="col">
             <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-3">
+                            <div class="form-group">
+                                <label class="col-form-label w-25">Tanggal</label>
+                                <input type="date" name="tanggal" id="tgl" class="form-control" placeholder="Tanggal">
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-flush" id="table-antrean" style="text-transform: uppercase;">
@@ -44,39 +54,55 @@
 @endsection
 @section('page-scripts')
 <script>
-    var table = $('#table-antrean').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: "{{ route('ajax_load_antrean') }}",
-        columns: [{
-                data: 'DT_RowIndex',
-                name: 'DT_RowIndex'
+    function loadData(tgl = ''){
+        $('#table-antrean').dataTable().fnClearTable();
+        $('#table-antrean').dataTable().fnDestroy();
+        var table = $('#table-antrean').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url : "{{ route('ajax_load_antrean') }}",
+                data: function(d){
+                    d.tgl = tgl;
+                },
             },
-            {
-                data: 'kode',
-                name: 'kode'
-            },
-            {
-                data: 'nama',
-                name: 'nama'
-            },
-            {
-                data: 'nik',
-                name: 'nik'
-            },
-            {
-                data: 'namaPoli',
-                name: 'namaPoli'
-            },
-            {
-                data: 'tanggal',
-                name: 'tanggal'
-            },
-            {
-                data: 'action',
-                name: 'action'
-            }
-        ]
-    });
+            columns: [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                },
+                {
+                    data: 'kode',
+                    name: 'kode'
+                },
+                {
+                    data: 'nama',
+                    name: 'nama'
+                },
+                {
+                    data: 'nik',
+                    name: 'nik'
+                },
+                {
+                    data: 'namaPoli',
+                    name: 'namaPoli'
+                },
+                {
+                    data: 'tanggal',
+                    name: 'tanggal'
+                },
+                {
+                    data: 'action',
+                    name: 'action'
+                }
+            ]
+        });
+    }
+
+    loadData()
+
+    $('#tgl').change(function(e){
+        e.preventDefault();
+        loadData($(this).val());
+    })
 </script>
 @endsection
