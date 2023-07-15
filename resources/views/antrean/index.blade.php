@@ -11,6 +11,13 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
+                                        <label class="col-form-label">No RM</label>
+                                        <input type="text" name="norm" id="norm" class="form-control input-form-norm"
+                                            placeholder="Nomor Rekam Medis">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
                                         <label class="col-form-label">NIK</label>
                                         <input type="text" name="nik" id="nik" class="form-control input-form-nik"
                                             placeholder="Nomor Induk Kependudukan">
@@ -94,11 +101,18 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="form-group mt-3">
+                                <input class="form-check-input" type="checkbox" value="1" name="ceklab"
+                                    id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Cek Lab
+                                </label>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12 mt-5">
-                            <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
+                            <button type="submit" class="btn btn-primary btn-fill pull-right">Daftar</button>
                         </div>
                     </div>
                     <div class="clearfix"></div>
