@@ -166,6 +166,8 @@
     <script src="{{ asset('medilab/assets/vendor/php-email-form/validate.js') }}"></script>
     <script src="{{asset('zeta/js/select2/select2.full.min.js')}}"></script>
     <script src="{{asset('zeta/js/select2/select2-custom.js')}}"></script>
+    <script src="{{asset('zeta/js/notify/bootstrap-notify.min.js')}}"></script>
+    <script src="{{asset('zeta/js/notify/index.js')}}"></script>
 
     <!-- Template Main JS File -->
     <script src="{{ asset('medilab/assets/js/main.js')}}"></script>
