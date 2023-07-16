@@ -21,15 +21,23 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-4">
                             <div class="d-flex justify-content-around m-b-20">
-                                <input class="datepicker-here form-control digits" type="text" data-range="true" data-multiple-dates-separator=" - " data-language="en">
-                                <a href="javascript:;" class="btn btn-info btn-fill pull-right btn-submit-filter m-l-15">Filter</a>
+                                <input class="datepicker-here form-control digits" type="text" data-range="true"
+                                    data-multiple-dates-separator=" - " data-language="en">
+                                <a href="javascript:;"
+                                    class="btn btn-info btn-fill pull-right btn-submit-filter m-l-15">Filter</a>
                             </div>
                         </div>
-                        <div class="col-6">
-                            <a href="javascript:;"
-                                class="btn btn-primary btn-fill m-l-15 btn-modal-cari">Tambah Kunjungan</a>
+                        <div class="col-4">
+                            <a href="javascript:;" class="btn btn-primary btn-fill m-l-15 btn-modal-cari">Tambah
+                                Kunjungan</a>
+                        </div>
+                        <div class="col-4">
+                            <a href="javascript:;" class="btn btn-pill btn-success btn-export-pasien"
+                                data-toggle="tooltip" data-original-title="Export Pasien">
+                                <span class="btn-inner--text">Export Pasien</span>
+                            </a>
                         </div>
                     </div>
                     <div class="table-responsive">
@@ -155,6 +163,35 @@
         let tanggalAkhir = separateAkhir[2] + '-' + separateAkhir[0] + '-' + separateAkhir[1];
 
         loadTable(tanggalAwal, tanggalAkhir);
+    });
+
+    $('.btn-export-pasien').click(function(e){
+        e.stopImmediatePropagation();
+        var tanggal = $('.datepicker-here').val();
+        tanggal = tanggal.replace(/\s+/g, '');
+        let separateTanggal = tanggal.split("-");
+        let separateAwal = '';
+        let separateAkhir = '';
+        if (separateTanggal.length > 1){
+            separateAwal = separateTanggal[0].split("/");
+            separateAkhir = separateTanggal[1].split("/");
+        } else {
+            separateAwal = separateTanggal[0].split("/");
+            separateAkhir = separateAwal;
+        }
+
+        let tanggalAwal = separateAwal[2] + '-' + separateAwal[0] + '-' + separateAwal[1];
+        let tanggalAkhir = separateAkhir[2] + '-' + separateAkhir[0] + '-' + separateAkhir[1];
+        let tglFix = tanggalAwal + '|||' + tanggalAkhir;
+        if (tanggal.length > 0){
+            if (tglFix.length > 0){
+                window.location.href = '/pasien/export/' + tglFix;
+            } else {
+                window.location.href = '/pasien/export/';
+            }
+        } else {
+            $.notify('Isi Tanggal Terlebih Dahulu', 'error');
+        }
     });
 
     var options = {

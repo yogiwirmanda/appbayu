@@ -32,10 +32,6 @@
                                 data-original-title="Tambah Pasien">
                                 <span class="btn-inner--text">Tambah Pasien</span>
                             </a>
-                            <a href="javascript:;" class="btn btn-pill btn-success btn-export-pasien"
-                                data-toggle="tooltip" data-original-title="Export Pasien">
-                                <span class="btn-inner--text">Export Pasien</span>
-                            </a>
                         </div>
                         <div class="col-md-4 col-sm-4">
                             <div class="form-group">
@@ -134,17 +130,6 @@
         table.destroy();
         loadTable(getValue, tanggal);
     })
-
-    $('.btn-export-pasien').click(function(e){
-        console.log('run')
-        let getValue = $('#tgl').val();
-        if (getValue.length > 0){
-            window.location.href = '/pasien/export/' + getValue;
-        } else {
-            window.location.href = '/pasien/export/';
-        }
-    })
-
 
     $(document).on('click', '.table-action-delete', function () {
         let dataPasienId = $(this).attr('data-pasien-id');

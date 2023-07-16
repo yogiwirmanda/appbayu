@@ -2,12 +2,20 @@
 namespace App\Http\Controllers\Export;
 
 use App\Models\Pasien;
+use App\Models\Kunjungan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 
 class PasienExport implements FromView
 {
+
+    protected $tgl;
+
+    function __construct($tgl) {
+        $this->tgl = $tgl;
+    }
+
     public function checkAge($borndate){
         $tglLahir = date_create($borndate);
         $dateNow = date_create(Date('Y-m-d'));
@@ -17,10 +25,15 @@ class PasienExport implements FromView
         $dataReturn['hr'] = $dateDiff->d;
         return $dataReturn;
     }
-    public function getData($tgl)
+    public function getData()
     {
-
-        $data = Pasien::whereDate('created_at', $tgl)->get();
+        $tglSeparate = explode('|||', $this->tgl);
+        $data = Kunjungan::select('kunjungans.*', 'pasiens.no_rm', 'pasiens.nama', 'pasiens.jk', 'pasiens.alamat', 'pasiens.tgl_lahir', 'pasiens.cara_bayar', 'pasiens.no_bpjs', 'polis.nama as namaPoli')
+            ->join('pasiens', 'pasiens.id', 'kunjungans.id_pasien')
+            ->join('polis', 'polis.id', 'kunjungans.id_poli')
+            ->whereDate('kunjungans.created_at', '>=', $tglSeparate[0])
+            ->whereDate('kunjungans.created_at', '<=', $tglSeparate[1])
+            ->get();
         $dataReturn = [];
         foreach ($data as $key => $value) {
             $dataTemp = [];
@@ -33,9 +46,9 @@ class PasienExport implements FromView
         return $dataReturn;
     }
 
-    public function view($tgl = ''): View
+    public function view(): View
     {
-        $pasien = self::getData($tgl);
+        $pasien = self::getData();
         return view('pasien.export', ['dataPasien' => $pasien]);
     }
 }

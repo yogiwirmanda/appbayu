@@ -43,7 +43,7 @@
             <td>{{ ($pasien['jk'] == 'P' ? $pasien['hr'] : '') }}</td>
             <td>{{ $pasien['cara_bayar'] }}</td>
             <td>{{ $pasien['no_bpjs'] }}</td>
-            <td>poli</td>
+            <td>{{ $pasien['namaPoli'] }}</td>
         </tr>
         @endforeach
     </tbody>
