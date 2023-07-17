@@ -11,6 +11,15 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
+                                        <label class="col-form-label">Jenis Pasien</label>
+                                        <select class="form-control select2" name="pasien_baru">
+                                            <option value="0">Lama</option>
+                                            <option value="1">Baru</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
                                         <label class="col-form-label">No RM</label>
                                         <input type="text" name="norm" id="norm" class="form-control input-form-norm"
                                             placeholder="Nomor Rekam Medis">

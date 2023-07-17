@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="w-100 text-center">
-            <a href="javascript:;" class="btn btn-primary btn-download mt-4 px-5">Print</a>
+            <a href="javascript:;" class="btn btn-primary btn-download mt-4 px-5">Cetak</a>
         </div>
     </div>
 </div>
