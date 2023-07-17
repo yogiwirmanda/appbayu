@@ -12,13 +12,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="col-form-label">Jenis Pasien</label>
-                                        <select class="form-control select2" name="pasien_baru">
+                                        <select class="form-control select2" name="pasien_baru" id="select-pasien">
                                             <option value="0">Lama</option>
                                             <option value="1">Baru</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-6" id="input-rm">
                                     <div class="form-group">
                                         <label class="col-form-label">No RM</label>
                                         <input type="text" name="norm" id="norm" class="form-control input-form-norm"
@@ -130,4 +130,18 @@
         </div>
     </div>
 </div>
+@endsection
+@section('push-script')
+<script>
+    $('#select-pasien').change(function(e){
+        e.preventDefault();
+        let getVal = $(this).val();
+        console.log(getVal)
+        if (getVal === '0'){
+            $('#input-rm').removeClass('d-none')
+        } else {
+            $('#input-rm').addClass('d-none')
+        }
+    })
+</script>
 @endsection
