@@ -5,12 +5,14 @@
         <div class="card">
             <div class="card-header text-center">
                 <div class="d-flex justify-content-between">
-                    <img src="{{asset('image/logo-pemkot.png')}}" alt="logo-pemkot" class="logo-result">
+                    <div>
+                        <img src="{{asset('image/logo-pemkot.png')}}" alt="logo-pemkot" class="logo-result">
+                        <img src="{{asset('image/logo-puskesmas.png')}}" alt="logo-puskesmas" class="logo-result">
+                    </div>
                     <div>
                         <h4>Nomor Antrean Online</h4>
                         <h3>{{$antrean->kode}}</h3>
                     </div>
-                    <img src="{{asset('image/logo-puskesmas.png')}}" alt="logo-puskesmas" class="logo-result">
                 </div>
             </div>
             <div class="card-body text-center">
