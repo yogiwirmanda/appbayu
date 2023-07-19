@@ -110,7 +110,7 @@ class AntreanController extends Controller
                     $urlCekData = '/antrean/cek-data/' . $row->id;
                     $urlCetakData = '/antrean-online/cetak/' . $row->id;
                     $actionBtn = '<a href='.$urlCetakData.' class="btn btn-sm btn-primary m-r-10">Cetak Data</a>';
-                    $actionBtn = '<a href='.$urlCekData.' class="btn btn-sm btn-success m-r-10">Cek Data</a>';
+                    $actionBtn .= '<a href='.$urlCekData.' class="btn btn-sm btn-success m-r-10">Cek Data</a>';
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])
