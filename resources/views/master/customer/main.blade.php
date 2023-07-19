@@ -28,7 +28,6 @@
     <link href="{{ asset('medilab/assets/vendor/remixicon/remixicon.css') }}" rel="stylesheet">
     <link href="{{ asset('medilab/assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{asset('zeta/css/vendors/select2.css')}}">
-    <script src="{{asset('js/app.js')}}"></script>
 
     <!-- Template Main CSS File -->
     <link href="{{ asset('medilab/assets/css/style.css') }}" rel="stylesheet">
@@ -156,10 +155,10 @@
     <script src="{{asset('zeta/js/select2/select2.full.min.js')}}"></script>
     <script src="{{asset('zeta/js/select2/select2-custom.js')}}"></script>
     <script src="{{asset('zeta/js/notify/bootstrap-notify.min.js')}}"></script>
-    {{-- <script src="{{asset('zeta/js/notify/index.js')}}"></script> --}}
 
     <!-- Template Main JS File -->
     <script src="{{ asset('medilab/assets/js/main.js')}}"></script>
+    <script src="{{asset('js/app.js')}}"></script>
 
     <script>
         $(document).ready(function () {

@@ -74,6 +74,7 @@ class AntreanController extends Controller
             'nik' => 'required',
             'nama' => 'required',
             'tgl_lahir' => 'required',
+            'tanggal' => 'required',
         ]);
 
         $dataCreate = $request->all();
