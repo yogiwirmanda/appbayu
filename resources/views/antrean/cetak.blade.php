@@ -56,7 +56,7 @@
 </script>
 @endsection
 <style>
-    .main {
+    #main {
         width: 500px !important;
     }
 
