@@ -9,6 +9,8 @@
                         <img src="{{asset('image/logo-pemkot.png')}}" alt="logo-pemkot" class="logo-result">
                         <img src="{{asset('image/logo-puskesmas.png')}}" alt="logo-puskesmas" class="logo-result">
                     </div>
+                </div>
+                <div class="text-center">
                     <div>
                         <h4>Nomor Antrean Online</h4>
                         <h3>{{$antrean->kode}}</h3>
