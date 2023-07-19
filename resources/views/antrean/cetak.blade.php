@@ -1,4 +1,4 @@
-@extends('master.customer.main')
+@extends('master.customer.cetak')
 @section('content')
 <div class="row py-2 result-antrean" id="saveantrean">
     <div class="col-md-12">
