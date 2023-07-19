@@ -1,22 +1,22 @@
 @extends('master.customer.cetak')
 @section('content')
 <div class="row py-2 result-antrean" id="saveantrean">
-    <div class="col-md-12">
+    <div class="col-md-9 mx-auto">
         <div class="card">
             <div class="card-header text-center">
                 <div class="d-flex justify-content-between">
                     <img src="{{asset('image/logo-pemkot.png')}}" alt="logo-pemkot" class="logo-result">
                     <div>
-                        <h2>Nomor Antrean Online</h2>
-                        <h1>{{$antrean->kode}}</h1>
+                        <h4>Nomor Antrean Online</h4>
+                        <h3>{{$antrean->kode}}</h3>
                     </div>
                     <img src="{{asset('image/logo-puskesmas.png')}}" alt="logo-puskesmas" class="logo-result">
                 </div>
             </div>
-            <div class="card-body text-center pt-3">
-                <h3>Poli : {{$antrean->namaPoli}}</h3>
-                <h3 class="<?php echo($antrean->ceklab) ? '' : 'd-none' ?>">Cek Lab</h3>
-                <h3 class="mb-5">Tanggal : {{Date('d F Y', strtotime($antrean->tanggal))}}</h3>
+            <div class="card-body text-center">
+                <h5>Poli : {{$antrean->namaPoli}}</h5>
+                <h4 class="<?php echo($antrean->ceklab) ? '' : 'd-none' ?>">Cek Lab</h4>
+                <h4 class="mb-5">Tanggal : {{Date('d F Y', strtotime($antrean->tanggal))}}</h4>
                 {!! QrCode::size(200)->generate($antrean->nik) !!}
             </div>
         </div>
