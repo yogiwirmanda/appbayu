@@ -32,6 +32,7 @@ Route::get('regency/check/villages', [RegencyController::class, 'getDataVillages
 Route::get('/antrean-online', [AntreanController::class, 'index'])->name('antrean-online');
 Route::post('/antrean-online/save', [AntreanController::class, 'store'])->name('save_antrean');
 Route::get('/antrean-online/result/{id}', [AntreanController::class, 'result'])->name('result_antrean');
+Route::get('/antrean-online/cetak/{id}', [AntreanController::class, 'cetak'])->name('cetak_antrean');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('home', [HomeController::class, 'index'])->name('home');

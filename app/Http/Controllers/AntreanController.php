@@ -124,4 +124,12 @@ class AntreanController extends Controller
         ->first();
         return view('antrean.result', compact('antrean'));
     }
+
+    public function ccetak($idAntrean) {
+        $antrean = Antrean::select('polis.nama as namaPoli', 'antreans.*')
+        ->join('polis', 'polis.id', 'antreans.poli')
+        ->where('antreans.id', $idAntrean)
+        ->first();
+        return view('antrean.cetak', compact('antrean'));
+    }
 }
