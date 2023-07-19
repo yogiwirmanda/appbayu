@@ -56,6 +56,10 @@
 </script>
 @endsection
 <style>
+    section {
+        padding: 10px 0px !important;
+    }
+
     .logo-result {
         width: 60px;
         height: fit-content;
