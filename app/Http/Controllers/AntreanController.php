@@ -125,7 +125,7 @@ class AntreanController extends Controller
         return view('antrean.result', compact('antrean'));
     }
 
-    public function ccetak($idAntrean) {
+    public function cetak($idAntrean) {
         $antrean = Antrean::select('polis.nama as namaPoli', 'antreans.*')
         ->join('polis', 'polis.id', 'antreans.poli')
         ->where('antreans.id', $idAntrean)
