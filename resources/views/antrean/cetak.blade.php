@@ -56,6 +56,10 @@
 </script>
 @endsection
 <style>
+    .main {
+        width: 500px !important;
+    }
+
     section {
         padding: 10px 0px !important;
     }
