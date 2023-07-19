@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="w-100 text-center">
-            <a href="/antrean-online/cetak/{{$antrean->id}}" class="btn btn-primary btn-download mt-4 px-5">Cetak</a>
+            <a href="/antrean-online/cetak/{{$antrean->id}}" class="btn btn-primary mt-4 px-5">Cetak</a>
         </div>
     </div>
 </div>
