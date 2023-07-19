@@ -4,7 +4,7 @@
     <div class="col-md-9 mx-auto">
         <div class="card">
             <div class="card-header text-center">
-                <div class="d-flex justify-content-center">
+                <div class="d-flex justify-content-center mb-2">
                     <div>
                         <img src="{{asset('image/logo-pemkot.png')}}" alt="logo-pemkot" class="logo-result">
                         <img src="{{asset('image/logo-puskesmas.png')}}" alt="logo-puskesmas" class="logo-result">
