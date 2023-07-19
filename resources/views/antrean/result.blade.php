@@ -1,18 +1,21 @@
 @extends('master.customer.main')
 @section('content')
-<div class="row py-5 result-antrean" id="saveantrean">
+<div class="row py-2 result-antrean" id="saveantrean">
     <div class="col-md-12">
         <div class="card">
             <div class="card-header text-center">
                 <div class="d-flex justify-content-between">
                     <img src="{{asset('image/logo-pemkot.png')}}" alt="logo-pemkot" class="logo-result">
+                    <div>
+                        <h2>Nomor Antrean Online</h2>
+                        <h1>{{$antrean->kode}}</h1>
+                    </div>
                     <img src="{{asset('image/logo-puskesmas.png')}}" alt="logo-puskesmas" class="logo-result">
                 </div>
-                <h2>Nomor Antrean</h2>
-                <h1>{{$antrean->kode}}</h1>
             </div>
-            <div class="card-body text-center pt-0">
+            <div class="card-body text-center pt-3">
                 <h3>Poli : {{$antrean->namaPoli}}</h3>
+                <h3 class="<?php echo($antrean->ceklab) ? '' : 'd-none' ?>">Cek Lab</h3>
                 <h3 class="mb-5">Tanggal : {{Date('d F Y', strtotime($antrean->tanggal))}}</h3>
                 {!! QrCode::size(200)->generate($antrean->nik) !!}
             </div>
@@ -59,6 +62,6 @@
 
     .logo-result {
         width: 60px;
-        height: auto;
+        height: fit-content;
     }
 </style>

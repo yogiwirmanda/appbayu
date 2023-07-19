@@ -28,7 +28,6 @@
                     <input type="hidden" name="kode-usia" id="kode-usia">
                     <input type="hidden" name="kode-daerah" id="kode-daerah">
                     <input type="hidden" name="id_selected" id="idSelected">
-                    <input type="hidden" name="noRm" id="noRm">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
@@ -36,9 +35,8 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Nomor RM</label>
-                                            <input type="text" name="nomorrm" id="nomorRm"
-                                                class="form-control input-form-norm"
-                                                placeholder="No RM">
+                                            <input type="text" name="noRm" id="nomorRm"
+                                                class="form-control input-form-norm" placeholder="No RM">
                                             <div class="invalid-feedback">Nomor RM</div>
                                         </div>
                                     </div>

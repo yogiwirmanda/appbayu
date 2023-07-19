@@ -243,7 +243,7 @@ class PasienController extends Controller
             }
 
             $dataStore = [];
-            $dataStore['no_rm'] = $noRm;
+            $dataStore['no_rm'] = strlen($request->no_rm) > 0 ? $request->no_rm : $noRm;
             $dataStore['no_urut'] = $lastRm;
             $dataStore['nama'] = $request->nama;
             $dataStore['no_ktp'] = $request->no_ktp;

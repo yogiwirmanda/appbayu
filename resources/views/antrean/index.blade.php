@@ -105,7 +105,8 @@
                                     <div class="form-group">
                                         <label class="col-form-label">Tanggal Berkunjung</label>
                                         <input type="date" name="tanggal" id="tanggal"
-                                            class="form-control input-form-tanggal" placeholder="Tanggal">
+                                            class="form-control input-form-tanggal" placeholder="Tanggal"
+                                            min="<?php echo Date('Y-m-d'); ?>">
                                         <div class="invalid-feedback">Tanggal Berkunjung wajib di isi</div>
                                     </div>
                                 </div>
