@@ -20,9 +20,6 @@
                 {!! QrCode::size(200)->generate($antrean->nik) !!}
             </div>
         </div>
-        <div class="w-100 text-center">
-            <a href="javascript:;" class="btn btn-primary btn-download mt-4 px-5">Cetak</a>
-        </div>
     </div>
 </div>
 @endsection
@@ -30,6 +27,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.3.4/jspdf.plugin.autotable.min.js"></script>
 <script>
+    $(document).ready(function(e){
+        window.print()
+    })
     $('.btn-download').click(function(e){
         e.preventDefault();
         window.print()
@@ -56,10 +56,6 @@
 </script>
 @endsection
 <style>
-    .result-antrean {
-        margin-top: 100px !important;
-    }
-
     .logo-result {
         width: 60px;
         height: fit-content;
