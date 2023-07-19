@@ -22,7 +22,7 @@
                                     <div class="form-group">
                                         <label class="col-form-label">No RM</label>
                                         <input type="text" name="norm" id="norm" class="form-control input-form-norm"
-                                            placeholder="Nomor Rekam Medis" required>
+                                            placeholder="Nomor Rekam Medis">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
