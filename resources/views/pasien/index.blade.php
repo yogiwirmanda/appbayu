@@ -55,7 +55,6 @@
                         <table class="table table-flush" id="table-pasien" style="text-transform: uppercase;">
                             <thead class="thead-light">
                                 <tr>
-                                    <th>No</th>
                                     <th>No RM</th>
                                     <th>Nama</th>
                                     <th>Alamat</th>
@@ -96,10 +95,10 @@
                 //     data: 'DT_RowIndex',
                 //     name: 'DT_RowIndex'
                 // },
-                {
-                    data: 'no_rm',
-                    name: 'no_rm',
-                },
+                // {
+                //     data: 'no_rm',
+                //     name: 'no_rm',
+                // },
                 {
                     data: 'no_rm',
                     name: 'no_rm',
@@ -144,15 +143,15 @@
 
                 var api = this.api();
                 var startIndex = api.context[0]._iDisplayStart;
-                api.column(0, { search: 'applied', order: 'applied' }).nodes().each(function(cell, i) {
-                    cell.innerHTML = startIndex + i + 1;
-                });
-                api.column(4, { search: 'applied', order: 'applied' }).nodes().each(function(cell, i) {
-                    var rowData = table.column(4).data();
-                    const dateOfBirthString = rowData[i];
-                    const age1 = calculateAge(dateOfBirthString);
-                    cell.innerHTML = age1;
-                });
+                // api.column(0, { search: 'applied', order: 'applied' }).nodes().each(function(cell, i) {
+                //     cell.innerHTML = startIndex + i + 1;
+                // });
+                // api.column(4, { search: 'applied', order: 'applied' }).nodes().each(function(cell, i) {
+                //     var rowData = table.column(4).data();
+                //     const dateOfBirthString = rowData[i];
+                //     const age1 = calculateAge(dateOfBirthString);
+                //     cell.innerHTML = age1;
+                // });
             }
         });
     }
