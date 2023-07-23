@@ -7,6 +7,7 @@
                 <div class="d-flex justify-content-between">
                     <img src="{{asset('image/logo-pemkot.png')}}" alt="logo-pemkot" class="logo-result">
                     <div>
+                        <h2>Puskesmas Rampal Celaket</h2>
                         <h2>Nomor Antrean Online</h2>
                         <h1>{{$antrean->kode}}</h1>
                     </div>
@@ -17,7 +18,10 @@
                 <h3>Poli : {{$antrean->namaPoli}}</h3>
                 <h3 class="<?php echo($antrean->ceklab) ? '' : 'd-none' ?>">Cek Lab</h3>
                 <h3 class="mb-5">Tanggal : {{Date('d F Y', strtotime($antrean->tanggal))}}</h3>
-                {!! QrCode::size(200)->generate($antrean->nik) !!}
+                {{-- {!! QrCode::size(200)->generate($antrean->nik) !!} --}}
+                <div class="d-flex justify-content-center mb-4">
+                    {!! $barcode !!}
+                </div>
             </div>
         </div>
         <div class="w-100 text-center">

@@ -55,12 +55,12 @@
                         <table class="table table-flush" id="table-pasien" style="text-transform: uppercase;">
                             <thead class="thead-light">
                                 <tr>
-                                    {{-- <th>No</th> --}}
+                                    <th>No</th>
                                     <th>No RM</th>
-                                    <th>Name</th>
-                                    {{-- <th>Umur</th>
+                                    <th>Nama</th>
                                     <th>Alamat</th>
-                                    <th>Aksi</th> --}}
+                                    <th>Umur</th>
+                                    {{-- <th>Aksi</th> --}}
                                 </tr>
                             </thead>
                             <tbody></tbody>
@@ -75,10 +75,11 @@
 @section('page-scripts')
 <script>
     var table = '';
+    var dataTableCounter = 1
 
     function loadTable(getName = '', getTanggal){
         table = $('#table-pasien').DataTable({
-            ajax: 'http://ehealthprc.com:5000/api/v1/pasien',
+            ajax: 'http://localhost:5000/api/v1/pasien',
             processing: true,
             serverSide: true,
             // ajax: {
@@ -89,12 +90,16 @@
             //         tgl : getTanggal
             //     }
             // },
-            searchDelay: 1500,
+            searchDelay: 500,
             columns: [
                 // {
                 //     data: 'DT_RowIndex',
                 //     name: 'DT_RowIndex'
                 // },
+                {
+                    data: 'no_rm',
+                    name: 'no_rm',
+                },
                 {
                     data: 'no_rm',
                     name: 'no_rm',
@@ -104,23 +109,51 @@
                     data: 'nama',
                     name: 'nama'
                 },
-                // {
-                //     data: 'umur',
-                //     name: 'umur',
-                //     searchable: false
-                // },
-                // {
-                //     data: 'alamat',
-                //     name: 'alamat',
-                //     searchable: false
-                // },
+                {
+                    data: 'alamat',
+                    name: 'alamat',
+                    searchable: false
+                },
+                {
+                    data: 'tgl_lahir',
+                    name: 'tgl_lahir',
+                    searchable: false
+                },
                 // {
                 //     data: 'action',
                 //     name: 'action',
                 //     orderable: false,
                 //     searchable: false
                 // },
-            ]
+            ],
+            drawCallback : function(settings) {
+
+                function calculateAge(dateOfBirth) {
+                    const dob = new Date(dateOfBirth);
+                    const now = new Date();
+
+                    let age = now.getFullYear() - dob.getFullYear();
+                    const monthDiff = now.getMonth() - dob.getMonth();
+
+                    if (monthDiff < 0 || (monthDiff === 0 && now.getDate() < dob.getDate())) {
+                        age--; // Birthday for the current year hasn't occurred yet
+                    }
+
+                    return age;
+                }
+
+                var api = this.api();
+                var startIndex = api.context[0]._iDisplayStart;
+                api.column(0, { search: 'applied', order: 'applied' }).nodes().each(function(cell, i) {
+                    cell.innerHTML = startIndex + i + 1;
+                });
+                api.column(4, { search: 'applied', order: 'applied' }).nodes().each(function(cell, i) {
+                    var rowData = table.column(4).data();
+                    const dateOfBirthString = rowData[i];
+                    const age1 = calculateAge(dateOfBirthString);
+                    cell.innerHTML = age1;
+                });
+            }
         });
     }
 
