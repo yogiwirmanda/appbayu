@@ -33,14 +33,33 @@
                                 <span class="btn-inner--text">Tambah Pasien</span>
                             </a>
                         </div>
-                        <div class="col-md-4 col-sm-4">
+                        <div class="col-md-3 col-sm-3">
                             <div class="form-group">
-                                <label class="col-form-label">Kata Kunci</label>
-                                <input type="text" name="nama" id="nama" class="form-control" placeholder="Nama">
+                                <label class="col-form-label">Nama Pasien</label>
+                                <input type="text" name="nama" id="nama" class="form-control search-filter"
+                                    placeholder="Nama">
                             </div>
                         </div>
-                        <div class="form-group mt-2">
-                            <a href="javascript:;" class="btn btn-primary btn-filter-pasien">Cari Data</a>
+                        <div class="col-md-3 col-sm-3">
+                            <div class="form-group">
+                                <label class="col-form-label">No RM</label>
+                                <input type="text" name="no_rm" id="no_rm" class="form-control search-filter"
+                                    placeholder="No RM">
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-3">
+                            <div class="form-group">
+                                <label class="col-form-label">NIK</label>
+                                <input type="text" name="no_ktp" id="no_ktp" class="form-control search-filter"
+                                    placeholder="No KTP">
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-3">
+                            <div class="form-group">
+                                <label class="col-form-label">Alamat</label>
+                                <input type="text" name="alamat" id="alamat" class="form-control search-filter"
+                                    placeholder="Alamat">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -71,9 +90,11 @@
     var table = '';
     var dataTableCounter = 1
 
-    function loadTable(getName = '', getTanggal){
+    function loadTable(queryParam = ''){
+        $('#table-pasien').dataTable().fnClearTable();
+        $('#table-pasien').dataTable().fnDestroy();
         table = $('#table-pasien').DataTable({
-            ajax: 'http://ehealthprc.com:5000/api/v1/pasien',
+            ajax: 'http://127.0.0.1:5000/api/v1/pasien?' + queryParam,
             processing: true,
             serverSide: true,
             // ajax: {
@@ -223,5 +244,18 @@
             }
         })
     });
+
+    $('.search-filter').change(function(e){
+        var nama = $('#nama').val();
+        var no_rm = $('#no_rm').val();
+        var no_ktp = $('#no_ktp').val();
+        var alamat = $('#alamat').val();
+        var queryParam = '';
+        queryParam += '&nama=' + nama;
+        queryParam += '&no_rm=' + no_rm;
+        queryParam += '&no_ktp=' + no_ktp;
+        queryParam += '&alamat=' + alamat;
+        loadTable(queryParam)
+    })
 </script>
 @endsection
