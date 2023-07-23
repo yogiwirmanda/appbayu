@@ -78,7 +78,7 @@
 
     function loadTable(getName = '', getTanggal){
         table = $('#table-pasien').DataTable({
-            ajax: 'http://localhost:5000/api/v1/pasien',
+            ajax: 'http://ehealthprc.com:5000/api/v1/pasien',
             processing: true,
             serverSide: true,
             // ajax: {
