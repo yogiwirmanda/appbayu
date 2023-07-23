@@ -39,12 +39,6 @@
                                 <input type="text" name="nama" id="nama" class="form-control" placeholder="Nama">
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-3">
-                            <div class="form-group">
-                                <label class="col-form-label">Tanggal</label>
-                                <input type="date" name="tanggal" id="tgl" class="form-control" placeholder="Tanggal">
-                            </div>
-                        </div>
                         <div class="form-group mt-2">
                             <a href="javascript:;" class="btn btn-primary btn-filter-pasien">Cari Data</a>
                         </div>
@@ -60,7 +54,7 @@
                                     <th>Nama</th>
                                     <th>Tgl Lahir</th>
                                     <th>Alamat</th>
-                                    {{-- <th>Aksi</th> --}}
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody></tbody>
@@ -124,6 +118,20 @@
                     name: 'alamat',
                     searchable: false
                 },
+                {
+                    // Define the custom action column
+                    // Use the "render" function to generate custom content
+                    render: function (data, type, row) {
+                        let urlKunjungan = '/kunjungan/create/' + row.id
+                        let urlEdit = '/pasien/edit/' + row.id;
+                        let actionBtn = '<a href='+urlKunjungan+' class="btn btn-sm btn-success m-r-10">Kunjungan</a>';
+                        actionBtn += '<button class="btn btn-sm btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Aksi</button><div class="dropdown-menu">';
+                        actionBtn += '<a href='+urlEdit+' class="dropdown-item" data-toggle="tooltip" data-original-title="Edit pasien">Edit</a>';
+                        actionBtn += '<a href="javascript:;" class="dropdown-item table-action-delete" data-pasien-id="'+row.id+'" data-pasien-nama="'+row.nama+'">Hapus</a>';
+                        actionBtn += '</div>';
+                        return actionBtn;
+                    },
+                }
                 // {
                 //     data: 'action',
                 //     name: 'action',
@@ -152,12 +160,22 @@
                 // api.column(0, { search: 'applied', order: 'applied' }).nodes().each(function(cell, i) {
                 //     cell.innerHTML = startIndex + i + 1;
                 // });
-                // api.column(4, { search: 'applied', order: 'applied' }).nodes().each(function(cell, i) {
-                //     var rowData = table.column(4).data();
-                //     const dateOfBirthString = rowData[i];
-                //     const age1 = calculateAge(dateOfBirthString);
-                //     cell.innerHTML = age1;
-                // });
+                api.column(3, { search: 'applied', order: 'applied' }).nodes().each(function(cell, i) {
+                    var rowData = table.column(3).data();
+                    // function formatDateToYMD(date) {
+                    //     const year = date.getFullYear();
+                    //     const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based, so we add 1 and pad with '0' if needed
+                    //     const day = String(date.getDate()).padStart(2, '0'); // Pad with '0' if the day is a single digit
+
+                    //     return `${day}-${month}-${year}`;
+                    // }
+
+                    // Example usage:
+                    const myDate = rowData[i]; // Replace this with your own Date object
+                    // const formattedDate = formatDateToYMD(myDate);
+
+                    cell.innerHTML = myDate;
+                });
             }
         });
     }

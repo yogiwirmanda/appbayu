@@ -243,7 +243,7 @@ class PasienController extends Controller
             }
 
             $dataStore = [];
-            $dataStore['no_rm'] = strlen($request->no_rm) > 0 ? $request->no_rm : $noRm;
+            $dataStore['no_rm'] = strlen($request->noRm) > 0 ? $request->noRm : $noRm;
             $dataStore['no_urut'] = $lastRm;
             $dataStore['nama'] = $request->nama;
             $dataStore['no_ktp'] = $request->no_ktp;
@@ -269,7 +269,7 @@ class PasienController extends Controller
             // $dataStore['gol_darah'] = $request->gol_darah;
             // $dataStore['status_kawin'] = $request->status_kawin;
             $dataStore['village'] = $request->villages;
-            $dataStore['head_rm'] = $headRm;
+            $dataStore['head_rm'] = strlen($request->noRm) > 0 ? $request->noRm : $headRm;
 
             $modelPasien = Pasien::create($dataStore);
         }
