@@ -100,7 +100,7 @@ class AntreanController extends Controller
     public function dtAjax(Request $request)
     {
         if ($request->ajax()) {
-            $tgl = $request->tgl = null ? '' : $request->tgl;
+            $tgl = $request->tgl == null ? Date('Y-m-d') : $request->tgl;
             $data = Antrean::select('polis.nama as namaPoli', 'antreans.*')
                 ->join('polis', 'polis.id', 'antreans.poli')
                 ->whereDate('antreans.created_at', $tgl)
