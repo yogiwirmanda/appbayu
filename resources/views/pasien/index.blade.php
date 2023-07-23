@@ -55,12 +55,12 @@
                         <table class="table table-flush" id="table-pasien" style="text-transform: uppercase;">
                             <thead class="thead-light">
                                 <tr>
-                                    <th>No</th>
+                                    {{-- <th>No</th> --}}
                                     <th>No RM</th>
                                     <th>Name</th>
-                                    <th>Umur</th>
+                                    {{-- <th>Umur</th>
                                     <th>Alamat</th>
-                                    <th>Aksi</th>
+                                    <th>Aksi</th> --}}
                                 </tr>
                             </thead>
                             <tbody></tbody>
@@ -78,21 +78,23 @@
 
     function loadTable(getName = '', getTanggal){
         table = $('#table-pasien').DataTable({
+            ajax: 'http://localhost:5000/api/v1/pasien',
             processing: true,
             serverSide: true,
-            ajax: {
-                url : "{{ route('ajax_load_pasien') }}",
-                type :  "GET",
-                data : {
-                    name : getName,
-                    tgl : getTanggal
-                }
-            },
+            // ajax: {
+            //     url : "{{ route('ajax_load_pasien') }}",
+            //     type :  "GET",
+            //     data : {
+            //         name : getName,
+            //         tgl : getTanggal
+            //     }
+            // },
             searchDelay: 1500,
-            columns: [{
-                    data: 'DT_RowIndex',
-                    name: 'DT_RowIndex'
-                },
+            columns: [
+                // {
+                //     data: 'DT_RowIndex',
+                //     name: 'DT_RowIndex'
+                // },
                 {
                     data: 'no_rm',
                     name: 'no_rm',
@@ -102,22 +104,22 @@
                     data: 'nama',
                     name: 'nama'
                 },
-                {
-                    data: 'umur',
-                    name: 'umur',
-                    searchable: false
-                },
-                {
-                    data: 'alamat',
-                    name: 'alamat',
-                    searchable: false
-                },
-                {
-                    data: 'action',
-                    name: 'action',
-                    orderable: false,
-                    searchable: false
-                },
+                // {
+                //     data: 'umur',
+                //     name: 'umur',
+                //     searchable: false
+                // },
+                // {
+                //     data: 'alamat',
+                //     name: 'alamat',
+                //     searchable: false
+                // },
+                // {
+                //     data: 'action',
+                //     name: 'action',
+                //     orderable: false,
+                //     searchable: false
+                // },
             ]
         });
     }
