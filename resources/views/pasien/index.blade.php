@@ -56,9 +56,10 @@
                             <thead class="thead-light">
                                 <tr>
                                     <th>No RM</th>
+                                    <th>NIK</th>
                                     <th>Nama</th>
+                                    <th>Tgl Lahir</th>
                                     <th>Alamat</th>
-                                    <th>Umur</th>
                                     {{-- <th>Aksi</th> --}}
                                 </tr>
                             </thead>
@@ -105,17 +106,22 @@
                     searchable: false
                 },
                 {
+                    data: 'no_ktp',
+                    name: 'no_ktp',
+                    searchable: false
+                },
+                {
                     data: 'nama',
                     name: 'nama'
                 },
                 {
-                    data: 'alamat',
-                    name: 'alamat',
+                    data: 'tgl_lahir',
+                    name: 'tgl_lahir',
                     searchable: false
                 },
                 {
-                    data: 'tgl_lahir',
-                    name: 'tgl_lahir',
+                    data: 'alamat',
+                    name: 'alamat',
                     searchable: false
                 },
                 // {
