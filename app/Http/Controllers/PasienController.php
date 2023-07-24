@@ -397,9 +397,18 @@ class PasienController extends Controller
     {
         $pasiens = Pasien::find($id);
         $dataProvince = Province::all();
-        $dataCity = Regency::where('province_id', $pasiens->province)->get();
-        $dataDistrict = District::where('regency_id', $pasiens->regency)->get();
-        $dataVillages = Village::where('district_id', $pasiens->district)->get();
+        $dataCity = [];
+        $dataDistrict = [];
+        $dataVillages = [];
+        if ($pasiens->province){
+            $dataCity = Regency::where('province_id', $pasiens->province)->get();
+        }
+        if ($pasiens->regency){
+            $dataDistrict = District::where('regency_id', $pasiens->regency)->get();
+        }
+        if ($pasiens->district){
+            $dataVillages = Village::where('district_id', $pasiens->district)->get();
+        }
         $navActive = $this->navActive;
 
         return view('pasien.edit', compact('pasiens', 'id', 'dataProvince', 'dataCity', 'dataDistrict', 'dataVillages', 'navActive'));

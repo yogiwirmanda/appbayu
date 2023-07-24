@@ -126,7 +126,7 @@ class AntreanController extends Controller
         ->where('antreans.id', $idAntrean)
         ->first();
 
-        $barcodeValue = '123456789'; // Replace this with the actual value you want in the barcode
+        $barcodeValue = $antrean->nik; // Replace this with the actual value you want in the barcode
         $barcode = DNS1D::getBarcodeHTML($barcodeValue, 'C128'); // Change 'C128' to the barcode type you want (e.g., 'C39' for Code 39)
 
         return view('antrean.result', compact('antrean', 'barcode'));
@@ -137,6 +137,8 @@ class AntreanController extends Controller
         ->join('polis', 'polis.id', 'antreans.poli')
         ->where('antreans.id', $idAntrean)
         ->first();
-        return view('antrean.cetak', compact('antrean'));
+        $barcodeValue = $antrean->nik; // Replace this with the actual value you want in the barcode
+        $barcode = DNS1D::getBarcodeHTML($barcodeValue, 'C128'); // Change 'C128' to the barcode type you want (e.g., 'C39' for Code 39)
+        return view('antrean.cetak', compact('antrean', 'barcode'));
     }
 }

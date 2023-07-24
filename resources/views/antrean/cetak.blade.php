@@ -21,7 +21,10 @@
                 <h5>Poli : {{$antrean->namaPoli}}</h5>
                 <h4 class="<?php echo($antrean->ceklab) ? '' : 'd-none' ?>">Cek Lab</h4>
                 <h4 class="mb-5">Tanggal : {{Date('d F Y', strtotime($antrean->tanggal))}}</h4>
-                {!! QrCode::size(200)->generate($antrean->nik) !!}
+                {{-- {!! QrCode::size(200)->generate($antrean->nik) !!} --}}
+                <div class="d-flex justify-content-center mb-4">
+                    {!! $barcode !!}
+                </div>
             </div>
         </div>
     </div>
