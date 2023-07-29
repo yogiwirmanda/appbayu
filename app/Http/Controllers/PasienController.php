@@ -267,7 +267,7 @@ class PasienController extends Controller
             $dataStore['district'] = $request->district;
             // $dataStore['kewarganegaraan'] = $request->warganegara;
             // $dataStore['gol_darah'] = $request->gol_darah;
-            // $dataStore['status_kawin'] = $request->status_kawin;
+            $dataStore['jenis_pasien'] = strlen($request->noRm) > 0 ? 1 : 0;
             $dataStore['village'] = $request->villages;
             $dataStore['head_rm'] = strlen($request->noRm) > 0 ? $request->noRm : $headRm;
 

@@ -108,7 +108,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Jenis Kelamin</label>
-                                            <select class="form-control input-form-jk" name="jk" id="jk">
+                                            <select class="form-control input-form-jk select2" name="jk" id="jk">
                                                 <option value="L">Laki-Laki</option>
                                                 <option value="P">Perempuan</option>
                                             </select>

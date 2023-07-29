@@ -34,8 +34,8 @@ class KunjunganController extends Controller
             $tanggalAwal = $request->tanggalAwal;
             $tanggalAkhir = $request->tanggalAkhir;
             if ($tanggalAwal == null || $tanggalAkhir == null) {
-                $tanggalAwal = Carbon::now()->startOfMonth();
-                $tanggalAkhir = Carbon::now();
+                $tanggalAwal = Date('Y-m-d');
+                $tanggalAkhir = Date('Y-m-d');
             }
             $dataKunjungan = DB::table('kunjungans')
                 ->join('pasiens', 'kunjungans.id_pasien', '=', 'pasiens.id')

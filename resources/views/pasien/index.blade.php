@@ -126,8 +126,10 @@
                     searchable: false
                 },
                 {
-                    data: 'nama',
-                    name: 'nama'
+                    render: function (data, type, row) {
+                        let urlNama = '<a href="pasiens/detail/'+row.id+'">'+row.nama+'</a>'
+                        return urlNama;
+                    },
                 },
                 {
                     data: 'tgl_lahir',
@@ -245,7 +247,11 @@
         })
     });
 
-    $('.search-filter').change(function(e){
+    let timeoutId;
+
+    function handleKeyupWithDelay() {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(function() {
         var nama = $('#nama').val();
         var no_rm = $('#no_rm').val();
         var no_ktp = $('#no_ktp').val();
@@ -256,6 +262,9 @@
         queryParam += '&no_ktp=' + no_ktp;
         queryParam += '&alamat=' + alamat;
         loadTable(queryParam)
-    })
+      }, 500);
+    }
+
+    $('.search-filter').on('keyup', handleKeyupWithDelay);
 </script>
 @endsection
