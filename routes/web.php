@@ -52,6 +52,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('pasien/check/getDetailPasien', [PasienController::class, 'getDetailPasien'])->name('get_detail_pasien');
     Route::get('pasien/cariData', [PasienController::class, 'cariData'])->name('cari_data_pasien');
     Route::get('pasiens/check/norm', [PasienController::class, 'checkNoRM'])->name('cek_no_rm');
+    Route::get('pasiens/check/nik/{nik}', [PasienController::class, 'getDataFromNIK'])->name('getDataFromNIK');
     Route::get('pasiens/dtAjax', [PasienController::class, 'dtAjax'])->name('ajax_load_pasien');
     Route::get('pasiens/dtAjaxProlanis', [PasienController::class, 'dtAjaxProlanis'])->name('ajax_load_prolanis');
     Route::get('pasiens/dtAjaxProlanisRiwayat', [PasienController::class, 'dtAjaxProlanisRiwayat'])->name('ajax_load_prolanis_riwayat');

@@ -326,6 +326,7 @@
         $('#jk').val(jk);
         $('#umur').val(age);
     });
+
     $('.btn-batal-pasien').click(function (e) {
         e.preventDefault();
         window.location.href = "{{route('daftar_pasien')}}";

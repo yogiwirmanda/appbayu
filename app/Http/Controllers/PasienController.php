@@ -997,4 +997,25 @@ class PasienController extends Controller
         }
         return Excel::download(new PasienExport($tgl), 'pasien-'.$tgl.'.xlsx');
     }
+
+    public function getDataFromNIK($nik) {
+        // 3573012010960004
+        $kecamatan = substr($nik, 0, 6);
+        $kota = substr($nik, 0, 4);
+        $provinsi = substr($nik, 0, 2);
+        $tglLahir = substr($nik, 6, 2);
+        $tahunLahir = substr($nik, 10, 2);
+        $bulanLahir = substr($nik, 8, 2);
+        $generateTahun = ((int) $tahunLahir > 23 && (int) $tahunLahir < 100) ? '19'.$tahunLahir : '20'.$tahunLahir;
+        $jenisKelamin = ((int) $tglLahir >= 40) ? 'P' : 'L';
+        $dataReturn = [];
+        $dataReturn['kec'] = $kecamatan;
+        $dataReturn['kota'] = $kota;
+        $dataReturn['provinsi'] = $provinsi;
+        $dataReturn['tglLahir'] = $tglLahir;
+        $dataReturn['bulan'] = $bulanLahir;
+        $dataReturn['tglLahir'] = Date('Y-m-d', strtotime($generateTahun.'-'.$bulanLahir.'-'.$tglLahir));
+        $dataReturn['jk'] = $jenisKelamin;
+        return json_encode($dataReturn);
+    }
 }
