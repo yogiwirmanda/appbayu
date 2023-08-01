@@ -37,16 +37,16 @@
                         </div>
                         <div class="row align-items-center">
                             @if($dataPasien->status_prb)
-                                <div class="form-group col-md-2 align-items-center">
-                                    <input type="checkbox" name="is_prb" class="input-pendatang mr-2" value="1">
-                                    <label class="col-form-label">Prb</label>
-                                </div>
+                            <div class="form-group col-md-2 align-items-center">
+                                <input type="checkbox" name="is_prb" class="input-pendatang mr-2" value="1">
+                                <label class="col-form-label">Prb</label>
+                            </div>
                             @endif
                             @if($dataPasien->status_prolanis)
-                                <div class="form-group col-md-2 align-items-center">
-                                    <input type="checkbox" name="is_prolanis" class="input-pendatang mr-2" value="1">
-                                    <label class="col-form-label">Prolanis</label>
-                                </div>
+                            <div class="form-group col-md-2 align-items-center">
+                                <input type="checkbox" name="is_prolanis" class="input-pendatang mr-2" value="1">
+                                <label class="col-form-label">Prolanis</label>
+                            </div>
                             @endif
                         </div>
                         @endif
@@ -74,8 +74,8 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="form-label">Alamat</label>
-                                            <textarea name="alamat" id="alamat" cols="30" rows="3"
-                                                class="form-control" readonly>{{$dataPasien->alamat}}</textarea>
+                                            <textarea name="alamat" id="alamat" cols="30" rows="3" class="form-control"
+                                                readonly>{{$dataPasien->alamat}}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -110,8 +110,7 @@
                                         <div class="form-group">
                                             <label class="form-label">Tanggal Lahir</label>
                                             <input type="text" name="tglLahir" id="tglLahir" class="form-control"
-                                                placeholder="Tanggal Lahir"
-                                                value="{{$dataPasien->tgl_lahir}}" readonly>
+                                                placeholder="Tanggal Lahir" value="{{$dataPasien->tgl_lahir}}" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -121,6 +120,21 @@
                                             <label class="form-label">Umur</label>
                                             <input type="text" name="umur" id="umur" class="form-control"
                                                 placeholder="Umur" value="{{$umur}}" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">Jenis Pasien</label>
+                                            <div class="col-8">
+                                                <select class="form-control select2" name="jenis_pasien"
+                                                    id="jenis_pasien">
+                                                    <option value="1">Baru</option>
+                                                    <option value="2">Lama</option>
+                                                    <option value="0">Surat Sehat</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

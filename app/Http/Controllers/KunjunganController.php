@@ -125,6 +125,7 @@ class KunjunganController extends Controller
                 'type' => $request->get('type'),
                 'is_prb' => $isPrb,
                 'is_prolanis' => $isProlanis,
+                'jenis_pasien' => (int) $request->get('jenis_pasien'),
                 'is_edit' => 0,
             ];
 

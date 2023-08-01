@@ -441,6 +441,7 @@ class PasienController extends Controller
 
         $pasiens = Pasien::find($request->idPasien);
         $pasiens->nama = $request->nama;
+        $pasiens->no_rm = $request->norm;
         $pasiens->no_ktp = $request->no_ktp;
         $pasiens->tgl_lahir = $request->tgl_lahir;
         $pasiens->tempat_lahir = $request->tempat_lahir;
@@ -565,7 +566,7 @@ class PasienController extends Controller
         if ($dataPasien) {
             $getRm = $dataPasien->no_rm;
             $explodeRm = explode('-', $getRm);
-            $lastRm = $explodeRm[1]+1;
+            $lastRm = (int) $explodeRm[1] + 1;
             $newRm = '';
             $getWilayah = Wilayah::find($wilayah);
             $newRm .= $getWilayah->kode.'-';
@@ -1017,5 +1018,18 @@ class PasienController extends Controller
         $dataReturn['tglLahir'] = Date('Y-m-d', strtotime($generateTahun.'-'.$bulanLahir.'-'.$tglLahir));
         $dataReturn['jk'] = $jenisKelamin;
         return json_encode($dataReturn);
+    }
+
+    public function checkAvailRM(Request $request){
+        $norm = $request->norm;
+        $idPasien = $request->idPasien;
+        $dataPasienAwal = Pasien::find($idPasien);
+        $dataPasien = Pasien::where('no_rm', $norm)->first();
+        $result = false;
+        if ($dataPasien && $norm != $dataPasienAwal->no_rm){
+            $result = true;
+        }
+
+        return json_encode($result);
     }
 }

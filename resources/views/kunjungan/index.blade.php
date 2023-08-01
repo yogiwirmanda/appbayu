@@ -24,7 +24,8 @@
                         <div class="col-4">
                             <div class="d-flex justify-content-around m-b-20">
                                 <input class="datepicker-here form-control digits" type="text" data-range="true"
-                                    data-multiple-dates-separator=" - " data-language="en" value="{{ Date('d/m/Y') }}">
+                                    data-multiple-dates-separator=" - " data-language="en"
+                                    value="{{ Date('m/d/Y') }} - {{ Date('m/d/Y') }}">
                                 <a href="javascript:;"
                                     class="btn btn-info btn-fill pull-right btn-submit-filter m-l-15">Filter</a>
                             </div>

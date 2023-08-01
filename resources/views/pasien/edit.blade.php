@@ -21,7 +21,7 @@
         <form class="form theme-form" action="{{route('save_edit_pasien')}}" id="form-pasien" method="POST"
             enctype="multipart/form-data">
             @csrf
-            <input type="hidden" name="idPasien" value="{{$pasiens->id}}">
+            <input type="hidden" name="idPasien" id="idPasien" value="{{$pasiens->id}}">
             <div class="card-body">
                 <div class="row">
                     <div class="col-6 col-md-6 col-sm-6">
@@ -33,6 +33,16 @@
                                         class="form-control input-form-kepala_keluarga"
                                         placeholder="Nama Kepala Keluarga" value="{{$pasiens->kepala_keluarga}}">
                                     <div class="invalid-feedback">Nama KK wajib di isi</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="form-label">No RM</label>
+                                    <input type="text" name="norm" id="norm" class="form-control input-form-norm"
+                                        placeholder="Nomor RM" value="{{$pasiens->no_rm}}" required>
+                                    <div class="invalid-feedback">Nomor RM wajib di isi</div>
                                 </div>
                             </div>
                         </div>
@@ -79,11 +89,13 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-6 col-md-6 col-sm-6">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="form-label">Jenis Kelamin</label>
-                                    <select class="form-control" name="jk" id="jk">
+                                    <select class="form-control select2" name="jk" id="jk">
                                         <option value="L">Laki-Laki</option>
                                         <option value="P">Perempuan</option>
                                     </select>
@@ -99,8 +111,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-6 col-md-6 col-sm-6">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
@@ -599,11 +609,51 @@
     });
 
     $('#form-pasien').submit(function (e) {
+        if ($('#norm').val().length == 0){
+            swal({
+                title: 'Warning',
+                text: 'No RM harus di isi',
+                type: 'warning',
+                buttonsStyling: false,
+                confirmButtonClass: 'btn btn-warning'
+            });
+        }
         e.preventDefault();
         PRC.disabledValidation();
         let form = $(this);
         PRC.ajaxSubmit(form, '/pasien');
     });
+
+    function checkNoRM(norm, idPasien){
+        $.ajax({
+            url : '/pasien/check-available-rm',
+            dataType : 'JSON',
+            method: 'GET',
+            data : {norm : norm, idPasien : idPasien},
+            success : function(response){
+                if (response == true){
+                    swal({
+                        title: 'Warning',
+                        text: 'No RM telah digunakan pada data lainya',
+                        type: 'warning',
+                        buttonsStyling: false,
+                        confirmButtonClass: 'btn btn-warning'
+                    });
+                }
+            }
+        })
+    }
+
+    let timeoutId;
+
+    function handleKeyupWithDelay() {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(function() {
+            checkNoRM($('#norm').val(), $('#idPasien').val())
+        }, 1000);
+    }
+
+    $('#norm').on('keyup', handleKeyupWithDelay);
 
 </script>
 @endsection

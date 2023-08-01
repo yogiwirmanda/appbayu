@@ -195,4 +195,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/antrean/list', [AntreanController::class, 'list'])->name('list_antrean');
     Route::get('/antrean/dtAjax', [AntreanController::class, 'dtAjax'])->name('ajax_load_antrean');
+
+    Route::get('/pasien/check-available-rm', [PasienController::class, 'checkAvailRM'])->name('cek_avail_rm');
+
 });
