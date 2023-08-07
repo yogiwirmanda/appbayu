@@ -81,9 +81,9 @@
                                 <div class="form-group">
                                     <label class="form-label">Tanggal Lahir</label>
                                     <div class="d-flex">
-                                        <input type="date" name="tgl_lahir" id="tglLahir"
-                                            class="form-control col-5 mr-2" value="{{$pasiens->tgl_lahir}}">
-                                        <input type="text" name="umur" id="umur" class="form-control col" readonly>
+                                        <input type="date" name="tgl_lahir" id="tglLahir" class="form-control"
+                                            value="{{$pasiens->tgl_lahir}}">
+                                        <input type="text" name="umur" id="umur" class="form-control" readonly>
                                     </div>
                                     <div class="invalid-feedback">Tanggal Lahir wajib di isi</div>
                                 </div>
@@ -177,14 +177,14 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="form-label">Cara Bayar</label>
-                                    <select name="cara_bayar" id="caraBayar" class="form-control">
+                                    <select name="cara_bayar" id="caraBayar" class="form-control select2">
                                         <option value="UMUM">UMUM</option>
                                         <option value="BPJS">BPJS</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
-                        <div class="row d-none" id="noBPJS">
+                        <div class="row d-none row-bpjs" id="noBPJS">
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="form-label">No BPJS</label>
@@ -320,9 +320,11 @@
         var jk = '{{$pasiens->jk}}';
         var golDarah = '{{$pasiens->gol_darah}}';
         var warganegara = '{{$pasiens->kewarganegaraan}}';
+        var noBPJS = '{{$pasiens->no_bpjs}}';
 
-        console.log(agama);
-        console.log(statusKawin);
+        if (noBPJS.length > 0){
+            $('.row-bpjs').removeClass('d-none');
+        }
 
         $('#select-province').val(provinceSelected);
         $('#select-city').val(citySelected);
@@ -335,6 +337,9 @@
         $('#agama').val(agama);
         $('#jk').val(jk);
         $('#umur').val(age);
+        $('#noBpjs').val(noBPJS);
+
+        calculateAge($('#tglLahir').val())
     });
 
     $('.btn-batal-pasien').click(function (e) {
@@ -644,6 +649,25 @@
         })
     }
 
+    function calculateAge(getDate){
+        var getSplit = getDate.split('-');
+        var date = new Date();
+        var getYear = date.getFullYear();
+        var age = parseInt(getYear - getSplit[0]);
+        $('#umur').val(age);
+
+        if (age < 60) {
+            $('#kode-usia').val('U');
+        } else {
+            $('#kode-usia').val('L');
+        }
+    }
+
+    $('#tglLahir').change(function (e) {
+        var getDate = $(this).val();
+        calculateAge(getDate)
+    })
+
     let timeoutId;
 
     function handleKeyupWithDelay() {
@@ -654,6 +678,31 @@
     }
 
     $('#norm').on('keyup', handleKeyupWithDelay);
+
+    function getDataFromNIK(nik){
+        $.ajax({
+            url : '/pasiens/check/nik/' + nik,
+            method : "GET",
+            dataType : 'JSON',
+            success : function(response){
+                $("#jk").val(response.jk).trigger('change');
+                $('#tglLahir').val(response.tglLahir);
+                calculateAge(response.tglLahir)
+                setProvince(response.provinsi, response.kota, response.kec, 0);
+            }
+        })
+    }
+
+    let timeoutKtp;
+
+    function handleKeyupWithDelay() {
+        clearTimeout(timeoutKtp);
+        timeoutKtp = setTimeout(function() {
+            getDataFromNIK($('#noKtp').val())
+        }, 500);
+    }
+
+    $('#noKtp').on('keyup', handleKeyupWithDelay);
 
 </script>
 @endsection

@@ -1013,7 +1013,7 @@ class PasienController extends Controller
         $dataReturn['kec'] = $kecamatan;
         $dataReturn['kota'] = $kota;
         $dataReturn['provinsi'] = $provinsi;
-        $dataReturn['tglLahir'] = $tglLahir;
+        $dataReturn['tglLahir'] = ((int) $tglLahir >= 40) ? (int) $tglLahir - 40 : $tglLahir;
         $dataReturn['bulan'] = $bulanLahir;
         $dataReturn['tglLahir'] = Date('Y-m-d', strtotime($generateTahun.'-'.$bulanLahir.'-'.$tglLahir));
         $dataReturn['jk'] = $jenisKelamin;

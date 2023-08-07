@@ -755,5 +755,44 @@
         $('#modal-cari-data').modal('show');
     });
 
+    function calculateAge(getDate){
+        var getSplit = getDate.split('-');
+        var date = new Date();
+        var getYear = date.getFullYear();
+        var age = parseInt(getYear - getSplit[0]);
+        $('#umur').val(age);
+
+        if (age < 60) {
+            $('#kode-usia').val('U');
+        } else {
+            $('#kode-usia').val('L');
+        }
+    }
+
+    function getDataFromNIK(nik){
+        $.ajax({
+            url : '/pasiens/check/nik/' + nik,
+            method : "GET",
+            dataType : 'JSON',
+            success : function(response){
+                $("#jk").val(response.jk).trigger('change');
+                $('#tglLahir').val(response.tglLahir);
+                calculateAge(response.tglLahir)
+                setProvince(response.provinsi, response.kota, response.kec, 0);
+            }
+        })
+    }
+
+    let timeoutId;
+
+    function handleKeyupWithDelay() {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(function() {
+            getDataFromNIK($('#noKtp').val())
+        }, 500);
+    }
+
+    $('#noKtp').on('keyup', handleKeyupWithDelay);
+
 </script>
 @endsection

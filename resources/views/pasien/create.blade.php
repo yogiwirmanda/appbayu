@@ -36,11 +36,11 @@
                                     value="1">
                                 <label class="col-form-label">Pendatang</label>
                             </div>
-                            <div class="form-group col-md-2 align-items-center">
+                            {{-- <div class="form-group col-md-2 align-items-center">
                                 <input type="checkbox" name="suratSehat"
                                     class="input-surat-sehat input-type-pasien mr-2" value="1">
                                 <label class="col-form-label">Surat Sehat</label>
-                            </div>
+                            </div> --}}
                             <div class="form-group col-md-4 align-items-center">
                                 <a href="javascript:;" class="btn btn-pill btn-primary btn-cari-data">Cari Data</a>
                             </div>
