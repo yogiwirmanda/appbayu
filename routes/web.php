@@ -62,6 +62,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('pasien/download/ci/{idPasien}', [PasienController::class, 'downloadCI'])->name('pasien_download_ci');
     Route::get('pasien/download/ci2/{idPasien}', [PasienController::class, 'downloadCI2'])->name('pasien_download_ci2');
     Route::get('pasien/download/gigimulut/{idPasien}', [PasienController::class, 'downloadGigiMulut'])->name('pasien_download_gigi_mulut');
+    Route::get('pasien/download/cet/{idPasien}', [PasienController::class, 'downloadCet'])->name('pasien_download_cet');
+    Route::get('pasien/download/gc/{idPasien}', [PasienController::class, 'downloadGc'])->name('pasien_download_gc');
+    Route::get('pasien/download/pak/{idPasien}', [PasienController::class, 'downloadPak'])->name('pasien_download_pak');
 
     Route::get('kunjungan', [KunjunganController::class, 'index'])->name('kunjungan_pasien');
     Route::get('kunjungan/create/{param}/{type?}', [KunjunganController::class, 'create'])->name('kunjungan_pasien_create');

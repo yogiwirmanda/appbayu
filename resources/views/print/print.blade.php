@@ -1,16 +1,18 @@
 <style>
-    .image{
+    .image {
         width: 100%;
-        height : auto;
+        height: auto;
     }
-    .position-absolute{
+
+    .position-absolute {
         position: absolute;
-        font-size : 25px;
+        font-size: 25px;
     }
-    .image-box{
+
+    .image-box {
         position: relative;
-        width : 832px;
-        height : 1248px;
+        width: 832px;
+        height: 1248px;
     }
 </style>
 <?php

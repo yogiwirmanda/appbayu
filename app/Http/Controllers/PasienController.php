@@ -984,6 +984,73 @@ class PasienController extends Controller
         $templateProcessor->saveAs('php://output');
     }
 
+    public function downloadCet($idPasien = null)
+    {
+        $modelPasien = Pasien::find($idPasien);
+        $tglLahir = date_create($modelPasien->tgl_lahir);
+        $dateNow = date_create(Date('Y-m-d'));
+        $dateDiff = date_diff($tglLahir, $dateNow);
+        $umur = $dateDiff->y;
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('doc/CATATAN EDUKASI TERINTEGRASI.docx');
+
+        $templateProcessor->setValue('nama_pasien', self::addName($idPasien) . $modelPasien->nama);
+        $templateProcessor->setValue('tgl_lahir', Date('d-m-Y', \strtotime($modelPasien->tgl_lahir)));
+        $templateProcessor->setValue('alamat', $modelPasien->alamat);
+        $templateProcessor->setValue('no_rm', $modelPasien->no_rm);
+        $templateProcessor->setValue('jk', $modelPasien->jk);
+        header("Content-Disposition: attachment; filename=" . $modelPasien->nama . " _CET.docx");
+
+        $templateProcessor->saveAs('php://output');
+    }
+
+    public function downloadGc($idPasien = null)
+    {
+        $modelPasien = Pasien::find($idPasien);
+        $tglLahir = date_create($modelPasien->tgl_lahir);
+        $dateNow = date_create(Date('Y-m-d'));
+        $dateDiff = date_diff($tglLahir, $dateNow);
+        $umur = $dateDiff->y;
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('doc/GENERAL CONSENT.doc');
+
+        $templateProcessor->setValue('nama_pasien', self::addName($idPasien) . $modelPasien->nama);
+        $templateProcessor->setValue('tgl_sekarang', Date('d-m-Y'));
+        header("Content-Disposition: attachment; filename=" . $modelPasien->nama . " _GC.docx");
+
+        $templateProcessor->saveAs('php://output');
+    }
+
+    public function downloadPak($idPasien = null)
+    {
+        $modelPasien = Pasien::find($idPasien);
+        $tglLahir = date_create($modelPasien->tgl_lahir);
+        $dateNow = date_create(Date('Y-m-d'));
+        $dateDiff = date_diff($tglLahir, $dateNow);
+        $umur = $dateDiff->y;
+
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('doc/PENGKAJIAN AWAL KLINIS.doc');
+        $templateProcessor->setValue('nama_pasien', self::addName($idPasien) . $modelPasien->nama);
+        $templateProcessor->setValue('no_bpjs', $modelPasien->no_bpjs);
+        $templateProcessor->setValue('tgl_lahir', Date('d-m-Y', \strtotime($modelPasien->tgl_lahir)));
+        $templateProcessor->setValue('alamat', $modelPasien->alamat);
+        $templateProcessor->setValue('telepon', $modelPasien->no_hp);
+        $templateProcessor->setValue('no_rm', $modelPasien->no_rm);
+        $templateProcessor->setValue('nik', $modelPasien->no_ktp);
+        $templateProcessor->setValue('umur', $umur);
+        $templateProcessor->setValue('jk', $modelPasien->jk);
+        $templateProcessor->setValue('kel', $modelPasien->district ? District::find($modelPasien->district)->name : '-');
+        $templateProcessor->setValue('pekerjaan', $modelPasien->pekerjaan);
+        $templateProcessor->setValue('agama', $modelPasien->agama);
+        $templateProcessor->setValue('cara_bayar', $modelPasien->cara_bayar);
+        $templateProcessor->setValue('rt', $modelPasien->rt ? $modelPasien->rt : '-');
+        $templateProcessor->setValue('rw', $modelPasien->rw ? $modelPasien->rw : '-');
+        $templateProcessor->setValue('tanggal_ttd', Date('d F Y'));
+
+
+        header("Content-Disposition: attachment; filename=" . $modelPasien->nama . " _PAK.docx");
+
+        $templateProcessor->saveAs('php://output');
+    }
+
     public function tesPrint()
     {
         $modelPasien = Pasien::find(3);
@@ -1010,12 +1077,13 @@ class PasienController extends Controller
         $generateTahun = ((int) $tahunLahir > 23 && (int) $tahunLahir < 100) ? '19'.$tahunLahir : '20'.$tahunLahir;
         $jenisKelamin = ((int) $tglLahir >= 40) ? 'P' : 'L';
         $dataReturn = [];
+        $newTglLahir = ((int) $tglLahir >= 40) ? strval((int) $tglLahir - 40) : strval($tglLahir);
         $dataReturn['kec'] = $kecamatan;
         $dataReturn['kota'] = $kota;
         $dataReturn['provinsi'] = $provinsi;
-        $dataReturn['tglLahir'] = ((int) $tglLahir >= 40) ? (int) $tglLahir - 40 : $tglLahir;
+        $dataReturn['tglLahir'] = $newTglLahir;
         $dataReturn['bulan'] = $bulanLahir;
-        $dataReturn['tglLahir'] = Date('Y-m-d', strtotime($generateTahun.'-'.$bulanLahir.'-'.$tglLahir));
+        $dataReturn['tglLahir'] = Date('Y-m-d', strtotime($generateTahun.'-'.$bulanLahir.'-'.$newTglLahir));
         $dataReturn['jk'] = $jenisKelamin;
         return json_encode($dataReturn);
     }
