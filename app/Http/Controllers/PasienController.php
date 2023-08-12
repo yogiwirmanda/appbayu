@@ -909,7 +909,7 @@ class PasienController extends Controller
         $dateNow = date_create(Date('Y-m-d'));
         $dateDiff = date_diff($tglLahir, $dateNow);
         $umur = $dateDiff->y;
-        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('doc/CATATAN TERINTEGRASI.docx');
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('doc/new/CPPT.docx');
 
 
         $templateProcessor->setValue('nama_pasien', self::addName($idPasien) . $modelPasien->nama);
@@ -939,7 +939,7 @@ class PasienController extends Controller
         $dateNow = date_create(Date('Y-m-d'));
         $dateDiff = date_diff($tglLahir, $dateNow);
         $umur = $dateDiff->y;
-        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('doc/CATATAN TERINTEGRASI_2.docx');
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('doc/new/CPPT2.docx');
         $templateProcessor->setValue('nama_pasien', self::addName($idPasien) . $modelPasien->nama);
         $templateProcessor->setValue('no_bpjs', $modelPasien->no_bpjs);
         $templateProcessor->setValue('tgl_lahir', Date('d-m-Y', \strtotime($modelPasien->tgl_lahir)));
@@ -965,7 +965,7 @@ class PasienController extends Controller
         $dateNow = date_create(Date('Y-m-d'));
         $dateDiff = date_diff($tglLahir, $dateNow);
         $umur = $dateDiff->y;
-        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('doc/POLI GIGI DAN MULUT.docx');
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('doc/new/PGM.docx');
         $templateProcessor->setValue('nama_pasien', self::addName($idPasien) . $modelPasien->nama);
         $templateProcessor->setValue('no_bpjs', $modelPasien->no_bpjs);
         $templateProcessor->setValue('tgl_lahir', Date('d-m-Y', \strtotime($modelPasien->tgl_lahir)));
@@ -991,13 +991,15 @@ class PasienController extends Controller
         $dateNow = date_create(Date('Y-m-d'));
         $dateDiff = date_diff($tglLahir, $dateNow);
         $umur = $dateDiff->y;
-        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('doc/CATATAN EDUKASI TERINTEGRASI.docx');
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('doc/new/CATATAN EDUKASI TERINTEGRASI.docx');
 
         $templateProcessor->setValue('nama_pasien', self::addName($idPasien) . $modelPasien->nama);
         $templateProcessor->setValue('tgl_lahir', Date('d-m-Y', \strtotime($modelPasien->tgl_lahir)));
         $templateProcessor->setValue('alamat', $modelPasien->alamat);
         $templateProcessor->setValue('no_rm', $modelPasien->no_rm);
+        $templateProcessor->setValue('agama', $modelPasien->agama);
         $templateProcessor->setValue('jk', $modelPasien->jk);
+        $templateProcessor->setValue('umur', $umur);
         header("Content-Disposition: attachment; filename=" . $modelPasien->nama . " _CET.docx");
 
         $templateProcessor->saveAs('php://output');
@@ -1010,7 +1012,7 @@ class PasienController extends Controller
         $dateNow = date_create(Date('Y-m-d'));
         $dateDiff = date_diff($tglLahir, $dateNow);
         $umur = $dateDiff->y;
-        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('doc/GENERAL CONSENT.doc');
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('doc/new/GENERAL CONSENT.doc');
 
         $templateProcessor->setValue('nama_pasien', self::addName($idPasien) . $modelPasien->nama);
         $templateProcessor->setValue('tgl_sekarang', Date('d-m-Y'));
@@ -1027,7 +1029,7 @@ class PasienController extends Controller
         $dateDiff = date_diff($tglLahir, $dateNow);
         $umur = $dateDiff->y;
 
-        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('doc/PENGKAJIAN AWAL KLINIS.doc');
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('doc/new/PENGKAJIAN AWAL KLINIS.doc');
         $templateProcessor->setValue('nama_pasien', self::addName($idPasien) . $modelPasien->nama);
         $templateProcessor->setValue('no_bpjs', $modelPasien->no_bpjs);
         $templateProcessor->setValue('tgl_lahir', Date('d-m-Y', \strtotime($modelPasien->tgl_lahir)));
