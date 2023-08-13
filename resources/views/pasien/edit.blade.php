@@ -355,106 +355,6 @@
         }
     });
 
-    $('#noRm').change(function () {
-        var getValue = $(this).val();
-        $.ajax({
-            url: '{{route("cek_status_pasien")}}',
-            type: 'GET',
-            data: {
-                noRm: getValue
-            },
-            success: function (response) {
-                $('#loadKepalaKeluarga').html('');
-                $('#loadKepalaKeluarga').html(response);
-
-                $('#kepalaKeluarga').change(function () {
-                    $.ajax({
-                        url: '{{route("get_from_kepala_keluarga")}}',
-                        type: 'GET',
-                        data: {
-                            noRm: getValue,
-                            nama: $(this).val()
-                        },
-                        success: function (response) {
-                            $('#loadNama').html('');
-                            $('#loadNama').html(response);
-                            $('.btnNewPasien').click(function () {
-                                $('#namaPasien').html('');
-                                $('#namaPasien').html(
-                                    '<input type="text" name="nama" class="form-control">'
-                                    );
-                                $('#alamat').val('');
-                                $('#tglLahir').val('');
-                                $('#umur').val('');
-                                $('#noKtp').val('');
-                                $('#pekerjaan').val('');
-                                $('#noHp').val('');
-                                $('#noBpjs').val('');
-                            })
-
-                            $('#select-nama').change(function (e) {
-                                var getSelectNama = $(this).val();
-                                $.ajax({
-                                    url: '{{route("get_detail_pasien")}}',
-                                    type: 'GET',
-                                    data: {
-                                        id: getSelectNama,
-                                    },
-                                    success: function (
-                                    response) {
-                                        var getResponse =
-                                            jQuery
-                                            .parseJSON(
-                                                response);
-                                        console.log(
-                                            getResponse);
-                                        $('#namaPasien')
-                                            .val(getResponse
-                                                .nama);
-                                        $('#alamat').val(
-                                            getResponse
-                                            .alamat);
-                                        $('#tglLahir').val(
-                                            getResponse
-                                            .tgl_lahir);
-                                        $('#umur').val(
-                                            getResponse
-                                            .umur);
-                                        $('#noKtp').val(
-                                            getResponse
-                                            .no_ktp);
-                                        $('#pekerjaan').val(
-                                            getResponse
-                                            .pekerjaan);
-                                        $('#noHp').val(
-                                            getResponse
-                                            .no_hp);
-                                        $('#noBpjs').val(
-                                            getResponse
-                                            .no_bpjs);
-                                        $('#input-kategori')
-                                            .val(getResponse
-                                                .kategori);
-                                        $('#input-wilayah')
-                                            .val(getResponse
-                                                .wilayah);
-                                        $('#agama').val(
-                                            getResponse
-                                            .agama);
-                                        $('#jk').val(
-                                            getResponse
-                                            .jk);
-                                    }
-                                })
-                            })
-
-                        }
-                    })
-                });
-            }
-        });
-    });
-
     $('.btn-save-modal').click(function (e) {
         var wilayah = $('#modal-wilayah').val();
         var kategori = $('#modal-kategori').val();
@@ -671,6 +571,7 @@
     let timeoutId;
 
     function handleKeyupWithDelay() {
+        console.log('tes tes')
         clearTimeout(timeoutId);
         timeoutId = setTimeout(function() {
             checkNoRM($('#norm').val(), $('#idPasien').val())
@@ -678,6 +579,32 @@
     }
 
     $('#norm').on('keyup', handleKeyupWithDelay);
+
+    function setVillage(villageId) {
+        $("#select-villages").val(villageId).trigger('change');
+        HoldOn.close();
+    }
+
+    function setDistrict(districtId, villageId) {
+        $("#select-district").val(districtId).trigger('change');
+        setTimeout(function () {
+            setVillage(villageId);
+        }, 1000)
+    }
+
+    function setCity(regencyId, districtId, villageId) {
+        $("#select-city").val(regencyId).trigger('change');
+        setTimeout(function () {
+            setDistrict(districtId, villageId);
+        }, 1000)
+    }
+
+    function setProvince(provinceId, regencyId, districtId, villageId) {
+        $("#select-province").val(provinceId).trigger('change');
+        setTimeout(function () {
+            setCity(regencyId, districtId, villageId);
+        }, 1000)
+    }
 
     function getDataFromNIK(nik){
         $.ajax({
@@ -695,14 +622,14 @@
 
     let timeoutKtp;
 
-    function handleKeyupWithDelay() {
+    function handleKeyupWithDelayKtp() {
         clearTimeout(timeoutKtp);
         timeoutKtp = setTimeout(function() {
             getDataFromNIK($('#noKtp').val())
         }, 500);
     }
 
-    $('#noKtp').on('keyup', handleKeyupWithDelay);
+    $('#noKtp').on('keyup', handleKeyupWithDelayKtp);
 
 </script>
 @endsection

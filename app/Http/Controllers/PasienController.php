@@ -638,13 +638,13 @@ class PasienController extends Controller
     public function generateWilayah($villageId)
     {
         switch ($villageId) {
-            case '3573030008':
+            case '3573021001':
                 $wilayah = 1;
                 break;
-            case '3573030009':
+            case '3573021002':
                 $wilayah = 2;
                 break;
-            case '3573030010':
+            case '3573021003':
                 $wilayah = 3;
                 break;
             default:
@@ -1012,7 +1012,7 @@ class PasienController extends Controller
         $dateNow = date_create(Date('Y-m-d'));
         $dateDiff = date_diff($tglLahir, $dateNow);
         $umur = $dateDiff->y;
-        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('doc/new/GENERAL CONSENT.doc');
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('doc/new/gc.docx');
 
         $templateProcessor->setValue('nama_pasien', self::addName($idPasien) . $modelPasien->nama);
         $templateProcessor->setValue('tgl_sekarang', Date('d-m-Y'));
@@ -1029,7 +1029,7 @@ class PasienController extends Controller
         $dateDiff = date_diff($tglLahir, $dateNow);
         $umur = $dateDiff->y;
 
-        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('doc/new/PENGKAJIAN AWAL KLINIS.doc');
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('doc/new/pak.docx');
         $templateProcessor->setValue('nama_pasien', self::addName($idPasien) . $modelPasien->nama);
         $templateProcessor->setValue('no_bpjs', $modelPasien->no_bpjs);
         $templateProcessor->setValue('tgl_lahir', Date('d-m-Y', \strtotime($modelPasien->tgl_lahir)));
@@ -1101,5 +1101,31 @@ class PasienController extends Controller
         }
 
         return json_encode($result);
+    }
+
+    function getRMCanUse($kodeWilayah, $lastRm) {
+        $listRmCanUse = [];
+        for ($i=1; $i < $lastRm; $i++) {
+            $pasien = Pasien::where('wilayah', $kodeWilayah)->where('no_urut', $i)->first();
+            if (!$pasien){
+                $listRmCanUse[] = '0' . $kodeWilayah . '-' . str_pad($i, 4, "0", STR_PAD_LEFT) . '-1';
+            }
+
+            if (count($listRmCanUse) == 10){
+                break;
+            }
+        }
+
+        return $listRmCanUse;
+    }
+
+    public function checkAvailableRMByWilayah($wilayah) {
+        $fixWilayah = self::generateWilayah($wilayah);
+        $pasien = Pasien::where('wilayah', $fixWilayah)->latest()->first();
+        $getLastRm = $pasien->no_rm;
+        $getLastRmNumber = explode('-', $getLastRm);
+        $lastNumberRm = $getLastRmNumber[1];
+        $listRm = self::getRMCanUse($fixWilayah, (int) $lastNumberRm);
+        return $listRm;
     }
 }

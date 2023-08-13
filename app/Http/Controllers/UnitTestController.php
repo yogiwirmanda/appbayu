@@ -103,6 +103,20 @@ class UnitTestController extends Controller
             $getModelPasien->head_rm = $rawCode;
             $getModelPasien->update();
         }
+    }
 
+    public function reformatNoUrut()
+    {
+        $modelPasien = Pasien::all();
+        foreach ($modelPasien as $key => $value) {
+            $norm = $value->no_rm;
+            $explodeRm = \explode('-', $norm);
+            if (count($explodeRm) > 1){
+                $rawCode = $explodeRm[1];
+                $getModelPasien = Pasien::find($value->id);
+                $getModelPasien->no_urut = (int) $rawCode;
+                $getModelPasien->update();
+            }
+        }
     }
 }

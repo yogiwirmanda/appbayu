@@ -112,7 +112,7 @@
         loadTable(value);
     });
 
-    $('.btn-send-whatsapp').click(function (e) {
+    $(document).on('click', '.btn-send-whatsapp', function (e) {
         let dataPasienId = $(this).attr('data-pasien-id');
         $.ajax({
             url: "/send/whatsapp/" + dataPasienId,

@@ -184,6 +184,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('send/whatsapp/{pasienId}', [UnitTestController::class, 'send'])->name('prolanis.send');
     Route::get('reformat/district', [UnitTestController::class, 'reformatDistrict'])->name('reformat_district');
     Route::get('reformat/head-rm', [UnitTestController::class, 'reformatHeadRM'])->name('reformat_head_rm');
+    Route::get('reformat/no-urut', [UnitTestController::class, 'reformatNoUrut'])->name('reformat_no_urut');
 
     Route::get('reformat/tanggal', [UnitTestController::class, 'reformat'])->name('reformat');
     Route::get('count-tidak-lengkap/{idPoli}', [LaporanController::class, 'countTidakLengkap'])->name('count-tidak-lengkap');
@@ -200,5 +201,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/antrean/dtAjax', [AntreanController::class, 'dtAjax'])->name('ajax_load_antrean');
 
     Route::get('/pasien/check-available-rm', [PasienController::class, 'checkAvailRM'])->name('cek_avail_rm');
+    Route::get('/pasien/check-available-rm-by-wilayah/{wilayah}', [PasienController::class, 'checkAvailableRMByWilayah'])->name('cek_avail_rm_by_wilayah');
 
 });

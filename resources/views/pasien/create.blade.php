@@ -303,7 +303,8 @@
                     </div>
                     <div class="card-footer text-end">
                         <button type="reset" class="btn btn-pill btn-danger btn-batal-pasien">Batal</button>
-                        <button type="submit" class="btn btn-pill btn-primary pull-right">Simpan</button>
+                        <button type="submit"
+                            class="btn btn-pill btn-primary pull-right btn-simpan-form">Simpan</button>
                     </div>
                 </form>
             </div>
@@ -337,6 +338,29 @@
                                 <th>No RM</th>
                                 <th>Nama</th>
                                 <th>Alamat</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bd-example-modal-lg" id="modal-pilih-rm" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="submit" class="btn btn-pill btn-primary pull-right btn-not-choice-rm">Tidak
+                    Memilih</button>
+                <div class="table-responsive">
+                    <table class="table table-flush table-pilih-rm" id="datatable-basic">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>No</th>
+                                <th>No RM</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -670,6 +694,42 @@
         });
     });
 
+    $('.btn-simpan-form').click(function (e) {
+        e.preventDefault();
+        let getKelurahan = $('#select-villages').val();
+        let tbody = $('.table-pilih-rm').find('tbody');
+        $.ajax({
+            url: '/pasien/check-available-rm-by-wilayah/' + getKelurahan,
+            method: 'GET',
+            dataType: 'json',
+            success: function (response) {
+                tbody.html('');
+                response.forEach((value, index) => {
+                    let tr = $('<tr>');
+                    let td1 = $('<td>', {
+                        text: index + 1
+                    });
+                    let td2 = $('<td>', {
+                        text: value
+                    });
+                    let td3 = $('<td>');
+                    let action = $('<a>', {
+                        href: 'javascript:;',
+                        text: 'Pilih',
+                        class: 'btn btn-sm btn-pill btn-primary btn-pilih-rm',
+                        no_rm: value
+                    });
+                    tr.append(td1);
+                    tr.append(td2);
+                    tr.append(td3);
+                    td3.append(action);
+                    tbody.append(tr);
+                    $('#modal-pilih-rm').modal('show');
+                });
+            }
+        });
+    });
+
     function setVillage(villageId) {
         $("#select-villages").val(villageId).trigger('change');
         HoldOn.close();
@@ -789,6 +849,18 @@
     }
 
     $('#noKtp').on('keyup', handleKeyupWithDelay);
+
+    $(document).on('click', '.btn-pilih-rm', function(e){
+        getNoRm = $(this).attr('no_rm');
+        $('#noRm').val(getNoRm);
+        $('#modal-pilih-rm').modal('hide');
+        $('#form-pasien').submit();
+    })
+
+    $('.btn-not-choice-rm').click(function(e){
+        $('#modal-pilih-rm').modal('hide');
+        $('#form-pasien').submit();
+    })
 
 </script>
 @endsection
