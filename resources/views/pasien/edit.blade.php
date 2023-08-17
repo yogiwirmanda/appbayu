@@ -37,13 +37,16 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-9">
                                 <div class="form-group">
                                     <label class="form-label">No RM</label>
                                     <input type="text" name="norm" id="norm" class="form-control input-form-norm"
                                         placeholder="Nomor RM" value="{{$pasiens->no_rm}}" required>
                                     <div class="invalid-feedback">Nomor RM wajib di isi</div>
                                 </div>
+                            </div>
+                            <div class="col-md-3 d-flex align-items-center">
+                                <a href="javascript:;" class="btn btn-xs btn-primary btn-cek-manual-rm">Cek No RM</a>
                             </div>
                         </div>
                         <div id="loadNama">
@@ -544,6 +547,14 @@
                         buttonsStyling: false,
                         confirmButtonClass: 'btn btn-warning'
                     });
+                } else {
+                    swal({
+                        title: 'Available',
+                        text: 'No RM dapat digunakan',
+                        type: 'success',
+                        buttonsStyling: false,
+                        confirmButtonClass: 'btn btn-primary'
+                    });
                 }
             }
         })
@@ -630,6 +641,10 @@
     }
 
     $('#noKtp').on('keyup', handleKeyupWithDelayKtp);
+
+    $('.btn-cek-manual-rm').click(function(e){
+        checkNoRM($('#norm').val(), $('#idPasien').val());
+    })
 
 </script>
 @endsection

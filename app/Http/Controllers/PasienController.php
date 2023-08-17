@@ -1103,12 +1103,13 @@ class PasienController extends Controller
         return json_encode($result);
     }
 
-    function getRMCanUse($kodeWilayah, $lastRm) {
+    function getRMCanUse($kodeWilayah, $lastRm, $kategori) {
         $listRmCanUse = [];
         for ($i=1; $i < $lastRm; $i++) {
-            $pasien = Pasien::where('wilayah', $kodeWilayah)->where('no_urut', $i)->first();
+            $pasien = Pasien::where('wilayah', $kodeWilayah)->where('no_urut', $i)->where('kategori', $kategori)->first();
             if (!$pasien){
-                $listRmCanUse[] = '0' . $kodeWilayah . '-' . str_pad($i, 4, "0", STR_PAD_LEFT) . '-1';
+                $showKategori = $kategori == 1 ? 'U' : 'L';
+                $listRmCanUse[] = '0' . $kodeWilayah . '-' . str_pad($i, 4, "0", STR_PAD_LEFT) . '-1 ' . $showKategori;
             }
 
             if (count($listRmCanUse) == 10){
@@ -1125,7 +1126,9 @@ class PasienController extends Controller
         $getLastRm = $pasien->no_rm;
         $getLastRmNumber = explode('-', $getLastRm);
         $lastNumberRm = $getLastRmNumber[1];
-        $listRm = self::getRMCanUse($fixWilayah, (int) $lastNumberRm);
-        return $listRm;
+        $dataReturn = [];
+        $dataReturn['umum'] = self::getRMCanUse($fixWilayah, (int) $lastNumberRm, 1);
+        $dataReturn['lansia'] = self::getRMCanUse($fixWilayah, (int) $lastNumberRm, 2);
+        return $dataReturn;
     }
 }

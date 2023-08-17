@@ -356,17 +356,36 @@
                 <button type="submit" class="btn btn-pill btn-primary pull-right btn-not-choice-rm">Tidak
                     Memilih</button>
                 <div class="table-responsive">
-                    <table class="table table-flush table-pilih-rm" id="datatable-basic">
-                        <thead class="thead-light">
-                            <tr>
-                                <th>No</th>
-                                <th>No RM</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Umum</h5>
+                            <table class="table table-flush table-pilih-rm-umum" id="datatable-basic-umum">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>No</th>
+                                        <th>No RM</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Lansia</h5>
+                            <table class="table table-flush table-pilih-rm-lansia" id="datatable-basic-lansia">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>No</th>
+                                        <th>No RM</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -697,14 +716,16 @@
     $('.btn-simpan-form').click(function (e) {
         e.preventDefault();
         let getKelurahan = $('#select-villages').val();
-        let tbody = $('.table-pilih-rm').find('tbody');
+        let tbodyumum = $('.table-pilih-rm-umum').find('tbody');
+        let tbodylansia = $('.table-pilih-rm-lansia').find('tbody');
         $.ajax({
             url: '/pasien/check-available-rm-by-wilayah/' + getKelurahan,
             method: 'GET',
             dataType: 'json',
             success: function (response) {
-                tbody.html('');
-                response.forEach((value, index) => {
+                tbodyumum.html('');
+                tbodylansia.html('');
+                response.umum.forEach((value, index) => {
                     let tr = $('<tr>');
                     let td1 = $('<td>', {
                         text: index + 1
@@ -723,9 +744,31 @@
                     tr.append(td2);
                     tr.append(td3);
                     td3.append(action);
-                    tbody.append(tr);
-                    $('#modal-pilih-rm').modal('show');
+                    tbodyumum.append(tr);
                 });
+
+                response.lansia.forEach((value, index) => {
+                    let tr = $('<tr>');
+                    let td1 = $('<td>', {
+                        text: index + 1
+                    });
+                    let td2 = $('<td>', {
+                        text: value
+                    });
+                    let td3 = $('<td>');
+                    let action = $('<a>', {
+                        href: 'javascript:;',
+                        text: 'Pilih',
+                        class: 'btn btn-sm btn-pill btn-primary btn-pilih-rm',
+                        no_rm: value
+                    });
+                    tr.append(td1);
+                    tr.append(td2);
+                    tr.append(td3);
+                    td3.append(action);
+                    tbodylansia.append(tr);
+                });
+                $('#modal-pilih-rm').modal('show');
             }
         });
     });
