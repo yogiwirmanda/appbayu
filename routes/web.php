@@ -190,7 +190,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('count-tidak-lengkap/{idPoli}', [LaporanController::class, 'countTidakLengkap'])->name('count-tidak-lengkap');
     Route::get('/laporan/klpcm/report/{idPoli}', [LaporanController::class, 'loadListTidakLengkap'])->name('report-tidak-lengkap');
 
-    Route::get('/test/print', [PasienController::class, 'tesPrint'])->name('tes-print-pasien');
+    Route::get('/pasien/print/sticker/{idPasien}', [PasienController::class, 'tesPrint'])->name('tes-print-pasien');
 
     Route::get('/laporan/klpcm/umum', [LaporanController::class, 'loadGraphUmum'])->name('load-klpcm-umum');
     Route::get('/laporan/klpcm/kia', [LaporanController::class, 'loadGraphKia'])->name('load-klpcm-kia');

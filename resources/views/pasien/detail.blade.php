@@ -109,6 +109,10 @@ $tanggal = Date('Y-m-d');
                   <a href="/pasien/download/pak/{{$pasien->id}}" target="_blank"
                     class="btn btn-primary btn-download-catatan-integrasi-2">Penkajian Awal Klinis</a>
                 </div>
+                <div class="col-md-3">
+                  <a href="/pasien/print/sticker/{{$pasien->id}}" target="_blank"
+                    class="btn btn-success btn-download-catatan-integrasi-2">Sticker</a>
+                </div>
               </div>
             </div>
           </div>

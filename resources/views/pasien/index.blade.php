@@ -127,7 +127,23 @@
                 },
                 {
                     render: function (data, type, row) {
-                        let urlNama = '<a href="pasiens/detail/'+row.id+'">'+row.nama+'</a>'
+                        let addNama = '';
+                        if (row.jk == 'L' && row.status_kawin == 'kawin'){
+                            addNama = 'Tn. ';
+                        }
+
+                        if (row.jk == 'L' && row.status_kawin == 'belum'){
+                            addNama = 'Sdr. ';
+                        }
+
+                        if (row.jk == 'P' && row.status_kawin == 'kawin'){
+                            addNama = 'Ny. ';
+                        }
+
+                        if (row.jk == 'P' && row.status_kawin == 'belum'){
+                            addNama = 'Nn. ';
+                        }
+                        let urlNama = '<a href="pasiens/detail/'+row.id+'">'+addNama + row.nama+'</a>'
                         return urlNama;
                     },
                 },

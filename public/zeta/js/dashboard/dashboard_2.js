@@ -392,57 +392,6 @@ chart.render();
 //sales-state chart end
 
 
-// revenue chart start
-  var options = {
-      labels: ['GIGI', 'KIA', 'LANSIA','UMUM'],
-      series: [44, 55, 41, 17],
-      chart: {
-        type: 'donut',
-        height: 320 ,
-      },
-      legend:{
-        position:'bottom'
-      },
-      dataLabels: {
-        enabled: false,
-      },
-      states: {
-        hover: {
-          filter: {
-            type: 'darken',
-            value: 1,
-          }
-        }
-      },
-      stroke: {
-        width: 0,
-      },
-      responsive: [
-            {
-              breakpoint: 1661,
-              options: {
-                chart: {
-                    height:310,
-                }
-              }
-            },
-            {
-              breakpoint: 481,
-              options:{
-                chart:{
-                    height:280,
-                }
-              }
-            }
-
-        ],
-      colors:[zetaAdminConfig.primary,zetaAdminConfig.secondary,zetaAdminConfig.success,zetaAdminConfig.info,zetaAdminConfig.warning],
-  };
-  var chart = new ApexCharts(document.querySelector("#revenue-chart"), options);
-  chart.render();
-// revenue chart end
-
-
 // discount timer start
 function makeTimer() {
   var endTime = new Date("19 January 2022 20:00:00 GMT+5:30");

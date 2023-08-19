@@ -41,7 +41,7 @@
                         <div class="sales-small-chart">
                             <div class="card-body p-0 m-auto">
                                 <div class="sales-small sales-small-1"></div>
-                                <h6>300</h6><span>Pasien </span>
+                                <h6>{{$totalPasien->total}}</h6><span>Pasien </span>
                             </div>
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                         <div class="sales-small-chart">
                             <div class="card-body p-0 m-auto">
                                 <div class="sales-small sales-small-2"></div>
-                                <h6>1120</h6><span>Prolanis</span>
+                                <h6>{{$totalPasienProlanis->total}}</h6><span>Prolanis</span>
                             </div>
                         </div>
                     </div>
@@ -57,34 +57,38 @@
                         <div class="sales-small-chart">
                             <div class="card-body p-0 m-auto">
                                 <div class="sales-small sales-small-3"></div>
-                                <h6>530</h6><span>Pendatang </span>
+                                <h6>{{$totalPasienPendatang->total}}</h6><span>Pendatang </span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-xl-5 col-md-6 dash-xl-33 dash-lg-50">
-            <div class="card pb-0 invoice-overviwe">
+        <div class="col-xl-3 col-md-6 dash-xl-50 dash-32">
+            <div class="card revenue-category">
                 <div class="card-header card-no-border">
-                    <div class="header-top">
-                        <h5 class="m-0">Pasien Minggu Ini</h5>
+                    <div class="media">
+                        <div class="media-body">
+                            <h5 class="mb-0">Pasien per Poli</h5>
+                        </div>
                         <div class="icon-box onhover-dropdown"><i data-feather="more-horizontal"></i>
                             <div class="icon-box-show onhover-show-div">
                                 <ul>
                                     <li> <a>
-                                            Today</a></li>
+                                            Done</a></li>
                                     <li> <a>
-                                            Yesterday</a></li>
-                                    <li> <a>
-                                            Tommorow</a></li>
+                                            Pending</a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="card-body pt-0">
-                    <div id="invoice-overviwe-chart"></div>
+                <div class="card-body">
+                    <div class="donut-inner">
+                        <h5></h5>
+                        <h6>Total Pasien</h6>
+                    </div>
+                    <div id="revenue-chart"> </div>
                 </div>
             </div>
         </div>
@@ -117,95 +121,26 @@
                                 <tr>
                                     <th> <span>Nama Pasien</span></th>
                                     <th> <span>No RM</span></th>
-                                    <th> <span>Poli</span></th>
+                                    <th> <span>Telepon</span></th>
                                     <th> <span>Alamat </span></th>
-                                    <th> <span>Status</span></th>
+                                    <th> <span>Action</span></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @for($i=1;$i<=5;$i++)
-                                    <tr>
-                                        <td>Bayu Yudha</td>
-                                        <td>081217018168</td>
-                                        <td>Gigi</td>
-                                        <td>Plaosan Timur</td>
-                                        <td><div class="badge badge-light-primary">Detail</div></td>
-                                    </tr>
-                                @endfor
+                                @foreach($listPasienTerbaru as $item)
+                                <tr>
+                                    <td>{{$item->nama}}</td>
+                                    <td>{{$item->no_rm}}</td>
+                                    <td>{{$item->no_hp}}</td>
+                                    <td>{{$item->alamat}}</td>
+                                    <td>
+                                        <a href="/pasiens/detail/{{$item->id}}"
+                                            class="badge badge-light-primary">Detail</a>
+                                    </td>
+                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-md-6 dash-xl-50 dash-32">
-            <div class="card revenue-category">
-                <div class="card-header card-no-border">
-                    <div class="media">
-                        <div class="media-body">
-                            <h5 class="mb-0">Pasien per Poli</h5>
-                        </div>
-                        <div class="icon-box onhover-dropdown"><i data-feather="more-horizontal"></i>
-                            <div class="icon-box-show onhover-show-div">
-                                <ul>
-                                    <li> <a>
-                                            Done</a></li>
-                                    <li> <a>
-                                            Pending</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="donut-inner">
-                        <h5>1000</h5>
-                        <h6>Total Pasien</h6>
-                    </div>
-                    <div id="revenue-chart"> </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-4 col-md-6 dash-xl-50 dash-31">
-            <div class="card total-sale">
-                <div class="card-header card-no-border">
-                    <div class="media">
-                        <div class="media-body">
-                            <h5 class="mb-0">Pasien Prolanis</h5>
-                        </div>
-                        <div class="icon-box onhover-dropdown"><i data-feather="more-horizontal"></i>
-                            <div class="icon-box-show onhover-show-div">
-                                <ul>
-                                    <li><a>Done</a></li>
-                                    <li> <a>
-                                            Pending</a></li>
-                                    <li> <a>
-                                            Rejected</a></li>
-                                    <li> <a>In Progress</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="animat-block">
-                        <ul>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="card-body pt-0">
-                    <div class="sale-main">
-                        <div class="sale-left">
-                            <h6 class="font-danger"><i class="icon-arrow-down"></i><span>0.45%</span></h6>
-                            <h5 class="font-primary">680.96</h5>
-                        </div>
-                        <div class="sale-right">
-                            <div id="total-sales-chart"></div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -214,5 +149,54 @@
 </div>
 @endsection
 @section('page-modules')
-    <script src="{{asset('zeta/js/dashboard/dashboard_2.js')}}"></script>
+<script>
+    var options = {
+      labels: ['UMUM', 'LANSIA', 'KIA','GIGI'],
+      series: <?php echo $perPoli ?>,
+      chart: {
+        type: 'donut',
+        height: 320 ,
+      },
+      legend:{
+        position:'bottom'
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      states: {
+        hover: {
+          filter: {
+            type: 'darken',
+            value: 1,
+          }
+        }
+      },
+      stroke: {
+        width: 0,
+      },
+      responsive: [
+            {
+              breakpoint: 1661,
+              options: {
+                chart: {
+                    height:310,
+                }
+              }
+            },
+            {
+              breakpoint: 481,
+              options:{
+                chart:{
+                    height:280,
+                }
+              }
+            }
+
+        ],
+      colors:[zetaAdminConfig.primary,zetaAdminConfig.secondary,zetaAdminConfig.success,zetaAdminConfig.info,zetaAdminConfig.warning],
+  };
+  var chart = new ApexCharts(document.querySelector("#revenue-chart"), options);
+  chart.render();
+</script>
+<script src="{{asset('zeta/js/dashboard/dashboard_2.js')}}"></script>
 @endsection

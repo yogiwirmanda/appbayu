@@ -1053,10 +1053,9 @@ class PasienController extends Controller
         $templateProcessor->saveAs('php://output');
     }
 
-    public function tesPrint()
+    public function tesPrint($idPasien)
     {
-        $modelPasien = Pasien::find(3);
-
+        $modelPasien = Pasien::find($idPasien);
         return view('tes.cetak', \compact('modelPasien'));
     }
 
