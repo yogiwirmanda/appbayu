@@ -919,7 +919,9 @@ class PasienController extends Controller
         $templateProcessor->setValue('telepon', $modelPasien->no_hp);
         $templateProcessor->setValue('no_rm', $modelPasien->no_rm);
         $templateProcessor->setValue('nik', $modelPasien->no_ktp);
-        $templateProcessor->setValue('umur', $umur);
+        $templateProcessor->setValue('umur', $umur . ' Tahun');
+        $templateProcessor->setValue('cara_bayar', $modelPasien->no_ktp);
+        $templateProcessor->setValue('no_bpjs', $modelPasien->no_bpjs ? $modelPasien->no_bpjs : '');
         $templateProcessor->setValue('jk', $modelPasien->jk);
         $templateProcessor->setValue('kel', $modelPasien->district ? District::find($modelPasien->district)->name : '-');
         $templateProcessor->setValue('pekerjaan', $modelPasien->pekerjaan);
