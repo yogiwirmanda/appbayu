@@ -923,11 +923,11 @@ class PasienController extends Controller
         $templateProcessor->setValue('cara_bayar', $modelPasien->cara_bayar);
         $templateProcessor->setValue('no_bpjs', $modelPasien->no_bpjs ? $modelPasien->no_bpjs : '');
         $templateProcessor->setValue('jk', $modelPasien->jk == 'L' ? 'Laki-Laki' : 'Perempuan');
-        $templateProcessor->setValue('kel', $modelPasien->district ? District::find($modelPasien->district)->name : '-');
+        $templateProcessor->setValue('kel', $modelPasien->district ? District::find($modelPasien->district)->name . ' ' : '-');
         $templateProcessor->setValue('pekerjaan', $modelPasien->pekerjaan);
         $templateProcessor->setValue('agama', $modelPasien->agama);
-        $templateProcessor->setValue('rt', $modelPasien->rt ? $modelPasien->rt : '-');
-        $templateProcessor->setValue('rw', $modelPasien->rw ? $modelPasien->rw : '-');
+        $templateProcessor->setValue('rt', $modelPasien->rt ? $modelPasien->rt . ' ' : '-');
+        $templateProcessor->setValue('rw', $modelPasien->rw ? $modelPasien->rw . ' ' : '-');
         $templateProcessor->setValue('tanggal_ttd', Date('d F Y'));
         header("Content-Disposition: attachment; filename=" . $modelPasien->nama . " _CPPT.docx");
 
@@ -953,10 +953,10 @@ class PasienController extends Controller
         $templateProcessor->setValue('nik', $modelPasien->no_ktp);
         $templateProcessor->setValue('umur', $umur . ' Tahun');
         $templateProcessor->setValue('jk', $modelPasien->jk == 'L' ? 'Laki-Laki' : 'Perempuan');
-        $templateProcessor->setValue('kel', $modelPasien->district ? District::find($modelPasien->district)->name : '-');
+        $templateProcessor->setValue('kel', $modelPasien->district ? District::find($modelPasien->district)->name . ' ' : '-');
         $templateProcessor->setValue('agama', $modelPasien->agama);
-        $templateProcessor->setValue('rt', $modelPasien->rt ? $modelPasien->rt : '-');
-        $templateProcessor->setValue('rw', $modelPasien->rw ? $modelPasien->rw : '-');
+        $templateProcessor->setValue('rt', $modelPasien->rt ? $modelPasien->rt . ' ' : '-');
+        $templateProcessor->setValue('rw', $modelPasien->rw ? $modelPasien->rw . ' ' : '-');
         header("Content-Disposition: attachment; filename=" . $modelPasien->nama . " _CPPT2.docx");
 
         $templateProcessor->saveAs('php://output');
@@ -981,11 +981,11 @@ class PasienController extends Controller
         $templateProcessor->setValue('cara_bayar', $modelPasien->cara_bayar);
         $templateProcessor->setValue('no_bpjs', $modelPasien->no_bpjs ? $modelPasien->no_bpjs : '');
         $templateProcessor->setValue('jk', $modelPasien->jk == 'L' ? 'Laki-Laki' : 'Perempuan');
-        $templateProcessor->setValue('kel', $modelPasien->district ? District::find($modelPasien->district)->name : '-');
+        $templateProcessor->setValue('kel', $modelPasien->district ? District::find($modelPasien->district)->name . ' ' : '-');
         $templateProcessor->setValue('agama', $modelPasien->agama);
         $templateProcessor->setValue('pekerjaan', $modelPasien->pekerjaan);
-        $templateProcessor->setValue('rt', $modelPasien->rt ? $modelPasien->rt : '-');
-        $templateProcessor->setValue('rw', $modelPasien->rw ? $modelPasien->rw : '-');
+        $templateProcessor->setValue('rt', $modelPasien->rt ? $modelPasien->rt . ' ' : '-');
+        $templateProcessor->setValue('rw', $modelPasien->rw ? $modelPasien->rw . ' ' : '-');
         header("Content-Disposition: attachment; filename=" . $modelPasien->nama . " _PGM.docx");
 
         $templateProcessor->saveAs('php://output');
@@ -1005,11 +1005,11 @@ class PasienController extends Controller
         $templateProcessor->setValue('alamat', $modelPasien->alamat);
         $templateProcessor->setValue('no_rm', $modelPasien->no_rm);
         $templateProcessor->setValue('jk', $modelPasien->jk == 'L' ? 'Laki-Laki' : 'Perempuan');
-        $templateProcessor->setValue('kel', $modelPasien->district ? District::find($modelPasien->district)->name : '-');
+        $templateProcessor->setValue('kel', $modelPasien->district ? District::find($modelPasien->district)->name . ' ' : '-');
         $templateProcessor->setValue('agama', $modelPasien->agama);
         $templateProcessor->setValue('pekerjaan', $modelPasien->pekerjaan);
-        $templateProcessor->setValue('rt', $modelPasien->rt ? $modelPasien->rt : '-');
-        $templateProcessor->setValue('rw', $modelPasien->rw ? $modelPasien->rw : '-');
+        $templateProcessor->setValue('rt', $modelPasien->rt ? $modelPasien->rt . ' ' : '-');
+        $templateProcessor->setValue('rw', $modelPasien->rw ? $modelPasien->rw . ' ' : '-');
         $templateProcessor->setValue('umur', $umur . ' Tahun');
         header("Content-Disposition: attachment; filename=" . $modelPasien->nama . " _CET.docx");
 
@@ -1048,14 +1048,14 @@ class PasienController extends Controller
         $templateProcessor->setValue('telepon', $modelPasien->no_hp);
         $templateProcessor->setValue('no_rm', $modelPasien->no_rm);
         $templateProcessor->setValue('nik', $modelPasien->no_ktp);
-        $templateProcessor->setValue('umur', $umur);
+        $templateProcessor->setValue('umur', $umur . ' Tahun');
         $templateProcessor->setValue('jk', $modelPasien->jk == 'L' ? 'Laki-Laki' : 'Perempuan');
-        $templateProcessor->setValue('kel', $modelPasien->district ? District::find($modelPasien->district)->name : '-');
+        $templateProcessor->setValue('kel', $modelPasien->district ? District::find($modelPasien->district)->name . ' ' : '-');
         $templateProcessor->setValue('pekerjaan', $modelPasien->pekerjaan);
         $templateProcessor->setValue('agama', $modelPasien->agama);
         $templateProcessor->setValue('cara_bayar', $modelPasien->cara_bayar);
-        $templateProcessor->setValue('rt', $modelPasien->rt ? $modelPasien->rt : '-');
-        $templateProcessor->setValue('rw', $modelPasien->rw ? $modelPasien->rw : '-');
+        $templateProcessor->setValue('rt', $modelPasien->rt ? $modelPasien->rt . ' ' : '-');
+        $templateProcessor->setValue('rw', $modelPasien->rw ? $modelPasien->rw . ' ' : '-');
         $templateProcessor->setValue('tanggal_ttd', Date('d F Y'));
 
 
