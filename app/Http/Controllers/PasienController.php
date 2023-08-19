@@ -922,7 +922,7 @@ class PasienController extends Controller
         $templateProcessor->setValue('umur', $umur . ' Tahun');
         $templateProcessor->setValue('cara_bayar', $modelPasien->cara_bayar);
         $templateProcessor->setValue('no_bpjs', $modelPasien->no_bpjs ? $modelPasien->no_bpjs : '');
-        $templateProcessor->setValue('jk', $modelPasien->jk);
+        $templateProcessor->setValue('jk', $modelPasien->jk == 'L' ? 'Laki-Laki' : 'Perempuan');
         $templateProcessor->setValue('kel', $modelPasien->district ? District::find($modelPasien->district)->name : '-');
         $templateProcessor->setValue('pekerjaan', $modelPasien->pekerjaan);
         $templateProcessor->setValue('agama', $modelPasien->agama);
@@ -948,9 +948,11 @@ class PasienController extends Controller
         $templateProcessor->setValue('alamat', $modelPasien->alamat);
         $templateProcessor->setValue('telepon', $modelPasien->no_hp);
         $templateProcessor->setValue('no_rm', $modelPasien->no_rm);
+        $templateProcessor->setValue('cara_bayar', $modelPasien->cara_bayar);
+        $templateProcessor->setValue('no_bpjs', $modelPasien->no_bpjs ? $modelPasien->no_bpjs : '');
         $templateProcessor->setValue('nik', $modelPasien->no_ktp);
-        $templateProcessor->setValue('umur', $umur);
-        $templateProcessor->setValue('jk', $modelPasien->jk);
+        $templateProcessor->setValue('umur', $umur . ' Tahun');
+        $templateProcessor->setValue('jk', $modelPasien->jk == 'L' ? 'Laki-Laki' : 'Perempuan');
         $templateProcessor->setValue('kel', $modelPasien->district ? District::find($modelPasien->district)->name : '-');
         $templateProcessor->setValue('agama', $modelPasien->agama);
         $templateProcessor->setValue('rt', $modelPasien->rt ? $modelPasien->rt : '-');
@@ -975,8 +977,8 @@ class PasienController extends Controller
         $templateProcessor->setValue('telepon', $modelPasien->no_hp);
         $templateProcessor->setValue('no_rm', $modelPasien->no_rm);
         $templateProcessor->setValue('nik', $modelPasien->nik);
-        $templateProcessor->setValue('umur', $umur);
-        $templateProcessor->setValue('jk', $modelPasien->jk);
+        $templateProcessor->setValue('umur', $umur . ' Tahun');
+        $templateProcessor->setValue('jk', $modelPasien->jk == 'L' ? 'Laki-Laki' : 'Perempuan');
         $templateProcessor->setValue('kel', $modelPasien->district ? District::find($modelPasien->district)->name : '-');
         $templateProcessor->setValue('agama', $modelPasien->agama);
         $templateProcessor->setValue('rt', $modelPasien->rt ? $modelPasien->rt : '-');
@@ -1000,8 +1002,8 @@ class PasienController extends Controller
         $templateProcessor->setValue('alamat', $modelPasien->alamat);
         $templateProcessor->setValue('no_rm', $modelPasien->no_rm);
         $templateProcessor->setValue('agama', $modelPasien->agama);
-        $templateProcessor->setValue('jk', $modelPasien->jk);
-        $templateProcessor->setValue('umur', $umur);
+        $templateProcessor->setValue('jk', $modelPasien->jk == 'L' ? 'Laki-Laki' : 'Perempuan');
+        $templateProcessor->setValue('umur', $umur . ' Tahun');
         header("Content-Disposition: attachment; filename=" . $modelPasien->nama . " _CET.docx");
 
         $templateProcessor->saveAs('php://output');
