@@ -40,8 +40,10 @@
     <div class="base-text title">Puskesmas Rampal Celaket</div>
     <div class="info">
         <div>{{$modelPasien->no_rm}}</div>
-        <div>{{$modelPasien->tgl_lahir}}</div>
         <div>{{$modelPasien->jk}}</div>
+    </div>
+    <div class="base-text">
+        <div>{{Date('d-m-Y', strtotime($modelPasien->tgl_lahir))}}</div>
     </div>
     <div class="base-text nama">{{$modelPasien->nama}}</div>
     <div class="base-text nik">NIK. {{$modelPasien->no_ktp}}</div>
