@@ -163,11 +163,11 @@
                     render: function (data, type, row) {
                         let urlKunjungan = '/kunjungan/create/' + row.id
                         let urlEdit = '/pasien/edit/' + row.id;
-                        let actionBtn = '<a href='+urlKunjungan+' class="btn btn-sm btn-success m-r-10">Kunjungan</a>';
-                        actionBtn += '<button class="btn btn-sm btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Aksi</button><div class="dropdown-menu">';
-                        actionBtn += '<a href='+urlEdit+' class="dropdown-item" data-toggle="tooltip" data-original-title="Edit pasien">Edit</a>';
-                        actionBtn += '<a href="javascript:;" class="dropdown-item table-action-delete" data-pasien-id="'+row.id+'" data-pasien-nama="'+row.nama+'">Hapus</a>';
-                        actionBtn += '</div>';
+                        let urlSticker = '/pasien/print/sticker/' + row.id;
+                        let actionBtn = '<div class="d-flex align-items-center justify-content-around"><a href='+urlKunjungan+' class="btn btn-sm btn-success"><i class="fa fa-plane"></i></a>';
+                        actionBtn += '<a href='+urlSticker+' target="_blank" class="btn btn-sm btn-primary"><i class="fa fa-print"></i></a>';
+                        actionBtn += '<a href='+urlEdit+' class="btn btn-sm btn-info" data-toggle="tooltip" data-original-title="Edit pasien"><i class="fa fa-pencil"></i></a>';
+                        actionBtn += '<a href="javascript:;" class="btn btn-sm btn-danger table-action-delete" data-pasien-id="'+row.id+'" data-pasien-nama="'+row.nama+'"><i class="fa fa-trash"></a></div>';
                         return actionBtn;
                     },
                 }
