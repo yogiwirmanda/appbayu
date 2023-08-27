@@ -107,8 +107,14 @@ $tanggal = Date('Y-m-d');
                 </div>
                 <div class="col-md-3">
                   <a href="/pasien/download/pak/{{$pasien->id}}" target="_blank"
-                    class="btn btn-primary btn-download-catatan-integrasi-2">Penkajian Awal Klinis</a>
+                    class="btn btn-primary btn-download-catatan-integrasi-2">Pengkajian Awal Klinis</a>
                 </div>
+                @if($pasien->status_prolanis == 1)
+                <div class="col-md-3">
+                  <a href="/pasien/download/prolanis/{{$pasien->id}}" target="_blank"
+                    class="btn btn-primary btn-download-catatan-integrasi-2">Berkas Prolanis</a>
+                </div>
+                @endif
               </div>
             </div>
           </div>

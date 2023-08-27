@@ -65,6 +65,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('pasien/download/cet/{idPasien}', [PasienController::class, 'downloadCet'])->name('pasien_download_cet');
     Route::get('pasien/download/gc/{idPasien}', [PasienController::class, 'downloadGc'])->name('pasien_download_gc');
     Route::get('pasien/download/pak/{idPasien}', [PasienController::class, 'downloadPak'])->name('pasien_download_pak');
+    Route::get('pasien/download/prolanis/{idPasien}', [PasienController::class, 'downloadProlanis'])->name('pasien_download_prolanis');
 
     Route::get('kunjungan', [KunjunganController::class, 'index'])->name('kunjungan_pasien');
     Route::get('kunjungan/create/{param}/{type?}', [KunjunganController::class, 'create'])->name('kunjungan_pasien_create');

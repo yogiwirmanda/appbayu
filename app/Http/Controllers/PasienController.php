@@ -1021,6 +1021,26 @@ class PasienController extends Controller
         $templateProcessor->saveAs('php://output');
     }
 
+    public function downloadProlanis($idPasien = null)
+    {
+        $modelPasien = Pasien::find($idPasien);
+        $tglLahir = date_create($modelPasien->tgl_lahir);
+        $dateNow = date_create(Date('Y-m-d'));
+        $dateDiff = date_diff($tglLahir, $dateNow);
+        $umur = $dateDiff->y;
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('doc/new/prolanis.docx');
+
+        $templateProcessor->setValue('nama_pasien', self::addName($idPasien) . $modelPasien->nama);
+        $templateProcessor->setValue('alamat', $modelPasien->alamat);
+        $templateProcessor->setValue('no_bpjs', $modelPasien->no_bpjs);
+        $templateProcessor->setValue('keterangan_prolanis', $modelPasien->keterangan_prolanis);
+        $templateProcessor->setValue('jk', $modelPasien->jk == 'L' ? 'Laki-Laki' : 'Perempuan');
+        $templateProcessor->setValue('umur', $umur . ' Tahun');
+        header("Content-Disposition: attachment; filename=" . $modelPasien->nama . " _Berkas Rujukan Prolanis.docx");
+
+        $templateProcessor->saveAs('php://output');
+    }
+
     public function downloadGc($idPasien = null)
     {
         $modelPasien = Pasien::find($idPasien);
