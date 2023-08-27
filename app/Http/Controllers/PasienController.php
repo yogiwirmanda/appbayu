@@ -194,22 +194,27 @@ class PasienController extends Controller
                 if ($request->suratSehat != 1) {
                     $kodeKategori = self::checkKategoriPasien($request->umur);
                     $lastRm = self::checkUsedRm($wilayah, $kodeKategori, false);
+                    if ($lastRm == null){
+                        $chekPasienRmLast = Pasien::where('wilayah', $wilayah)->orderBy('no_urut', 'DESC')->first();
+                        $lastRm = $chekPasienRmLast->no_urut;
+                    }
                     $noRm = $request->noRm;
                     if (strlen($noRm) == 0 && strlen($pendatang == null)) {
                         $checkUsedRM = self::checkUsedRm($wilayah, $kodeKategori, true);
                         if ($checkUsedRM == null) {
                             $noRm = self::checkNoRM($wilayah, $kategori, $kodeKategori);
-                            $lastRm = self::getLastNumber($wilayah, $kodeKategori);
                         } else {
                             $noRm = self::generateRmUsed($checkUsedRM, $wilayah, $kategori);
-                            $lastRm = $checkUsedRM;
                         }
 
                         $getPasienKK = Pasien::where('no_rm', $noRm)->get()->count();
                         $explodeNoRm = \explode('-', $noRm);
-                        $lastRm = $explodeNoRm[2];
-                        $newLastRm = $getPasienKK + 1;
-                        $noRm = $explodeNoRm[0].'-'.$explodeNoRm[1].'-'.$newLastRm.' '.$kategori;
+                        $newLastRm = $lastRm + 1;
+                        $kodeKeluarga = $explodeNoRm[2];
+                        if ($getPasienKK == null){
+                            $kodeKeluarga = 1;
+                        }
+                        $noRm = '0'.$wilayah.'-'.$newLastRm.'-'.$kodeKeluarga.' '.$kategori;
                         $headRm = $explodeNoRm[0].'-'.$explodeNoRm[1];
                     }
                 } else {

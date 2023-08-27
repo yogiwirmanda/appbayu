@@ -1,6 +1,11 @@
 @extends('master.customer.cetak')
 @section('content')
 <style>
+    .container {
+        margin: 0px !important;
+        padding: 0px !important;
+    }
+
     .print-area {
         width: 264.56692913px;
         height: 188.97637795px;
@@ -15,8 +20,9 @@
     .base-text {
         width: 100%;
         text-align: center;
-        margin-bottom: 10px;
-        margin-top: 10px;
+        margin-bottom: 5px;
+        margin-top: 5px;
+        font-size: 12px;
     }
 
     .nama {
@@ -24,16 +30,16 @@
     }
 
     .nik {
-        font-size: 13px;
+        font-size: 12px;
     }
 
     .alamat {
-        font-size: 13px
+        font-size: 12px
     }
 
     .title {
         font-weight: 700;
-        font-size: 18px
+        font-size: 15px
     }
 </style>
 <div class="print-area">
