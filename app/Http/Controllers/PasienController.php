@@ -193,11 +193,8 @@ class PasienController extends Controller
             if ($request->id_selected == null){
                 if ($request->suratSehat != 1) {
                     $kodeKategori = self::checkKategoriPasien($request->umur);
-                    $lastRm = self::checkUsedRm($wilayah, $kodeKategori, false);
-                    if ($lastRm == null){
-                        $chekPasienRmLast = Pasien::where('wilayah', $wilayah)->orderBy('no_urut', 'DESC')->first();
-                        $lastRm = $chekPasienRmLast->no_urut;
-                    }
+                    $chekPasienRmLast = Pasien::where('wilayah', $wilayah)->orderBy('no_urut', 'DESC')->first();
+                    $lastRm = $chekPasienRmLast->no_urut;
                     $noRm = $request->noRm;
                     if (strlen($noRm) == 0 && strlen($pendatang == null)) {
                         $checkUsedRM = self::checkUsedRm($wilayah, $kodeKategori, true);

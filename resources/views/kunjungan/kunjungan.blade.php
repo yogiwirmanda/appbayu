@@ -126,6 +126,20 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
+                                            <label class="form-label">Jenis Pembayaran</label>
+                                            <div class="col-8">
+                                                <select class="form-control select2" name="jenis_bayar"
+                                                    id="jenis_bayar">
+                                                    <option value="1">Umum</option>
+                                                    <option value="2">BPJS</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
                                             <label class="form-label">Jenis Pasien</label>
                                             <div class="col-8">
                                                 <select class="form-control select2" name="jenis_pasien"
