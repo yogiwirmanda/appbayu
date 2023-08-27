@@ -197,22 +197,15 @@ class PasienController extends Controller
                     $lastRm = $chekPasienRmLast->no_urut;
                     $noRm = $request->noRm;
                     if (strlen($noRm) == 0 && strlen($pendatang == null)) {
-                        $checkUsedRM = self::checkUsedRm($wilayah, $kodeKategori, true);
-                        if ($checkUsedRM == null) {
-                            $noRm = self::checkNoRM($wilayah, $kategori, $kodeKategori);
-                        } else {
-                            $noRm = self::generateRmUsed($checkUsedRM, $wilayah, $kategori);
-                        }
-
                         $getPasienKK = Pasien::where('no_rm', $noRm)->get()->count();
                         $explodeNoRm = \explode('-', $noRm);
                         $newLastRm = $lastRm + 1;
-                        $kodeKeluarga = $explodeNoRm[2];
-                        if ($getPasienKK == null){
+                        $kodeKeluarga = $getPasienKK;
+                        if ($getPasienKK == 0){
                             $kodeKeluarga = 1;
                         }
                         $noRm = '0'.$wilayah.'-'.$newLastRm.'-'.$kodeKeluarga.' '.$kategori;
-                        $headRm = $explodeNoRm[0].'-'.$explodeNoRm[1];
+                        $headRm = '0'.$wilayah.'-'.$newLastRm;
                     }
                 } else {
                     $lastRm = self::lastRmSuratSehat();
