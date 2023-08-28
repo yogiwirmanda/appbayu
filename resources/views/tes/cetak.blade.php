@@ -53,7 +53,7 @@
     </div>
     <div class="base-text nama">{{$modelPasien->nama}}</div>
     <div class="base-text nik">NIK. {{$modelPasien->no_ktp}}</div>
-    <div class="base-text alamat">{{$modelPasien->alamat}}</div>
+    <div class="base-text alamat">{{$modelPasien->alamat}} RT {{$modelPasien->rt}} RW {{$modelPasien->rw}}</div>
 </div>
 @endsection
 @section('push-script')

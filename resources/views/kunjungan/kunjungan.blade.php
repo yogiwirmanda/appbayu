@@ -27,8 +27,8 @@
                         <input type="hidden" name="type" value="{{$type}}">
                         <input type="hidden" name="id_pasien" value="{{$idPasien}}">
                         <input type="hidden" name="tanggal" value="{{date('Y-m-d')}}">
-                        <input type="hidden" name="caraBayar" value="{{$dataPasien->cara_bayar}}">
-                        <input type="hidden" name="noBpjs" value="{{$dataPasien->no_bpjs}}">
+                        {{-- <input type="hidden" name="caraBayar" value="{{$dataPasien->cara_bayar}}"> --}}
+                        {{-- <input type="hidden" name="noBpjs" value="{{$dataPasien->no_bpjs}}"> --}}
                         @if($dataPasien->status_prb || $dataPasien->status_prolanis)
                         <div class="row">
                             <div class="col-md-12">
@@ -128,11 +128,23 @@
                                         <div class="form-group">
                                             <label class="form-label">Jenis Pembayaran</label>
                                             <div class="col-8">
-                                                <select class="form-control select2" name="jenis_bayar"
-                                                    id="jenis_bayar">
-                                                    <option value="1">Umum</option>
-                                                    <option value="2">BPJS</option>
+                                                <select class="form-control select2" name="caraBayar" id="caraBayar">
+                                                    <option value="UMUM" {{ ($dataPasien->cara_bayar == 'UMUM') ?
+                                                        'selected' : '' }}>Umum</option>
+                                                    <option value="BPJS" {{ ($dataPasien->cara_bayar == 'BPJS') ?
+                                                        'selected' : '' }}>BPJS</option>
                                                 </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row row-bpjs {{($dataPasien->cara_bayar == 'BPJS') ? '' : 'd-none'}}">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">No BPJS</label>
+                                            <div class="col-8">
+                                                <input type="text" name="noBpjs" id="noBpjs" class="form-control"
+                                                    placeholder="No BPJS" value="{{$dataPasien->no_bpjs}}" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -183,17 +195,22 @@
 
     var noBpjs = "{{$dataPasien->noBpjs}}";
     var caraBayar = "{{$dataPasien->bayar}}";
-    $('#caraBayar').val(caraBayar);
+    if (caraBayar.length > 0){
+        $('#caraBayar').val(caraBayar);
+    }
     if (caraBayar === 'BPJS') {
         $('#noBPJS').removeClass('d-none');
         $('#noBpjs').val(noBpjs);
     }
     $('#caraBayar').change(function () {
+        console.log($(this).val())
         var getValue = $(this).val();
         if (getValue === 'UMUM') {
             $('#noBPJS').addClass('d-none');
+            $('.row-bpjs').addClass('d-none');
         } else {
             $('#noBPJS').removeClass('d-none');
+            $('.row-bpjs').removeClass('d-none');
         }
     });
     $('.btn-save-form').click(function (e) {
