@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kunjungan;
 use App\Models\Pasien;
 use App\Models\Poli;
+use App\Models\SuratSehat;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -42,7 +43,7 @@ class KunjunganController extends Controller
                 ->join('polis', 'kunjungans.id_poli', '=', 'polis.id')
                 ->where('kunjungans.tanggal', '>=', $tanggalAwal)
                 ->where('kunjungans.tanggal', '<=', $tanggalAkhir)
-                ->select('kunjungans.*', 'pasiens.*', 'polis.nama as namaPoli', 'kunjungans.id as kunjunganId')
+                ->select('kunjungans.*', 'pasiens.*', 'kunjungans.jenis_pasien as jpk', 'kunjungans.no_rm as no_rmk', 'polis.nama as namaPoli', 'kunjungans.id as kunjunganId')
                 ->get();
 
             return DataTables::of($dataKunjungan)
@@ -60,12 +61,18 @@ class KunjunganController extends Controller
                 ->addColumn('action', function ($row) {
                     $urlKelengkapan = route('kunjungan_klpcm', $row->kunjunganId);
                     $urlDetail = route("klpcm_index", $row->kunjunganId);
+                    $urlSS = route("pasien_download_ss", $row->kunjunganId);
                     $actionBtn = '<div class="d-flex justify-content-evenly">';
-                    if ($row->is_edit === 0 && $row->diagnosa_main != 435) {
-                        $actionBtn .= '<a href='.$urlKelengkapan.' class="table-action btn btn-xs btn-pill btn-success"<i class="fa fa-plane"></i> Kelengkapan</a>';
+                    if ($row->jpk == 0){
+                        $actionBtn .= '<a href='.$urlSS.' class="table-action btn btn-xs btn-pill btn-primary"><i class="fa fa-print"></i> Surat Sehat</a>';
                     } else {
-                        $actionBtn .= '<a href='.$urlDetail.' class="table-action btn btn-xs btn-pill btn-info"><i class="fa fa-pencil-square-o"></i> Detail</a>';
+                        if ($row->is_edit === 0 && $row->diagnosa_main != 435) {
+                            $actionBtn .= '<a href='.$urlKelengkapan.' class="table-action btn btn-xs btn-pill btn-success"<i class="fa fa-plane"></i> Kelengkapan</a>';
+                        } else {
+                            $actionBtn .= '<a href='.$urlDetail.' class="table-action btn btn-xs btn-pill btn-info"><i class="fa fa-pencil-square-o"></i> Detail</a>';
+                        }
                     }
+
                     $actionBtn .= '</div>';
                     return $actionBtn;
                 })
@@ -110,7 +117,7 @@ class KunjunganController extends Controller
 
         $checkSuratSehat = $dataPasien->no_rm;
         $isSuratSehat = false;
-        if (\str_contains($checkSuratSehat, 'SS') == true){
+        if ((int) $request->get('jenis_pasien') == 0){
             $isSuratSehat = true;
         }
 
@@ -130,10 +137,25 @@ class KunjunganController extends Controller
             ];
 
             if ($isSuratSehat == true){
+                $modelSS = SuratSehat::latest()->first();
+                $lastSS = 645;
+                if ($modelSS){
+                    $lastSS = $modelSS->no_urut + 1;
+                }
                 $kunjungansSehat = [
+                    'no_rm' => 'SS-' . $lastSS,
                     'diagnosa' => '[{"kode_icd":"Z00.0","diagnosa":"Pemeriksaan kesehatan"}]',
                     'diagnosa_main' => 435,
                 ];
+
+                $suratSehatInput = [
+                    'nama' => $dataPasien->nama,
+                    'no_rm' => 'SS-' . $lastSS,
+                    'no_urut' => $lastSS,
+                    'tahun' => Date('Y')
+                ];
+
+                SuratSehat::create($suratSehatInput);
 
                 $dataKunjungan = \array_merge($dataKunjungan, $kunjungansSehat);
             }

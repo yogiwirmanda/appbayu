@@ -15,6 +15,7 @@ use App\Models\Regency;
 use App\Models\rmcanuse;
 use App\Models\Village;
 use App\Models\Wilayah;
+use App\Models\SuratSehat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -1075,6 +1076,35 @@ class PasienController extends Controller
 
 
         header("Content-Disposition: attachment; filename=" . $modelPasien->nama . " _PAK.docx");
+
+        $templateProcessor->saveAs('php://output');
+    }
+
+    public function downloadSuratSehat($idKunjungan = null)
+    {
+        $modelKunjungan = Kunjungan::find($idKunjungan);
+        $modelPasien = Pasien::find($modelKunjungan->id_pasien);
+        $tglLahir = date_create($modelPasien->tgl_lahir);
+        $dateNow = date_create(Date('Y-m-d'));
+        $dateDiff = date_diff($tglLahir, $dateNow);
+        $umur = $dateDiff->y;
+        $modelSS = SuratSehat::where('no_rm', $modelKunjungan->no_rm)->where('tahun', Date('Y', strtotime($modelKunjungan->tanggal)))->first();
+
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('doc/new/SURAT SEHAT.docx');
+        $templateProcessor->setValue('nama_pasien', self::addName($modelPasien->id) . $modelPasien->nama);
+        $templateProcessor->setValue('alamat', $modelPasien->alamat);
+        $templateProcessor->setValue('no_urut', $modelSS->no_urut);
+        $templateProcessor->setValue('umur', $umur . ' Tahun');
+        $templateProcessor->setValue('jk', $modelPasien->jk == 'L' ? 'Laki-Laki' : 'Perempuan');
+        $templateProcessor->setValue('kel', $modelPasien->district ? District::find($modelPasien->district)->name . ' ' : '-');
+        $templateProcessor->setValue('pekerjaan', $modelPasien->pekerjaan);
+        $templateProcessor->setValue('rt', $modelPasien->rt ? $modelPasien->rt . ' ' : '-');
+        $templateProcessor->setValue('rw', $modelPasien->rw ? $modelPasien->rw . ' ' : '-');
+        $templateProcessor->setValue('tanggal_sekarang', Date('d F Y'));
+        $templateProcessor->setValue('tahun', Date('Y'));
+
+
+        header("Content-Disposition: attachment; filename=" . $modelPasien->nama . " _SS.docx");
 
         $templateProcessor->saveAs('php://output');
     }

@@ -11,5 +11,5 @@ class SuratSehat extends Model
 
     protected $table = 'surat_sehat';
 
-    protected $fillable = ['nama'];
+    protected $fillable = ['nama', 'no_rm', 'no_urut', 'tahun'];
 }

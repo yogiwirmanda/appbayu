@@ -119,7 +119,7 @@
                     name: 'DT_RowIndex'
                 },
                 {
-                    data: 'no_rm',
+                    data: 'no_rmk',
                     name: 'no_rm'
                 },
                 {
