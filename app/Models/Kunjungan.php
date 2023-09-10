@@ -26,6 +26,7 @@ class Kunjungan extends Model
         'jenis_kasus',
         'is_prb',
         'is_prolanis',
-        'jenis_pasien'
+        'jenis_pasien',
+        'jenis_kunjungan'
     ];
 }

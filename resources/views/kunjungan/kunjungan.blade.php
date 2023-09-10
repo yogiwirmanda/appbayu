@@ -93,6 +93,32 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">Jenis Pembayaran</label>
+                                            <div class="col-8">
+                                                <select class="form-control select2" name="caraBayar" id="caraBayar">
+                                                    <option value="UMUM" {{ ($dataPasien->cara_bayar == 'UMUM') ?
+                                                        'selected' : '' }}>Umum</option>
+                                                    <option value="BPJS" {{ ($dataPasien->cara_bayar == 'BPJS') ?
+                                                        'selected' : '' }}>BPJS</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row row-bpjs {{($dataPasien->cara_bayar == 'BPJS') ? '' : 'd-none'}}">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">No BPJS</label>
+                                            <div class="col-8">
+                                                <input type="text" name="noBpjs" id="noBpjs" class="form-control"
+                                                    placeholder="No BPJS" value="{{$dataPasien->no_bpjs}}" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-6">
                                 <div class="row">
@@ -126,25 +152,13 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="form-label">Jenis Pembayaran</label>
+                                            <label class="form-label">Jenis Pasien</label>
                                             <div class="col-8">
-                                                <select class="form-control select2" name="caraBayar" id="caraBayar">
-                                                    <option value="UMUM" {{ ($dataPasien->cara_bayar == 'UMUM') ?
-                                                        'selected' : '' }}>Umum</option>
-                                                    <option value="BPJS" {{ ($dataPasien->cara_bayar == 'BPJS') ?
-                                                        'selected' : '' }}>BPJS</option>
+                                                <select class="form-control select2" name="jenis_pasien"
+                                                    id="jenis_pasien">
+                                                    <option value="1">Baru</option>
+                                                    <option value="2">Lama</option>
                                                 </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row row-bpjs {{($dataPasien->cara_bayar == 'BPJS') ? '' : 'd-none'}}">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label class="form-label">No BPJS</label>
-                                            <div class="col-8">
-                                                <input type="text" name="noBpjs" id="noBpjs" class="form-control"
-                                                    placeholder="No BPJS" value="{{$dataPasien->no_bpjs}}" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -152,13 +166,13 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="form-label">Jenis Pasien</label>
+                                            <label class="form-label">Jenis Kunjungan</label>
                                             <div class="col-8">
                                                 <select class="form-control select2" name="jenis_pasien"
                                                     id="jenis_pasien">
-                                                    <option value="1">Baru</option>
-                                                    <option value="2">Lama</option>
-                                                    <option value="0">Surat Sehat</option>
+                                                    <option value="1">Sakit</option>
+                                                    <option value="2">Sehat - Surat Sehat</option>
+                                                    <option value="3">Sehat - Surat Catin</option>
                                                 </select>
                                             </div>
                                         </div>

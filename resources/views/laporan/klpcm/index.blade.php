@@ -1,111 +1,103 @@
 @extends('master.main')
 @section('content')
 <div class="container-fluid">
-    <div class="page-title">
-        <div class="row">
-            <div class="col-12 col-sm-6">
-                <h3>Laporan KLPCM</h3>
-            </div>
-            <div class="col-12 col-sm-6">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/home"> <i data-feather="home"></i></a></li>
-                    <li class="breadcrumb-item">Laporan KLPCM</li>
-                </ol>
-            </div>
-        </div>
+  <div class="page-title">
+    <div class="row">
+      <div class="col-12 col-sm-6">
+        <h3>Laporan KLPCM</h3>
+      </div>
+      <div class="col-12 col-sm-6">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/home"> <i data-feather="home"></i></a></li>
+          <li class="breadcrumb-item">Laporan KLPCM</li>
+        </ol>
+      </div>
     </div>
+  </div>
 </div>
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row m-b-20">
-                        <div class="col-md-12">
-                            <div class="col-6 d-flex justify-content-around">
-                                <input class="datepicker-here form-control digits" type="text" data-range="true" data-multiple-dates-separator=" - " data-language="en">
-                                <a href="javascript:;" class="btn btn-info btn-fill pull-right btn-submit-filter m-l-15">Filter</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div id="load-klpcm"></div>
-                        </div>
-                    </div>
-                </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row m-b-20">
+            <div class="col-md-12">
+              <div class="col-6 d-flex justify-content-around">
+                <input class="datepicker-here form-control digits" type="text" data-range="true"
+                  data-multiple-dates-separator=" - " data-language="en">
+                <a href="javascript:;" class="btn btn-info btn-fill pull-right btn-submit-filter m-l-15">Filter</a>
+              </div>
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-body">
-                    <div id="chart"></div>
-                </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div id="load-klpcm"></div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-title text-center mt-3"><h3>Chart Tidak Lengkap per Poli</h3></div>
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="chart-umum">
-                        <div class="card">
-                          <div class="card-title text-center mt-4">Poli Umum</div>
-                          <div class="card-body text-center">
-                            <div id="chartPieUmum"></div>
-                            <a href="/laporan/klpcm/report/1" class="mt-3">Lihat Daftar</a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="chart-lansia">
-                        <div class="card">
-                          <div class="card-title text-center mt-4">Poli Lansia</div>
-                          <div class="card-body text-center">
-                            <div id="chartPieLansia"></div>
-                            <a href="/laporan/klpcm/report/2" class="mt-3">Lihat Daftar</a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="chart-kia">
-                        <div class="card">
-                          <div class="card-title text-center mt-4">Poli Kia</div>
-                          <div class="card-body text-center">
-                            <div id="chartPieKia"></div>
-                            <a href="/laporan/klpcm/report/3" class="mt-3">Lihat Daftar</a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="chart-gigi">
-                        <div class="card">
-                          <div class="card-title text-center mt-4">Poli Gigi</div>
-                          <div class="card-body text-center">
-                            <div id="chartPieGigi"></div>
-                            <a href="/laporan/klpcm/report/4" class="mt-3">Lihat Daftar</a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <div id="chart"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-title text-center mt-3">
+          <h3>Chart Tidak Lengkap per Poli</h3>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="chart-umum">
+                <div class="card">
+                  <div class="card-title text-center mt-4">Poli Umum</div>
+                  <div class="card-body text-center">
+                    <div id="chartPieUmum"></div>
+                    <a href="/laporan/klpcm/report/1" class="mt-3">Lihat Daftar</a>
                   </div>
                 </div>
+              </div>
             </div>
+            <div class="col-md-6">
+              <div class="chart-kia">
+                <div class="card">
+                  <div class="card-title text-center mt-4">Poli Kia</div>
+                  <div class="card-body text-center">
+                    <div id="chartPieKia"></div>
+                    <a href="/laporan/klpcm/report/3" class="mt-3">Lihat Daftar</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="chart-gigi">
+                <div class="card">
+                  <div class="card-title text-center mt-4">Poli Gigi</div>
+                  <div class="card-body text-center">
+                    <div id="chartPieGigi"></div>
+                    <a href="/laporan/klpcm/report/4" class="mt-3">Lihat Daftar</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 @endsection
 @section('page-scripts')
 <script>
-    function loadTable(startDate = '', endDate = ''){
+  function loadTable(startDate = '', endDate = ''){
         $.ajax({
             url : '{{route("laporan_klpcm_filter")}}',
             dataType : 'json',
@@ -155,16 +147,6 @@
         }
       });
 
-      let dataLansia = [];
-      $.ajax({
-        url : '/laporan/klpcm/lansia',
-        method : 'GET',
-        data : {},
-        success : function(response){
-          dataLansia = response;
-        }
-      });
-
       let dataKia = []
       $.ajax({
         url : '/laporan/klpcm/kia',
@@ -189,7 +171,7 @@
         var options = {
             series: [{
             name: 'Lengkap',
-            data: [dataUmum[1], dataLansia[1], dataKia[1], dataGigi[1]]
+            data: [dataUmum[1], dataKia[1], dataGigi[1]]
           }],
             chart: {
             height: 350,
@@ -216,7 +198,7 @@
           },
 
           xaxis: {
-            categories: ["UMUM", "LANSIA", "KIA", "GIGI"],
+            categories: ["UMUM", "KIA", "GIGI"],
             position: 'top',
             axisBorder: {
               show: false

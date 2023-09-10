@@ -117,9 +117,6 @@ class KunjunganController extends Controller
 
         $checkSuratSehat = $dataPasien->no_rm;
         $isSuratSehat = false;
-        if ((int) $request->get('jenis_pasien') == 0){
-            $isSuratSehat = true;
-        }
 
         if ($checkKunjungan == null) {
             $dataKunjungan = [
@@ -133,6 +130,7 @@ class KunjunganController extends Controller
                 'is_prb' => $isPrb,
                 'is_prolanis' => $isProlanis,
                 'jenis_pasien' => (int) $request->get('jenis_pasien'),
+                'jenis_kunjungan' => (int) $request->get('jenis_kunjungan'),
                 'is_edit' => 0,
             ];
 
