@@ -43,7 +43,7 @@ class KunjunganController extends Controller
                 ->join('polis', 'kunjungans.id_poli', '=', 'polis.id')
                 ->where('kunjungans.tanggal', '>=', $tanggalAwal)
                 ->where('kunjungans.tanggal', '<=', $tanggalAkhir)
-                ->select('kunjungans.*', 'pasiens.*', 'kunjungans.jenis_pasien as jpk', 'kunjungans.no_rm as no_rmk', 'polis.nama as namaPoli', 'kunjungans.id as kunjunganId')
+                ->select('kunjungans.*', 'pasiens.*', 'kunjungans.jenis_kunjungan as jpk', 'kunjungans.no_rm as no_rmk', 'polis.nama as namaPoli', 'kunjungans.id as kunjunganId')
                 ->get();
 
             return DataTables::of($dataKunjungan)
@@ -62,10 +62,13 @@ class KunjunganController extends Controller
                     $urlKelengkapan = route('kunjungan_klpcm', $row->kunjunganId);
                     $urlDetail = route("klpcm_index", $row->kunjunganId);
                     $urlSS = route("pasien_download_ss", $row->kunjunganId);
+                    $urlCatin = route("pasien_download_cating", $row->kunjunganId);
                     $actionBtn = '<div class="d-flex justify-content-evenly">';
-                    if ($row->jpk == 0){
+                    if ($row->jpk == 2){
                         $actionBtn .= '<a href='.$urlSS.' class="table-action btn btn-xs btn-pill btn-primary"><i class="fa fa-print"></i> Surat Sehat</a>';
-                    } else {
+                    } else if(($row->jpk == 2)) {
+                        $actionBtn .= '<a href='.$urlCatin.' class="table-action btn btn-xs btn-pill btn-info"><i class="fa fa-print"></i> Surat Catin</a>';
+                    }else {
                         if ($row->is_edit === 0 && $row->diagnosa_main != 435) {
                             $actionBtn .= '<a href='.$urlKelengkapan.' class="table-action btn btn-xs btn-pill btn-success"<i class="fa fa-plane"></i> Kelengkapan</a>';
                         } else {
