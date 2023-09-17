@@ -62,7 +62,7 @@ class KunjunganController extends Controller
                     $urlKelengkapan = route('kunjungan_klpcm', $row->kunjunganId);
                     $urlDetail = route("klpcm_index", $row->kunjunganId);
                     $urlSS = route("pasien_download_ss", $row->kunjunganId);
-                    $urlCatin = route("pasien_download_cating", $row->kunjunganId);
+                    $urlCatin = route("pasien_download_catin", $row->kunjunganId);
                     $actionBtn = '<div class="d-flex justify-content-evenly">';
                     if ($row->jpk == 2){
                         $actionBtn .= '<a href='.$urlSS.' class="table-action btn btn-xs btn-pill btn-primary"><i class="fa fa-print"></i> Surat Sehat</a>';
