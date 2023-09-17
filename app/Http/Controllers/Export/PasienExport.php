@@ -29,7 +29,7 @@ class PasienExport implements FromView
     public function getData()
     {
         $tglSeparate = explode('|||', $this->tgl);
-        $data = Kunjungan::select('kunjungans.*', 'kunjungans.jenis_pasien as jpk', 'pasiens.no_rm', 'pasiens.nama', 'pasiens.jk', 'pasiens.alamat', 'pasiens.tgl_lahir', 'pasiens.cara_bayar', 'pasiens.no_bpjs', 'polis.nama as namaPoli')
+        $data = Kunjungan::select('kunjungans.*', 'kunjungans.jenis_pasien as jpk', 'pasiens.no_rm', 'pasiens.nama', 'pasiens.jk', 'pasiens.alamat', 'pasiens.tgl_lahir', 'kunjungans.bayar', 'kunjungans.no_bpjs', 'polis.nama as namaPoli')
             ->join('pasiens', 'pasiens.id', 'kunjungans.id_pasien')
             ->join('polis', 'polis.id', 'kunjungans.id_poli')
             ->whereDate('kunjungans.created_at', '>=', $tglSeparate[0])

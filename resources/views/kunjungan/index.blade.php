@@ -48,6 +48,8 @@
                                 <th>No RM</th>
                                 <th>Nama</th>
                                 <th>Nama Poli</th>
+                                <th>Alamat</th>
+                                <th>Jenis Bayar</th>
                                 <th>Tanggal</th>
                                 <th>Aksi</th>
                             </thead>
@@ -131,8 +133,12 @@
                     name: 'namaPoli'
                 },
                 {
-                    data: 'tanggal',
-                    name: 'tanggal'
+                    data: 'alamat',
+                    name: 'alamat'
+                },
+                {
+                    data: 'bayar',
+                    name: 'bayar'
                 },
                 {
                     data: 'action',

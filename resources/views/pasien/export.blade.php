@@ -51,7 +51,7 @@
             <td>{{ ($pasien['jk'] == 'P' ? $pasien['thn'] : '') }}</td>
             <td>{{ ($pasien['jk'] == 'P' ? $pasien['bln'] : '') }}</td>
             <td>{{ ($pasien['jk'] == 'P' ? $pasien['hr'] : '') }}</td>
-            <td>{{ $pasien['cara_bayar'] }}</td>
+            <td>{{ $pasien['bayar'] }}</td>
             <td>{{ $pasien['no_bpjs'] }}</td>
             <td>{{ $pasien['namaPoli'] }}</td>
             <td>{{ $pasien['diagnosaDetail'] }}</td>
