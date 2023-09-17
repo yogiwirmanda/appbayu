@@ -657,12 +657,20 @@ class LaporanController extends Controller
         return $data;
     }
 
-    public function kunjungan()
+    public function kunjungan($month = '', $year = '')
     {
         $navActive = $this->navActive;
         $dataReturn = [];
         $yearNow = Date('Y');
         $monthNow = Date('m');
+
+        if ($month != ''){
+            $monthNow = $month;
+        }
+
+        if ($year != ''){
+            $yearNow = $year;
+        }
         $totalDayInMonth = cal_days_in_month(CAL_GREGORIAN, $monthNow, $yearNow);
 
         for ($i=1; $i < $totalDayInMonth; $i++) {
@@ -720,7 +728,7 @@ class LaporanController extends Controller
             $dataReturn[] = $tempArr;
         }
 
-        return view('laporan.kunjungan.bulanan', compact('navActive', 'dataReturn'));
+        return view('laporan.kunjungan.bulanan', compact('navActive', 'dataReturn', 'monthNow', 'yearNow'));
     }
 
     public function lb1Download()

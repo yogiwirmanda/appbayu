@@ -67,7 +67,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('pasien/download/pak/{idPasien}', [PasienController::class, 'downloadPak'])->name('pasien_download_pak');
     Route::get('pasien/download/prolanis/{idPasien}', [PasienController::class, 'downloadProlanis'])->name('pasien_download_prolanis');
     Route::get('pasien/download/ss/{idKunjungan}', [PasienController::class, 'downloadSuratSehat'])->name('pasien_download_ss');
-    Route::get('pasien/download/catin/{idKunjungan}', [PasienController::class, 'downloadCating'])->name('pasien_download_catin');
+    Route::get('pasien/download/catin/{idKunjungan}', [PasienController::class, 'downloadCatin'])->name('pasien_download_catin');
 
     Route::get('kunjungan', [KunjunganController::class, 'index'])->name('kunjungan_pasien');
     Route::get('kunjungan/create/{param}/{type?}', [KunjunganController::class, 'create'])->name('kunjungan_pasien_create');
@@ -153,7 +153,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('laporan/prolanis', [LaporanController::class, 'prolanis'])->name('laporan_prolanis');
     Route::get('laporan/prolanis/dtAjax', [LaporanController::class, 'dtAjaxProlanis'])->name('ajax_load_laporan_prolanis');
 
-    Route::get('laporan/kunjungan', [LaporanController::class, 'kunjungan'])->name('laporan_kunjungan');
+    Route::get('laporan/kunjungan', [LaporanController::class, 'kunjungan'])->name('laporan_kunjungan_default');
+    Route::get('laporan/kunjungan/filter/{month}/{year}', [LaporanController::class, 'kunjungan'])->name('laporan_kunjungan');
     Route::get('laporan/lb1', [LaporanController::class, 'lb1'])->name('laporan_lb1');
     Route::get('laporan/lb1Download', [LaporanController::class, 'lb1Download'])->name('laporan_lb1_download');
     Route::get('pasien/export', [PasienController::class, 'export'])->name('pasien_export_daily');

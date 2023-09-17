@@ -144,6 +144,12 @@
                             addNama = 'Nn. ';
                         }
                         let urlNama = '<a href="pasiens/detail/'+row.id+'">'+addNama + row.nama+'</a>'
+                        if (row.status_prolanis == 1){
+                            urlNama += '<span class="badge badge-danger m-l-5">Prolanis</span>';
+                        }
+                        if (row.status_prb == 1){
+                            urlNama += '<span class="badge badge-success m-l-5">Prb</span>';
+                        }
                         return urlNama;
                     },
                 },
