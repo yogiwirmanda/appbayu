@@ -129,16 +129,16 @@
                     name: 'nama'
                 },
                 {
-                    data: 'namaPoli',
-                    name: 'namaPoli'
-                },
-                {
                     data: 'alamat',
                     name: 'alamat'
                 },
                 {
                     data: 'bayar',
                     name: 'bayar'
+                },
+                {
+                    data: 'namaPoli',
+                    name: 'namaPoli'
                 },
                 {
                     data: 'tanggal',
