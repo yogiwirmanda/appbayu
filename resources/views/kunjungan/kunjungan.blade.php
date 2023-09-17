@@ -156,8 +156,8 @@
                                             <div class="col-8">
                                                 <select class="form-control select2" name="jenis_pasien"
                                                     id="jenis_pasien">
-                                                    <option value="1">Baru</option>
                                                     <option value="2">Lama</option>
+                                                    <option value="1">Baru</option>
                                                 </select>
                                             </div>
                                         </div>

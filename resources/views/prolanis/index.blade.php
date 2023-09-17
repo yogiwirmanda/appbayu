@@ -132,5 +132,25 @@
         });
     });
 
+    $(document).on('click', '.btn-remove-prolanis', function (e) {
+        let dataPasienId = $(this).attr('data-pasien-id');
+        $.ajax({
+            url: "/prolanis/remove/" + dataPasienId,
+            method: "GET",
+            dataType: "json",
+            data: {
+                dataPasienId: dataPasienId
+            },
+            success: function (response) {
+                if (response.errCode == 0) {
+                    $.notify('Pasien Prolanis Berhasil dihapus', 'success');
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000);
+                }
+            }
+        });
+    });
+
 </script>
 @endsection

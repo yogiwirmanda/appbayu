@@ -98,6 +98,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('prolanis/create', [PasienController::class, 'prolanisCreate'])->name('create_prolanis');
     Route::get('prolanis/check', [PasienController::class, 'checkProlanis'])->name('check_prolanis');
     Route::get('prolanis/save', [PasienController::class, 'saveProlanis'])->name('save_prolanis');
+    Route::get('prolanis/remove/{pasienId}', [PasienController::class, 'removeProlanis'])->name('remove_prolanis');
     Route::get('prolanis/riwayat/{pasienId}', [PasienController::class, 'riwayat'])->name('prolanis_riwayat');
 
     Route::get('prb', [PrbController::class, 'index'])->name('show_prb');

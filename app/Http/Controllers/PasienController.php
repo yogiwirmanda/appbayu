@@ -772,6 +772,17 @@ class PasienController extends Controller
         return view('prolanis.index', compact('dataPasien', 'navActive'));
     }
 
+    public function removeProlanis($idPasien)
+    {
+        $dataPasien = Pasien::find($idPasien);
+        $dataPasien->status_prolanis = 0;
+        $dataPasien->save();
+
+        $dataSend['errCode'] = 0;
+
+        return $dataSend;
+    }
+
     public function dtAjaxProlanis(Request $request)
     {
         if ($request->ajax()) {
@@ -794,7 +805,8 @@ class PasienController extends Controller
                     return $dateDiff->y;
                 })
                 ->addColumn('action', function ($row) {
-                    $actionBtn = '<a href="javascript:;" class="btn btn-primary btn-sm btn-send-whatsapp" data-pasien-id="'.$row->id.'">Kirim WA</a>';
+                    $actionBtn = '<a href="javascript:;" class="btn btn-danger btn-sm btn-remove-prolanis" data-pasien-id="'.$row->id.'">Hapus</a>';
+                    $actionBtn .= '<a href="javascript:;" class="btn btn-primary btn-sm btn-send-whatsapp" data-pasien-id="'.$row->id.'">Kirim WA</a>';
                     return $actionBtn;
                 })
                 ->rawColumns(['action', 'nama'])

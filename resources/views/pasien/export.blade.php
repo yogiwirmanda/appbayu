@@ -31,7 +31,7 @@
         <tr>
             <td>{{ $key + 1 }}</td>
             <td>{{ $pasien['jpk'] == 1 ? $pasien['no_rm'] : '' }}</td>
-            <td>{{ $pasien['jpk'] != 1 ? '' : $pasien['no_rm'] }}</td>
+            <td>{{ $pasien['jpk'] == 2 ? '' : $pasien['no_rm'] }}</td>
             <td>{{ $pasien['nama'] }}</td>
             <td>{{ $pasien['alamat'] }}</td>
             <td>{{ $pasien['tgl_lahir'] }}</td>
