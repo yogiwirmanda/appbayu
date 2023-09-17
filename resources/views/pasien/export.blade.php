@@ -30,8 +30,16 @@
         @foreach($dataPasien as $key => $pasien)
         <tr>
             <td>{{ $key + 1 }}</td>
-            <td>{{ $pasien['jpk'] == 1 ? $pasien['no_rm'] : '' }}</td>
-            <td>{{ $pasien['jpk'] == 2 ? '' : $pasien['no_rm'] }}</td>
+            <td>
+                @if($pasien['jpk'] == 1)
+                {{ $pasien['no_rm'] }}
+                @endif
+            </td>
+            <td>
+                @if($pasien['jpk'] == 2)
+                {{ $pasien['no_rm'] }}
+                @endif
+            </td>
             <td>{{ $pasien['nama'] }}</td>
             <td>{{ $pasien['alamat'] }}</td>
             <td>{{ $pasien['tgl_lahir'] }}</td>
@@ -44,6 +52,8 @@
             <td>{{ $pasien['cara_bayar'] }}</td>
             <td>{{ $pasien['no_bpjs'] }}</td>
             <td>{{ $pasien['namaPoli'] }}</td>
+            <td>{{ $pasien['diagnosaDetail'] }}</td>
+            <td>{{ $pasien['jenis_kasus'] }}</td>
         </tr>
         @endforeach
     </tbody>

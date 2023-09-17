@@ -3,7 +3,7 @@
 @php
 $jenisPemeriksaan = ['Kontrol', 'Kimia Darah'];
 if ($dataKunjungan->keterangan_prolanis == 'Diabetes Melitus'){
-    $jenisPemeriksaan = ['GDP', 'HBA1C'];
+$jenisPemeriksaan = ['GDP', 'HBA1C'];
 }
 $yearNow = (int) Date('Y');
 $yearPasien = (int) Date('Y', strtotime($dataKunjungan->tgl_lahir));
@@ -76,7 +76,8 @@ $umur = $yearNow - $yearPasien;
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="col-form-label">Umur</label>
-                                            <input type="text" id="umur" class="form-control" value="{{$umur}}" readonly>
+                                            <input type="text" id="umur" class="form-control" value="{{$umur}}"
+                                                readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -96,7 +97,8 @@ $umur = $yearNow - $yearPasien;
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Rujukan</label>
-                                            <select name="status_rujukan" id="status_rujukan" class="form-control select2">
+                                            <select name="status_rujukan" id="status_rujukan"
+                                                class="form-control select2">
                                                 <option value="1">Dirujuk</option>
                                                 <option value="0" selected>Tidak</option>
                                             </select>
@@ -107,7 +109,8 @@ $umur = $yearNow - $yearPasien;
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Poli Rujukan</label>
-                                            <input type="text" name="poli_rujukan" id="poli_rujukan" class="form-control" value="">
+                                            <input type="text" name="poli_rujukan" id="poli_rujukan"
+                                                class="form-control" value="">
                                         </div>
                                     </div>
                                 </div>
@@ -115,7 +118,8 @@ $umur = $yearNow - $yearPasien;
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="col-form-label">RS Rujukan</label>
-                                            <input type="text" name="rs_rujukan" id="rs_rujukan" class="form-control" value="">
+                                            <input type="text" name="rs_rujukan" id="rs_rujukan" class="form-control"
+                                                value="">
                                         </div>
                                     </div>
                                 </div>
@@ -155,57 +159,61 @@ $umur = $yearNow - $yearPasien;
                                             <select name="jenis_kasus" id="jenis_kasus" class="form-control">
                                                 <option value="0">Lama</option>
                                                 <option value="1">Baru</option>
+                                                <option value="2">KKL</option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                                 @if ($dataKunjungan->is_prolanis == 1)
-                                    @if($dataKunjungan->keterangan_prolanis)
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="col-form-label">Jenis Pemeriksaan</label>
-                                                    <select name="jenis_pemeriksaan" id="jenis_pemeriksaan" class="form-control select-pemeriksaan">
-                                                        @foreach($jenisPemeriksaan as $pemeriksaan)
-                                                            <option value="{{$pemeriksaan}}">{{$pemeriksaan}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
+                                @if($dataKunjungan->keterangan_prolanis)
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Jenis Pemeriksaan</label>
+                                            <select name="jenis_pemeriksaan" id="jenis_pemeriksaan"
+                                                class="form-control select-pemeriksaan">
+                                                @foreach($jenisPemeriksaan as $pemeriksaan)
+                                                <option value="{{$pemeriksaan}}">{{$pemeriksaan}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
-                                        <div class="row pemeriksaan pemeriksaan-gdp">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="col-form-label">GDP</label>
-                                                    <input type="text" name="gdp" id="gdp" class="form-control" value="">
-                                                </div>
-                                            </div>
+                                    </div>
+                                </div>
+                                <div class="row pemeriksaan pemeriksaan-gdp">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-form-label">GDP</label>
+                                            <input type="text" name="gdp" id="gdp" class="form-control" value="">
                                         </div>
-                                        <div class="row pemeriksaan pemeriksaan-hba1c d-none">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="col-form-label">HBA1C</label>
-                                                    <input type="text" name="hba1c" id="hba1c" class="form-control" value="">
-                                                </div>
-                                            </div>
+                                    </div>
+                                </div>
+                                <div class="row pemeriksaan pemeriksaan-hba1c d-none">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-form-label">HBA1C</label>
+                                            <input type="text" name="hba1c" id="hba1c" class="form-control" value="">
                                         </div>
-                                        <div class="row pemeriksaan pemeriksaan-kontrol d-none">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="col-form-label">Kontrol</label>
-                                                    <input type="text" name="kontrol" id="kontrol" class="form-control" value="">
-                                                </div>
-                                            </div>
+                                    </div>
+                                </div>
+                                <div class="row pemeriksaan pemeriksaan-kontrol d-none">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Kontrol</label>
+                                            <input type="text" name="kontrol" id="kontrol" class="form-control"
+                                                value="">
                                         </div>
-                                        <div class="row pemeriksaan pemeriksaan-kimiadarah d-none">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="col-form-label">Kimia Darah</label>
-                                                    <input type="text" name="kimia_darah" id="kimia_darah" class="form-control" value="">
-                                                </div>
-                                            </div>
+                                    </div>
+                                </div>
+                                <div class="row pemeriksaan pemeriksaan-kimiadarah d-none">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Kimia Darah</label>
+                                            <input type="text" name="kimia_darah" id="kimia_darah" class="form-control"
+                                                value="">
                                         </div>
-                                    @endif
+                                    </div>
+                                </div>
+                                @endif
                                 @endif
                                 <div class="row">
                                     <div class="col-md-12">
@@ -314,7 +322,8 @@ $umur = $yearNow - $yearPasien;
                                 </table>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-info btn-fill pull-right btn-save-klpcm m-t-20">Simpan</button>
+                        <button type="submit"
+                            class="btn btn-info btn-fill pull-right btn-save-klpcm m-t-20">Simpan</button>
                         <div class="clearfix"></div>
                     </form>
                 </div>
@@ -322,10 +331,11 @@ $umur = $yearNow - $yearPasien;
         </div>
     </div>
 </div>
-<div class="modal fade" id="modal-cari-diagnosa" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true" style="display: none;">
+<div class="modal fade" id="modal-cari-diagnosa" tabindex="-1" role="dialog" aria-labelledby="modal-form"
+    aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal- modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
-             <div class="modal-header px-4">
+            <div class="modal-header px-4">
                 <h6 class="modal-title" id="modal-title-default">Cari Data</h6>
                 <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -341,12 +351,12 @@ $umur = $yearNow - $yearPasien;
                     </form>
                     <table class="table table-flush table-cari-data" id="datatable-basic">
                         <thead class="thead-light">
-                        <tr>
-                            <th>No</th>
-                            <th>Kode ICD</th>
-                            <th>Diagnosa</th>
-                            <th>Action</th>
-                        </tr>
+                            <tr>
+                                <th>No</th>
+                                <th>Kode ICD</th>
+                                <th>Diagnosa</th>
+                                <th>Action</th>
+                            </tr>
                         </thead>
                         <tbody>
                         </tbody>
@@ -354,14 +364,13 @@ $umur = $yearNow - $yearPasien;
                 </div>
             </div>
         </div>
-        </div>
     </div>
+</div>
 </div>
 @endsection
 @section('page-scripts')
 <script>
-
-$('.btn-save-klpcm').click(function (e) {
+    $('.btn-save-klpcm').click(function (e) {
     e.preventDefault();
 
     let rowDiagnosa = $('.row-diagnosa').length;

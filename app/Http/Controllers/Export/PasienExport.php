@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Export;
 
 use App\Models\Pasien;
 use App\Models\Kunjungan;
+use App\Models\Diagnosa;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
@@ -36,9 +37,31 @@ class PasienExport implements FromView
             ->get();
         $dataReturn = [];
         foreach ($data as $key => $value) {
+            switch ($value->jenis_kasus) {
+                case 0:
+                    $jenisKasus = 'Lama';
+                    break;
+                case 1:
+                    $jenisKasus = 'Baru';
+                    break;
+                case 2:
+                    $jenisKasus = 'KKL';
+                    break;
+
+                default:
+                    $jenisKasus = 'Lama';
+                    break;
+            }
+            $modelDiagnosa = Diagnosa::find($value->diagnosa_main)->diagnosa;
+            $diagnosaDetail = '';
+            if ($modelDiagnosa){
+                $diagnosaDetail = $modelDiagnosa;
+            }
             $dataTemp = [];
             $dataAge = [];
             $dataTemp = $value->toArray();
+            $dataTemp['diagnosaDetail'] = $diagnosaDetail;
+            $dataTemp['jenis_kasus'] = $jenisKasus;
             $dataAge = self::checkAge($value->tgl_lahir);
             $dataReturn[] = array_merge($dataTemp, $dataAge);
         }
