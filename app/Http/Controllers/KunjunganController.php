@@ -121,11 +121,15 @@ class KunjunganController extends Controller
         $checkSuratSehat = $dataPasien->no_rm;
         $isSuratSehat = false;
 
+        if ($request->jenis_kunjungan == '2'){
+            $isSuratSehat = true;
+        }
+
         if ($checkKunjungan == null) {
             $dataKunjungan = [
                 'id_pasien' => $request->get('id_pasien'),
-                'no_rm' => $request->get('noRm'),
                 'id_poli' => $request->get('poli'),
+                'no_rm' => $request->get('noRm'),
                 'tanggal' => $request->get('tanggal'),
                 'bayar' => $request->get('caraBayar'),
                 'no_bpjs' => $request->get('noBpjs'),
@@ -144,7 +148,7 @@ class KunjunganController extends Controller
                     $lastSS = $modelSS->no_urut + 1;
                 }
                 $kunjungansSehat = [
-                    'no_rm' => 'SS-' . $lastSS,
+                    'no_rm_kunjungan' => 'SS-' . $lastSS,
                     'diagnosa' => '[{"kode_icd":"Z00.0","diagnosa":"Pemeriksaan kesehatan"}]',
                     'diagnosa_main' => 435,
                 ];
@@ -159,7 +163,9 @@ class KunjunganController extends Controller
                 SuratSehat::create($suratSehatInput);
 
                 $dataKunjungan = \array_merge($dataKunjungan, $kunjungansSehat);
+                $dataKunjungan['no_rm_kunjungan'] = 'SS-' . $lastSS;
             }
+
 
             $kunjungans = new Kunjungan($dataKunjungan);
 

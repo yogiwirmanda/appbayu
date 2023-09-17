@@ -11,6 +11,7 @@ class Kunjungan extends Model
     protected $fillable = [
         'id_pasien',
         'no_rm',
+        'no_rm_kunjungan',
         'id_poli',
         'tanggal',
         'bayar',

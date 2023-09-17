@@ -1100,7 +1100,7 @@ class PasienController extends Controller
         $dateNow = date_create(Date('Y-m-d'));
         $dateDiff = date_diff($tglLahir, $dateNow);
         $umur = $dateDiff->y;
-        $modelSS = SuratSehat::where('no_rm', $modelKunjungan->no_rm)->where('tahun', Date('Y', strtotime($modelKunjungan->tanggal)))->first();
+        $modelSS = SuratSehat::where('no_rm', $modelKunjungan->no_rm_kunjungan)->where('tahun', Date('Y', strtotime($modelKunjungan->tanggal)))->first();
 
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('doc/new/SURAT SEHAT.docx');
         $templateProcessor->setValue('nama_pasien', self::addName($modelPasien->id) . $modelPasien->nama);
