@@ -47,9 +47,9 @@
                                 <th>No</th>
                                 <th>No RM</th>
                                 <th>Nama</th>
-                                <th>Nama Poli</th>
                                 <th>Alamat</th>
                                 <th>Jenis Bayar</th>
+                                <th>Nama Poli</th>
                                 <th>Tanggal</th>
                                 <th>Aksi</th>
                             </thead>
@@ -139,6 +139,10 @@
                 {
                     data: 'bayar',
                     name: 'bayar'
+                },
+                {
+                    data: 'tanggal',
+                    name: 'tanggal'
                 },
                 {
                     data: 'action',

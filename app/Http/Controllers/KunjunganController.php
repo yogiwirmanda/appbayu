@@ -58,6 +58,13 @@ class KunjunganController extends Controller
                     }
                     return $html;
                 })
+                ->addColumn('bayar', function ($row) {
+                    $html = '<div>'.$row->bayar.'</div>';
+                    if ($row->bayar == 'BPJS') {
+                        $html = '<div>'.$row->bayar.' - '.$row->no_bpjs.'</div>';
+                    }
+                    return $html;
+                })
                 ->addColumn('action', function ($row) {
                     $urlKelengkapan = route('kunjungan_klpcm', $row->kunjunganId);
                     $urlDetail = route("klpcm_index", $row->kunjunganId);
@@ -79,7 +86,7 @@ class KunjunganController extends Controller
                     $actionBtn .= '</div>';
                     return $actionBtn;
                 })
-                ->rawColumns(['action', 'nama'])
+                ->rawColumns(['action', 'nama', 'bayar'])
                 ->make(true);
         }
     }
