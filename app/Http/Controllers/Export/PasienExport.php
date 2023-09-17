@@ -55,7 +55,7 @@ class PasienExport implements FromView
             $modelDiagnosa = Diagnosa::find($value->diagnosa_main);
             $diagnosaDetail = '';
             if ($modelDiagnosa){
-                $diagnosaDetail = $modelDiagnosa->diagnosa;
+                $diagnosaDetail = $modelDiagnosa->kode_icd;
             }
             $dataTemp = [];
             $dataAge = [];
