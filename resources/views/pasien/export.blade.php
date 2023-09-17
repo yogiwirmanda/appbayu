@@ -12,7 +12,7 @@
             <td rowspan="3">Poli</td>
             <td rowspan="3">Diagnosa</td>
             <td rowspan="3">Jenis Kasus</td>
-            <td rowspan="3">Keterangan</td>
+            <td rowspan="3">Rujukan</td>
         </tr>
         <tr>
             <td rowspan="2">BARU</td>

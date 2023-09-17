@@ -54,7 +54,7 @@ class PasienExport implements FromView
                     break;
             }
             $modelDiagnosa = Diagnosa::find($value->diagnosa_main);
-            $modelKlpcm = Klpcm::where('id_kunjungan', $value->id_kunjungan)->first();
+            $modelKlpcm = Klpcm::where('id_kunjungan', $value->id)->first();
             $diagnosaDetail = '';
             $keteranganDetail = '';
             if ($modelDiagnosa){
