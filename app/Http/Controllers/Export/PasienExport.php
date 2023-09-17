@@ -40,10 +40,10 @@ class PasienExport implements FromView
         foreach ($data as $key => $value) {
             switch ($value->jenis_kasus) {
                 case 0:
-                    $jenisKasus = 'Lama';
+                    $jenisKasus = 'L';
                     break;
                 case 1:
-                    $jenisKasus = 'Baru';
+                    $jenisKasus = 'B';
                     break;
                 case 2:
                     $jenisKasus = 'KKL';
