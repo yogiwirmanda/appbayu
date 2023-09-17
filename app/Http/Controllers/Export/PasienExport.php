@@ -52,10 +52,10 @@ class PasienExport implements FromView
                     $jenisKasus = 'Lama';
                     break;
             }
-            $modelDiagnosa = Diagnosa::find($value->diagnosa_main)->diagnosa;
+            $modelDiagnosa = Diagnosa::find($value->diagnosa_main);
             $diagnosaDetail = '';
             if ($modelDiagnosa){
-                $diagnosaDetail = $modelDiagnosa;
+                $diagnosaDetail = $modelDiagnosa->diagnosa;
             }
             $dataTemp = [];
             $dataAge = [];
