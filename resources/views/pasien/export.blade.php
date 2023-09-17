@@ -10,6 +10,8 @@
             <td rowspan="3">Kepersertaan</td>
             <td rowspan="3">No BPJS</td>
             <td rowspan="3">Poli</td>
+            <td rowspan="3">Diagnosa</td>
+            <td rowspan="3">Jenis Kasus</td>
         </tr>
         <tr>
             <td rowspan="2">BARU</td>
