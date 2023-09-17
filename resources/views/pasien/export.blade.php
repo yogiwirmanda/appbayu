@@ -12,6 +12,7 @@
             <td rowspan="3">Poli</td>
             <td rowspan="3">Diagnosa</td>
             <td rowspan="3">Jenis Kasus</td>
+            <td rowspan="3">Keterangan</td>
         </tr>
         <tr>
             <td rowspan="2">BARU</td>
@@ -56,6 +57,7 @@
             <td>{{ $pasien['namaPoli'] }}</td>
             <td>{{ $pasien['diagnosaDetail'] }}</td>
             <td>{{ $pasien['jenis_kasus'] }}</td>
+            <td>{{ $pasien['keterangan'] }}</td>
         </tr>
         @endforeach
     </tbody>

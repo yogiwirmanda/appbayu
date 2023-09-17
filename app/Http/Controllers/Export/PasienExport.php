@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Export;
 use App\Models\Pasien;
 use App\Models\Kunjungan;
 use App\Models\Diagnosa;
+use App\Models\Klpcm;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
@@ -53,15 +54,21 @@ class PasienExport implements FromView
                     break;
             }
             $modelDiagnosa = Diagnosa::find($value->diagnosa_main);
+            $modelKlpcm = Klpcm::find($value->id_kunjungan);
             $diagnosaDetail = '';
+            $keteranganDetail = '';
             if ($modelDiagnosa){
                 $diagnosaDetail = $modelDiagnosa->kode_icd;
+            }
+            if ($modelKlpcm){
+                $keteranganDetail = $modelKlpcm->poli_rujukan . ' - ' . $modelKlpcm->rs_rujukan;
             }
             $dataTemp = [];
             $dataAge = [];
             $dataTemp = $value->toArray();
             $dataTemp['diagnosaDetail'] = $diagnosaDetail;
             $dataTemp['jenis_kasus'] = $jenisKasus;
+            $dataTemp['keterangan'] = $keteranganDetail;
             $dataAge = self::checkAge($value->tgl_lahir);
             $dataReturn[] = array_merge($dataTemp, $dataAge);
         }
