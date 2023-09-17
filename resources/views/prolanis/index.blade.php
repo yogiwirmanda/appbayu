@@ -146,7 +146,7 @@
                     $.notify('Pasien Prolanis Berhasil dihapus', 'success');
                     setTimeout(() => {
                         window.location.reload();
-                    }, 2000);
+                    }, 1000);
                 }
             }
         });

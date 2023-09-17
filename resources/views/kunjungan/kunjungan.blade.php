@@ -168,8 +168,8 @@
                                         <div class="form-group">
                                             <label class="form-label">Jenis Kunjungan</label>
                                             <div class="col-8">
-                                                <select class="form-control select2" name="jenis_pasien"
-                                                    id="jenis_pasien">
+                                                <select class="form-control select2" name="jenis_kunjungan"
+                                                    id="jenis_kunjungan">
                                                     <option value="1">Sakit</option>
                                                     <option value="2">Sehat - Surat Sehat</option>
                                                     <option value="3">Sehat - Surat Catin</option>
