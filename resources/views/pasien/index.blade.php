@@ -73,6 +73,7 @@
                                     <th>Nama</th>
                                     <th>Tgl Lahir</th>
                                     <th>Alamat</th>
+                                    <th>Pembayaran</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -162,6 +163,16 @@
                     data: 'alamat',
                     name: 'alamat',
                     searchable: false
+                },
+                {
+                    render: function (data, type, row) {
+                        if (row.cara_bayar == 'BPJS'){
+                            let badgePembayaran = '<div class="badge badge-primary">'data.cara_bayar' - 'row.no_bpjs'</div>';
+                        } else {
+                            let badgePembayaran = '<div class="badge badge-primary">'data.cara_bayar'</div>';
+                        }
+                        return badgePembayaran;
+                    }
                 },
                 {
                     // Define the custom action column
