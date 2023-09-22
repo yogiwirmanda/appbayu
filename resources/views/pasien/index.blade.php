@@ -167,9 +167,9 @@
                 {
                     render: function (data, type, row) {
                         if (row.cara_bayar == 'BPJS'){
-                            let badgePembayaran = '<div class="badge badge-primary">'row.cara_bayar' - 'row.no_bpjs'</div>';
+                            let badgePembayaran = '<div class="badge badge-primary">'+row.cara_bayar+' - '+row.no_bpjs+'</div>';
                         } else {
-                            let badgePembayaran = '<div class="badge badge-primary">'row.cara_bayar'</div>';
+                            let badgePembayaran = '<div class="badge badge-primary">'+row.cara_bayar+'</div>';
                         }
                         return badgePembayaran;
                     }
