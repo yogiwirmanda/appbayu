@@ -7,3 +7,9 @@
 input, textarea, select{
     text-transform: uppercase;
 }
+html {
+    -moz-transform: scale(0.8, 0.8);
+    -ms-transform: scale(0.8);
+    -webkit-transform: scale(0.8);
+    transform: scale(0.8);
+}
