@@ -596,7 +596,6 @@ class LaporanController extends Controller
             ->join('pasiens as p', 'kunjungans.id_pasien', 'p.id')
             ->where('kunjungans.id_poli', $idPoli)
             ->whereDate('kunjungans.created_at', $dateKunjungan)
-            ->groupBy('p.id')
             ->first();
 
         return $data;
@@ -606,9 +605,7 @@ class LaporanController extends Controller
     {
         $data = Kunjungan::select(DB::raw('SUM(CASE WHEN p.cara_bayar = "UMUM" then 1 ELSE 0 END) as umum, SUM(CASE WHEN p.cara_bayar = "BPJS" then 1 ELSE 0 END) as bpjs, count(p.id) as total'))
             ->join('pasiens as p', 'kunjungans.id_pasien', 'p.id')
-            ->where('kunjungans.id_poli', $idPoli)
             ->whereDate('kunjungans.created_at', $dateKunjungan)
-            ->groupBy('p.id')
             ->first();
 
         return $data;
