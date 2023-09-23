@@ -584,7 +584,6 @@ class LaporanController extends Controller
             ->join('pasiens as p', 'kunjungans.id_pasien', 'p.id')
             ->where('p.cara_bayar', $type)
             ->whereDate('kunjungans.created_at', $dateKunjungan)
-            ->groupBy('p.id')
             ->first();
 
         return $data;
@@ -605,6 +604,7 @@ class LaporanController extends Controller
     {
         $data = Kunjungan::select(DB::raw('SUM(CASE WHEN p.cara_bayar = "UMUM" then 1 ELSE 0 END) as umum, SUM(CASE WHEN p.cara_bayar = "BPJS" then 1 ELSE 0 END) as bpjs, count(p.id) as total'))
             ->join('pasiens as p', 'kunjungans.id_pasien', 'p.id')
+            ->where('kunjungans.id_poli', $idPoli)
             ->whereDate('kunjungans.created_at', $dateKunjungan)
             ->first();
 
@@ -713,7 +713,7 @@ class LaporanController extends Controller
             $tempArr['poliKiaFemale'] = self::getDataFromModel($poliKia, 'female', 0);
             $tempArr['poliGigiMale'] = self::getDataFromModel($poliGigi, 'male', 0);
             $tempArr['poliGigiFemale'] = self::getDataFromModel($poliGigi, 'female', 0);
-            $tempArr['totalPoli'] = self::getDataFromModel($poliGigi, 'total', 0) + self::getDataFromModel($poliKia, 'total', 0) + self::getDataFromModel($poliGigi, 'total', 0);
+            $tempArr['totalPoli'] = self::getDataFromModel($poliUmum, 'total', 0) + self::getDataFromModel($poliKia, 'total', 0) + self::getDataFromModel($poliGigi, 'total', 0);
             $tempArr['poliUmumUmum'] = self::getDataFromModel($poliUmumBayar, 'umum', 0);
             $tempArr['poliUmumBpjs'] = self::getDataFromModel($poliUmumBayar, 'bpjs', 0);
             $tempArr['poliKiaUmum'] = self::getDataFromModel($poliKiaBayar, 'umum', 0);
