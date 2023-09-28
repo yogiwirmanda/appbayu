@@ -554,11 +554,10 @@ class LaporanController extends Controller
     private function getDataFromAge($yearStart, $yearEnd, $dateKunjungan)
     {
         $data = Kunjungan::select(DB::raw('SUM(CASE WHEN p.jk = "L" then 1 ELSE 0 END) as male, SUM(CASE WHEN p.jk = "P" then 1 ELSE 0 END) as female, count(p.id) as total'))
+            ->join('pasiens as p', 'kunjungans.id_pasien', 'p.id')
             ->whereYear('p.tgl_lahir', '>=', $yearStart)
             ->whereYear('p.tgl_lahir', '<=', $yearEnd)
             ->whereDate('kunjungans.created_at', $dateKunjungan)
-            ->join('pasiens as p', 'kunjungans.id_pasien', 'p.id')
-            ->groupBy('p.id')
             ->first();
 
         return $data;
@@ -572,7 +571,6 @@ class LaporanController extends Controller
             ->whereMonth('kunjungans.created_at', $monthKunjungan)
             ->where('kunjungans.jenis_kasus', $jenisKasus)
             ->join('pasiens as p', 'kunjungans.id_pasien', 'p.id')
-            ->groupBy('p.id')
             ->first();
 
         return $data;
@@ -677,7 +675,7 @@ class LaporanController extends Controller
             $dateKunjungan = $yearNow . '-' . $monthNow . '-' . $i;
             $age6List = self::getDataFromAge($age6Start, $yearNow, $dateKunjungan);
             $age6Between55List = self::getDataFromAge($age55Start, $age6Start, $dateKunjungan);
-            $ageMoreThan60 = self::getDataFromAge($ageMoreThan60, 1900, $dateKunjungan);
+            $ageMoreThan60 = self::getDataFromAge(1900, $ageMoreThan60, $dateKunjungan);
             $caraBayar = self::getDataFromBayar($dateKunjungan, 'UMUM');
             $caraBayarBpjs = self::getDataFromBayar($dateKunjungan, 'BPJS');
             $poliUmum = self::getDataFromPoli($dateKunjungan, 1);

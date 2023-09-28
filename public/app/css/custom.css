@@ -29,3 +29,7 @@
 html {
 zoom: 80%;
   }
+
+.page-wrapper.compact-wrapper .page-body-wrapper div.sidebar-wrapper{
+    height: 125vh !important;
+}
