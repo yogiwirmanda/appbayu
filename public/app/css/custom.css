@@ -33,3 +33,10 @@ zoom: 80%;
 .page-wrapper.compact-wrapper .page-body-wrapper div.sidebar-wrapper{
     height: 125vh !important;
 }
+.modal-backdrop.show{
+    width: 100%;
+    height: 100%;
+}
+.login-card{
+    height: 125vh !important;
+}

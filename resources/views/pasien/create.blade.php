@@ -773,29 +773,41 @@
         });
     });
 
-    function setVillage(villageId) {
+    function setVillage(villageId, disabled = false) {
         $("#select-villages").val(villageId).trigger('change');
+        if (disabled){
+            $("#select-villages").attr('disabled', 'disabled');
+        }
         HoldOn.close();
     }
 
-    function setDistrict(districtId, villageId) {
+    function setDistrict(districtId, villageId, disabled = false) {
         $("#select-district").val(districtId).trigger('change');
+        if (disabled){
+            $("#select-district").attr('disabled', 'disabled');
+        }
         setTimeout(function () {
-            setVillage(villageId);
+            setVillage(villageId, disabled);
         }, 1000)
     }
 
-    function setCity(regencyId, districtId, villageId) {
+    function setCity(regencyId, districtId, villageId, disabled = false) {
         $("#select-city").val(regencyId).trigger('change');
+        if (disabled){
+            $("#select-city").attr('disabled', 'disabled');
+        }
         setTimeout(function () {
-            setDistrict(districtId, villageId);
+            setDistrict(districtId, villageId, disabled);
         }, 1000)
     }
 
-    function setProvince(provinceId, regencyId, districtId, villageId) {
+    function setProvince(provinceId, regencyId, districtId, villageId, disabled = false) {
         $("#select-province").val(provinceId).trigger('change');
+        if (disabled){
+            $("#select-province").attr('disabled', 'disabled');
+        }
         setTimeout(function () {
-            setCity(regencyId, districtId, villageId);
+            setCity(regencyId, districtId, villageId, disabled);
         }, 1000)
     }
 
@@ -835,7 +847,7 @@
                     $('.btn-same-address').prop('checked', true);
                 }
                 setProvince(response.province, response.regency, response.district, response
-                    .village);
+                    .village, true);
                 $('#modal-cari-data').modal('hide');
             }
         });
