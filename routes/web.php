@@ -5,6 +5,9 @@ use App\Http\Controllers\AntreanController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DiagnosaController;
 use App\Http\Controllers\DokterController;
+use App\Http\Controllers\PekerjaanController;
+use App\Http\Controllers\RumahsakitController;
+use App\Http\Controllers\RujukanController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KlpcmController;
 use App\Http\Controllers\KunjunganController;
@@ -71,6 +74,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('kunjungan', [KunjunganController::class, 'index'])->name('kunjungan_pasien');
     Route::get('kunjungan/create/{param}/{type?}', [KunjunganController::class, 'create'])->name('kunjungan_pasien_create');
+    Route::get('kunjungan/delete/{param}', [KunjunganController::class, 'delete'])->name('kunjungan_pasien_delete');
     Route::post('kunjungan/pasien/save', [KunjunganController::class, 'store'])->name('kunjungan_pasien_save');
     Route::get('kunjungans/klpcm/{param}', [KunjunganController::class, 'klpcm'])->name('kunjungan_klpcm');
     Route::get('kunjungans/harian/{param}', [KunjunganController::class, 'index'])->name('kunjunganHarian');
@@ -116,6 +120,30 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('dokter/update', [DokterController::class, 'update'])->name('update_dokter');
     Route::get('dokter/destroy/{param}', [DokterController::class, 'delete'])->name('delete_dokter');
     Route::get('dokter/dtAjax', [DokterController::class, 'dtAjax'])->name('ajax_load_dokter');
+
+    Route::get('pekerjaan', [PekerjaanController::class, 'index'])->name('show_pekerjaan');
+    Route::get('pekerjaan/create', [PekerjaanController::class, 'create'])->name('create_pekerjaan');
+    Route::post('pekerjaan/save', [PekerjaanController::class, 'store'])->name('save_pekerjaan');
+    Route::get('pekerjaan/edit/{param}', [PekerjaanController::class, 'edit'])->name('edit_pekerjaan');
+    Route::post('pekerjaan/update', [PekerjaanController::class, 'update'])->name('update_pekerjaan');
+    Route::get('pekerjaan/destroy/{param}', [PekerjaanController::class, 'delete'])->name('delete_pekerjaan');
+    Route::get('pekerjaan/dtAjax', [PekerjaanController::class, 'dtAjax'])->name('ajax_load_pekerjaan');
+
+    Route::get('rumahsakit', [RumahsakitController::class, 'index'])->name('show_rumahsakit');
+    Route::get('rumahsakit/create', [RumahsakitController::class, 'create'])->name('create_rumahsakit');
+    Route::post('rumahsakit/save', [RumahsakitController::class, 'store'])->name('save_rumahsakit');
+    Route::get('rumahsakit/edit/{param}', [RumahsakitController::class, 'edit'])->name('edit_rumahsakit');
+    Route::post('rumahsakit/update', [RumahsakitController::class, 'update'])->name('update_rumahsakit');
+    Route::get('rumahsakit/destroy/{param}', [RumahsakitController::class, 'delete'])->name('delete_rumahsakit');
+    Route::get('rumahsakit/dtAjax', [RumahsakitController::class, 'dtAjax'])->name('ajax_load_rumahsakit');
+
+    Route::get('poli-rujukan', [RujukanController::class, 'index'])->name('show_poli_rujukan');
+    Route::get('poli-rujukan/create', [RujukanController::class, 'create'])->name('create_poli_rujukan');
+    Route::post('poli-rujukan/save', [RujukanController::class, 'store'])->name('save_poli_rujukan');
+    Route::get('poli-rujukan/edit/{param}', [RujukanController::class, 'edit'])->name('edit_poli_rujukan');
+    Route::post('poli-rujukan/update', [RujukanController::class, 'update'])->name('update_poli_rujukan');
+    Route::get('poli-rujukan/destroy/{param}', [RujukanController::class, 'delete'])->name('delete_poli_rujukan');
+    Route::get('poli-rujukan/dtAjax', [RujukanController::class, 'dtAjax'])->name('ajax_load_poli_rujukan');
 
     Route::get('diagnosa', [DiagnosaController::class, 'index'])->name('show_diagnosa');
     Route::get('diagnosa/create', [DiagnosaController::class, 'create'])->name('create_diagnosa');

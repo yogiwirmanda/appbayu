@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kunjungan;
+use App\Models\Klpcm;
 use App\Models\Pasien;
 use App\Models\Poli;
 use App\Models\SuratSehat;
@@ -68,6 +69,7 @@ class KunjunganController extends Controller
                 ->addColumn('action', function ($row) {
                     $urlKelengkapan = route('kunjungan_klpcm', $row->kunjunganId);
                     $urlDetail = route("klpcm_index", $row->kunjunganId);
+                    $urlDelete = route("kunjungan_pasien_delete", $row->kunjunganId);
                     $urlSS = route("pasien_download_ss", $row->kunjunganId);
                     $urlCatin = route("pasien_download_catin", $row->kunjunganId);
                     $actionBtn = '<div class="d-flex justify-content-evenly">';
@@ -82,6 +84,7 @@ class KunjunganController extends Controller
                             $actionBtn .= '<a href='.$urlDetail.' class="table-action btn btn-xs btn-pill btn-info"><i class="fa fa-pencil-square-o"></i> Detail</a>';
                         }
                     }
+                    $actionBtn .= '<a href='.$urlDelete.' class="table-action btn btn-xs btn-pill btn-danger"> Hapus</a>';
 
                     $actionBtn .= '</div>';
                     return $actionBtn;
@@ -215,5 +218,22 @@ class KunjunganController extends Controller
         $umur = $dateDiff->y . ' Tahun '. $dateDiff->m. ' Bulan '. $dateDiff->d . ' Hari';
         $type = (int) $type;
         return view('kunjungan.kunjungan', compact('title', 'dataPasien', 'dataPoli', 'idPasien', 'type', 'umur', 'navActive'));
+    }
+
+    public function delete($kunjunganId)
+    {
+        $errCode = 0;
+        $dataKunjungan = Kunjungan::find($kunjunganId);
+        $dataKunjungan->delete();
+        $dataKlpcm = Klpcm::where('id_kunjungan', $kunjunganId)->first();
+        if ($dataKlpcm){
+
+            $dataKlpcm->delete();
+        }
+
+        $data['errCode'] = $errCode;
+        $data['data'] = $dataKunjungan;
+
+        return json_encode($data);
     }
 }
