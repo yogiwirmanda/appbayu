@@ -668,7 +668,7 @@ class LaporanController extends Controller
         }
         $totalDayInMonth = cal_days_in_month(CAL_GREGORIAN, $monthNow, $yearNow);
 
-        for ($i=1; $i < $totalDayInMonth; $i++) {
+        for ($i=1; $i <= $totalDayInMonth; $i++) {
             $age6Start = $yearNow - 6;
             $age55Start = $yearNow - 55;
             $ageMoreThan60 = $yearNow - 60;
