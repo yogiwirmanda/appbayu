@@ -28,16 +28,24 @@
               <span>Master</span>
             </a>
             <ul class="sidebar-submenu">
-              <li><a href="/dokter">Dokter</a></li>
-              <li><a href="/pasien">Pasien</a></li>
-              <li><a href="/prolanis">Prolanis</a></li>
-              <li><a href="/prb">PRB</a></li>
               <li><a href="/poli">Poli</a></li>
               <li><a href="/diagnosa">Diagnosa</a></li>
               <li><a href="/obat">Obat</a></li>
               <li><a href="/poli-rujukan">Poli Rujukan</a></li>
               <li><a href="/pekerjaan">Pekerjaan</a></li>
               <li><a href="/rumahsakit">Rumah Sakit</a></li>
+            </ul>
+          </li>
+          <li class="sidebar-list">
+            <a class="sidebar-link sidebar-title" href="javascript:;">
+              <i data-feather="book"></i>
+              <span>Data</span>
+            </a>
+            <ul class="sidebar-submenu">
+              <li><a href="/pasien">Pasien</a></li>
+              <li><a href="/dokter">Dokter</a></li>
+              <li><a href="/prolanis">Prolanis</a></li>
+              <li><a href="/prb">PRB</a></li>
             </ul>
           </li>
           <li class="sidebar-list">

@@ -25,7 +25,7 @@ class KlpcmController extends Controller
             ->join('pasiens', 'kunjungans.id_pasien', '=', 'pasiens.id')
             ->join('polis', 'kunjungans.id_poli', '=', 'polis.id')
             ->where('kunjungans.id', '=', $idKunjungan)
-            ->select('kunjungans.*', 'pasiens.*', 'pasiens.nama as nama_pasien', 'polis.nama as namaPoli', 'kunjungans.id as kunjunganId')
+            ->select('kunjungans.*', 'pasiens.*', 'pasiens.nama as nama_pasien', 'pasiens.tgl_lahir as tgl_lahir', 'polis.nama as namaPoli', 'kunjungans.id as kunjunganId')
             ->first();
         $dataKLPCM = Klpcm::where('id_kunjungan', '=', $idKunjungan)->first();
         $suratSehat = 0;

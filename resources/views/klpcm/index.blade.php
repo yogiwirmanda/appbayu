@@ -1,7 +1,7 @@
 @extends('master.main')
 @section('content')
 @php
-    $dataDiagnosa = json_decode($dataKunjungan->diagnosa);
+$dataDiagnosa = json_decode($dataKunjungan->diagnosa);
 @endphp
 <div class="container-fluid">
     <div class="page-title">
@@ -78,65 +78,76 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label>Rujukan</label>
-                                            <select name="status_rujukan" id="status_rujukan" class="form-control select2" disabled>
-                                                <option value="1" <?php echo($dataKLPCM->status_rujukan == 1) ? 'selected' : '' ?>>Dirujuk</option>
-                                                <option value="0" <?php echo($dataKLPCM->status_rujukan == 0) ? 'selected' : '' ?>>Tidak</option>
+                                            <select name="status_rujukan" id="status_rujukan"
+                                                class="form-control select2" disabled>
+                                                <option value="1" <?php echo($dataKLPCM->status_rujukan == 1) ?
+                                                    'selected' : '' ?>>Dirujuk</option>
+                                                <option value="0" <?php echo($dataKLPCM->status_rujukan == 0) ?
+                                                    'selected' : '' ?>>Tidak</option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row rujukan-form <?php echo($dataKLPCM->status_rujukan == 1) ? '' : 'd-none' ?>">
+                                <div
+                                    class="row rujukan-form <?php echo($dataKLPCM->status_rujukan == 1) ? '' : 'd-none' ?>">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label>Poli Rujukan</label>
-                                            <input type="text" name="poli_rujukan" id="poli_rujukan" class="form-control" value="{{$dataKLPCM->poli_rujukan}}" readonly>
+                                            <input type="text" name="poli_rujukan" id="poli_rujukan"
+                                                class="form-control" value="{{$dataKLPCM->poli_rujukan}}" readonly>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row rujukan-form <?php echo($dataKLPCM->status_rujukan == 1) ? '' : 'd-none' ?>">
+                                <div
+                                    class="row rujukan-form <?php echo($dataKLPCM->status_rujukan == 1) ? '' : 'd-none' ?>">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label>RS Rujukan</label>
-                                            <input type="text" name="rs_rujukan" id="rs_rujukan" class="form-control" value="{{$dataKLPCM->rs_rujukan}}" readonly>
+                                            <input type="text" name="rs_rujukan" id="rs_rujukan" class="form-control"
+                                                value="{{$dataKLPCM->rs_rujukan}}" readonly>
                                         </div>
                                     </div>
                                 </div>
                                 @if ($dataKunjungan->status_prolanis == 1)
-                                    @if($dataKunjungan->keterangan_prolanis)
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label>GDP</label>
-                                                    <input type="text" name="gdp" id="gdp" class="form-control" readonly value="{{$dataKunjungan->gdp}}">
-                                                </div>
-                                            </div>
+                                @if($dataKunjungan->keterangan_prolanis)
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>GDP</label>
+                                            <input type="text" name="gdp" id="gdp" class="form-control" readonly
+                                                value="{{$dataKunjungan->gdp}}">
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label>HBA1C</label>
-                                                    <input type="text" name="hba1c" id="hba1c" class="form-control" readonly value="{{$dataKunjungan->hba1c}}">
-                                                </div>
-                                            </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>HBA1C</label>
+                                            <input type="text" name="hba1c" id="hba1c" class="form-control" readonly
+                                                value="{{$dataKunjungan->hba1c}}">
                                         </div>
-                                    @else
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label>Kontrol</label>
-                                                    <input type="text" name="kontrol" id="kontrol" class="form-control" readonly value="{{$dataKunjungan->kontrol}}">
-                                                </div>
-                                            </div>
+                                    </div>
+                                </div>
+                                @else
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Kontrol</label>
+                                            <input type="text" name="kontrol" id="kontrol" class="form-control" readonly
+                                                value="{{$dataKunjungan->kontrol}}">
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label>Kimia Darah</label>
-                                                    <input type="text" name="kimia_darah" id="kimia_darah" class="form-control" readonly value="{{$dataKunjungan->kimia_darah}}">
-                                                </div>
-                                            </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Kimia Darah</label>
+                                            <input type="text" name="kimia_darah" id="kimia_darah" class="form-control"
+                                                readonly value="{{$dataKunjungan->kimia_darah}}">
                                         </div>
-                                    @endif
+                                    </div>
+                                </div>
+                                @endif
                                 @endif
                                 @endif
                             </div>
@@ -163,7 +174,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label>Alamat</label>
-                                            <textarea id="alamat" class="form-control" cols="30" rows="10"
+                                            <textarea id="alamat" class="form-control mb-2" cols="30" rows="3"
                                                 readonly>{{$dataKunjungan->alamat}}</textarea>
                                         </div>
                                     </div>
@@ -177,16 +188,18 @@
                                     <div class="row my-3">
                                         <div class="col-12">
                                             @if ($dataDiagnosa != null)
-                                                @foreach($dataDiagnosa as $data)
-                                                <div class="row row-diagnosa mb-2">
-                                                    <div class="col-3 col-md-3 col-sm-3">
-                                                        <input type="text" name="kodeIcd" class="form-control" value="{{$data->kode_icd}}" readonly>
-                                                    </div>
-                                                    <div class="col-6 col-md-6 col-sm-6">
-                                                        <input type="text" name="diagnosa" class="form-control" value="{{$data->diagnosa}}" readonly>
-                                                    </div>
+                                            @foreach($dataDiagnosa as $data)
+                                            <div class="row row-diagnosa mb-2">
+                                                <div class="col-3 col-md-3 col-sm-3">
+                                                    <input type="text" name="kodeIcd" class="form-control"
+                                                        value="{{$data->kode_icd}}" readonly>
                                                 </div>
-                                                @endforeach
+                                                <div class="col-6 col-md-6 col-sm-6">
+                                                    <input type="text" name="diagnosa" class="form-control"
+                                                        value="{{$data->diagnosa}}" readonly>
+                                                </div>
+                                            </div>
+                                            @endforeach
                                             @endif
                                         </div>
                                     </div>
@@ -310,8 +323,8 @@
 @endsection
 @section('page-scripts')
 @if($suratSehat == 0)
-    <script>
-        var klnama = "<?php echo $dataKLPCM->klnama ?>";
+<script>
+    var klnama = "<?php echo $dataKLPCM->klnama ?>";
         var klnorm = "<?php echo $dataKLPCM->klnorm ?>";
         var kltgllahir = "<?php echo $dataKLPCM->kltgl_lahir ?>";
         var kljk = "<?php echo $dataKLPCM->kljk ?>";
@@ -342,6 +355,16 @@
         $("input[name='kldy'][value='" + kldy + "']").prop('checked', true);
         $("input[name='namaPetugas'][value='" + klnamaPetugas + "']").prop('checked', true);
         $("input[name='ttdPetugas'][value='" + klttdPetugas + "']").prop('checked', true);
-    </script>
+</script>
 @endif
+<script>
+    $(document).ready(function(e){
+        var getDate = '<?php echo $dataKunjungan->tgl_lahir ?>';
+        var getSplit = getDate.split('-');
+        var date = new Date();
+        var getYear = date.getFullYear();
+        var age = parseInt(getYear - getSplit[0]);
+        $('#umur').val(age);
+    })
+</script>
 @endsection
