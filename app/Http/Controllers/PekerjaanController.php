@@ -29,10 +29,8 @@ class PekerjaanController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
                     $urlEdit = route('edit_pekerjaan', $row->id);
-                    $actionBtn = '<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Aksi</button><div class="dropdown-menu">';
-                    $actionBtn .= '<a href="'.$urlEdit.'" class="dropdown-item table-action">Edit</a>';
-                    $actionBtn .= '<a href="javascript:;" class="dropdown-item table-action table-action-delete" data-pekerjaan-id='.$row->id.' data-pekerjaan-nama='.$row->pekerjaan.'>Hapus</a>';
-                    $actionBtn .= '</div>';
+                    $actionBtn = '<a href="'.$urlEdit.'" class="btn btn-primary m-r-10 table-action">Edit</a>';
+                    $actionBtn .= '<a href="javascript:;" class="btn btn-danger table-action table-action-delete" data-pekerjaan-id='.$row->id.' data-pekerjaan-nama='.$row->pekerjaan.'>Hapus</a>';
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])

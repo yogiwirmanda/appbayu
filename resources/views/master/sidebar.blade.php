@@ -31,8 +31,8 @@
               <li><a href="/poli">Poli</a></li>
               <li><a href="/diagnosa">Diagnosa</a></li>
               <li><a href="/obat">Obat</a></li>
-              <li><a href="/poli-rujukan">Poli Rujukan</a></li>
               <li><a href="/pekerjaan">Pekerjaan</a></li>
+              <li><a href="/poli-rujukan">Poli Rujukan</a></li>
               <li><a href="/rumahsakit">Rumah Sakit</a></li>
             </ul>
           </li>
