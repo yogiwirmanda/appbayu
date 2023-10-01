@@ -149,6 +149,8 @@
                                                 <option value="tidak-memilih">Tidak Memilih</option>
                                                 <option value="kawin">Kawin</option>
                                                 <option value="belum">Belum Kawin</option>
+                                                <option value="cerai-hidup">Cerai Hidup</option>
+                                                <option value="cerai-mati">Cerai Mati</option>
                                             </select>
                                         </div>
                                     </div>
