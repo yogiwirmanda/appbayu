@@ -54,7 +54,7 @@ $tanggal = Date('Y-m-d');
               <div class="details">
                 <div class="row">
                   <div class="col-3"><span> Kepala Keluarga</span></div>
-                  <div class="col-9">{{$pasien->no_rm}}</div>
+                  <div class="col-9">{{$pasien->kepala_keluarga}}</div>
                 </div>
                 <div class="row">
                   <div class="col-3"><span> No KTP</span></div>
@@ -87,27 +87,27 @@ $tanggal = Date('Y-m-d');
               <div class="row mt-4">
                 <div class="col-md-3">
                   <a href="/pasien/download/gigimulut/{{$pasien->id}}" target="_blank"
-                    class="btn btn-primary btn-download-poli-gigi">Poli Gigi & Mulut</a>
+                    class="btn btn-primary mb-2 btn-download-poli-gigi">Poli Gigi & Mulut</a>
                 </div>
                 <div class="col-md-3">
                   <a href="/pasien/download/ci/{{$pasien->id}}" target="_blank"
-                    class="btn btn-primary btn-download-catatan-integrasi">Catatan Integrasi</a>
+                    class="btn btn-primary mb-2 btn-download-catatan-integrasi">Catatan Integrasi</a>
                 </div>
                 <div class="col-md-3">
                   <a href="/pasien/download/ci2/{{$pasien->id}}" target="_blank"
-                    class="btn btn-primary btn-download-catatan-integrasi-2">Catatan Integrasi 2</a>
+                    class="btn btn-primary mb-2 btn-download-catatan-integrasi-2">Catatan Integrasi 2</a>
                 </div>
                 <div class="col-md-3">
                   <a href="/pasien/download/cet/{{$pasien->id}}" target="_blank"
-                    class="btn btn-primary btn-download-catatan-integrasi-2">Catatan Edukasi Terintegrasi</a>
+                    class="btn btn-primary mb-2 btn-download-catatan-integrasi-2">Catatan Edukasi Terintegrasi</a>
                 </div>
                 <div class="col-md-3">
                   <a href="/pasien/download/gc/{{$pasien->id}}" target="_blank"
-                    class="btn btn-primary btn-download-catatan-integrasi-2">General Consent</a>
+                    class="btn btn-primary mb-2 btn-download-catatan-integrasi-2">General Consent</a>
                 </div>
                 <div class="col-md-3">
                   <a href="/pasien/download/pak/{{$pasien->id}}" target="_blank"
-                    class="btn btn-primary btn-download-catatan-integrasi-2">Pengkajian Awal Klinis</a>
+                    class="btn btn-primary mb-2 btn-download-catatan-integrasi-2">Pengkajian Awal Klinis</a>
                 </div>
                 @if($pasien->status_prolanis == 1)
                 <div class="col-md-3">
