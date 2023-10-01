@@ -670,7 +670,7 @@ class PasienController extends Controller
         if (strlen($namaPasien) > 0) {
             $result = $result->orWhere('nama', 'like', '%'.$namaPasien.'%');
         }
-        $result = $result->get();
+        $result = $result->groupBy('no_rm')->get();
 
         echo json_encode($result);
     }

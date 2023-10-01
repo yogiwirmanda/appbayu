@@ -7,8 +7,9 @@
     }
 
     .print-area {
+        padding-top: 10px;
         width: 264.56692913px;
-        height: 188.97637795px;
+        height: 150.97637795px;
         border: 1px solid black;
     }
 
@@ -43,16 +44,15 @@
     }
 </style>
 <div class="print-area">
-    <div class="base-text title">Puskesmas Rampal Celaket</div>
     <div class="info">
         <div>{{$modelPasien->no_rm}}</div>
         <div>{{$modelPasien->jk}}</div>
     </div>
+    <div class="base-text nama">{{$modelPasien->nama}}</div>
+    <div class="base-text nik">NIK. {{$modelPasien->no_ktp}}</div>
     <div class="base-text">
         <div>{{Date('d-m-Y', strtotime($modelPasien->tgl_lahir))}}</div>
     </div>
-    <div class="base-text nama">{{$modelPasien->nama}}</div>
-    <div class="base-text nik">NIK. {{$modelPasien->no_ktp}}</div>
     <div class="base-text alamat">{{$modelPasien->alamat}} RT {{$modelPasien->rt}} RW {{$modelPasien->rw}}</div>
 </div>
 @endsection

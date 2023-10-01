@@ -53,7 +53,7 @@
                                             <label class="col-form-label">Nama KK</label>
                                             <input type="text" name="kepala_keluarga" id="kepalaKeluarga"
                                                 class="form-control input-form-kepala_keluarga"
-                                                placeholder="Nama Kepala Keluarga">
+                                                placeholder="Nama Kepala Keluarga" maxlength="16">
                                             <div class="invalid-feedback">Nama KK wajib di isi</div>
                                         </div>
                                     </div>
@@ -190,7 +190,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Cara Bayar</label>
-                                            <select name="cara_bayar" id="caraBayar" class="form-control">
+                                            <select name="cara_bayar" id="caraBayar" class="form-control select2">
                                                 <option value="UMUM">UMUM</option>
                                                 <option value="BPJS">BPJS</option>
                                                 <option value="UKS">UKS</option>
@@ -203,7 +203,8 @@
                                         <div class="form-group">
                                             <label class="col-form-label">No BPJS</label>
                                             <input type="text" name="no_bpjs" id="noBpjs" value=""
-                                                class="form-control input-form-no_bpjs" placeholder="No BPJS">
+                                                class="form-control input-form-no_bpjs" placeholder="No BPJS"
+                                                maxlength="13">
                                             <div class="invalid-feedback">No BPJS wajib di isi</div>
                                         </div>
                                     </div>
