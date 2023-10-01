@@ -31,7 +31,8 @@
                                     <label class="form-label">Nama KK</label>
                                     <input type="text" name="kepala_keluarga" id="kepalaKeluarga"
                                         class="form-control input-form-kepala_keluarga"
-                                        placeholder="Nama Kepala Keluarga" value="{{$pasiens->kepala_keluarga}}">
+                                        placeholder="Nama Kepala Keluarga" value="{{$pasiens->kepala_keluarga}}"
+                                        maxlength="16">
                                     <div class="invalid-feedback">Nama KK wajib di isi</div>
                                 </div>
                             </div>
@@ -192,7 +193,7 @@
                                 <div class="form-group">
                                     <label class="form-label">No BPJS</label>
                                     <input type="text" name="no_bpjs" id="noBpjs" value=""
-                                        class="form-control input-form-no_bpjs" placeholder="No BPJS">
+                                        class="form-control input-form-no_bpjs" placeholder="No BPJS" maxlength="13">
                                     <div class="invalid-feedback">No BPJS wajib di isi</div>
                                 </div>
                             </div>

@@ -157,6 +157,7 @@
                 {
                     data: 'tgl_lahir',
                     name: 'tgl_lahir',
+                    width : '80px',
                     searchable: false
                 },
                 {
@@ -165,6 +166,7 @@
                     searchable: false
                 },
                 {
+                    width : '80px',
                     render: function (data, type, row) {
                         let badgePembayaran = '<div class="badge badge-primary">'+row.cara_bayar+'</div>';
                         if (row.cara_bayar == 'BPJS'){
