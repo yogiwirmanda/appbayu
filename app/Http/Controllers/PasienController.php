@@ -9,6 +9,7 @@ use App\Models\Kunjungan;
 use App\Models\Pasien;
 use App\Models\Antrean;
 use App\Models\PasienAdmin;
+use App\Models\Pekerjaan;
 use App\Models\Poli;
 use App\Models\Province;
 use App\Models\Regency;
@@ -139,8 +140,9 @@ class PasienController extends Controller
         $dataProvince = Province::all();
         $dataWilayah = Wilayah::all();
         $navActive = $this->navActive;
+        $dataPekerjaan = Pekerjaan::all();
 
-        return view('pasien.create', compact('dataWilayah', 'dataProvince', 'navActive'));
+        return view('pasien.create', compact('dataWilayah', 'dataProvince', 'navActive', 'dataPekerjaan'));
     }
 
     public function createAdmin()

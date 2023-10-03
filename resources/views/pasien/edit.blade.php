@@ -31,8 +31,7 @@
                                     <label class="form-label">Nama KK</label>
                                     <input type="text" name="kepala_keluarga" id="kepalaKeluarga"
                                         class="form-control input-form-kepala_keluarga"
-                                        placeholder="Nama Kepala Keluarga" value="{{$pasiens->kepala_keluarga}}"
-                                        maxlength="16">
+                                        placeholder="Nama Kepala Keluarga" value="{{$pasiens->kepala_keluarga}}">
                                     <div class="invalid-feedback">Nama KK wajib di isi</div>
                                 </div>
                             </div>
@@ -56,7 +55,7 @@
                                     <div class="form-group">
                                         <label class="form-label">No KTP</label>
                                         <input type="text" name="no_ktp" id="noKtp" class="form-control"
-                                            placeholder="NIK KTP" value="{{$pasiens->no_ktp}}">
+                                            placeholder="NIK KTP" value="{{$pasiens->no_ktp}}" maxlength="16">
                                     </div>
                                 </div>
                             </div>

@@ -109,8 +109,11 @@ $umur = $yearNow - $yearPasien;
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Poli Rujukan</label>
-                                            <input type="text" name="poli_rujukan" id="poli_rujukan"
-                                                class="form-control" value="">
+                                            <select name="poli_rujukan" id="poli_rujukan" class="form-control select2">
+                                                @foreach($dataPoliRujukan as $rujukan)
+                                                <option value="{{$rujukan->id}}">{{$rujukan->rujukan}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -118,8 +121,11 @@ $umur = $yearNow - $yearPasien;
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="col-form-label">RS Rujukan</label>
-                                            <input type="text" name="rs_rujukan" id="rs_rujukan" class="form-control"
-                                                value="">
+                                            <select name="rs_rujukan" id="rs_rujukan" class="form-control select2">
+                                                @foreach($dataRumahsakit as $tumahsakit)
+                                                <option value="{{$tumahsakit->id}}">{{$tumahsakit->rumahsakit}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                 </div>

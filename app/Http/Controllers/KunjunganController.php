@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Kunjungan;
 use App\Models\Klpcm;
 use App\Models\Pasien;
+use App\Models\Rujukan;
+use App\Models\Rumahsakit;
 use App\Models\Poli;
 use App\Models\SuratSehat;
 use Carbon\Carbon;
@@ -201,7 +203,9 @@ class KunjunganController extends Controller
                 ->where('kunjungans.id', '=', $idKunjungan)
                 ->select('kunjungans.*', 'pasiens.*', 'pasiens.nama as nama_pasien', 'polis.nama as namaPoli', 'kunjungans.id as kunjunganId')
                 ->first();
-        return view('klpcm.create', compact('title', 'dataKunjungan', 'idKunjungan', 'navActive'));
+        $dataPoliRujukan = Rujukan::all();
+        $dataRumahsakit = Rumahsakit::all();
+        return view('klpcm.create', compact('title', 'dataKunjungan', 'idKunjungan', 'navActive', 'dataPoliRujukan', 'dataRumahsakit'));
     }
 
     public function formKunjungan()

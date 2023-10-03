@@ -53,7 +53,7 @@
                                             <label class="col-form-label">Nama KK</label>
                                             <input type="text" name="kepala_keluarga" id="kepalaKeluarga"
                                                 class="form-control input-form-kepala_keluarga"
-                                                placeholder="Nama Kepala Keluarga" maxlength="16">
+                                                placeholder="Nama Kepala Keluarga">
                                             <div class="invalid-feedback">Nama KK wajib di isi</div>
                                         </div>
                                     </div>
@@ -64,7 +64,7 @@
                                             <div class="form-group">
                                                 <label class="col-form-label">No KTP</label>
                                                 <input type="text" name="no_ktp" id="noKtp" class="form-control"
-                                                    placeholder="NIK KTP">
+                                                    placeholder="NIK KTP" maxlength="16">
                                             </div>
                                         </div>
                                     </div>
@@ -159,7 +159,12 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Pekerjaan</label>
-                                            <input type="text" name="pekerjaan" id="pekerjaan" class="form-control">
+                                            <select name="pekerjaan" id="pekerjaan" class="form-control select2">
+                                                <option value="tidak-memilih">Tidak Bekerja</option>
+                                                @foreach($dataPekerjaan as $pekerjaan)
+                                                <option value="{{$pekerjaan->id}}">{{$pekerjaan->pekerjaan}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                 </div>

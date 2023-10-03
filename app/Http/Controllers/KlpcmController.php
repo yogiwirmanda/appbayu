@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Diagnosa;
 use App\Models\Klpcm;
 use App\Models\Kunjungan;
+use App\Models\Rujukan;
+use App\Models\Rumahsakit;
 use App\Models\Obat;
 use App\Models\Pasien;
 use Illuminate\Http\Request;
@@ -28,12 +30,14 @@ class KlpcmController extends Controller
             ->select('kunjungans.*', 'pasiens.*', 'pasiens.nama as nama_pasien', 'pasiens.tgl_lahir as tgl_lahir', 'polis.nama as namaPoli', 'kunjungans.id as kunjunganId')
             ->first();
         $dataKLPCM = Klpcm::where('id_kunjungan', '=', $idKunjungan)->first();
+        $dataPoliRujukan = Rujukan::all();
+        $dataRumahsakit = Rumahsakit::all();
         $suratSehat = 0;
         if ($dataKunjungan->diagnosa_main == 435){
             $suratSehat = 1;
         }
 
-        return view('klpcm.index', compact('title', 'dataKunjungan', 'idKunjungan', 'dataKLPCM', 'nav', 'suratSehat'));
+        return view('klpcm.index', compact('title', 'dataKunjungan', 'idKunjungan', 'dataKLPCM', 'nav', 'suratSehat', 'dataPoliRujukan', 'dataRumahsakit'));
     }
 
 
