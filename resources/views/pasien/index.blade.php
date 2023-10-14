@@ -179,12 +179,16 @@
                     // Define the custom action column
                     // Use the "render" function to generate custom content
                     render: function (data, type, row) {
+                        let classEdit = 'btn-info';
+                        if(row.is_data_complete == 0){
+                            classEdit = 'btn-warning';
+                        }
                         let urlKunjungan = '/kunjungan/create/' + row.id
                         let urlEdit = '/pasien/edit/' + row.id;
                         let urlSticker = '/pasien/print/sticker/' + row.id;
                         let actionBtn = '<div class="d-flex align-items-center justify-content-around"><a href='+urlKunjungan+' class="btn btn-sm btn-success" data-container="body" data-bs-toggle="tooltip" data-bs-placement="top" title="Kunjungan"><i class="fa fa-plane"></i></a>';
                         actionBtn += '<a href='+urlSticker+' target="_blank" class="btn btn-sm btn-primary" data-container="body" data-bs-toggle="tooltip" data-bs-placement="top" title="Cetak Sticker"><i class="fa fa-print"></i></a>';
-                        actionBtn += '<a href='+urlEdit+' class="btn btn-sm btn-info" data-container="body" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Pasien"><i class="fa fa-pencil"></i></a>';
+                        actionBtn += '<a href='+urlEdit+' class="btn btn-sm '+classEdit+'" data-container="body" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Pasien"><i class="fa fa-pencil"></i></a>';
                         actionBtn += '<a href="javascript:;" class="btn btn-sm btn-danger table-action-delete" data-container="body" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Pasien" data-pasien-id="'+row.id+'" data-pasien-nama="'+row.nama+'"><i class="fa fa-trash"></a></div>';
                         return actionBtn;
                     },

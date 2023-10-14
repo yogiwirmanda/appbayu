@@ -119,4 +119,24 @@ class UnitTestController extends Controller
             }
         }
     }
+
+    public function runCompleteData()
+    {
+        $modelPasien = Pasien::all();
+        foreach ($modelPasien as $key => $value) {
+            $nik = $value->no_ktp != null ? 1 : 0;
+            $norm = $value->no_rm != null ? 1 : 0;
+            $nama = $value->nama != null ? 1 : 0;
+            $kepala_keluarga = $value->kepala_keluarga != null ? 1 : 0;
+            $tgl_lahir = $value->tgl_lahir != null ? 1 : 0;
+            $alamat = $value->alamat != null ? 1 : 0;
+            $no_hp = $value->no_hp != null ? 1 : 0;
+            $total = $nik + $norm + $nama + $kepala_keluarga + $tgl_lahir + $alamat + $no_hp;
+            $modelUpdate = Pasien::find($value->id);
+            if ($total == 7){
+                $modelUpdate->is_data_complete = 1;
+                $modelUpdate->save();
+            }
+        }
+    }
 }

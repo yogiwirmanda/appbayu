@@ -218,6 +218,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('reformat/district', [UnitTestController::class, 'reformatDistrict'])->name('reformat_district');
     Route::get('reformat/head-rm', [UnitTestController::class, 'reformatHeadRM'])->name('reformat_head_rm');
     Route::get('reformat/no-urut', [UnitTestController::class, 'reformatNoUrut'])->name('reformat_no_urut');
+    Route::get('reformat/data', [UnitTestController::class, 'runCompleteData'])->name('runCompleteData');
 
     Route::get('reformat/tanggal', [UnitTestController::class, 'reformat'])->name('reformat');
     Route::get('count-tidak-lengkap/{idPoli}', [LaporanController::class, 'countTidakLengkap'])->name('count-tidak-lengkap');
