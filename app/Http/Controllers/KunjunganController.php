@@ -72,21 +72,23 @@ class KunjunganController extends Controller
                     $urlKelengkapan = route('kunjungan_klpcm', $row->kunjunganId);
                     $urlDetail = route("klpcm_index", $row->kunjunganId);
                     $urlDelete = route("kunjungan_pasien_delete", $row->kunjunganId);
+                    $urlEdit = route("kunjungan_pasien_edit", $row->kunjunganId);
                     $urlSS = route("pasien_download_ss", $row->kunjunganId);
                     $urlCatin = route("pasien_download_catin", $row->kunjunganId);
                     $actionBtn = '<div class="d-flex justify-content-evenly">';
+                    $actionBtn .= '<a href='.$urlEdit.' class="table-action btn btn-xs btn-pill btn-warning" data-container="body" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="fa fa-pencil"></i></a>';
                     if ($row->jpk == 2){
                         $actionBtn .= '<a href='.$urlSS.' class="table-action btn btn-xs btn-pill btn-primary"><i class="fa fa-print"></i> Surat Sehat</a>';
                     } else if(($row->jpk == 2)) {
                         $actionBtn .= '<a href='.$urlCatin.' class="table-action btn btn-xs btn-pill btn-info"><i class="fa fa-print"></i> Surat Catin</a>';
                     }else {
                         if ($row->is_edit === 0 && $row->diagnosa_main != 435) {
-                            $actionBtn .= '<a href='.$urlKelengkapan.' class="table-action btn btn-xs btn-pill btn-success"<i class="fa fa-plane"></i> Kelengkapan</a>';
+                            $actionBtn .= '<a href='.$urlKelengkapan.' class="table-action btn btn-xs btn-pill btn-success" data-container="body" data-bs-toggle="tooltip" data-bs-placement="top" title="Kelengkapan"><i class="fa fa-book"></i></a>';
                         } else {
-                            $actionBtn .= '<a href='.$urlDetail.' class="table-action btn btn-xs btn-pill btn-info"><i class="fa fa-pencil-square-o"></i> Detail</a>';
+                            $actionBtn .= '<a href='.$urlDetail.' class="table-action btn btn-xs btn-pill btn-info" data-container="body" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail"><i class="fa fa-eye"></i></a>';
                         }
                     }
-                    $actionBtn .= '<a href='.$urlDelete.' class="table-action btn btn-xs btn-pill btn-danger"> Hapus</a>';
+                    $actionBtn .= '<a href='.$urlDelete.' class="table-action btn btn-xs btn-pill btn-danger" data-container="body" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus"><i class="fa fa-trash"></i></a>';
 
                     $actionBtn .= '</div>';
                     return $actionBtn;
@@ -239,5 +241,39 @@ class KunjunganController extends Controller
         $data['data'] = $dataKunjungan;
 
         return json_encode($data);
+    }
+
+    public function edit($kunjunganId)
+    {
+        $navActive = $this->navActive;
+        $dataKunjungan = Kunjungan::find($kunjunganId);
+        $title = "Kunjungan Pasien";
+        $idPasien = $dataKunjungan->id_pasien;
+        $dataPasien = Pasien::find($idPasien);
+        $dataPoli = Poli::all();
+        $tglLahir = date_create($dataPasien->tgl_lahir);
+        $dateNow = date_create(Date('Y-m-d'));
+        $dateDiff = date_diff($tglLahir, $dateNow);
+        $umur = $dateDiff->y . ' Tahun '. $dateDiff->m. ' Bulan '. $dateDiff->d . ' Hari';
+        $type = 0;
+        return view('kunjungan.kunjungan-edit', compact('title', 'dataPasien', 'dataPoli', 'idPasien', 'type', 'umur', 'navActive', 'dataKunjungan', 'kunjunganId'));
+    }
+
+    public function update(Request $request)
+    {
+        $error = 0;
+        $modelKunjungan = Kunjungan::find($request->id_kunjungan);
+
+        if ($modelKunjungan != null) {
+            $modelKunjungan->id_poli = $request->poli;
+            $modelKunjungan->save();
+            return response()->json(
+                ['error'=> 0, 'messages'=>'Kunjungan berhasil di ubah', 'dataId' => $request->id_kunjungan],
+            );
+        } else {
+            return response()->json(
+                ['error'=> 1, 'messages'=>'Kunjungan gagal di ubah'],
+            );
+        }
     }
 }
