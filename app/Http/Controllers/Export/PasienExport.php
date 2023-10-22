@@ -3,6 +3,8 @@ namespace App\Http\Controllers\Export;
 
 use App\Models\Pasien;
 use App\Models\Kunjungan;
+use App\Models\Rujukan;
+use App\Models\Rumahsakit;
 use App\Models\Diagnosa;
 use App\Models\Klpcm;
 use Illuminate\Support\Facades\DB;
@@ -61,7 +63,9 @@ class PasienExport implements FromView
                 $diagnosaDetail = $modelDiagnosa->kode_icd;
             }
             if ($modelKlpcm){
-                $keteranganDetail = $modelKlpcm->poli_rujukan . ' - ' . $modelKlpcm->rs_rujukan;
+                $poliRujukan = Rujukan::find($modelKlpcm->poli_rujukan);
+                $rsRujukan = Rumahsakit::find($modelKlpcm->rs_rujukan);
+                $keteranganDetail = $poliRujukan->rujukan . ' - ' . $rsRujukan->rumahsakit;
             }
             $dataTemp = [];
             $dataAge = [];
