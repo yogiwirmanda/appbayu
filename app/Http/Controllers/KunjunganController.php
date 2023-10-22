@@ -88,7 +88,7 @@ class KunjunganController extends Controller
                             $actionBtn .= '<a href='.$urlDetail.' class="table-action btn btn-xs btn-pill btn-info" data-container="body" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail"><i class="fa fa-eye"></i></a>';
                         }
                     }
-                    $actionBtn .= '<a href='.$urlDelete.' class="table-action btn btn-xs btn-pill btn-danger" data-container="body" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus"><i class="fa fa-trash"></i></a>';
+                    $actionBtn .= '<a href='.$urlDelete.' class="table-action-delete btn btn-xs btn-pill btn-danger" data-container="body" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus"><i class="fa fa-trash"></i></a>';
 
                     $actionBtn .= '</div>';
                     return $actionBtn;
@@ -240,7 +240,9 @@ class KunjunganController extends Controller
         $data['errCode'] = $errCode;
         $data['data'] = $dataKunjungan;
 
-        return json_encode($data);
+        return redirect('/kunjungan');
+
+        // return json_encode($data);
     }
 
     public function edit($kunjunganId)

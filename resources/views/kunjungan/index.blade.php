@@ -257,5 +257,6 @@
     $('.btn-modal-cari').click(function (e) {
         $('#modal-cari-data').modal('show');
     });
+
 </script>
 @endsection

@@ -73,15 +73,6 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="form-label">Tempat Lahir</label>
-                                    <input type="text" name="tempat_lahir" id="tempatLahir" class="form-control"
-                                        placeholder="Tempat Lahir" value="{{$pasiens->tempat_lahir}}">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
                                     <label class="form-label">Tanggal Lahir</label>
                                     <div class="d-flex">
                                         <input type="date" name="tgl_lahir" id="tglLahir" class="form-control"
@@ -147,9 +138,14 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="form-label">Pekerjaan</label>
-                                    <input type="text" name="pekerjaan" id="pekerjaan" class="form-control"
-                                        value="{{$pasiens->pekerjaan}}">
+                                    <label class="col-form-label">Pekerjaan</label>
+                                    <select name="pekerjaan" id="pekerjaan" class="form-control select2">
+                                        <option value="tidak-memilih">Tidak Bekerja</option>
+                                        @foreach($dataPekerjaan as $pekerjaan)
+                                        <option value="{{$pekerjaan->id}}" {{($pekerjaan->id = $pasiens->pekerjaan) ?
+                                            'selected' : ''}}>{{$pekerjaan->pekerjaan}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>

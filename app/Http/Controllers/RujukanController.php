@@ -30,7 +30,7 @@ class RujukanController extends Controller
                 ->addColumn('action', function ($row) {
                     $urlEdit = route('edit_poli_rujukan', $row->id);
                     $actionBtn = '<a href="'.$urlEdit.'" class="btn btn-success m-r-10 table-action">Edit</a>';
-                    $actionBtn .= '<a href="javascript:;" class="btn btn-danger table-action table-action-delete" data-rujukan-id='.$row->id.' data-rujukan-nama='.$row->rujukan.'>Hapus</a>';
+                    $actionBtn .= '<a href="javascript:;" class="btn btn-danger table-action table-action-delete" data-poli-rujukan-id='.$row->id.' data-poli-rujukan-nama='.$row->rujukan.'>Hapus</a>';
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])

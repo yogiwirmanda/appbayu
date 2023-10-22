@@ -240,6 +240,19 @@ class PasienController extends Controller
                 $kodeWilayah = 7;
             }
 
+            $nikR = $request->no_ktp != null ? 1 : 0;
+            $normR = $request->no_rm != null ? 1 : 0;
+            $namaR = $request->nama != null ? 1 : 0;
+            $kepala_keluargaR = $request->kepala_keluarga != null ? 1 : 0;
+            $tgl_lahirR = $request->tgl_lahir != null ? 1 : 0;
+            $alamatR = $request->alamat != null ? 1 : 0;
+            $no_hpR = $request->no_hp != null ? 1 : 0;
+            $totalR = $nikR + $normR + $namaR + $kepala_keluargaR + $tgl_lahirR + $alamatR + $no_hpR;
+            $isLengkap = 0;
+            if ($totalR == 7){
+                $isLengkap = 1;
+            }
+
             $dataStore = [];
             $dataStore['no_rm'] = strlen($request->noRm) > 0 ? $request->noRm : $noRm;
             $dataStore['no_urut'] = $lastRm;
@@ -263,6 +276,7 @@ class PasienController extends Controller
             $dataStore['province'] = $request->province;
             $dataStore['regency'] = $request->city;
             $dataStore['district'] = $request->district;
+            $dataStore['is_data_complete'] = $isLengkap;
             // $dataStore['kewarganegaraan'] = $request->warganegara;
             // $dataStore['gol_darah'] = $request->gol_darah;
             $dataStore['jenis_pasien'] = strlen($request->noRm) > 0 ? 1 : 0;
@@ -408,8 +422,9 @@ class PasienController extends Controller
             $dataVillages = Village::where('district_id', $pasiens->district)->get();
         }
         $navActive = $this->navActive;
+        $dataPekerjaan = Pekerjaan::all();
 
-        return view('pasien.edit', compact('pasiens', 'id', 'dataProvince', 'dataCity', 'dataDistrict', 'dataVillages', 'navActive'));
+        return view('pasien.edit', compact('pasiens', 'id', 'dataProvince', 'dataCity', 'dataDistrict', 'dataVillages', 'navActive', 'dataPekerjaan'));
     }
 
     public function choose($id)
