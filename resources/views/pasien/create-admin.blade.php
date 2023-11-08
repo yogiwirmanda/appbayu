@@ -143,6 +143,8 @@
                                                 <option value="tidak-memilih">Tidak Memilih</option>
                                                 <option value="kawin">Kawin</option>
                                                 <option value="belum">Belum Kawin</option>
+                                                <option value="cerai-hidup">Cerai Hidup</option>
+                                                <option value="cerai-mati">Cerai Mati</option>
                                             </select>
                                         </div>
                                     </div>
@@ -151,7 +153,12 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Pekerjaan</label>
-                                            <input type="text" name="pekerjaan" id="pekerjaan" class="form-control">
+                                            <select name="pekerjaan" id="pekerjaan" class="form-control select2">
+                                                <option value="tidak-memilih">Tidak Bekerja</option>
+                                                @foreach($dataPekerjaan as $pekerjaan)
+                                                <option value="{{$pekerjaan->id}}">{{$pekerjaan->pekerjaan}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                 </div>

@@ -150,8 +150,9 @@ class PasienController extends Controller
         $dataProvince = Province::all();
         $dataWilayah = Wilayah::all();
         $navActive = $this->navActive;
+        $dataPekerjaan = Pekerjaan::all();
 
-        return view('pasien.create-admin', compact('dataWilayah', 'dataProvince', 'navActive'));
+        return view('pasien.create-admin', compact('dataWilayah', 'dataProvince', 'navActive', 'dataPekerjaan'));
     }
 
 
