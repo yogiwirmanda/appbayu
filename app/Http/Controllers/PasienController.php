@@ -158,9 +158,9 @@ class PasienController extends Controller
 
     public function store(Request $request)
     {
-        $error = 0;
         $options = [];
         $optionsAdd = [];
+        $error = 0;
 
         $options = [
             'nama' => 'required',
@@ -277,13 +277,11 @@ class PasienController extends Controller
             $dataStore['province'] = $request->province;
             $dataStore['regency'] = $request->city;
             $dataStore['district'] = $request->district;
-            $dataStore['is_data_complete'] = $isLengkap;
-            // $dataStore['kewarganegaraan'] = $request->warganegara;
-            // $dataStore['gol_darah'] = $request->gol_darah;
             $dataStore['status_kawin'] = $request->status_kawin;
             $dataStore['jenis_pasien'] = strlen($request->noRm) > 0 ? 1 : 0;
             $dataStore['village'] = $request->villages;
             $dataStore['head_rm'] = strlen($request->noRm) > 0 ? $request->noRm : $headRm;
+            $dataStore['is_data_complete'] = self::checkPasienLengkap($request, $noRm);
 
             $modelPasien = Pasien::create($dataStore);
         }
@@ -393,6 +391,7 @@ class PasienController extends Controller
             $dataStore['status_prolanis'] = $request->prolanis;
             $dataStore['keterangan_prolanis'] = $request->status_prolanis;
             $dataStore['last_kunjungan'] = $request->kunjungan_terakhir;
+            $dataStore['is_data_complete'] = self::checkPasienLengkap($request, $noRm);
 
             $modelPasien = PasienAdmin::create($dataStore);
         }
@@ -400,6 +399,22 @@ class PasienController extends Controller
         return response()->json(
             ['error'=> $error, 'messages'=>'Pasien berhasil di tambahkan'],
         );
+    }
+
+    public function checkPasienLengkap($request, $noRm) {
+        $nik = $request->no_ktp != null ? 1 : 0;
+        $norm = $noRm != null ? 1 : 0;
+        $nama = $request->nama != null ? 1 : 0;
+        $kepala_keluarga = $request->kepala_keluarga != null ? 1 : 0;
+        $tgl_lahir = $request->tgl_lahir != null ? 1 : 0;
+        $alamat = $request->alamat != null ? 1 : 0;
+        $no_hp = $request->no_hp != null ? 1 : 0;
+        $total = $nik + $norm + $nama + $kepala_keluarga + $tgl_lahir + $alamat + $no_hp;
+        if ($total == 7){
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
     public function show($id)
