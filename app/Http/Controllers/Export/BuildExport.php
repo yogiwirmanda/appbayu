@@ -9,6 +9,13 @@ use Maatwebsite\Excel\Concerns\FromView;
 
 class BuildExport implements FromView
 {
+
+    protected $month;
+
+    function __construct($month) {
+        $this->month = $month;
+    }
+
     public function getDataFromAgeByDay($startDate, $endDate, $monthKunjungan, $jenisKasus)
     {
         $data = Kunjungan::select(DB::raw('SUM(CASE WHEN p.jk = "L" then 1 ELSE 0 END) as male, SUM(CASE WHEN p.jk = "P" then 1 ELSE 0 END) as female, count(p.id) as total'))
@@ -62,7 +69,7 @@ class BuildExport implements FromView
         $endDateFrom69Year = Date('Y-m-d', strtotime(' - 69 year'));
         $startDateFrom70Year = Date('Y-m-d', strtotime(' - 70 year'));
         $endDateFrom150Year = Date('Y-m-d', strtotime(' - 150 year'));
-        $monthKunjungan = Date('m');
+        $monthKunjungan = $this->month;
         $days7AgeOld = self::getDataFromAgeByDay($startDate7, $endDate7, $monthKunjungan, 0);
         $days7AgeNew = self::getDataFromAgeByDay($startDate7, $endDate7, $monthKunjungan, 1);
         $days28AgeOld = self::getDataFromAgeByDay($startDate28, $endDate28, $monthKunjungan, 0);

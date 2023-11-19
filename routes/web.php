@@ -187,7 +187,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('laporan/kunjungan', [LaporanController::class, 'kunjungan'])->name('laporan_kunjungan_default');
     Route::get('laporan/kunjungan/filter/{month}/{year}', [LaporanController::class, 'kunjungan'])->name('laporan_kunjungan');
     Route::get('laporan/lb1', [LaporanController::class, 'lb1'])->name('laporan_lb1');
-    Route::get('laporan/lb1Download', [LaporanController::class, 'lb1Download'])->name('laporan_lb1_download');
+    Route::get('laporan/lb1Download/{month}', [LaporanController::class, 'lb1Download'])->name('laporan_lb1_download');
     Route::get('pasien/export', [PasienController::class, 'export'])->name('pasien_export_daily');
     Route::get('pasien/export/{date}', [PasienController::class, 'export'])->name('pasien_export_date');
 

@@ -726,9 +726,9 @@ class LaporanController extends Controller
         return view('laporan.kunjungan.bulanan', compact('navActive', 'dataReturn', 'monthNow', 'yearNow'));
     }
 
-    public function lb1Download()
+    public function lb1Download($month)
     {
-        return Excel::download(new BuildExport, 'lb1.xlsx');
+        return Excel::download(new BuildExport($month), 'lb1.xlsx');
     }
 
     public function lb1()
