@@ -142,7 +142,7 @@
                                     <select name="pekerjaan" id="pekerjaan" class="form-control select2">
                                         <option value="tidak-memilih">Tidak Bekerja</option>
                                         @foreach($dataPekerjaan as $pekerjaan)
-                                        <option value="{{$pekerjaan->id}}" {{($pekerjaan->id = $pasiens->pekerjaan) ?
+                                        <option value="{{$pekerjaan->id}}" {{($pekerjaan->id == $pasiens->pekerjaan) ?
                                             'selected' : ''}}>{{$pekerjaan->pekerjaan}}</option>
                                         @endforeach
                                     </select>

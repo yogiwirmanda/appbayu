@@ -58,7 +58,7 @@
                                             <div class="form-group">
                                                 <label class="col-form-label">No KTP</label>
                                                 <input type="text" name="no_ktp" id="noKtp" class="form-control"
-                                                    placeholder="NIK KTP">
+                                                    placeholder="NIK KTP" maxlength="16">
                                             </div>
                                         </div>
                                     </div>
@@ -102,7 +102,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Jenis Kelamin</label>
-                                            <select class="form-control input-form-jk" name="jk" id="jk">
+                                            <select class="form-control input-form-jk select2" name="jk" id="jk">
                                                 <option value="L">Laki-Laki</option>
                                                 <option value="P">Perempuan</option>
                                             </select>
@@ -191,7 +191,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Cara Bayar</label>
-                                            <select name="cara_bayar" id="caraBayar" class="form-control">
+                                            <select name="cara_bayar" id="caraBayar" class="form-control select2">
                                                 <option value="UMUM">UMUM</option>
                                                 <option value="BPJS">BPJS</option>
                                                 <option value="UKS">UKS</option>
