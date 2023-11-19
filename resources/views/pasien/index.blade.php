@@ -128,6 +128,17 @@
                 },
                 {
                     render: function (data, type, row) {
+
+                        const dob = new Date(row.tgl_lahir);
+                        const now = new Date();
+
+                        let age = now.getFullYear() - dob.getFullYear();
+                        const monthDiff = now.getMonth() - dob.getMonth();
+
+                        if (monthDiff < 0 || (monthDiff === 0 && now.getDate() < dob.getDate())) {
+                            age--;
+                        }
+
                         let addNama = '';
                         if (row.jk == 'L' && row.status_kawin == 'kawin'){
                             addNama = 'Tn. ';
@@ -137,6 +148,14 @@
                             addNama = 'Sdr. ';
                         }
 
+                        if (row.jk == 'L' && row.status_kawin == 'cerai-hidup'){
+                            addNama = 'Tn. ';
+                        }
+
+                        if (row.jk == 'L' && row.status_kawin == 'cerai-mati'){
+                            addNama = 'Tn. ';
+                        }
+
                         if (row.jk == 'P' && row.status_kawin == 'kawin'){
                             addNama = 'Ny. ';
                         }
@@ -144,6 +163,35 @@
                         if (row.jk == 'P' && row.status_kawin == 'belum'){
                             addNama = 'Nn. ';
                         }
+
+                        if (row.jk == 'P' && row.status_kawin == 'cerai-hidup'){
+                            addNama = 'Ny. ';
+                        }
+
+                        if (row.jk == 'P' && row.status_kawin == 'cerai-mati'){
+                            addNama = 'Ny. ';
+                        }
+
+                        if (age <= 6){
+                            addNama = 'An. ';
+                        }
+
+                        if (age > 6 && age < 30 && row.jk == 'L' && row.status_kawin == 'belum'){
+                            addNama = 'Sdr. ';
+                        }
+
+                        if (age > 6 && age < 30 && row.jk == 'P' && row.status_kawin == 'belum'){
+                            addNama = 'Sdri. ';
+                        }
+
+                        if (age > 6 && age < 30 && row.jk == 'L' && row.status_kawin == 'kawin'){
+                            addNama = 'Tn. ';
+                        }
+
+                        if (age > 6 && age < 30 && row.jk == 'P' && row.status_kawin == 'kawin'){
+                            addNama = 'Ny. ';
+                        }
+
                         let urlNama = '<a href="pasiens/detail/'+row.id+'">'+addNama + row.nama+'</a>'
                         if (row.status_prolanis == 1){
                             urlNama += '<span class="badge badge-danger m-l-5">Prolanis</span>';
