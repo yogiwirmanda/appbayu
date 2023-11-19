@@ -122,7 +122,7 @@ class UnitTestController extends Controller
 
     public function runCompleteData()
     {
-        $modelPasien = Pasien::all();
+        $modelPasien = Pasien::where('id', '>', 8350)->get();
         foreach ($modelPasien as $key => $value) {
             $nik = $value->no_ktp != null ? 1 : 0;
             $norm = $value->no_rm != null ? 1 : 0;
