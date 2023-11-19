@@ -168,6 +168,7 @@
       });
 
       setTimeout(() => {
+        let totalDataChart = dataUmum[1] + dataKia[1] + dataGigi[1];
         var options = {
             series: [{
             name: 'Lengkap',
@@ -188,7 +189,8 @@
           dataLabels: {
             enabled: true,
             formatter: function (val) {
-              return val + "%";
+              let percent = (val / totalDataChart) * 100;
+              return Math.round(percent).toFixed(2) + "%";
             },
             offsetY: -20,
             style: {
@@ -232,7 +234,8 @@
             labels: {
               show: false,
               formatter: function (val) {
-                return val + "%";
+                let percent = (val / totalDataChart) * 100;
+                return Math.round(percent).toFixed(2) + "%";
               }
             }
 
@@ -273,29 +276,6 @@
 
         var chartPieUmum = new ApexCharts(document.querySelector("#chartPieUmum"), optionsUmum);
         chartPieUmum.render();
-
-        var optionsLansia = {
-          series: dataLansia,
-          chart: {
-          width: 380,
-          type: 'pie',
-        },
-        labels: ['LENGKAP', 'TIDAK LENGKAP'],
-        responsive: [{
-          breakpoint: 480,
-          options: {
-            chart: {
-              width: 200
-            },
-            legend: {
-              position: 'bottom'
-            }
-          }
-        }]
-        };
-
-        var chartPieLansia = new ApexCharts(document.querySelector("#chartPieLansia"), optionsLansia);
-        chartPieLansia.render();
 
         var optionsKia = {
           series: dataKia,
@@ -342,7 +322,7 @@
 
         var chartPieGigi = new ApexCharts(document.querySelector("#chartPieGigi"), optionsGigi);
         chartPieGigi.render();
-      }, 1000);
+      }, 3000);
     }
 
     loadDiagramLengkapPoli();
