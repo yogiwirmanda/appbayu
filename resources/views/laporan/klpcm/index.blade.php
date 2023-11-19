@@ -167,6 +167,14 @@
         }
       });
 
+      var options = {
+            theme: "sk-bounce",
+            message: 'Mohon tunggu, sedang memproses data...',
+            backgroundColor: "#5e72e4",
+            textColor: "#ffffff"
+        };
+
+        HoldOn.open(options);
       setTimeout(() => {
         let totalDataChart = dataUmum[1] + dataKia[1] + dataGigi[1];
         var options = {
@@ -322,7 +330,8 @@
 
         var chartPieGigi = new ApexCharts(document.querySelector("#chartPieGigi"), optionsGigi);
         chartPieGigi.render();
-      }, 3000);
+        HoldOn.close();
+      }, 15000);
     }
 
     loadDiagramLengkapPoli();
