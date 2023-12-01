@@ -25,6 +25,13 @@
                                             placeholder="Nomor Rekam Medis">
                                     </div>
                                 </div>
+                                <div class="col-md-6" id="input-rm">
+                                    <div class="form-group">
+                                        <label class="col-form-label">No HP</label>
+                                        <input type="text" name="nohp" id="nohp" class="form-control input-form-nohp"
+                                            placeholder="Nomor Handphone">
+                                    </div>
+                                </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="col-form-label">NIK</label>

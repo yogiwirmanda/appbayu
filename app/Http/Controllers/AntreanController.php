@@ -73,6 +73,7 @@ class AntreanController extends Controller
         $error = 0;
         $validator = Validator::make($request->all(), [
             'nik' => 'required',
+            'nohp' => 'required',
             'nama' => 'required',
             'tgl_lahir' => 'required',
             'tanggal' => 'required',

@@ -193,6 +193,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('laporan/pemeriksaan', [LaporanController::class, 'pemeriksaan'])->name('laporan_pemeriksaan');
     Route::get('laporan/pemeriksaan/dm', [LaporanController::class, 'pemeriksaanDM'])->name('laporan_pemeriksaan_dm');
+    Route::get('laporan/pemeriksaan/dmAjax', [LaporanController::class, 'loadDmAjax'])->name('ajax_load_pemeriksaan_dm');
+    Route::get('laporan/pemeriksaan/htAjax', [LaporanController::class, 'loadDmAjax'])->name('ajax_load_pemeriksaan_ht');
     Route::get('laporan/pemeriksaan/dm/{idPasien}', [LaporanController::class, 'pemeriksaanDMWithId'])->name('laporan_pemeriksaan_dm_with_id');
     Route::get('laporan/pemeriksaan/ht', [LaporanController::class, 'pemeriksaanHT'])->name('laporan_pemeriksaan_ht');
     Route::get('laporan/pemeriksaan/ht/{idPasien}', [LaporanController::class, 'pemeriksaanHTWithId'])->name('laporan_pemeriksaan_ht_with_id');

@@ -37,6 +37,7 @@
                                     <th>No</th>
                                     <th>Kode Antrean</th>
                                     <th>Nama</th>
+                                    <th>No HP</th>
                                     <th>Nik</th>
                                     <th>Poli</th>
                                     <th>Tanggal</th>
@@ -77,6 +78,10 @@
                 {
                     data: 'nama',
                     name: 'nama'
+                },
+                {
+                    data: 'nohp',
+                    name: 'nohp'
                 },
                 {
                     data: 'nik',

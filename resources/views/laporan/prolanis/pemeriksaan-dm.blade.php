@@ -1,3 +1,5 @@
+@extends('master.blank')
+@section('content')
 <table class="table table-flush table-bordered" id="table-dm" style="text-transform: uppercase;">
     <thead>
         <tr>
@@ -45,36 +47,151 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($dataLaporanKunjungan as $key => $data)
-        <tr>
-            <td>{{$key + 1}}</td>
-            <td>{{$data['no_rm']}}</td>
-            <td>{{$data['nama']}}</td>
-            <td class="{{ $data['gdp1'] != 0 ? '' : 'bg-white' }}">{{$data['gdp1']}}</td>
-            <td class="{{ $data['hba1c1'] != 0 ? '' : 'bg-white' }}">{{$data['hba1c1']}}</td>
-            <td class="{{ $data['gdp2'] != 0 ? '' : 'bg-white' }}">{{$data['gdp2']}}</td>
-            <td class="{{ $data['hba1c2'] != 0 ? '' : 'bg-white' }}">{{$data['hba1c2']}}</td>
-            <td class="{{ $data['gdp3'] != 0 ? '' : 'bg-white' }}">{{$data['gdp3']}}</td>
-            <td class="{{ $data['hba1c3'] != 0 ? '' : 'bg-white' }}">{{$data['hba1c3']}}</td>
-            <td class="{{ $data['gdp4'] != 0 ? '' : 'bg-white' }}">{{$data['gdp4']}}</td>
-            <td class="{{ $data['hba1c4'] != 0 ? '' : 'bg-white' }}">{{$data['hba1c4']}}</td>
-            <td class="{{ $data['gdp5'] != 0 ? '' : 'bg-white' }}">{{$data['gdp5']}}</td>
-            <td class="{{ $data['hba1c5'] != 0 ? '' : 'bg-white' }}">{{$data['hba1c5']}}</td>
-            <td class="{{ $data['gdp6'] != 0 ? '' : 'bg-white' }}">{{$data['gdp6']}}</td>
-            <td class="{{ $data['hba1c6'] != 0 ? '' : 'bg-white' }}">{{$data['hba1c6']}}</td>
-            <td class="{{ $data['gdp7'] != 0 ? '' : 'bg-white' }}">{{$data['gdp7']}}</td>
-            <td class="{{ $data['hba1c7'] != 0 ? '' : 'bg-white' }}">{{$data['hba1c7']}}</td>
-            <td class="{{ $data['gdp8'] != 0 ? '' : 'bg-white' }}">{{$data['gdp8']}}</td>
-            <td class="{{ $data['hba1c8'] != 0 ? '' : 'bg-white' }}">{{$data['hba1c8']}}</td>
-            <td class="{{ $data['gdp9'] != 0 ? '' : 'bg-white' }}">{{$data['gdp9']}}</td>
-            <td class="{{ $data['hba1c9'] != 0 ? '' : 'bg-white' }}">{{$data['hba1c9']}}</td>
-            <td class="{{ $data['gdp10'] != 0 ? '' : 'bg-white' }}">{{$data['gdp10']}}</td>
-            <td class="{{ $data['hba1c10'] != 0 ? '' : 'bg-white' }}">{{$data['hba1c10']}}</td>
-            <td class="{{ $data['gdp11'] != 0 ? '' : 'bg-white' }}">{{$data['gdp11']}}</td>
-            <td class="{{ $data['hba1c11'] != 0 ? '' : 'bg-white' }}">{{$data['hba1c11']}}</td>
-            <td class="{{ $data['gdp12'] != 0 ? '' : 'bg-white' }}">{{$data['gdp12']}}</td>
-            <td class="{{ $data['hba1c12'] != 0 ? '' : 'bg-white' }}">{{$data['hba1c12']}}</td>
-        </tr>
-        @endforeach
     </tbody>
 </table>
+@endsection
+@section('page-scripts')
+<script>
+    var table = $('#table-dm').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{{ route('ajax_load_pemeriksaan_dm') }}",
+        columns: [
+            {
+                data: 'DT_RowIndex',
+                name: 'DT_RowIndex'
+            },
+            {
+                data: 'no_rm',
+                name: 'no_rm',
+                class : 'no-uppercase'
+            },
+            {
+                data: 'nama',
+                name: 'nama',
+                class : 'no-uppercase'
+            },
+            {
+                data: 'gdp1',
+                name: 'gdp1',
+                class : 'no-uppercase'
+            },
+            {
+                data: 'hba1c1',
+                name: 'hba1c1',
+                class : 'no-uppercase'
+            },
+            {
+                data: 'gdp2',
+                name: 'gdp2',
+                class : 'no-uppercase'
+            },
+            {
+                data: 'hba1c2',
+                name: 'hba1c2',
+                class : 'no-uppercase'
+            },
+            {
+                data: 'gdp3',
+                name: 'gdp3',
+                class : 'no-uppercase'
+            },
+            {
+                data: 'hba1c3',
+                name: 'hba1c3',
+                class : 'no-uppercase'
+            },
+            {
+                data: 'gdp4',
+                name: 'gdp4',
+                class : 'no-uppercase'
+            },
+            {
+                data: 'hba1c4',
+                name: 'hba1c4',
+                class : 'no-uppercase'
+            },
+            {
+                data: 'gdp5',
+                name: 'gdp5',
+                class : 'no-uppercase'
+            },
+            {
+                data: 'hba1c5',
+                name: 'hba1c5',
+                class : 'no-uppercase'
+            },
+            {
+                data: 'gdp6',
+                name: 'gdp6',
+                class : 'no-uppercase'
+            },
+            {
+                data: 'hba1c6',
+                name: 'hba1c6',
+                class : 'no-uppercase'
+            },
+            {
+                data: 'gdp7',
+                name: 'gdp7',
+                class : 'no-uppercase'
+            },
+            {
+                data: 'hba1c7',
+                name: 'hba1c7',
+                class : 'no-uppercase'
+            },
+            {
+                data: 'gdp8',
+                name: 'gdp8',
+                class : 'no-uppercase'
+            },
+            {
+                data: 'hba1c8',
+                name: 'hba1c8',
+                class : 'no-uppercase'
+            },
+            {
+                data: 'gdp9',
+                name: 'gdp9',
+                class : 'no-uppercase'
+            },
+            {
+                data: 'hba1c9',
+                name: 'hba1c9',
+                class : 'no-uppercase'
+            },
+            {
+                data: 'gdp10',
+                name: 'gdp10',
+                class : 'no-uppercase'
+            },
+            {
+                data: 'hba1c10',
+                name: 'hba1c10',
+                class : 'no-uppercase'
+            },
+            {
+                data: 'gdp11',
+                name: 'gdp11',
+                class : 'no-uppercase'
+            },
+            {
+                data: 'hba1c11',
+                name: 'hba1c11',
+                class : 'no-uppercase'
+            },
+            {
+                data: 'gdp12',
+                name: 'gdp12',
+                class : 'no-uppercase'
+            },
+            {
+                data: 'hba1c12',
+                name: 'hba1c12',
+                class : 'no-uppercase'
+            },
+        ]
+    });
+</script>
+@endsection
