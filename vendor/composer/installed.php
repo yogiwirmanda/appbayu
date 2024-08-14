@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'd23af4722a6676cd3a527300987fd02efce57f51',
+    'reference' => '4169c921ca7fef126ee29c4b02eef5083bd7f3f2',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -96,6 +96,33 @@
       array (
       ),
       'reference' => 'c268e882d4dbdd85e36e4ad69e02dc284f89d229',
+    ),
+    'dompdf/dompdf' => 
+    array (
+      'pretty_version' => 'v3.0.0',
+      'version' => '3.0.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'fbc7c5ee5d94f7a910b78b43feb7931b7f971b59',
+    ),
+    'dompdf/php-font-lib' => 
+    array (
+      'pretty_version' => '1.0.0',
+      'version' => '1.0.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '991d6a954f6bbd7e41022198f00586b230731441',
+    ),
+    'dompdf/php-svg-lib' => 
+    array (
+      'pretty_version' => '1.0.0',
+      'version' => '1.0.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'eb045e518185298eb6ff8d80d0d0c6b17aecd9af',
     ),
     'dragonmantank/cron-expression' => 
     array (
@@ -481,7 +508,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'd23af4722a6676cd3a527300987fd02efce57f51',
+      'reference' => '4169c921ca7fef126ee29c4b02eef5083bd7f3f2',
     ),
     'laravel/sail' => 
     array (
@@ -581,6 +608,15 @@
       array (
       ),
       'reference' => '728434227fe21be27ff6d86621a1b13107a2562c',
+    ),
+    'masterminds/html5' => 
+    array (
+      'pretty_version' => '2.9.0',
+      'version' => '2.9.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'f5ac2c0b0a2eefca70b2ce32a5809992227e75a6',
     ),
     'milon/barcode' => 
     array (
@@ -951,6 +987,15 @@
       array (
         0 => '4.2.3',
       ),
+    ),
+    'sabberworm/php-css-parser' => 
+    array (
+      'pretty_version' => 'v8.6.0',
+      'version' => '8.6.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'd2fb94a9641be84d79c7548c6d39bbebba6e9a70',
     ),
     'sebastian/cli-parser' => 
     array (

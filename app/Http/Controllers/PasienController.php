@@ -22,7 +22,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\DataTables;
 use Excel;
-use TemplateProcessor;
+use PhpOffice\PhpWord\TemplateProcessor;
+use PhpOffice\PhpWord\IOFactory;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class PasienController extends Controller
 {
@@ -1060,23 +1063,48 @@ class PasienController extends Controller
 
     public function downloadProlanis($idPasien = null)
     {
+        // Find the patient by ID
         $modelPasien = Pasien::find($idPasien);
+
+        if (!$modelPasien) {
+            return redirect()->back()->with('error', 'Patient not found');
+        }
+
+        // Calculate the age
         $tglLahir = date_create($modelPasien->tgl_lahir);
-        $dateNow = date_create(Date('Y-m-d'));
+        $dateNow = date_create(date('Y-m-d'));
         $dateDiff = date_diff($tglLahir, $dateNow);
         $umur = $dateDiff->y;
-        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('doc/new/prolanis.docx');
 
-        $templateProcessor->setValue('nama_pasien', self::addName($idPasien) . $modelPasien->nama);
-        $templateProcessor->setValue('alamat', $modelPasien->alamat);
-        $templateProcessor->setValue('no_bpjs', $modelPasien->no_bpjs);
-        $templateProcessor->setValue('keterangan_prolanis', $modelPasien->keterangan_prolanis);
-        $templateProcessor->setValue('jk', $modelPasien->jk == 'L' ? 'Laki-Laki' : 'Perempuan');
-        $templateProcessor->setValue('umur', $umur . ' Tahun');
-        header("Content-Disposition: attachment; filename=" . $modelPasien->nama . " _Berkas Rujukan Prolanis.docx");
+        // Data to pass to the Blade view
+        $data = [
+            'nama' => $modelPasien->nama,
+            'tgl_lahir' => $modelPasien->tgl_lahir,
+            'umur' => $umur,
+            'alamat' => $modelPasien->alamat,
+            'diagnosa' => $modelPasien->keterangan_prolanis,
+            "jk" => $modelPasien->jk == 'L' ? 'Laki-Laki' : 'Perempuan',
+            'no_bpjs' => $modelPasien->no_bpjs,
+            'date' => Date('d F Y')
+        ];
 
-        $templateProcessor->saveAs('php://output');
+        // Load the view and generate HTML
+        $view = view('pasien.prolanis-stream', $data)->render();
+
+        // Initialize Dompdf
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($view);
+
+        // (Optional) Set paper size and orientation
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the PDF
+        $dompdf->render();
+
+        // Stream the PDF to the browser
+        return $dompdf->stream('prolanis.pdf', ['Attachment' => false]);
     }
+
 
     public function downloadGc($idPasien = null)
     {
