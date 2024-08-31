@@ -50,6 +50,12 @@
 <!-- <script src="{{asset('zeta/js/theme-customizer/customizer.js')}}"></script> -->
 <!-- login js-->
 <!-- Plugin used-->
+<style>
+    .select2-container--open .select2-dropdown--below {
+        top: 100% !important;
+        left: 0 !important;
+    }
+</style>
 @yield('page-modules')
 @yield('page-scripts')
 <script>
