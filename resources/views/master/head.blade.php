@@ -34,7 +34,10 @@
 <!-- Bootstrap css-->
 <link rel="stylesheet" type="text/css" href="{{asset('zeta/css/vendors/bootstrap.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('zeta/css/vendors/datatables.css')}}">
-<link rel="stylesheet" type="text/css" href="{{asset('zeta/css/vendors/select2.css')}}">
+{{--
+<link rel="stylesheet" type="text/css" href="{{asset('zeta/css/vendors/select2.css')}}"> --}}
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="{{asset('zeta/js/holdonjs/HoldOn.min.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('zeta/sweetalert2/dist/sweetalert2.min.css')}}">
 <!-- App css-->

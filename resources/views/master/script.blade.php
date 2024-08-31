@@ -37,12 +37,13 @@
 <script src="{{asset('zeta/js/typeahead/handlebars.js')}}"></script>
 <script src="{{asset('zeta/js/datatable/datatables/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('zeta/js/datatable/datatables/datatable.custom.js')}}"></script>
-<script src="{{asset('zeta/js/select2/select2.full.min.js')}}"></script>
-<script src="{{asset('zeta/js/select2/select2-custom.js')}}"></script>
+{{-- <script src="{{asset('zeta/js/select2/select2.full.min.js')}}"></script>
+<script src="{{asset('zeta/js/select2/select2-custom.js')}}"></script> --}}
 <script src="{{asset('zeta/js/height-equal.js')}}"></script>
 <script src="{{asset('zeta/js/sidebar-menu.js')}}"></script>
 <script src="{{asset('zeta/js/holdonjs/HoldOn.min.js')}}"></script>
 <script src="{{asset('zeta/sweetalert2/dist/sweetalert2.min.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <!-- Plugins JS Ends-->
 <!-- Theme js-->
 <script src="{{asset('zeta/js/script.js')}}"></script>
