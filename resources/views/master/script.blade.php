@@ -62,7 +62,16 @@
 <script>
     $(document).ready(function () {
             $('.select2').select2({
-                dropdownPosition: 'below'
+                let dropdown = $('.select2-container .select2-dropdown');
+                let selectBox = $(this).closest('.select2-container');
+
+                // Calculate the correct position
+                let selectBoxOffset = selectBox.offset();
+                dropdown.css({
+                    top: selectBoxOffset.top + selectBox.outerHeight(),
+                    left: selectBoxOffset.left,
+                    position: 'absolute'
+                });
             });
             // $('#datatable-basic-with-export').DataTable({
             //     dom: 'Bfrtip',
