@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Export\PasienExport;
+use App\Http\Controllers\Export\ProlanisExport;
 use App\Models\District;
 use App\Models\Kategori;
 use App\Models\Kunjungan;
@@ -1224,6 +1225,11 @@ class PasienController extends Controller
             $tgl = $date;
         }
         return Excel::download(new PasienExport($tgl), 'pasien-'.$tgl.'.xlsx');
+    }
+
+    public function exportProlanis() {
+        $tgl = Date('Y-m-d');
+        return Excel::download(new ProlanisExport($tgl), 'prolanis-'.$tgl.'.xlsx');
     }
 
     public function getDataFromNIK($nik) {

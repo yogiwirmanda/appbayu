@@ -31,7 +31,13 @@
                                 class="btn btn-info btn-fill pull-right btn-submit-filter m-l-10">Filter
                             </a>
                         </div>
-                        <div class="col-6 d-flex justify-content-end">
+                        <div class="col-3 d-flex justify-content-end">
+                            <a href="javascript:;" class="btn btn-pill btn-success btn-export-pasien"
+                                data-toggle="tooltip" data-original-title="Export Pasien">
+                                <span class="btn-inner--text">Export Pasien</span>
+                            </a>
+                        </div>
+                        <div class="col-3 d-flex justify-content-end">
                             <a href="{{asset('prolanis/create')}}" class="btn btn-primary btn-pill">Tambah</a>
                         </div>
                     </div>
@@ -110,6 +116,11 @@
     $('.btn-submit-filter').click(function () {
         let value = $('#jenis_prolanis').val();
         loadTable(value);
+    });
+
+    $('.btn-export-pasien').click(function(e){
+        e.stopImmediatePropagation();
+        window.location.href = '/prolanis/export/';
     });
 
     $(document).on('click', '.btn-send-whatsapp', function (e) {

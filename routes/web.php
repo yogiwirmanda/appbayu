@@ -190,6 +190,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('laporan/lb1Download/{month}', [LaporanController::class, 'lb1Download'])->name('laporan_lb1_download');
     Route::get('pasien/export', [PasienController::class, 'export'])->name('pasien_export_daily');
     Route::get('pasien/export/{date}', [PasienController::class, 'export'])->name('pasien_export_date');
+    Route::get('prolanis/export', [PasienController::class, 'exportProlanis'])->name('prolanis_export_all');
 
     Route::get('laporan/pemeriksaan', [LaporanController::class, 'pemeriksaan'])->name('laporan_pemeriksaan');
     Route::get('laporan/pemeriksaan/dm', [LaporanController::class, 'pemeriksaanDM'])->name('laporan_pemeriksaan_dm');
