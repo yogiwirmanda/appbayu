@@ -21,6 +21,7 @@
             <td>{{ $pasien['alamat'] }}</td>
             <td>{{ $pasien['tgl_lahir'] }}</td>
             <td>{{ $pasien['thn'] }} Tahun {{ $pasien['bln'] }} Bulan {{ $pasien['hr'] }} Hari</td>
+            <td>{{ $pasien['keterangan_prolanis'] }}</td>
             <td>{{ $pasien['no_bpjs'] }}</td>
         </tr>
         @endforeach
