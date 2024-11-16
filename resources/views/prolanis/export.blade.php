@@ -7,6 +7,7 @@
             <td>Alamat</td>
             <td>TTL</td>
             <td>Umur</td>
+            <td>Keterangan</td>
             <td>No BPJS</td>
         </tr>
     </thead>
