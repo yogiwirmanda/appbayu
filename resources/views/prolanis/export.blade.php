@@ -5,6 +5,8 @@
             <td>No RM</td>
             <td>Nama</td>
             <td>Alamat</td>
+            <td>RT</td>
+            <td>RW</td>
             <td>TTL</td>
             <td>Umur</td>
             <td>Keterangan</td>
@@ -20,6 +22,8 @@
             </td>
             <td>{{ $pasien['nama'] }}</td>
             <td>{{ $pasien['alamat'] }}</td>
+            <td>{{ $pasien['rt'] }}</td>
+            <td>{{ $pasien['rw'] }}</td>
             <td>{{ $pasien['tgl_lahir'] }}</td>
             <td>{{ $pasien['thn'] }} Tahun {{ $pasien['bln'] }} Bulan {{ $pasien['hr'] }} Hari</td>
             <td>{{ $pasien['keterangan_prolanis'] }}</td>
