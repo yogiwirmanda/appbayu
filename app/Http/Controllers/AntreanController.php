@@ -65,7 +65,11 @@ class AntreanController extends Controller
 
     function createNoAntrean($poli){
         $check = Antrean::where('poli', $poli)->whereDate('tanggal', Date('Y-m-d'))->count();
-        return $check + 1;
+        if ($check == 1){
+            return $check;
+        } else {
+            return $check + 1;
+        }
     }
 
     public function store(Request $request)
@@ -104,7 +108,7 @@ class AntreanController extends Controller
             $tgl = $request->tgl == null ? Date('Y-m-d') : $request->tgl;
             $data = Antrean::select('polis.nama as namaPoli', 'antreans.*')
                 ->join('polis', 'polis.id', 'antreans.poli')
-                ->whereDate('antreans.created_at', $tgl)
+                ->whereDate('antreans.tanggal', $tgl)
                 ->get();
 
             return DataTables::of($data)

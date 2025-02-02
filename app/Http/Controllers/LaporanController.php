@@ -514,8 +514,6 @@ class LaporanController extends Controller
         ]);
     }
 
-
-
     public function pemeriksaanHT(Request $request)
     {
         $navActive = 'prolanis';

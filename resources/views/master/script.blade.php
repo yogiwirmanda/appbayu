@@ -53,29 +53,47 @@
 <!-- Plugin used-->
 <style>
     .select2-container--open .select2-dropdown--below {
-        top: 100% !important;
-        left: 0 !important;
+        top: 250px;
+        left: 150px ;
     }
 </style>
 @yield('page-modules')
 @yield('page-scripts')
 <script>
-    $(document).ready(function () {
-            $('.select2').select2({
-                let dropdown = $('.select2-container .select2-dropdown');
-                let selectBox = $(this).closest('.select2-container');
+    // $(document).ready(function () {
+    //     $('.select2').select2({
+    //         let dropdown = $('.select2-container .select2-dropdown');
+    //         let selectBox = $(this).closest('.select2-container');
 
-                // Calculate the correct position
+    //         let selectBoxOffset = selectBox.offset();
+    //         dropdown.css({
+    //             top: selectBoxOffset.top + selectBox.outerHeight(),
+    //             left: selectBoxOffset.left,
+    //             position: 'absolute'
+    //         });
+    //     });
+    // });
+    $(document).ready(function () {
+    $('.select2').select2();
+
+    // After select2 is initialized, adjust the dropdown position
+    $('.select2').on('select2:open', function () {
+        setTimeout(function () {
+            let dropdown = $('.select2-container .select2-dropdown');
+            let selectBox = $(this).closest('.select2-container');
+            console.log(selectBox);
+            if (selectBox.length) {
                 let selectBoxOffset = selectBox.offset();
                 dropdown.css({
                     top: selectBoxOffset.top + selectBox.outerHeight(),
                     left: selectBoxOffset.left,
                     position: 'absolute'
                 });
-            });
-            // $('#datatable-basic-with-export').DataTable({
-            //     dom: 'Bfrtip',
-            //     buttons: ['copy', 'pdf', 'csv', 'excel', 'print']
-            // });
-        })
+            } else {
+                console.warn('selectBox not found!');
+            }
+        }, 100);  // Add delay to ensure Select2 has time to open
+    });
+});
+
 </script>
