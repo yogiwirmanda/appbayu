@@ -22,13 +22,14 @@ class UnitTestController extends Controller
 
     public function send($idPasien)
     {
-        $dataPasien = Pasien::where('id', $idPasien)->first();
-        $response = Http::post('http://localhost:3000/api/sendMessage', [
-            'apiKey' => '28fd5a102cf00cacb299a66d1fe866b3',
-            'phone' => $dataPasien->no_hp,
-            'message' => 'Selamat pagi Bapak / Ibu ' . $dataPasien->nama . ' anda terdaftar di program prolanis Puskesmas Rampal Celaket Kota Malang, tanggal kunjungan terakhir anda adalah : ' . $dataPasien->last_kunjungan . ' mohon segera kontrol',
-            'file_name' => 'prcv3solid.png',
-            'as_document' => 0,
+        $pasien = Pasien::where('id', $idPasien)->first();
+        $token = 'n6GQCJcJy7a3JxZfBvv9';
+
+        $response = Http::withHeaders([
+            'Authorization' => $token
+        ])->post('https://api.fonnte.com/send', [
+            'target' => '6281357915660',
+            'message' => 'Selamat pagi Bapak / Ibu Uyyab Kuyyab anda terdaftar di program prolanis Puskesmas Rampal Celaket Kota Malang, tanggal kunjungan terakhir anda adalah : ' . $pasien->last_kunjungan . ' mohon segera kontrol'
         ]);
     }
 
