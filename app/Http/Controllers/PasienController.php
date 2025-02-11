@@ -695,8 +695,6 @@ class PasienController extends Controller
         $namaKK = $request->namaKK;
         $namaPasien = $request->namaPasien;
 
-        dd($noRM);
-
         if ($noRM == null) {
             $noRM = '';
         }
