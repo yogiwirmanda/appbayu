@@ -28,8 +28,8 @@ class UnitTestController extends Controller
         $response = Http::withHeaders([
             'Authorization' => $token
         ])->post('https://api.fonnte.com/send', [
-            'target' => '6281357915660',
-            'message' => 'Selamat pagi Bapak / Ibu Uyyab Kuyyab anda terdaftar di program prolanis Puskesmas Rampal Celaket Kota Malang, tanggal kunjungan terakhir anda adalah : ' . $pasien->last_kunjungan . ' mohon segera kontrol'
+            'target' => $pasien->no_hp,
+            'message' => 'Selamat pagi Bapak / Ibu ' . $pasien->nama . ' anda terdaftar di program prolanis Puskesmas Rampal Celaket Kota Malang, tanggal kunjungan terakhir anda adalah : ' . $pasien->last_kunjungan . ' mohon segera kontrol'
         ]);
     }
 
