@@ -40,6 +40,13 @@
                                 <span class="btn-inner--text">Export Pasien</span>
                             </a>
                         </div>
+                        <form action="{{ route('file.upload') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <label for="file">Choose Excel File:</label>
+                            <input type="file" name="file" id="file" required>
+                            <button type="submit">Upload</button>
+                        </form>
+
                     </div>
                     <div class="table-responsive">
                         <table class="table table-flush" id="table-kunjungan">

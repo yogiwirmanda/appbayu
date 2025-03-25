@@ -23,6 +23,10 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SuratSehatController;
 use App\Http\Controllers\UnitTestController;
 
+use App\Http\Controllers\FileUploadController;
+
+Route::post('/upload', [FileUploadController::class, 'upload'])->name('file.upload');
+
 Route::get('/', [AuthController::class, 'showFormLogin'])->name('login');
 Route::get('login', [AuthController::class, 'showFormLogin'])->name('login_show');
 Route::post('login', [AuthController::class, 'login'])->name('login_post');
