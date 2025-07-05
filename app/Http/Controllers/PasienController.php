@@ -8,6 +8,7 @@ use App\Models\District;
 use App\Models\Kategori;
 use App\Models\Kunjungan;
 use App\Models\Pasien;
+use App\Models\Ceklab;
 use App\Models\Antrean;
 use App\Models\PasienAdmin;
 use App\Models\Pekerjaan;
@@ -1064,20 +1065,24 @@ class PasienController extends Controller
 
     public function downloadProlanis($idPasien = null)
     {
-        // Find the patient by ID
         $modelPasien = Pasien::find($idPasien);
+        $modelCeklab = Ceklab::where('id_pasien', $idPasien)
+            ->orderBy('tanggal', 'desc')
+            ->first();
 
         if (!$modelPasien) {
             return redirect()->back()->with('error', 'Patient not found');
         }
 
-        // Calculate the age
         $tglLahir = date_create($modelPasien->tgl_lahir);
         $dateNow = date_create(date('Y-m-d'));
         $dateDiff = date_diff($tglLahir, $dateNow);
         $umur = $dateDiff->y;
 
-        // Data to pass to the Blade view
+        $tanggalCekLab = $modelCeklab && $modelCeklab->tanggal
+            ? date('d F Y', strtotime($modelCeklab->tanggal))
+            : '-';
+
         $data = [
             'nama' => $modelPasien->nama,
             'tgl_lahir' => $modelPasien->tgl_lahir,
@@ -1086,25 +1091,20 @@ class PasienController extends Controller
             'diagnosa' => $modelPasien->keterangan_prolanis,
             "jk" => $modelPasien->jk == 'L' ? 'Laki-Laki' : 'Perempuan',
             'no_bpjs' => $modelPasien->no_bpjs,
-            'date' => Date('d F Y')
+            'tanggal_cek_lab' => $tanggalCekLab,
+            'date' => date('d F Y')
         ];
 
-        // Load the view and generate HTML
         $view = view('pasien.prolanis-stream', $data)->render();
 
-        // Initialize Dompdf
         $dompdf = new Dompdf();
         $dompdf->loadHtml($view);
-
-        // (Optional) Set paper size and orientation
         $dompdf->setPaper('A4', 'portrait');
-
-        // Render the PDF
         $dompdf->render();
 
-        // Stream the PDF to the browser
         return $dompdf->stream('prolanis.pdf', ['Attachment' => false]);
     }
+
 
 
     public function downloadGc($idPasien = null)

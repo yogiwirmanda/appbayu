@@ -98,24 +98,8 @@
             ajax: 'http://ehealthprc.com:5000/api/v1/pasien?' + queryParam,
             processing: true,
             serverSide: true,
-            // ajax: {
-            //     url : "{{ route('ajax_load_pasien') }}",
-            //     type :  "GET",
-            //     data : {
-            //         name : getName,
-            //         tgl : getTanggal
-            //     }
-            // },
             searchDelay: 500,
             columns: [
-                // {
-                //     data: 'DT_RowIndex',
-                //     name: 'DT_RowIndex'
-                // },
-                // {
-                //     data: 'no_rm',
-                //     name: 'no_rm',
-                // },
                 {
                     data: 'no_rm',
                     name: 'no_rm',

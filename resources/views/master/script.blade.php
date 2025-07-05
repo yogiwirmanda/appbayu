@@ -53,8 +53,8 @@
 <!-- Plugin used-->
 <style>
     .select2-container--open .select2-dropdown--below {
-        top: 250px;
-        left: 150px ;
+        top: 40px;
+        left: 70px ;
     }
 </style>
 @yield('page-modules')

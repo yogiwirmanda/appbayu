@@ -9,9 +9,8 @@ class FileUploadController extends Controller
 {
     public function upload(Request $request)
     {
-        // Validate the file
         $request->validate([
-            'file' => 'required|mimes:xlsx,csv|max:2048', // Allow Excel and CSV files
+            'file' => 'required|mimes:xlsx,csv|max:2048',
         ]);
 
         if ($request->hasFile('file')) {
@@ -20,14 +19,12 @@ class FileUploadController extends Controller
             $fileName = $file->getClientOriginalName();
             $fileMime = $file->getClientMimeType();
 
-            // Send file to external API
             $response = Http::attach(
-                'file',           // Form field name
+                'file',
                 file_get_contents($filePath),
                 $fileName
             )->post('http://ehealthprc.com:5000/api/v1/pasien/import-excel');
 
-            // Check response
             if ($response->successful()) {
                 return back()->with('success', 'File uploaded and sent successfully!');
             } else {
