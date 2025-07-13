@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Export\BuildExport;
 use App\Models\Klpcm;
 use App\Models\Kunjungan;
+use App\Models\Ceklab;
 use App\Models\Pasien;
 use App\Models\Poli;
 use Illuminate\Http\Request;
@@ -354,6 +355,17 @@ class LaporanController extends Controller
         $navActive = 'pemeriksaan';
         $tanggal = Date('Y-m-d');
         return view('laporan.prb.pemeriksaan', compact('navActive', 'tanggal'));
+    }
+
+    public function kedatanganCekLab($idPasien)
+    {
+        $dataCekLab = Ceklab::where('datang', 1)
+            ->where('id_pasien', $idPasien)
+            ->get();
+
+        return response()->json([
+            'html' => view('laporan.prolanis.ceklab', compact('dataCekLab'))->render()
+        ]);
     }
 
     public function loadPrb(Request $request)

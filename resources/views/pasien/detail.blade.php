@@ -132,6 +132,8 @@ $tanggal = Date('Y-m-d');
                     role="tab" aria-controls="profile" aria-selected="false">Prolanis</a></li>
                 <li class="nav-item"><a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#contact"
                     role="tab" aria-controls="contact" aria-selected="false">PRB</a></li>
+                <li class="nav-item"><a class="nav-link" id="ceklab-tab" data-bs-toggle="tab" href="#ceklab"
+                    role="tab" aria-controls="ceklab" aria-selected="false">Cek Lab</a></li>
               </ul>
               <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active m-t-10" id="home" role="tabpanel" aria-labelledby="home-tab">
@@ -177,6 +179,11 @@ $tanggal = Date('Y-m-d');
                 </div>
                 <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                   <div class="table-responsive" id="load-table-prb">
+
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="ceklab" role="tabpanel" aria-labelledby="ceklab-tab">
+                  <div class="table-responsive" id="load-table-ceklab">
 
                   </div>
                 </div>
@@ -244,20 +251,20 @@ $tanggal = Date('Y-m-d');
         })
     }
 
-    loadDM();
+    // loadDM();
 
-    $('.btn-load-dm').click(function(e){
-        $('#type').val('dm');
-        $('.nav-link').removeClass('active');
-        $(this).addClass('active');
-        loadDM();
-    });
-    $('.btn-load-ht').click(function(e){
-        $('#type').val('ht');
-        $('.nav-link').removeClass('active');
-        $(this).addClass('active');
-        loadHT();
-    });
+    // $('.btn-load-dm').click(function(e){
+    //     $('#type').val('dm');
+    //     $('.nav-link').removeClass('active');
+    //     $(this).addClass('active');
+    //     loadDM();
+    // });
+    // $('.btn-load-ht').click(function(e){
+    //     $('#type').val('ht');
+    //     $('.nav-link').removeClass('active');
+    //     $(this).addClass('active');
+    //     loadHT();
+    // });
 
     function loadTablePrb(){
         $.ajax({
@@ -272,6 +279,20 @@ $tanggal = Date('Y-m-d');
         })
     }
 
+    function loadTableCeklab(){
+        $.ajax({
+            url : '/laporan/pemeriksaan/ceklab/{{$pasien->id}}',
+            dataType : 'json',
+            method : 'GET',
+            data : [],
+            success : function(response){
+                $('#load-table-ceklab').html('');
+                $('#load-table-ceklab').html(response.html);
+            }
+        })
+    }
+
     loadTablePrb();
+    loadTableCeklab();
 </script>
 @endsection

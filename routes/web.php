@@ -103,6 +103,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('setting/dtAjax', [SettingController::class, 'dtAjaxSetKK'])->name('ajax_load_set_kk');
     Route::post('setting/save/kk', [SettingController::class, 'saveKK'])->name('setting_save_kk');
 
+    Route::get('prolanis/cek-lab', [PasienController::class, 'ceklab'])->name('show_prolanis_cek_lab');
     Route::get('prolanis', [PasienController::class, 'prolanis'])->name('show_prolanis');
     Route::get('prolanis/filter/{val}', [PasienController::class, 'prolanisFilter'])->name('show_prolanis_filter');
     Route::get('prolanis/create', [PasienController::class, 'prolanisCreate'])->name('create_prolanis');
@@ -212,6 +213,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('laporan/pemeriksaanPrb', [LaporanController::class, 'pemeriksaanPrb'])->name('laporan_pemeriksaan_prb');
     Route::get('laporan/pemeriksaan/prb', [LaporanController::class, 'loadPrb'])->name('loadPrb');
     Route::get('laporan/pemeriksaan/prb/{idPasien}', [LaporanController::class, 'loadPrbWithId'])->name('loadPrbWithId');
+    Route::get('laporan/pemeriksaan/ceklab/{idPasien}', [LaporanController::class, 'kedatanganCekLab'])->name('kedatanganCekLab');
 
     Route::get('klpcms/check/kasus', [KlpcmController::class, 'checkKasus'])->name('check_kasus');
 

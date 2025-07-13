@@ -805,10 +805,16 @@ class PasienController extends Controller
 
     public function prolanis()
     {
-        $dataPasien = Pasien::where('status_prolanis', 1)->get();
         $navActive = 'transaksi-prolanis';
 
-        return view('prolanis.index', compact('dataPasien', 'navActive'));
+        return view('prolanis.index', compact('navActive'));
+    }
+
+    public function ceklab()
+    {
+        $navActive = 'transaksi-prolanis-ceklab';
+
+        return view('prolanis.cek-lab', compact('navActive'));
     }
 
     public function removeProlanis($idPasien)

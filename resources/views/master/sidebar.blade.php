@@ -45,6 +45,7 @@
               <li><a href="/pasien">Pasien</a></li>
               <li><a href="/dokter">Dokter</a></li>
               <li><a href="/prolanis">Prolanis</a></li>
+              <li><a href="/prolanis/cek-lab">Cek Lab</a></li>
               <li><a href="/prb">PRB</a></li>
             </ul>
           </li>
