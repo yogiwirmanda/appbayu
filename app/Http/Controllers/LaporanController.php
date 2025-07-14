@@ -296,6 +296,7 @@ class LaporanController extends Controller
         $modelKunjungan = Kunjungan::select('*')
             ->where('id_pasien', $idPasien)
             ->where('is_prolanis', 1)
+            ->whereYear('tanggal', Date('Y'))
             ->whereMonth('created_at', $month);
 
         if (strlen($year) > 0) {
@@ -440,6 +441,7 @@ class LaporanController extends Controller
         $dataLaporanKunjungan = [];
         $dataProlanisPasien = Pasien::where('status_prolanis', 1)
             ->where('keterangan_prolanis', 'Diabetes Melitus')
+            ->whereYear('last_kunjungan_prolanis', Date('Y'))
             ->get();
 
         foreach ($dataProlanisPasien as $prolanis) {
@@ -470,6 +472,7 @@ class LaporanController extends Controller
 
             $dataProlanisPasien = Pasien::where('status_prolanis', 1)
                 ->where('keterangan_prolanis', 'Diabetes Melitus')
+                ->whereYear('last_kunjungan_prolanis', Date('Y'))
                 ->get();
 
             foreach ($dataProlanisPasien as $prolanis) {
@@ -536,6 +539,7 @@ class LaporanController extends Controller
         $dataLaporanKunjungan = [];
         $dataProlanisPasien = Pasien::where('status_prolanis', 1)
             ->where('keterangan_prolanis', 'Hipertensi')
+            ->whereYear('last_kunjungan_prolanis', Date('Y'))
             ->get();
 
         foreach ($dataProlanisPasien as $prolanis) {
@@ -565,6 +569,7 @@ class LaporanController extends Controller
             $dataLaporanKunjungan = [];
             $dataProlanisPasien = Pasien::where('status_prolanis', 1)
                 ->where('keterangan_prolanis', 'Hipertensi')
+                ->whereYear('last_kunjungan_prolanis', Date('Y'))
                 ->get();
 
             foreach ($dataProlanisPasien as $prolanis) {
