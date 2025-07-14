@@ -436,66 +436,65 @@ class LaporanController extends Controller
         $navActive = 'prolanis';
         $year = $request->year;
 
-        $getProlanis = [];
-
-        $dataLaporanKunjungan = [];
-        $dataProlanisPasien = Pasien::where('status_prolanis', 1)
-            ->where('keterangan_prolanis', 'Diabetes Melitus')
-            ->whereYear('last_kunjungan_prolanis', Date('Y'))
-            ->get();
-
-        foreach ($dataProlanisPasien as $prolanis) {
-            $getProlanis[$prolanis->id] = [];
-            for ($i=1;$i<=12;$i++) {
-                $getCount = [];
-                $getCount = self::countByMonth($prolanis->id, $i, $year);
-                $getProlanis[$prolanis->id] = array_merge($getProlanis[$prolanis->id], $getCount);
-            }
-            $pasienBuild = [];
-            $pasienBuild['id'] = $prolanis->id;
-            $pasienBuild['nama'] = $prolanis->nama;
-            $pasienBuild['no_rm'] = $prolanis->no_rm;
-            $getProlanis[$prolanis->id] = \array_merge($getProlanis[$prolanis->id], $pasienBuild);
-        }
-
-        $dataLaporanKunjungan = $getProlanis;
         return response()->json([
-            'html' => view('laporan.prolanis.pemeriksaan-dm', compact('dataLaporanKunjungan', 'year', 'navActive'))->render()
+            'html' => view('laporan.prolanis.pemeriksaan-dm', compact('year','navActive'))->render()
         ]);
     }
 
-    public function loadDmAjax(Request $request) {
+    public function loadDmAjax(Request $request)
+    {
         if ($request->ajax()) {
-            $getProlanis = [];
-            $dataLaporanKunjungan = [];
-            $year = Date('Y');
-
             $dataProlanisPasien = Pasien::where('status_prolanis', 1)
                 ->where('keterangan_prolanis', 'Diabetes Melitus')
-                ->whereYear('last_kunjungan_prolanis', Date('Y'))
+                ->whereYear('last_kunjungan_prolanis', $request->year)
                 ->get();
 
+            $pasienIds = $dataProlanisPasien->pluck('id')->toArray();
+
+            $kunjunganData = Kunjungan::whereIn('id_pasien', $pasienIds)
+                ->where('is_prolanis', 1)
+                ->whereYear('created_at', $request->year)
+                ->select('id_pasien', 'gdp', 'hba1c', 'created_at')
+                ->get()
+                ->groupBy(function ($item) {
+                    return $item->id_pasien . '-' . date('n', strtotime($item->created_at));
+                });
+
+            $result = [];
+
             foreach ($dataProlanisPasien as $prolanis) {
-                $getProlanis[$prolanis->id] = [];
-                for ($i=1;$i<=12;$i++) {
-                    $getCount = [];
-                    $getCount = self::countByMonth($prolanis->id, $i, $year);
-                    $getProlanis[$prolanis->id] = array_merge($getProlanis[$prolanis->id], $getCount);
+                $row = [];
+                for ($i = 1; $i <= 12; $i++) {
+                    $key = $prolanis->id . '-' . $i;
+
+                    if (isset($kunjunganData[$key])) {
+                        $latest = $kunjunganData[$key]->sortByDesc('created_at')->first();
+
+                        $row['gdp' . $i] = $latest->gdp;
+                        $row['hba1c' . $i] = $latest->hba1c;
+                        $row['kontrol' . $i] = $latest->kontrol;
+                        $row['kimiaDarah' . $i] = $latest->kimia_darah;
+                    } else {
+                        $row['gdp' . $i] = 0;
+                        $row['hba1c' . $i] = 0;
+                        $row['kontrol' . $i] = 0;
+                        $row['kimiaDarah' . $i] = 0;
+                    }
                 }
-                $pasienBuild = [];
-                $pasienBuild['id'] = $prolanis->id;
-                $pasienBuild['nama'] = $prolanis->nama;
-                $pasienBuild['no_rm'] = $prolanis->no_rm;
-                $getProlanis[$prolanis->id] = \array_merge($getProlanis[$prolanis->id], $pasienBuild);
+
+                $row['id'] = $prolanis->id;
+                $row['nama'] = $prolanis->nama;
+                $row['no_rm'] = $prolanis->no_rm;
+
+                $result[] = $row;
             }
 
-            $dataLaporanKunjungan = $getProlanis;
-
-            return DataTables::of($dataLaporanKunjungan)
+            return DataTables::of($result)
                 ->addIndexColumn()
                 ->make(true);
         }
     }
+
 
     public function pemeriksaanDMWithId($idPasien = '')
     {
@@ -534,65 +533,65 @@ class LaporanController extends Controller
         $navActive = 'prolanis';
         $year = $request->year;
 
-        $getProlanis = [];
-
-        $dataLaporanKunjungan = [];
-        $dataProlanisPasien = Pasien::where('status_prolanis', 1)
-            ->where('keterangan_prolanis', 'Hipertensi')
-            ->whereYear('last_kunjungan_prolanis', Date('Y'))
-            ->get();
-
-        foreach ($dataProlanisPasien as $prolanis) {
-            $getProlanis[$prolanis->id] = [];
-            for ($i=1;$i<=12;$i++) {
-                $getCount = [];
-                $getCount = self::countByMonth($prolanis->id, $i, $year);
-                $getProlanis[$prolanis->id] = array_merge($getProlanis[$prolanis->id], $getCount);
-            }
-            $pasienBuild = [];
-            $pasienBuild['id'] = $prolanis->id;
-            $pasienBuild['nama'] = $prolanis->nama;
-            $pasienBuild['no_rm'] = $prolanis->no_rm;
-            $getProlanis[$prolanis->id] = \array_merge($getProlanis[$prolanis->id], $pasienBuild);
-        }
-
-        $dataLaporanKunjungan = $getProlanis;
         return response()->json([
-            'html' => view('laporan.prolanis.pemeriksaan-ht', compact('dataLaporanKunjungan', 'year', 'navActive'))->render()
+            'html' => view('laporan.prolanis.pemeriksaan-ht', compact('year', 'navActive'))->render()
         ]);
     }
 
-    public function loadHtAjax(Request $request) {
+    public function loadHtAjax(Request $request)
+    {
         if ($request->ajax()) {
-            $getProlanis = [];
-            $year = Date('Y');
-            $dataLaporanKunjungan = [];
             $dataProlanisPasien = Pasien::where('status_prolanis', 1)
                 ->where('keterangan_prolanis', 'Hipertensi')
-                ->whereYear('last_kunjungan_prolanis', Date('Y'))
+                ->whereYear('last_kunjungan_prolanis', $request->year)
                 ->get();
 
+            $pasienIds = $dataProlanisPasien->pluck('id')->toArray();
+
+            $kunjunganData = Kunjungan::whereIn('id_pasien', $pasienIds)
+                ->where('is_prolanis', 1)
+                ->whereYear('created_at', $request->year)
+                ->select('id_pasien', 'kontrol', 'kimia_darah', 'created_at')
+                ->get()
+                ->groupBy(function ($item) {
+                    return $item->id_pasien . '-' . date('n', strtotime($item->created_at));
+                });
+
+            $result = [];
+
             foreach ($dataProlanisPasien as $prolanis) {
-                $getProlanis[$prolanis->id] = [];
-                for ($i=1;$i<=12;$i++) {
-                    $getCount = [];
-                    $getCount = self::countByMonth($prolanis->id, $i, $year);
-                    $getProlanis[$prolanis->id] = array_merge($getProlanis[$prolanis->id], $getCount);
+                $row = [];
+                for ($i = 1; $i <= 12; $i++) {
+                    $key = $prolanis->id . '-' . $i;
+
+                    if (isset($kunjunganData[$key])) {
+                        $latest = $kunjunganData[$key]->sortByDesc('created_at')->first();
+
+                        $row['gdp' . $i] = $latest->gdp;
+                        $row['hba1c' . $i] = $latest->hba1c;
+                        $row['kontrol' . $i] = $latest->kontrol;
+                        $row['kimiaDarah' . $i] = $latest->kimia_darah;
+                    } else {
+                        $row['gdp' . $i] = 0;
+                        $row['hba1c' . $i] = 0;
+                        $row['kontrol' . $i] = 0;
+                        $row['kimiaDarah' . $i] = 0;
+                    }
                 }
-                $pasienBuild = [];
-                $pasienBuild['id'] = $prolanis->id;
-                $pasienBuild['nama'] = $prolanis->nama;
-                $pasienBuild['no_rm'] = $prolanis->no_rm;
-                $getProlanis[$prolanis->id] = \array_merge($getProlanis[$prolanis->id], $pasienBuild);
+
+                $row['id'] = $prolanis->id;
+                $row['nama'] = $prolanis->nama;
+                $row['no_rm'] = $prolanis->no_rm;
+
+                $result[] = $row;
             }
 
-            $dataLaporanKunjungan = $getProlanis;
-
-            return DataTables::of($dataLaporanKunjungan)
+            return DataTables::of($result)
                 ->addIndexColumn()
                 ->make(true);
         }
     }
+
 
     public function pemeriksaanHTWithId($idPasien)
     {

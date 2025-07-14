@@ -55,7 +55,8 @@
     var table = $('#table-dm').DataTable({
         processing: true,
         serverSide: true,
-        ajax: "{{ route('ajax_load_pemeriksaan_dm') }}",
+        pageLength: 50,
+        ajax: "{{ route('ajax_load_pemeriksaan_dm') }}?year=<?php echo $year ?>",
         columns: [
             {
                 data: 'DT_RowIndex',

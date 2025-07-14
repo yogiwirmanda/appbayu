@@ -21,9 +21,9 @@
         <div class="card-body">
             <div class="col-6 d-flex justify-content-around m-b-10">
                 <select name="tahun" id="select-tahun" class="form-control select2">
-                    <option value="2021">2021</option>
-                    <option value="2022">2022</option>
                     <option value="2023" selected>2023</option>
+                    <option value="2024" selected>2024</option>
+                    <option value="2025" selected>2025</option>
                 </select>
             </div>
             <ul class="nav nav-tabs border-tab" id="top-tab" role="tablist">
