@@ -55,6 +55,7 @@
     var table = $('#table-ht').DataTable({
         processing: true,
         serverSide: true,
+        pageLength: 50,
         ajax: "{{ route('ajax_load_pemeriksaan_ht') }}?year=<?php echo $year ?>",
         columns: [
             {

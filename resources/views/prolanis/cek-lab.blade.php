@@ -99,7 +99,7 @@
         var table = $('#table-prolanis').DataTable({
             processing: true,
             serverSide: true,
-            ajax: 'http://localhost:5000/api/v1/prolanis/jadwal-cek-lab?' + queryParam,
+            ajax: 'http://ehealthprc.com:5000/api/v1/prolanis/jadwal-cek-lab?' + queryParam,
             searchDelay: 500,
             columns: [
                 {
@@ -162,7 +162,7 @@
         var dataForm = form.serializeArray();
 
         $.ajax({
-            url: "http://localhost:5000/api/v1/prolanis/update-datang-cek-lab",
+            url: "http://ehealthprc.com:5000/api/v1/prolanis/update-datang-cek-lab",
             method: "PATCH",
             dataType: "json",
             data: dataForm,
