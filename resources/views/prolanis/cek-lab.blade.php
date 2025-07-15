@@ -49,6 +49,7 @@
                                 <tr>
                                     <th>No RM</th>
                                     <th>Nama</th>
+                                    <th>Keterangan Prolanis</th>
                                     <th>Tanggal Cek Lab</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -110,6 +111,10 @@
                     render: function(data,type,row) {
                         return '<a href="/prolanis/riwayat/' + row.pasien.id + '">' + row.pasien.nama + '</a>';
                     }
+                },
+                {
+                    data: 'keterangan_prolanis',
+                    name: 'Keterangan Prolanis'
                 },
                 {
                     data: 'tanggal',

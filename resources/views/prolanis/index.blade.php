@@ -136,7 +136,7 @@
                 },
                 {
                     render: function(data,type,row) {
-                        return '<a href="/prolanis/riwayat/' + row.id + '">' + row.nama + '</a>';
+                        return '<a href="/pasiens/detail/' + row.id + '">' + row.nama + '</a>';
                     }
                 },
                 {
@@ -243,7 +243,7 @@
         var dataForm = form.serializeArray();
 
         $.ajax({
-            url: "http://ehealthprc.com:5000/api/v1/prolanis/create-jadwal-cek-lab",
+            url: "http://ehealthprc.com/api/v1/prolanis/create-jadwal-cek-lab",
             method: "POST",
             dataType: "json",
             data: dataForm,
