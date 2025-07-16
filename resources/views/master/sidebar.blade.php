@@ -45,7 +45,7 @@
               <li><a href="/pasien">Pasien</a></li>
               <li><a href="/dokter">Dokter</a></li>
               <li><a href="/prolanis">Prolanis</a></li>
-              <li><a href="/prolanis/cek-lab">Cek Lab</a></li>
+              <li><a href="/ceklab">Cek Lab</a></li>
               <li><a href="/prb">PRB</a></li>
             </ul>
           </li>
@@ -67,7 +67,6 @@
               <span>Laporan</span>
             </a>
             <ul class="sidebar-submenu">
-              <!-- <li><a href="/laporan/prolanis">Prolanis</a></li> -->
               <li><a href="/laporan/pemeriksaan">Prolanis</a></li>
               <li><a href="/laporan/pemeriksaanPrb">PRB</a></li>
               <li><a href="/laporan/klpcm">KLPCM</a></li>

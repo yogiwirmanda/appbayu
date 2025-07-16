@@ -27,19 +27,13 @@
                                 <option value="Diabetes Melitus">Diabetes Melitus</option>
                                 <option value="Hipertensi">Hipertensi</option>
                             </select>
-                            <a href="javascript:;"
-                                class="btn btn-info btn-fill pull-right btn-submit-filter m-l-10">Filter
-                            </a>
                         </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-md-3 col-sm-3">
+                        <div class="col-md-6 col-sm-6">
                             <div class="form-group">
-                                <label class="col-form-label">Tanggal</label>
-                                <input type="date" name="tanggal" id="tanggal" class="form-control search-filter"
-                                    placeholder="Tanggal Cek Lab">
+                                <input type="date" name="tanggal" id="tanggal" value="<?php echo Date('Y-m-d') ?>" class="form-control search-filter">
                             </div>
                         </div>
+
                     </div>
                 </div>
                 <div class="card-body">
@@ -51,7 +45,7 @@
                                     <th>Nama</th>
                                     <th>Keterangan Prolanis</th>
                                     <th>Tanggal Cek Lab</th>
-                                    <th>Aksi</th>
+                                    <th width="20%">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -94,13 +88,24 @@
 @section('page-scripts')
 <script>
     $('.select2').select2();
-    function loadTable(queryParam = ''){
-        $('#table-prolanis').dataTable().fnClearTable();
-        $('#table-prolanis').dataTable().fnDestroy();
+    function loadTable(){
+        console.log('tabel')
+        let tanggal = $('#tanggal').val();
+        let jenis = $('#jenis_prolanis').val();
+
+        let queryParam = '?tanggal=' + tanggal;
+        if (jenis != 'ALL'){
+            queryParam += '&jenis=' + jenis;
+        }
+
+        if ($.fn.DataTable.isDataTable('#table-prolanis')) {
+            $('#table-prolanis').DataTable().clear().destroy();
+        }
+
         var table = $('#table-prolanis').DataTable({
             processing: true,
             serverSide: true,
-            ajax: 'http://ehealthprc.com:5000/api/v1/prolanis/jadwal-cek-lab?' + queryParam,
+            ajax: 'http://ehealthprc.com:5000/api/v1/prolanis/jadwal-cek-lab' + queryParam,
             searchDelay: 500,
             columns: [
                 {
@@ -109,7 +114,7 @@
                 },
                 {
                     render: function(data,type,row) {
-                        return '<a href="/prolanis/riwayat/' + row.pasien.id + '">' + row.pasien.nama + '</a>';
+                        return '<a href="/pasiens/detail/' + row.pasien.id + '">' + row.pasien.nama + '</a>';
                     }
                 },
                 {
@@ -117,15 +122,22 @@
                     name: 'Keterangan Prolanis'
                 },
                 {
-                    data: 'tanggal',
-                    name: 'tanggal'
+                    render: function (data, type, row) {
+                        const date = new Date(row.tanggal);
+                        const day = String(date.getDate()).padStart(2, '0');
+                        const month = String(date.getMonth() + 1).padStart(2, '0');
+                        const year = date.getFullYear();
+                        return `${day}-${month}-${year}`;
+                    }
                 },
                 {
                     render: function (data, type, row) {
+                        let actionBtn = '';
                         if (row.datang == null){
-                            actionBtn = '<a href="javascript:;" class="btn btn-info btn-sm btn-update-datang me-2" data-pasien-id="'+row.id+'">Update Kedatangan</a>';
+                            actionBtn += '<a href="javascript:;" class="btn btn-info btn-sm btn-update-datang me-2" data-pasien-id="'+row.id+'">Kedatangan</a>';
+                            actionBtn += '<a href="javascript:;" class="btn btn-danger btn-sm btn-remove-ceklab" data-pasien-id="'+row.id+'" data-pasien-nama="'+row.pasien.nama+'">Hapus</a>';
                         } else {
-                            actionBtn = row.datang == 1 ? "Datang" : "Tidak Datang";
+                            actionBtn += row.datang == 1 ? "Datang" : "Tidak Datang";
                         }
                         return actionBtn;
                     }
@@ -134,11 +146,16 @@
         });
     }
 
-    loadTable('ALL');
+    loadTable();
 
-    $('.btn-submit-filter').click(function () {
-        let value = $('#jenis_prolanis').val();
-        loadTable(value);
+    $(document).on('change', '#jenis_prolanis', function(e) {
+        e.stopImmediatePropagation();
+        loadTable();
+    });
+
+    $(document).on('change', '#tanggal', function(e) {
+        e.stopImmediatePropagation();
+        loadTable();
     });
 
     $(document).on('click', '.btn-update-datang', function (e) {
@@ -147,19 +164,39 @@
         $('#pasien-cek-lab-id').val($(this).attr('data-pasien-id'))
     });
 
-    let timeoutId;
-
-    function handleKeyupWithDelay() {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(function() {
-        var tanggal = $('#tanggal').val();
-        var queryParam = '';
-        queryParam += '&tanggal=' + tanggal;
-        loadTable(queryParam)
-      }, 500);
-    }
-
-    $('.search-filter').on('keyup', handleKeyupWithDelay);
+    $(document).on('click', '.btn-remove-ceklab', function (e) {
+        e.stopImmediatePropagation();
+        swal({
+            title: 'Apakah anda yakin?',
+            text: 'Menghapus data ceklab atas nama ' + $(this).attr('data-pasien-nama'),
+            type: 'question',
+            buttonsStyling: false,
+            showCancelButton: true,
+            confirmButtonClass: 'btn btn-success btn-delete-pasien',
+            confirmButtonText: 'Hapus',
+            cancelButtonClass: 'btn btn-danger',
+            cancelButtonText: 'Batal',
+        }).then((result) => {
+            if (result.value == true) {
+                $.ajax({
+                    url: "http://ehealthprc.com:5000/api/v1/prolanis/remove-cek-lab",
+                    method: "POST",
+                    dataType: "json",
+                    data : {
+                        id: $(this).attr('data-pasien-id')
+                    },
+                    success: function (response) {
+                        if (response.errCode == 0) {
+                            $.notify('Jadwal Ceklab Berhasil dihapus', {type: 'success'});
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 2000);
+                        }
+                    }
+                });
+            }
+        })
+    });
 
     $('#form-cek-lab').submit(function(e){
         e.preventDefault();

@@ -106,10 +106,10 @@
                     <form role="form" id="form-cek-lab">
                         <input type="hidden" name="pasien" id="pasien-cek-lab-id">
                         <div class="form-group mb-3">
-                            <input class="form-control" name="tanggal" placeholder="Tanggal..." type="date">
+                            <input class="form-control" id="tanggal-ceklab" name="tanggal" placeholder="Tanggal..." type="date">
                         </div>
                         <div class="text-left">
-                            <button type="submit" class="btn btn-primary btn-cari-data my-4">Buat Jadwal</button>
+                            <button type="submit" class="btn btn-primary btn-submit-jadwal-ceklab my-4">Buat Jadwal</button>
                         </div>
                     </form>
                 </div>
@@ -239,23 +239,33 @@
 
     $('#form-cek-lab').submit(function(e){
         e.preventDefault();
-        let form = $(this);
-        var dataForm = form.serializeArray();
 
-        $.ajax({
-            url: "http://ehealthprc.com:5000/api/v1/prolanis/create-jadwal-cek-lab",
-            method: "POST",
-            dataType: "json",
-            data: dataForm,
-            success: function (response) {
-                if (response.message != '') {
-                    $.notify('Pembuatan Jadwal Cek Lab Prolanis Berhasil', 'success');
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 1000);
+        let tanggal = $('#tanggal-ceklab').val();
+
+        if (tanggal == ''){
+            $.notify({message: 'Pilih Tanggal Cek Lab'}, {type: 'danger'});
+        } else {
+            $('.btn-submit-jadwal-ceklab').attr('disabled', true);
+            $('.btn-submit-jadwal-ceklab').text('Memproses data.....');
+
+            let form = $(this);
+            var dataForm = form.serializeArray();
+
+            $.ajax({
+                url: "http://ehealthprc.com:5000/api/v1/prolanis/create-jadwal-cek-lab",
+                method: "POST",
+                dataType: "json",
+                data: dataForm,
+                success: function (response) {
+                    if (response.message != '') {
+                        $.notify('Pembuatan Jadwal Cek Lab Prolanis Berhasil', {type: 'success'});
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 1000);
+                    }
                 }
-            }
-        });
+            });
+        }
     });
 
 
