@@ -1094,6 +1094,7 @@ class PasienController extends Controller
             'tgl_lahir' => $modelPasien->tgl_lahir,
             'umur' => $umur,
             'alamat' => $modelPasien->alamat,
+            'keterangan_prolanis' => $modelPasien->keterangan_prolanis,
             'diagnosa' => $modelPasien->keterangan_prolanis,
             "jk" => $modelPasien->jk == 'L' ? 'Laki-Laki' : 'Perempuan',
             'no_bpjs' => $modelPasien->no_bpjs,
