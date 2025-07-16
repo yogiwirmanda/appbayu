@@ -256,7 +256,7 @@
       <table>
         <tr>
           <td>
-            <input type="checkbox">
+            <input type="checkbox" {{ $keterangan_prolanis == 'Diabetes Melitus' ? "checked" : "" }}>
           </td>
           <td>
             <p style='font-size: 15px; font-family: "Arial MT", sans-serif; margin: 0cm 3.9pt 0.0001pt 10px;'>
@@ -269,7 +269,9 @@
       </table>
       <table>
         <tr>
-          <td><input type="checkbox"></td>
+          <td>
+            <input type="checkbox" {{ $keterangan_prolanis == 'Diabetes Melitus' ? "checked" : "" }}>
+          </td>
           <td>
             <p style='margin: 0cm 0cm 0cm 10px; font-size: 15px; font-family: "Arial MT", sans-serif;'>
               <u>Pemeriksaan&nbsp;DM&nbsp;Per&nbsp;6&nbsp;Bulan</u> Kimia&nbsp;Darah&nbsp;:
@@ -290,7 +292,9 @@
     <td>
       <table>
         <tr>
-          <td><input type="checkbox"></td>
+          <td>
+            <input type="checkbox" {{ $keterangan_prolanis == 'Hipertensi' ? "checked" : "" }}>
+          </td>
           <td>
             <p
               style='margin:0cm;font-size:15px;font-family:"Arial MT",sans-serif;margin-top:10.3pt;margin-right:59.15pt;margin-bottom:.0001pt;margin-left:5.0pt;'>
