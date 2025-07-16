@@ -51,12 +51,6 @@
 <!-- <script src="{{asset('zeta/js/theme-customizer/customizer.js')}}"></script> -->
 <!-- login js-->
 <!-- Plugin used-->
-<style>
-    .select2-container--open .select2-dropdown--below {
-        top: 40px;
-        left: 70px ;
-    }
-</style>
 @yield('page-modules')
 @yield('page-scripts')
 <script>
@@ -74,7 +68,15 @@
     //     });
     // });
     $(document).ready(function () {
-    $('.select2').select2();
+    $('.select2').each(function () {
+        const $this = $(this);
+
+        const $parent = $this.closest('.select2-parent, .form-group, .card-body, .modal, body');
+
+        $this.select2({
+            dropdownParent: $parent
+        });
+    });
 
     // After select2 is initialized, adjust the dropdown position
     $('.select2').on('select2:open', function () {

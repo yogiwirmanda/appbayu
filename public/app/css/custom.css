@@ -40,3 +40,6 @@ zoom: 80%;
 .login-card{
     height: 125vh !important;
 }
+.notify-alert{
+    z-index: 99999 !important;
+}

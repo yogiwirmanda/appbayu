@@ -204,7 +204,7 @@
 <script>
     $('.btn-batal-kunjungan').click(function (e) {
         e.preventDefault();
-        window.location.href = '/pasiens';
+        window.location.href = '/pasien';
     });
 
     var noBpjs = "{{$dataPasien->noBpjs}}";

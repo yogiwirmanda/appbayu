@@ -812,9 +812,9 @@ class PasienController extends Controller
 
     public function ceklab()
     {
-        $navActive = 'transaksi-prolanis-ceklab';
+        // $navActive = 'transaksi-ceklab';
 
-        return view('prolanis.cek-lab', compact('navActive'));
+        return view('prolanis.cek-lab');
     }
 
     public function removeProlanis($idPasien)
