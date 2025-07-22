@@ -56,7 +56,7 @@
         processing: true,
         serverSide: true,
         pageLength: 50,
-        ajax: "{{ route('ajax_load_pemeriksaan_dm') }}?year=<?php echo $year ?>",
+        ajax: "{{ route('ajax_load_pemeriksaan_dm') }}?year=<?php echo $year ?>&pasien=<?php echo $idPasien ?>",
         columns: [
             {
                 data: 'DT_RowIndex',

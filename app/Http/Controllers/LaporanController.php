@@ -435,19 +435,27 @@ class LaporanController extends Controller
     {
         $navActive = 'prolanis';
         $year = $request->year;
-
+        $idPasien = 'all';
         return response()->json([
-            'html' => view('laporan.prolanis.pemeriksaan-dm', compact('year','navActive'))->render()
+            'html' => view('laporan.prolanis.pemeriksaan-dm', compact('year','navActive', 'idPasien'))->render()
         ]);
     }
 
     public function loadDmAjax(Request $request)
     {
         if ($request->ajax()) {
-            $dataProlanisPasien = Pasien::where('status_prolanis', 1)
-                ->where('keterangan_prolanis', 'Diabetes Melitus')
-                ->whereYear('last_kunjungan_prolanis', $request->year)
-                ->get();
+
+            if ($request->pasien != 'all'){
+                $dataProlanisPasien = Pasien::where('id', $request->pasien)
+                    ->where('keterangan_prolanis', 'Diabetes Melitus')
+                    ->whereYear('last_kunjungan_prolanis', $request->year)
+                    ->get();
+            } else {
+                $dataProlanisPasien = Pasien::where('status_prolanis', 1)
+                    ->where('keterangan_prolanis', 'Diabetes Melitus')
+                    ->whereYear('last_kunjungan_prolanis', $request->year)
+                    ->get();
+            }
 
             $pasienIds = $dataProlanisPasien->pluck('id')->toArray();
 
@@ -498,33 +506,10 @@ class LaporanController extends Controller
 
     public function pemeriksaanDMWithId($idPasien = '')
     {
-        $getProlanis = [];
-
-        $dataLaporanKunjungan = [];
-        $dataProlanisPasien = Pasien::where('status_prolanis', 1)
-            ->where('keterangan_prolanis', 'Diabetes Melitus')
-            ->where('id', $idPasien)
-            ->get();
-
-        foreach ($dataProlanisPasien as $prolanis) {
-            $getProlanis[$prolanis->id] = [];
-            for ($i=1;$i<=12;$i++) {
-                $getCount = [];
-                $getCount = self::countByMonth($prolanis->id, $i, '');
-                $getProlanis[$prolanis->id] = array_merge($getProlanis[$prolanis->id], $getCount);
-            }
-            $pasienBuild = [];
-            $pasienBuild['id'] = $prolanis->id;
-            $pasienBuild['nama'] = $prolanis->nama;
-            $pasienBuild['no_rm'] = $prolanis->no_rm;
-            $getProlanis[$prolanis->id] = \array_merge($getProlanis[$prolanis->id], $pasienBuild);
-        }
-
+        $year = Date('Y');
         $type = 'dm';
-
-        $dataLaporanKunjungan = $getProlanis;
         return response()->json([
-            'html' => view('laporan.prolanis.pemeriksaan-dm', compact('dataLaporanKunjungan', 'type'))->render()
+            'html' => view('laporan.prolanis.pemeriksaan-dm', compact('year', 'type', 'idPasien'))->render()
         ]);
     }
 
@@ -532,20 +517,27 @@ class LaporanController extends Controller
     {
         $navActive = 'prolanis';
         $year = $request->year;
+        $idPasien = 'all';
 
         return response()->json([
-            'html' => view('laporan.prolanis.pemeriksaan-ht', compact('year', 'navActive'))->render()
+            'html' => view('laporan.prolanis.pemeriksaan-ht', compact('year', 'navActive', 'idPasien'))->render()
         ]);
     }
 
     public function loadHtAjax(Request $request)
     {
         if ($request->ajax()) {
-            $dataProlanisPasien = Pasien::where('status_prolanis', 1)
-                ->where('keterangan_prolanis', 'Hipertensi')
-                ->whereYear('last_kunjungan_prolanis', $request->year)
-                ->get();
-
+            if ($request->pasien != 'all'){
+                $dataProlanisPasien = Pasien::where('id', $request->pasien)
+                    ->where('keterangan_prolanis', 'Diabetes Melitus')
+                    ->whereYear('last_kunjungan_prolanis', $request->year)
+                    ->get();
+            } else {
+                $dataProlanisPasien = Pasien::where('status_prolanis', 1)
+                    ->where('keterangan_prolanis', 'Diabetes Melitus')
+                    ->whereYear('last_kunjungan_prolanis', $request->year)
+                    ->get();
+            }
             $pasienIds = $dataProlanisPasien->pluck('id')->toArray();
 
             $kunjunganData = Kunjungan::whereIn('id_pasien', $pasienIds)
@@ -596,34 +588,9 @@ class LaporanController extends Controller
     public function pemeriksaanHTWithId($idPasien)
     {
         $type = 'ht';
-
-        $getProlanis = [];
-
-        $dataLaporanKunjungan = [];
-        $dataProlanisPasien = Pasien::where('status_prolanis', 1)
-            ->where('keterangan_prolanis', 'Hipertensi')
-            ->where('id', $idPasien)
-            ->get();
-
-        foreach ($dataProlanisPasien as $prolanis) {
-            $getProlanis[$prolanis->id] = [];
-            for ($i=1;$i<=12;$i++) {
-                $getCount = [];
-                $getCount = self::countByMonth($prolanis->id, $i, '');
-                $getProlanis[$prolanis->id] = array_merge($getProlanis[$prolanis->id], $getCount);
-            }
-            $pasienBuild = [];
-            $pasienBuild['id'] = $prolanis->id;
-            $pasienBuild['nama'] = $prolanis->nama;
-            $pasienBuild['no_rm'] = $prolanis->no_rm;
-            $getProlanis[$prolanis->id] = \array_merge($getProlanis[$prolanis->id], $pasienBuild);
-        }
-
-        $type = 'ht';
-
-        $dataLaporanKunjungan = $getProlanis;
+        $year = Date('Y');
         return response()->json([
-            'html' => view('laporan.prolanis.pemeriksaan-ht', compact('dataLaporanKunjungan', 'type'))->render()
+            'html' => view('laporan.prolanis.pemeriksaan-ht', compact('year', 'type', 'idPasien'))->render()
         ]);
     }
 

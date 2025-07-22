@@ -280,20 +280,20 @@ $tanggal = Date('Y-m-d');
         })
     }
 
-    // loadDM();
+    loadDM();
 
-    // $('.btn-load-dm').click(function(e){
-    //     $('#type').val('dm');
-    //     $('.nav-link').removeClass('active');
-    //     $(this).addClass('active');
-    //     loadDM();
-    // });
-    // $('.btn-load-ht').click(function(e){
-    //     $('#type').val('ht');
-    //     $('.nav-link').removeClass('active');
-    //     $(this).addClass('active');
-    //     loadHT();
-    // });
+    $('.btn-load-dm').click(function(e){
+        $('#type').val('dm');
+        $('.nav-link').removeClass('active');
+        $(this).addClass('active');
+        loadDM();
+    });
+    $('.btn-load-ht').click(function(e){
+        $('#type').val('ht');
+        $('.nav-link').removeClass('active');
+        $(this).addClass('active');
+        loadHT();
+    });
 
     function loadTablePrb(){
         $.ajax({
