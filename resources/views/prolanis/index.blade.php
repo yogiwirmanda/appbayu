@@ -117,6 +117,33 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="modal-edit-pasien-prolanis" tabindex="-1" role="dialog" aria-labelledby="modal-form"
+    aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal- modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header px-4">
+                <h6 class="modal-title" id="modal-title-default">Ubah Status Prolanis</h6>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-0">
+                <div class="card-body px-lg-4 py-lg-3">
+                    <form role="form" id="form-pasien-edit-prolanis">
+                        <input type="hidden" name="id_pasien" id="pasien-id">
+                        <div class="form-group mb-3">
+                            <select name="keterangan_prolanis" class="form-control select2" id="jenis_prolanis">
+                                <option value="Diabetes Melitus">Diabetes Melitus</option>
+                                <option value="Hipertensi">Hipertensi</option>
+                            </select>
+                        </div>
+                        <div class="text-left">
+                            <button type="submit" class="btn btn-primary btn-submit-edit-prolanis my-4">Ubah Status</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 @section('page-scripts')
 <script>
@@ -150,6 +177,7 @@
                 {
                     render: function (data, type, row) {
                         actionBtn = '<a href="javascript:;" class="btn btn-danger btn-sm btn-remove-prolanis me-2" data-pasien-id="'+row.id+'">Hapus</a>';
+                        actionBtn += '<a href="javascript:;" class="btn btn-info btn-sm btn-edit-prolanis me-2" data-pasien-id="'+row.id+'">Edit Prolanis</a>';
                         actionBtn += '<a href="javascript:;" class="btn btn-primary btn-sm btn-send-whatsapp me-2" data-pasien-id="'+row.id+'">Kirim WA</a>';
                         actionBtn += '<a href="javascript:;" class="btn btn-warning btn-sm btn-cek-lab mt-2" data-pasien-id="'+row.id+'">Cek Lab</a>';
                         return actionBtn;
@@ -175,6 +203,12 @@
         e.stopImmediatePropagation();
         $('#modal-cek-lab').modal('show');
         $('#pasien-cek-lab-id').val($(this).attr('data-pasien-id'))
+    });
+
+    $(document).on('click', '.btn-edit-prolanis', function (e) {
+        e.stopImmediatePropagation();
+        $('#modal-edit-pasien-prolanis').modal('show');
+        $('#pasien-id').val($(this).attr('data-pasien-id'))
     });
 
     $(document).on('click', '.btn-send-whatsapp', function (e) {
@@ -259,6 +293,37 @@
                 success: function (response) {
                     if (response.message != '') {
                         $.notify('Pembuatan Jadwal Cek Lab Prolanis Berhasil', {type: 'success'});
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 1000);
+                    }
+                }
+            });
+        }
+    });
+
+    $('#form-pasien-edit-prolanis').submit(function(e){
+        e.preventDefault();
+
+        let jenis = $('#jenis_prolanis').val();
+
+        if (jenis == ''){
+            $.notify({message: 'Pilih Status Prolanis'}, {type: 'danger'});
+        } else {
+            $('.btn-submit-edit-prolanis').attr('disabled', true);
+            $('.btn-submit-edit-prolanis').text('Memproses data.....');
+
+            let form = $(this);
+            var dataForm = form.serializeArray();
+
+            $.ajax({
+                url: "http://ehealthprc.com:5000/api/v1/prolanis/update-status-prolanis",
+                method: "POST",
+                dataType: "json",
+                data: dataForm,
+                success: function (response) {
+                    if (response.message != '') {
+                        $.notify('Update status Prolanis Berhasil', {type: 'success'});
                         setTimeout(() => {
                             window.location.reload();
                         }, 1000);
