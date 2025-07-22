@@ -318,7 +318,7 @@
 
             $.ajax({
                 url: "http://ehealthprc.com:5000/api/v1/prolanis/update-status-prolanis",
-                method: "PATCH",
+                method: "POST",
                 dataType: "json",
                 data: dataForm,
                 success: function (response) {
