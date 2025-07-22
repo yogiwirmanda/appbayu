@@ -22,7 +22,7 @@ use App\Http\Controllers\RetensiController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SuratSehatController;
 use App\Http\Controllers\UnitTestController;
-
+use App\Http\Controllers\LabController;
 use App\Http\Controllers\FileUploadController;
 
 Route::post('/upload', [FileUploadController::class, 'upload'])->name('file.upload');
@@ -247,5 +247,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/pasien/check-available-rm', [PasienController::class, 'checkAvailRM'])->name('cek_avail_rm');
     Route::get('/pasien/check-available-rm-by-wilayah/{wilayah}', [PasienController::class, 'checkAvailableRMByWilayah'])->name('cek_avail_rm_by_wilayah');
+
+    Route::get('/upload-lab', [LabController::class, 'index'])->name('lab-upload');
+    Route::post('/extract-lab', [LabController::class, 'extractLabResults'])->name('lab.extract');
 
 });
