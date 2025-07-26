@@ -45,6 +45,7 @@
                                     <th>Nama</th>
                                     <th>Keterangan Prolanis</th>
                                     <th>Tanggal Cek Lab</th>
+                                    <th>Hasil</th>
                                     <th width="20%">Aksi</th>
                                 </tr>
                             </thead>
@@ -62,7 +63,7 @@
     <div class="modal-dialog modal- modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header px-4">
-                <h6 class="modal-title" id="modal-title-default">Buat Jadwal Cek Lab</h6>
+                <h6 class="modal-title" id="modal-title-default">Ubah Status Periksa</h6>
                 <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-0">
@@ -71,13 +72,39 @@
                         <input type="hidden" name="id" id="pasien-cek-lab-id">
                         <div class="form-group mb-3">
                             <select name="datang" class="form-control select2" required>
-                              <option value="1">Datang</option>
-                              <option value="0">Tidak Datang</option>
+                              <option value="1">Periksa</option>
+                              <option value="0">Tidak Periksa</option>
                             </select>
                         </div>
                         <div class="text-left">
                             <button type="submit" class="btn btn-primary btn-simpan-kedatangan my-4">Simpan</button>
                         </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-input-lab" tabindex="-1" role="dialog" aria-labelledby="modal-form"
+    aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal- modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header px-4">
+                <h6 class="modal-title" id="modal-title-default">Buat Jadwal Cek Lab</h6>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-0">
+                <div class="card-body px-lg-4 py-lg-3">
+                    <form id="labForm" class="form">
+                      @csrf
+                      <input type="hidden" name="ceklab_id" id="ceklabid">
+                      <div id="form-rows" class="container">
+                          <div class="row mb-3">
+                              <input type="text" id="pemeriksaan" name="pemeriksaan[]" class="form-control mb-2" placeholder="Pemeriksaan" readonly>
+                              <input type="text" name="hasil[]" class="form-control mb-2" placeholder="Hasil" required>
+                          </div>
+                      </div>
+                      <button type="submit" class="btn btn-primary mt-3">Simpan</button>
                     </form>
                 </div>
             </div>
@@ -132,12 +159,28 @@
                 },
                 {
                     render: function (data, type, row) {
+                        if (row.hasil == null){
+                            return '-';
+                        } else {
+                            return row.hasil
+                        }
+                    }
+                },
+                {
+                    render: function (data, type, row) {
                         let actionBtn = '';
                         if (row.datang == null){
-                            actionBtn += '<a href="javascript:;" class="btn btn-info btn-sm btn-update-datang me-2" data-pasien-id="'+row.id+'">Kedatangan</a>';
+                            actionBtn += '<a href="javascript:;" class="btn btn-info btn-sm btn-update-datang me-2" data-pasien-id="'+row.id+'">Periksa</a>';
                             actionBtn += '<a href="javascript:;" class="btn btn-danger btn-sm btn-remove-ceklab" data-pasien-id="'+row.id+'" data-pasien-nama="'+row.pasien.nama+'">Hapus</a>';
                         } else {
-                            actionBtn += row.datang == 1 ? "Datang" : "Tidak Datang";
+                            if (row.datang == 1 && row.hasil == null){
+                                actionBtn += '<a href="javascript:;" class="btn btn-info btn-sm btn-input-hasil me-2" prolanis="'+row.keterangan_prolanis+'" ceklabid="'+row.id+'">Hasil</a>';
+                            } else if (row.datang == 1 && row.hasil != null){
+                                actionBtn += '<a href="javascript:;" class="btn btn-danger btn-sm btn-remove-ceklab" data-pasien-id="'+row.id+'" data-pasien-nama="'+row.pasien.nama+'">Hapus</a>';
+                            }
+                            else {
+                                actionBtn += "Tidak Periksa";
+                            }
                         }
                         return actionBtn;
                     }
@@ -220,6 +263,39 @@
             }
         });
     });
+
+    $('#labForm').on('submit', function(e) {
+        e.preventDefault();
+
+        const formData = new FormData(this);
+
+        $.ajax({
+            url: "{{ route('lab.extract') }}",
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                let html = '<h3>Results:</h3><ul>';
+                response.received_rows.forEach(item => {
+                    html += `<li><strong>${item.pemeriksaan}</strong>: ${item.hasil} (${item.nilai})</li>`;
+                });
+                html += '</ul>';
+                $('#results').html(html);
+            },
+            error: function(xhr) {
+                alert('Submit failed!');
+                console.error(xhr.responseText);
+            }
+        });
+    });
+
+
+    $(document).on('click', '.btn-input-hasil', function(){
+      $('#ceklabid').val($(this).attr('ceklabid'));
+      $('#pemeriksaan').val($(this).attr('prolanis'));
+      $('#modal-input-lab').modal('show');
+    })
 
 
 </script>

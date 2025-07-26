@@ -83,6 +83,11 @@ $tanggal = Date('Y-m-d');
                   <div class="col-9">{{$pasien->cara_bayar}} {{($pasien->cara_bayar == 'BPJS') ? $pasien->no_bpjs : ''}}
                   </div>
                 </div>
+                <div class="row">
+                  <div class="col-3"><span>Keterangan Prolanis</span></div>
+                  <div class="col-9">{{$pasien->keterangan_prolanis}}
+                  </div>
+                </div>
               </div>
               <div class="row mt-4">
                 <div class="col-md-3">
@@ -195,35 +200,6 @@ $tanggal = Date('Y-m-d');
     </div>
   </div>
 </div>
-<div class="modal fade" id="modal-input-lab" tabindex="-1" role="dialog" aria-labelledby="modal-form"
-    aria-hidden="true" style="display: none;">
-    <div class="modal-dialog modal- modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header px-4">
-                <h6 class="modal-title" id="modal-title-default">Buat Jadwal Cek Lab</h6>
-                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body p-0">
-                <div class="card-body px-lg-4 py-lg-3">
-                    <form id="labForm" class="form">
-                      @csrf
-                      <input type="hidden" name="ceklab_id" id="ceklabid">
-                      <div id="form-rows" class="container">
-                          <div class="row mb-3">
-                              <input type="text" name="pemeriksaan[]" class="form-control mb-2" placeholder="Pemeriksaan" required>
-                              <input type="text" name="hasil[]" class="form-control mb-2" placeholder="Hasil" required>
-                              <input type="text" name="nilai[]" class="form-control mb-2" placeholder="Nilai Rujukan / Keterangan">
-                              <button type="button" class="btn btn-secondary" onclick="removeRow(this)">❌</button>
-                          </div>
-                      </div>
-                      <button type="button" class="btn btn-info mt-3" onclick="addRow()">➕ Add Row</button>
-                      <button type="submit" class="btn btn-primary mt-3">Submit</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 @endsection
 @section('page-scripts')
 <script>
@@ -323,53 +299,5 @@ $tanggal = Date('Y-m-d');
 
     loadTablePrb();
     loadTableCeklab();
-
-    function addRow() {
-        const row = document.createElement('div');
-        row.classList.add('row');
-        row.innerHTML = `
-            <input type="text" name="pemeriksaan[]" class="form-control mb-2" placeholder="Pemeriksaan" required>
-            <input type="text" name="hasil[]" class="form-control mb-2" placeholder="Hasil" required>
-            <input type="text" name="nilai[]" class="form-control mb-2" placeholder="Nilai Rujukan / Keterangan">
-            <button type="button" class="btn btn-secondary" onclick="removeRow(this)">❌</button>
-        `;
-        document.getElementById('form-rows').appendChild(row);
-    }
-
-    function removeRow(button) {
-        button.parentElement.remove();
-    }
-
-$('#labForm').on('submit', function(e) {
-    e.preventDefault();
-
-    const formData = new FormData(this); // already includes _token
-
-    $.ajax({
-        url: "{{ route('lab.extract') }}",
-        type: "POST",
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function(response) {
-            let html = '<h3>Results:</h3><ul>';
-            response.received_rows.forEach(item => {
-                html += `<li><strong>${item.pemeriksaan}</strong>: ${item.hasil} (${item.nilai})</li>`;
-            });
-            html += '</ul>';
-            $('#results').html(html);
-        },
-        error: function(xhr) {
-            alert('Submit failed!');
-            console.error(xhr.responseText);
-        }
-    });
-});
-
-
-    $(document).on('click', '.btn-input-hasil', function(){
-      $('#ceklabid').val($(this).attr('ceklabid'));
-      $('#modal-input-lab').modal('show');
-    })
 </script>
 @endsection

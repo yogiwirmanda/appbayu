@@ -26,7 +26,9 @@ class ProlanisExport implements FromView
     }
     public function getData()
     {
-        $data = Pasien::where('status_prolanis', 1)->get();
+        $data = Pasien::select('pasiens.no_rm','pasiens.nama', 'pasiens.no_hp', 'pasiens.alamat', 'pasiens.rt', 'pasiens.rw', 'pasiens.tgl_lahir',
+            'pasiens.keterangan_prolanis', 'pasiens.no_bpjs', 'districts.name as kelurahan')->where('status_prolanis', 1)
+        ->join('districts', 'districts.id', 'pasiens.district')->get();
         $dataReturn = [];
         foreach ($data as $key => $value) {
             switch ($value->jenis_kasus) {
