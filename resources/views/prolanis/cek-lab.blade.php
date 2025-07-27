@@ -278,6 +278,7 @@
             success: function(response) {
                 $('#hasil').val('');
                 $('#modal-input-lab').modal('hide');
+                $.notify('Hasil berhasil ditambahkan', 'success');
                 loadTable();
             },
             error: function(xhr) {
