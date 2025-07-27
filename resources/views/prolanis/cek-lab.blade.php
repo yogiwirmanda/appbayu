@@ -276,12 +276,7 @@
             contentType: false,
             processData: false,
             success: function(response) {
-                let html = '<h3>Results:</h3><ul>';
-                response.received_rows.forEach(item => {
-                    html += `<li><strong>${item.pemeriksaan}</strong>: ${item.hasil} (${item.nilai})</li>`;
-                });
-                html += '</ul>';
-                $('#results').html(html);
+
             },
             error: function(xhr) {
                 alert('Submit failed!');
