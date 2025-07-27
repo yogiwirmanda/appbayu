@@ -33,7 +33,6 @@ public function extractLabResults(Request $request)
 
     return response()->json([
         'message' => 'Data saved successfully.',
-        'received_rows' => $rows,
     ]);
 }
 
