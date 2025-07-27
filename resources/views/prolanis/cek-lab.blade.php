@@ -100,8 +100,8 @@
                       <input type="hidden" name="ceklab_id" id="ceklabid">
                       <div id="form-rows" class="container">
                           <div class="row mb-3">
-                              <input type="text" id="pemeriksaan" name="pemeriksaan[]" class="form-control mb-2" placeholder="Pemeriksaan" readonly>
-                              <input type="text" name="hasil[]" class="form-control mb-2" placeholder="Hasil" required>
+                              <input type="text" id="pemeriksaan" name="pemeriksaan" class="form-control mb-2" placeholder="Pemeriksaan" readonly>
+                              <input type="text" name="hasil" class="form-control mb-2" placeholder="Hasil" required>
                           </div>
                       </div>
                       <button type="submit" class="btn btn-primary mt-3">Simpan</button>
