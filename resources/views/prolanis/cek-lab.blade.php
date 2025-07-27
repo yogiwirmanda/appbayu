@@ -276,7 +276,7 @@
             contentType: false,
             processData: false,
             success: function(response) {
-                $('#hasil').val(''));
+                $('#hasil').val('');
                 $('#modal-input-lab').modal('hide');
                 loadTable();
             },
