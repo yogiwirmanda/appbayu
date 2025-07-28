@@ -128,7 +128,7 @@
             <div class="modal-body p-0">
                 <div class="card-body px-lg-4 py-lg-3">
                     <form role="form" id="form-last-ceklab">
-                        <input type="hidden" name="pasien" id="pasien-last-ceklab">
+                        <input type="hidden" name="id_pasien" id="pasien-last-ceklab">
                         <div class="form-group mb-3">
                             <input class="form-control" id="tanggal-last-ceklab" name="tanggal" placeholder="Tanggal..." type="date">
                         </div>
