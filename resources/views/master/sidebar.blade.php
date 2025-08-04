@@ -10,6 +10,7 @@
     <nav class="sidebar-main">
       <div class="left-arrow" id="left-arrow"><i data-feather="arrow-left"></i></div>
       <div id="sidebar-menu">
+        @if(Auth::user()->role == 'admin')
         <ul class="sidebar-links" id="simple-bar">
           <li class="back-btn"><a href="index.html"><img class="img-fluid" src="../assets/images/logo-icon.png"
                 alt=""></a>
@@ -91,6 +92,25 @@
             </ul>
           </li>
         </ul>
+        @endif
+        @if(Auth::user()->role == 'lab')
+        <ul class="sidebar-links" id="simple-bar">
+          <li class="back-btn"><a href="index.html"><img class="img-fluid" src="../assets/images/logo-icon.png"
+                alt=""></a>
+            <div class="mobile-back text-end"><span>Back</span><i class="fa fa-angle-right ps-2" aria-hidden="true">
+              </i></div>
+          </li>
+          <li class="sidebar-list">
+            <a class="sidebar-link sidebar-title" href="javascript:;">
+              <i data-feather="book"></i>
+              <span>Data</span>
+            </a>
+            <ul class="sidebar-submenu">
+              <li><a href="/ceklab">Cek Lab</a></li>
+            </ul>
+          </li>
+        </ul>
+        @endif
       </div>
       <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>
     </nav>

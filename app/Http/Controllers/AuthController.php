@@ -48,7 +48,11 @@ class AuthController extends Controller
         Auth::attempt($data);
 
         if (Auth::check()) {
-            return redirect()->route('home');
+            if (Auth::user()->role == 'admin'){
+                return redirect()->route('home');
+            } else if (Auth::user()->role == 'lab') {
+                return redirect()->route('show_prolanis_cek_lab');
+            }
         } else {
             Session::flash('error', 'Email atau password salah');
             return redirect()->route('login');

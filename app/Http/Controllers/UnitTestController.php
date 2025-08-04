@@ -23,7 +23,7 @@ class UnitTestController extends Controller
     public function send($idPasien)
     {
         $pasien = Pasien::where('id', $idPasien)->first();
-        $token = 'n6GQCJcJy7a3JxZfBvv9';
+        $token = 'LsBBV34pipt7T1JCrVjV';
 
         $response = Http::withHeaders([
             'Authorization' => $token
@@ -39,7 +39,7 @@ class UnitTestController extends Controller
         $dataPasien = Pasien::where('status_prolanis', 1)->get();
         foreach ($dataPasien as $pasien) {
             $getLastKunjungan = $pasien->last_kunjungan_prolanis;
-            $now = time(); // or your date as well
+            $now = time();
             $lastKunjungan = strtotime($getLastKunjungan);
             $datediff = $now - $lastKunjungan;
 

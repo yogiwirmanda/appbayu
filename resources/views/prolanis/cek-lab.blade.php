@@ -116,14 +116,15 @@
 <script>
     $('.select2').select2();
     function loadTable(){
-        console.log('tabel')
         let tanggal = $('#tanggal').val();
         let jenis = $('#jenis_prolanis').val();
+        let role = "<?= Auth::user()->role ?>";
 
         let queryParam = '?tanggal=' + tanggal;
         if (jenis != 'ALL'){
             queryParam += '&jenis=' + jenis;
         }
+        queryParam += '&role=' + role;
 
         if ($.fn.DataTable.isDataTable('#table-prolanis')) {
             $('#table-prolanis').DataTable().clear().destroy();
@@ -169,18 +170,23 @@
                 {
                     render: function (data, type, row) {
                         let actionBtn = '';
-                        if (row.datang == null){
-                            actionBtn += '<a href="javascript:;" class="btn btn-info btn-sm btn-update-datang me-2" data-pasien-id="'+row.id+'">Periksa</a>';
-                            actionBtn += '<a href="javascript:;" class="btn btn-danger btn-sm btn-remove-ceklab" data-pasien-id="'+row.id+'" data-pasien-nama="'+row.pasien.nama+'">Hapus</a>';
-                        } else {
-                            if (row.datang == 1 && row.hasil == null){
-                                actionBtn += '<a href="javascript:;" class="btn btn-info btn-sm btn-input-hasil me-2" prolanis="'+row.keterangan_prolanis+'" ceklabid="'+row.id+'">Hasil</a>';
-                            } else if (row.datang == 1 && row.hasil != null){
+                        let role = "<?= Auth::user()->role ?>";
+                        if (role == 'admin') {
+                            if (row.datang == null){
+                                actionBtn += '<a href="javascript:;" class="btn btn-info btn-sm btn-update-datang me-2" data-pasien-id="'+row.id+'">Periksa</a>';
                                 actionBtn += '<a href="javascript:;" class="btn btn-danger btn-sm btn-remove-ceklab" data-pasien-id="'+row.id+'" data-pasien-nama="'+row.pasien.nama+'">Hapus</a>';
+                            } else {
+                                if (row.datang == 1 && row.hasil == null){
+                                    actionBtn += '<a href="javascript:;" class="btn btn-info btn-sm btn-input-hasil me-2" prolanis="'+row.keterangan_prolanis+'" ceklabid="'+row.id+'">Hasil</a>';
+                                } else if (row.datang == 1 && row.hasil != null){
+                                    actionBtn += '<a href="javascript:;" class="btn btn-danger btn-sm btn-remove-ceklab" data-pasien-id="'+row.id+'" data-pasien-nama="'+row.pasien.nama+'">Hapus</a>';
+                                }
+                                else {
+                                    actionBtn += "Tidak Periksa";
+                                }
                             }
-                            else {
-                                actionBtn += "Tidak Periksa";
-                            }
+                        } else if (role == 'lab'){
+                            actionBtn += '<a href="javascript:;" class="btn btn-info btn-sm btn-input-hasil me-2" prolanis="'+row.keterangan_prolanis+'" ceklabid="'+row.id+'">Hasil</a>';
                         }
                         return actionBtn;
                     }
