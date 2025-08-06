@@ -14,6 +14,7 @@
     justify-content: center;
     align-items: center;
     position: absolute;
+    right: 0px;
   }
 </style>
 <div class="text-center circle-red"><strong>{{$keterangan_prolanis == 'Diabetes Melitus' ? 'DM' : 'HT'}}<br>6 Bulan</strong></div>
