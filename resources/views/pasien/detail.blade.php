@@ -90,6 +90,7 @@ $tanggal = Date('Y-m-d');
                 </div>
               </div>
               <div class="row mt-4">
+                @if(Auth::user()->role == 'admin')
                 <div class="col-md-3">
                   <a href="/pasien/download/gigimulut/{{$pasien->id}}" target="_blank"
                     class="btn btn-primary mb-2 btn-download-poli-gigi">Poli Gigi & Mulut</a>
@@ -114,6 +115,7 @@ $tanggal = Date('Y-m-d');
                   <a href="/pasien/download/pak/{{$pasien->id}}" target="_blank"
                     class="btn btn-primary mb-2 btn-download-catatan-integrasi-2">Pengkajian Awal Klinis</a>
                 </div>
+                @endif
                 @if($pasien->status_prolanis == 1)
                 <div class="col-md-3">
                   <a href="/pasien/download/prolanis/{{$pasien->id}}" target="_blank"
@@ -131,17 +133,25 @@ $tanggal = Date('Y-m-d');
             </div>
             <div class="card-body">
               <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item"><a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home"
+                @if(Auth::user()->role == 'admin')
+                <li class="nav-item"><a class="nav-link <?php echo (Auth::user()->role == 'admin' ? 'active' : '') ?>" id="home-tab" data-bs-toggle="tab" href="#home"
                     role="tab" aria-controls="home" aria-selected="true">Kunjungan</a></li>
-                <li class="nav-item"><a class="nav-link" id="profile-tabs" data-bs-toggle="tab" href="#profile"
+                @endif
+                @if(Auth::user()->role == 'admin' || Auth::user()->role == 'lab')
+                <li class="nav-item"><a class="nav-link <?php echo (Auth::user()->role == 'lab' ? 'active' : '') ?>" id="profile-tabs" data-bs-toggle="tab" href="#profile"
                     role="tab" aria-controls="profile" aria-selected="false">Prolanis</a></li>
+                @endif
+                @if(Auth::user()->role == 'admin')
                 <li class="nav-item"><a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#contact"
                     role="tab" aria-controls="contact" aria-selected="false">PRB</a></li>
+                @endif
+                @if(Auth::user()->role == 'admin' || Auth::user()->role == 'lab')
                 <li class="nav-item"><a class="nav-link" id="ceklab-tab" data-bs-toggle="tab" href="#ceklab"
                     role="tab" aria-controls="ceklab" aria-selected="false">Cek Lab</a></li>
+                @endif
               </ul>
               <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active m-t-10" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="tab-pane fade show <?php echo (Auth::user()->role == 'admin' ? 'active' : '') ?> m-t-10" id="home" role="tabpanel" aria-labelledby="home-tab">
                   <table class="table table-bordered table-responsive" id="table-kunjungan">
                     <thead>
                       <tr>
@@ -155,7 +165,7 @@ $tanggal = Date('Y-m-d');
                     <tbody></tbody>
                   </table>
                 </div>
-                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="tab-pane fade <?php echo (Auth::user()->role == 'lab' ? 'active' : '') ?>" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                   <input type="hidden" name="type" id="type" value="dm">
                   <div class="card">
                     <div class="card-body">
@@ -203,6 +213,8 @@ $tanggal = Date('Y-m-d');
 @endsection
 @section('page-scripts')
 <script>
+  let role = "<?= Auth::user()->role ?>";
+  if (role == 'admin'){
   var table = $('#table-kunjungan').DataTable({
         processing: true,
         serverSide: true,
@@ -230,6 +242,7 @@ $tanggal = Date('Y-m-d');
         ]
     });
 
+  }
     function loadDM(){
         $.ajax({
             url : '/laporan/pemeriksaan/dm/{{$pasien->id}}',
@@ -255,8 +268,9 @@ $tanggal = Date('Y-m-d');
             }
         })
     }
-
-    loadDM();
+    if (role == 'admin' || role == 'lab'){
+      loadDM();
+    }
 
     $('.btn-load-dm').click(function(e){
         $('#type').val('dm');
@@ -296,8 +310,11 @@ $tanggal = Date('Y-m-d');
             }
         })
     }
-
-    loadTablePrb();
-    loadTableCeklab();
+    if (role == 'admin'){
+      loadTablePrb();
+    }
+    if (role == 'lab'){
+      loadTableCeklab();
+    }
 </script>
 @endsection

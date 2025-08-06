@@ -4,7 +4,18 @@
   .text-center {
     text-align: center
   }
+ .circle-red{
+    width: 100px;
+    height: 80px;
+    border-radius: 50%;
+    border: 1px solid red;
+    color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 </style>
+<div class="text-center circle-red"><strong>{{$keterangan_prolanis == 'Diabetes Melitus' ? 'DM' : 'HT'}}<br>6 Bulan</strong></div>
 <div class="text-center"><strong>SURAT REKOMENDASI</strong></div>
 <div class="text-center"><strong>PEMERIKSAAN PENUNJANG PESERTA PROLANIS</strong></div>
 <table style="margin-top: 10px; margin-bottom: 10px">
