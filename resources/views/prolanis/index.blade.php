@@ -81,6 +81,7 @@
                                     <th>Nama</th>
                                     <th>Keterangan</th>
                                     <th>Alamat</th>
+                                    <th>Terakhir Ceklab</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -197,6 +198,15 @@
                 {
                     data: 'alamat',
                     name: 'alamat'
+                },
+                {
+                    render: function (data, type, row) {
+                        if (row.last_ceklab == null){
+                            return '-';
+                        } else {
+                            return row.last_ceklab
+                        }
+                    }
                 },
                 {
                     render: function (data, type, row) {

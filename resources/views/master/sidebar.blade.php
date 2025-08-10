@@ -10,7 +10,7 @@
     <nav class="sidebar-main">
       <div class="left-arrow" id="left-arrow"><i data-feather="arrow-left"></i></div>
       <div id="sidebar-menu">
-        @if(Auth::user()->role == 'admin')
+        @if(Auth::user()->role == 'admin' || Auth::user()->role == 'rm')
         <ul class="sidebar-links" id="simple-bar">
           <li class="back-btn"><a href="index.html"><img class="img-fluid" src="../assets/images/logo-icon.png"
                 alt=""></a>
@@ -29,12 +29,16 @@
               <span>Master</span>
             </a>
             <ul class="sidebar-submenu">
-              <li><a href="/poli">Poli</a></li>
-              <li><a href="/diagnosa">Diagnosa</a></li>
-              <li><a href="/obat">Obat</a></li>
+              @if (Auth::user()->role == 'admin')
+                <li><a href="/poli">Poli</a></li>
+                <li><a href="/diagnosa">Diagnosa</a></li>
+                <li><a href="/obat">Obat</a></li>
+                <li><a href="/poli-rujukan">Poli Rujukan</a></li>
+                <li><a href="/rumahsakit">Rumah Sakit</a></li>
+              @endif
+              @if(Auth::user()->role == 'admin' || Auth::user()->role == 'rm')
               <li><a href="/pekerjaan">Pekerjaan</a></li>
-              <li><a href="/poli-rujukan">Poli Rujukan</a></li>
-              <li><a href="/rumahsakit">Rumah Sakit</a></li>
+              @endif
             </ul>
           </li>
           <li class="sidebar-list">
@@ -70,11 +74,16 @@
             <ul class="sidebar-submenu">
               <li><a href="/laporan/pemeriksaan">Prolanis</a></li>
               <li><a href="/laporan/pemeriksaanPrb">PRB</a></li>
+              @if (Auth::user()->role == 'admin')
               <li><a href="/laporan/klpcm">KLPCM</a></li>
+              @endif
               <li><a href="/laporan/kunjungan">Kunjungan</a></li>
+              @if(Auth::user()->role == 'admin')
               <li><a href="/laporan/lb1">LB1</a></li>
+              @endif
             </ul>
           </li>
+          @if(Auth::user()->role == 'admin')
           <li class="sidebar-list">
             <a class="sidebar-link" href="/retensi">
               <i data-feather="shield"></i>
@@ -91,6 +100,7 @@
               <li><a href="/setting/kk">Kepala Keluarga</a></li>
             </ul>
           </li>
+          @endif
         </ul>
         @endif
         @if(Auth::user()->role == 'lab')

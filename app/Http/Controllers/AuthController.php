@@ -48,7 +48,7 @@ class AuthController extends Controller
         Auth::attempt($data);
 
         if (Auth::check()) {
-            if (Auth::user()->role == 'admin'){
+            if (Auth::user()->role == 'admin' || Auth::user()->role == 'rm'){
                 return redirect()->route('home');
             } else if (Auth::user()->role == 'lab') {
                 return redirect()->route('show_prolanis_cek_lab');
