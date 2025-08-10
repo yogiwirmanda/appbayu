@@ -165,7 +165,7 @@ $tanggal = Date('Y-m-d');
                     <tbody></tbody>
                   </table>
                 </div>
-                <div class="tab-pane fade <?php echo (Auth::user()->role == 'lab' ? 'active' : '') ?>" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="tab-pane fade show <?php echo (Auth::user()->role == 'lab' ? 'active' : '') ?>" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                   <input type="hidden" name="type" id="type" value="dm">
                   <div class="card">
                     <div class="card-body">
