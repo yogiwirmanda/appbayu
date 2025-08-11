@@ -133,25 +133,25 @@ $tanggal = Date('Y-m-d');
             </div>
             <div class="card-body">
               <ul class="nav nav-tabs" id="myTab" role="tablist">
-                @if(Auth::user()->role == 'admin')
+                @if(Auth::user()->role == 'admin' || Auth::user()->role == 'rm')
                 <li class="nav-item"><a class="nav-link <?php echo (Auth::user()->role == 'admin' ? 'active' : '') ?>" id="home-tab" data-bs-toggle="tab" href="#home"
                     role="tab" aria-controls="home" aria-selected="true">Kunjungan</a></li>
                 @endif
-                @if(Auth::user()->role == 'admin' || Auth::user()->role == 'lab')
+                @if(Auth::user()->role == 'admin' || Auth::user()->role == 'rm' || Auth::user()->role == 'lab')
                 <li class="nav-item"><a class="nav-link <?php echo (Auth::user()->role == 'lab' ? 'active' : '') ?>" id="profile-tabs" data-bs-toggle="tab" href="#profile"
                     role="tab" aria-controls="profile" aria-selected="false">Prolanis</a></li>
                 @endif
-                @if(Auth::user()->role == 'admin')
+                @if(Auth::user()->role == 'admin' || Auth::user()->role == 'rm')
                 <li class="nav-item"><a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#contact"
                     role="tab" aria-controls="contact" aria-selected="false">PRB</a></li>
                 @endif
-                @if(Auth::user()->role == 'admin' || Auth::user()->role == 'lab')
+                @if(Auth::user()->role == 'admin' || Auth::user()->role == 'rm' || Auth::user()->role == 'lab')
                 <li class="nav-item"><a class="nav-link" id="ceklab-tab" data-bs-toggle="tab" href="#ceklab"
                     role="tab" aria-controls="ceklab" aria-selected="false">Cek Lab</a></li>
                 @endif
               </ul>
               <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show <?php echo (Auth::user()->role == 'admin' ? 'active' : '') ?> m-t-10" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="tab-pane fade show <?php echo (Auth::user()->role == 'admin' || Auth::user()->role == "rm" ? 'active' : '') ?> m-t-10" id="home" role="tabpanel" aria-labelledby="home-tab">
                   <table class="table table-bordered table-responsive" id="table-kunjungan">
                     <thead>
                       <tr>
