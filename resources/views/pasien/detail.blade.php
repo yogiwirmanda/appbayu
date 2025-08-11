@@ -308,11 +308,7 @@ $tanggal = Date('Y-m-d');
             }
         })
     }
-    if (role == 'admin' || role == 'rm'){
-      loadTablePrb();
-    }
-    if (role == 'lab'){
-      loadTableCeklab();
-    }
+    loadTablePrb();
+    loadTableCeklab();
 </script>
 @endsection
