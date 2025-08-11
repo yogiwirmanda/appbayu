@@ -90,7 +90,7 @@ $tanggal = Date('Y-m-d');
                 </div>
               </div>
               <div class="row mt-4">
-                @if(Auth::user()->role == 'admin')
+                @if(Auth::user()->role == 'admin' || Auth::user()->role == 'rm')
                 <div class="col-md-3">
                   <a href="/pasien/download/gigimulut/{{$pasien->id}}" target="_blank"
                     class="btn btn-primary mb-2 btn-download-poli-gigi">Poli Gigi & Mulut</a>
@@ -134,7 +134,7 @@ $tanggal = Date('Y-m-d');
             <div class="card-body">
               <ul class="nav nav-tabs" id="myTab" role="tablist">
                 @if(Auth::user()->role == 'admin' || Auth::user()->role == 'rm')
-                <li class="nav-item"><a class="nav-link <?php echo (Auth::user()->role == 'admin' ? 'active' : '') ?>" id="home-tab" data-bs-toggle="tab" href="#home"
+                <li class="nav-item"><a class="nav-link <?php echo (Auth::user()->role == 'admin' || Auth::user()->role == 'rm' ? 'active' : '') ?>" id="home-tab" data-bs-toggle="tab" href="#home"
                     role="tab" aria-controls="home" aria-selected="true">Kunjungan</a></li>
                 @endif
                 @if(Auth::user()->role == 'admin' || Auth::user()->role == 'rm' || Auth::user()->role == 'lab')
@@ -268,9 +268,7 @@ $tanggal = Date('Y-m-d');
             }
         })
     }
-    if (role == 'admin' || role == 'lab'){
-      loadDM();
-    }
+    loadDM();
 
     $('.btn-load-dm').click(function(e){
         $('#type').val('dm');
@@ -310,7 +308,7 @@ $tanggal = Date('Y-m-d');
             }
         })
     }
-    if (role == 'admin'){
+    if (role == 'admin' || role == 'rm'){
       loadTablePrb();
     }
     if (role == 'lab'){
