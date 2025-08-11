@@ -214,7 +214,7 @@ $tanggal = Date('Y-m-d');
 @section('page-scripts')
 <script>
   let role = "<?= Auth::user()->role ?>";
-  if (role == 'admin'){
+  if (role == 'admin' || role == 'rm'){
   var table = $('#table-kunjungan').DataTable({
         processing: true,
         serverSide: true,
