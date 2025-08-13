@@ -369,6 +369,12 @@
                             window.location.reload();
                         }, 1000);
                     }
+                },
+                error : function(error) {
+                    $.notify('Pembuatan Jadwal Cek Lab Prolanis Gagal', {type: 'error'});
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
                 }
             });
         }
