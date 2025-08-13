@@ -171,7 +171,7 @@
                     render: function (data, type, row) {
                         let actionBtn = '';
                         let role = "<?= Auth::user()->role ?>";
-                        if (role == 'admin') {
+                        if (role == 'admin' || role == 'rm') {
                             if (row.datang == null){
                                 actionBtn += '<a href="javascript:;" class="btn btn-info btn-sm btn-update-datang me-2" data-pasien-id="'+row.id+'">Periksa</a>';
                                 actionBtn += '<a href="javascript:;" class="btn btn-danger btn-sm btn-remove-ceklab" data-pasien-id="'+row.id+'" data-pasien-nama="'+row.pasien.nama+'">Hapus</a>';
