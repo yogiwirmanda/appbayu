@@ -124,7 +124,7 @@
         if (jenis != 'ALL'){
             queryParam += '&jenis=' + jenis;
         }
-        queryParam += '&role=' + role;
+        // queryParam += '&role=' + role;
 
         if ($.fn.DataTable.isDataTable('#table-prolanis')) {
             $('#table-prolanis').DataTable().clear().destroy();
@@ -186,7 +186,16 @@
                                 }
                             }
                         } else if (role == 'lab'){
-                            actionBtn += '<a href="javascript:;" class="btn btn-info btn-sm btn-input-hasil me-2" prolanis="'+row.keterangan_prolanis+'" ceklabid="'+row.id+'">Hasil</a>';
+                            if (row.datang == null){
+                                actionBtn += '<a href="javascript:;" class="btn btn-info btn-sm btn-update-datang me-2" data-pasien-id="'+row.id+'">Periksa</a>';
+                            } else {
+                                if (row.datang == 1 && row.hasil == null){
+                                    actionBtn += '<a href="javascript:;" class="btn btn-info btn-sm btn-input-hasil me-2" prolanis="'+row.keterangan_prolanis+'" ceklabid="'+row.id+'">Hasil</a>';
+                                }
+                                else {
+                                    actionBtn += "Tidak Periksa";
+                                }
+                            }
                         }
                         return actionBtn;
                     }

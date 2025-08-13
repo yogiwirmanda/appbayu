@@ -164,24 +164,27 @@
     $('.btn-submit-filter').click(function (e) {
         e.preventDefault();
         e.stopImmediatePropagation();
-        var tanggal = $('.datepicker-here').val();
-        tanggal = tanggal.replace(/\s+/g, '');
-        let separateTanggal = tanggal.split("-");
-        let separateAwal = '';
-        let separateAkhir = '';
-        if (separateTanggal.length > 1){
-            separateAwal = separateTanggal[0].split("/");
-            separateAkhir = separateTanggal[1].split("/");
-        } else {
-            separateAwal = separateTanggal[0].split("/");
-            separateAkhir = separateAwal;
+
+        let tanggal = $('.datepicker-here').val().trim();
+
+        if (!tanggal) {
+            alert('Please select a date');
+            return;
         }
 
-        let tanggalAwal = separateAwal[2] + '-' + separateAwal[0] + '-' + separateAwal[1];
-        let tanggalAkhir = separateAkhir[2] + '-' + separateAkhir[0] + '-' + separateAkhir[1];
+        let separateTanggal = tanggal.includes("-")
+            ? tanggal.split("-")
+            : [tanggal, tanggal];
+
+        let separateAwal = separateTanggal[0].trim().split("/");
+        let separateAkhir = separateTanggal[1].trim().split("/");
+
+        let tanggalAwal = `${separateAwal[2]}-${separateAwal[0]}-${separateAwal[1]}`;
+        let tanggalAkhir = `${separateAkhir[2]}-${separateAkhir[0]}-${separateAkhir[1]}`;
 
         loadTable(tanggalAwal, tanggalAkhir);
     });
+
 
     $('.btn-export-pasien').click(function(e){
         e.stopImmediatePropagation();
