@@ -177,7 +177,7 @@
                                 actionBtn += '<a href="javascript:;" class="btn btn-danger btn-sm btn-remove-ceklab" data-pasien-id="'+row.id+'" data-pasien-nama="'+row.pasien.nama+'">Hapus</a>';
                             } else {
                                 if (row.datang == 1 && row.hasil == null){
-                                    actionBtn += '<a href="/pasien/download/fhlp/'+$row.id+'" class="btn btn-info btn-sm btn-input-hasil-prolanis me-2" prolanis="'+row.keterangan_prolanis+'" ceklabid="'+row.id+'">Form</a>';
+                                    actionBtn += '<a href="/pasien/download/fhlp/'+row.id+'" class="btn btn-info btn-sm btn-input-hasil-prolanis me-2" prolanis="'+row.keterangan_prolanis+'" ceklabid="'+row.id+'">Form</a>';
                                     actionBtn += '<a href="javascript:;" class="btn btn-info btn-sm btn-input-hasil me-2" prolanis="'+row.keterangan_prolanis+'" ceklabid="'+row.id+'">Hasil</a>';
                                 } else if (row.datang == 1 && row.hasil != null){
                                     actionBtn += '<a href="javascript:;" class="btn btn-danger btn-sm btn-remove-ceklab" data-pasien-id="'+row.id+'" data-pasien-nama="'+row.pasien.nama+'">Hapus</a>';
