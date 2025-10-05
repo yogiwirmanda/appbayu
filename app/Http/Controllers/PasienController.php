@@ -1015,6 +1015,37 @@ class PasienController extends Controller
         $templateProcessor->saveAs('php://output');
     }
 
+    public function formatHasilLabProlanis($idCeklab = null)
+    {
+        $ceklab = Ceklab::find($idCeklab);
+        $idPasien = $ceklab->id_pasien;
+        $modelPasien = Pasien::find($idPasien);
+        $tglLahir = date_create($modelPasien->tgl_lahir);
+        $dateNow = date_create(Date('Y-m-d'));
+        $dateDiff = date_diff($tglLahir, $dateNow);
+        $umur = $dateDiff->y;
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('doc/new/FORMAT_HASIL_LAB_PROLANIS.docx');
+        $templateProcessor->setValue('nama_pasien', self::addName($idPasien) . $modelPasien->nama);
+        $templateProcessor->setValue('tgl_periksa', $ceklab->tanggal);
+        $templateProcessor->setValue('gdp', $ceklab->hasil);
+        $templateProcessor->setValue('tgl_lahir', Date('d-m-Y', \strtotime($modelPasien->tgl_lahir)));
+        $templateProcessor->setValue('alamat', $modelPasien->alamat);
+        $templateProcessor->setValue('telepon', $modelPasien->no_hp);
+        $templateProcessor->setValue('no_register', $modelPasien->no_rm);
+        $templateProcessor->setValue('cara_bayar', $modelPasien->cara_bayar);
+        $templateProcessor->setValue('no_bpjs', $modelPasien->no_bpjs ? $modelPasien->no_bpjs : '');
+        $templateProcessor->setValue('nik', $modelPasien->no_ktp);
+        $templateProcessor->setValue('umur', $umur . ' Tahun');
+        $templateProcessor->setValue('jk', $modelPasien->jk == 'L' ? 'Laki-Laki' : 'Perempuan');
+        $templateProcessor->setValue('kel', $modelPasien->district ? District::find($modelPasien->district)->name . ' ' : '-');
+        $templateProcessor->setValue('agama', $modelPasien->agama);
+        $templateProcessor->setValue('rt', $modelPasien->rt ? $modelPasien->rt . ' ' : '-');
+        $templateProcessor->setValue('rw', $modelPasien->rw ? $modelPasien->rw . ' ' : '-');
+        header("Content-Disposition: attachment; filename=" . $modelPasien->nama . " _FORMAT_HASIL_LAB_PROLANIS.docx");
+
+        $templateProcessor->saveAs('php://output');
+    }
+
     public function downloadGigiMulut($idPasien = null)
     {
         $modelPasien = Pasien::find($idPasien);
