@@ -104,6 +104,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('setting/dtAjax', [SettingController::class, 'dtAjaxSetKK'])->name('ajax_load_set_kk');
     Route::post('setting/save/kk', [SettingController::class, 'saveKK'])->name('setting_save_kk');
 
+    Route::get('claim', [PasienController::class, 'claim'])->name('show_prolanis_claim');
+    Route::get('claim/{idPasien}', [PasienController::class, 'claimDetail'])->name('show_prolanis_claim_detail');
     Route::get('ceklab', [PasienController::class, 'ceklab'])->name('show_prolanis_cek_lab');
     Route::get('prolanis', [PasienController::class, 'prolanis'])->name('show_prolanis');
     Route::get('prolanis/filter/{val}', [PasienController::class, 'prolanisFilter'])->name('show_prolanis_filter');

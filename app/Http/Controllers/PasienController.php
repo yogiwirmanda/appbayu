@@ -9,6 +9,7 @@ use App\Models\Kategori;
 use App\Models\Kunjungan;
 use App\Models\Pasien;
 use App\Models\Ceklab;
+use App\Models\Claim;
 use App\Models\Antrean;
 use App\Models\PasienAdmin;
 use App\Models\Pekerjaan;
@@ -817,6 +818,20 @@ class PasienController extends Controller
         return view('prolanis.cek-lab');
     }
 
+    public function claim()
+    {
+        // $navActive = 'transaksi-ceklab';
+
+        return view('prolanis.claim');
+    }
+
+    public function claimDetail($idClaim)
+    {
+        // $navActive = 'transaksi-ceklab';
+
+        return view('prolanis.claim-detail', compact('idClaim'));
+    }
+
     public function removeProlanis($idPasien)
     {
         $dataPasien = Pasien::find($idPasien);
@@ -1015,10 +1030,10 @@ class PasienController extends Controller
         $templateProcessor->saveAs('php://output');
     }
 
-    public function formatHasilLabProlanis($idCeklab = null)
+    public function formatHasilLabProlanis($idClaim = null)
     {
-        $ceklab = Ceklab::find($idCeklab);
-        $idPasien = $ceklab->id_pasien;
+        $claim = Claim::find($idClaim);
+        $idPasien = $claim->id_pasien;
         $modelPasien = Pasien::find($idPasien);
         $tglLahir = date_create($modelPasien->tgl_lahir);
         $dateNow = date_create(Date('Y-m-d'));
@@ -1026,8 +1041,8 @@ class PasienController extends Controller
         $umur = $dateDiff->y;
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('doc/new/FORMAT_HASIL_LAB_PROLANIS.docx');
         $templateProcessor->setValue('nama_pasien', self::addName($idPasien) . $modelPasien->nama);
-        $templateProcessor->setValue('tgl_periksa', $ceklab->tanggal);
-        $templateProcessor->setValue('gdp', $ceklab->hasil);
+        $templateProcessor->setValue('tgl_periksa', $claim->tanggal);
+        $templateProcessor->setValue('gdp', $claim->pemeriksaan_gula);
         $templateProcessor->setValue('tgl_lahir', Date('d-m-Y', \strtotime($modelPasien->tgl_lahir)));
         $templateProcessor->setValue('alamat', $modelPasien->alamat);
         $templateProcessor->setValue('telepon', $modelPasien->no_hp);
