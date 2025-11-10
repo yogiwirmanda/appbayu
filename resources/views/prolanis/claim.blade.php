@@ -42,7 +42,7 @@
 <script>
 $(document).ready(function() {
   const pasienId = "{{ $id ?? request()->route('id') }}"; // ensure route passes ID
-  const apiUrl = `https://ehealthprc.com/api/api/v1/claim/list/${pasienId}`;
+  const apiUrl = `https://ehealthprc.com/api/api/v1/claims/list`;
 
   // Helper: hitung umur
   function hitungUmur(tglLahir) {
