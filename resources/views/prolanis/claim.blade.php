@@ -65,7 +65,7 @@ $(document).ready(function() {
               <td>${no_bpjs}</td>
               <td>${tanggal}</td>
               <td>
-                <a href="/claim/${id}" class="btn btn-sm btn-primary">
+                <a href="/claim/${item.id}" class="btn btn-sm btn-primary">
                   Detail
                 </a>
               </td>
