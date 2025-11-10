@@ -179,7 +179,7 @@
         var table = $('#table-prolanis').DataTable({
             processing: true,
             serverSide: true,
-            ajax: 'http://ehealthprc.com:5000/api/v1/prolanis?' + queryParam,
+            ajax: 'https://ehealthprc.com/api/api/v1/prolanis?' + queryParam,
             searchDelay: 500,
             columns: [
                 {
@@ -327,7 +327,7 @@
             var dataForm = form.serializeArray();
 
             $.ajax({
-                url: "http://ehealthprc.com:5000/api/v1/prolanis/create-jadwal-cek-lab",
+                url: "https://ehealthprc.com/api/api/v1/prolanis/create-jadwal-cek-lab",
                 method: "POST",
                 dataType: "json",
                 data: dataForm,
@@ -367,7 +367,7 @@
             var dataForm = form.serializeArray();
 
             $.ajax({
-                url: "http://ehealthprc.com:5000/api/v1/prolanis/update-jadwal-cek-lab",
+                url: "https://ehealthprc.com/api/api/v1/prolanis/update-jadwal-cek-lab",
                 method: "POST",
                 dataType: "json",
                 data: dataForm,
@@ -404,7 +404,7 @@
             var dataForm = form.serializeArray();
 
             $.ajax({
-                url: "http://ehealthprc.com:5000/api/v1/prolanis/update-status-prolanis",
+                url: "https://ehealthprc.com/api/api/v1/prolanis/update-status-prolanis",
                 method: "POST",
                 dataType: "json",
                 data: dataForm,

@@ -95,7 +95,7 @@
         $('#table-pasien').dataTable().fnClearTable();
         $('#table-pasien').dataTable().fnDestroy();
         table = $('#table-pasien').DataTable({
-            ajax: 'http://ehealthprc.com:5000/api/v1/pasien?' + queryParam,
+            ajax: 'https://ehealthprc.com/api/api/v1/pasien?' + queryParam,
             processing: true,
             serverSide: true,
             searchDelay: 500,
