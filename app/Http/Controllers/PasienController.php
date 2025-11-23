@@ -1157,6 +1157,92 @@ class PasienController extends Controller
 
         return $dompdf->stream('prolanis.pdf', ['Attachment' => false]);
     }
+    
+    public function downloadFormPreventif($idPasien = null)
+    {
+        $modelPasien = Pasien::find($idPasien);
+        $modelCeklab = Ceklab::where('id_pasien', $idPasien)
+            ->orderBy('tanggal', 'desc')
+            ->first();
+
+        if (!$modelPasien) {
+            return redirect()->back()->with('error', 'Patient not found');
+        }
+
+        $tglLahir = date_create($modelPasien->tgl_lahir);
+        $dateNow = date_create(date('Y-m-d'));
+        $dateDiff = date_diff($tglLahir, $dateNow);
+        $umur = $dateDiff->y;
+
+        $tanggalCekLab = $modelCeklab && $modelCeklab->tanggal
+            ? date('d F Y', strtotime($modelCeklab->tanggal))
+            : '-';
+
+        $data = [
+            'nama' => $modelPasien->nama,
+            'tgl_lahir' => $modelPasien->tgl_lahir,
+            'umur' => $umur,
+            'alamat' => $modelPasien->alamat,
+            'keterangan_prolanis' => $modelPasien->keterangan_prolanis,
+            'diagnosa' => $modelPasien->keterangan_prolanis,
+            "jk" => $modelPasien->jk == 'L' ? 'Laki-Laki' : 'Perempuan',
+            'no_bpjs' => $modelPasien->no_bpjs,
+            'tanggal_cek_lab' => $tanggalCekLab,
+            'date' => date('d F Y')
+        ];
+
+        $view = view('pdf.form_promotif_preventif', $data)->render();
+
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($view);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        return $dompdf->stream('prolanis.pdf', ['Attachment' => false]);
+    }
+    
+    public function downloadPemeriksaanLab($idPasien = null)
+    {
+        $modelPasien = Pasien::find($idPasien);
+        $modelCeklab = Ceklab::where('id_pasien', $idPasien)
+            ->orderBy('tanggal', 'desc')
+            ->first();
+
+        if (!$modelPasien) {
+            return redirect()->back()->with('error', 'Patient not found');
+        }
+
+        $tglLahir = date_create($modelPasien->tgl_lahir);
+        $dateNow = date_create(date('Y-m-d'));
+        $dateDiff = date_diff($tglLahir, $dateNow);
+        $umur = $dateDiff->y;
+
+        $tanggalCekLab = $modelCeklab && $modelCeklab->tanggal
+            ? date('d F Y', strtotime($modelCeklab->tanggal))
+            : '-';
+
+        $data = [
+            'nama' => $modelPasien->nama,
+            'tgl_lahir' => $modelPasien->tgl_lahir,
+            'umur' => $umur,
+            'alamat' => $modelPasien->alamat,
+            'keterangan_prolanis' => $modelPasien->keterangan_prolanis,
+            'diagnosa' => $modelPasien->keterangan_prolanis,
+            "jk" => $modelPasien->jk == 'L' ? 'Laki-Laki' : 'Perempuan',
+            'no_bpjs' => $modelPasien->no_bpjs,
+            'tanggal_cek_lab' => $tanggalCekLab,
+            'date' => date('d F Y')
+        ];
+
+        $view = view('pdf.form_perm_laboratorium', $data)->render();
+
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($view);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        return $dompdf->stream('prolanis.pdf', ['Attachment' => false]);
+    }
 
 
 
