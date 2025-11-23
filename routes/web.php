@@ -69,13 +69,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('pasien/download/ci/{idPasien}', [PasienController::class, 'downloadCI'])->name('pasien_download_ci');
     Route::get('pasien/download/ci2/{idPasien}', [PasienController::class, 'downloadCI2'])->name('pasien_download_ci2');
     Route::get('pasien/download/fhlp/{idPasien}', [PasienController::class, 'formatHasilLabProlanis'])->name('pasien_download_format_hasil_lab_prolanis');
+    Route::get('pasien/download/prolanis/{idPasien}', [PasienController::class, 'downloadProlanis'])->name('pasien_download_prolanis');
     Route::get('pasien/download/ffp/{idPasien}', [PasienController::class, 'downloadFormPreventif'])->name('pasien_download_format_form_preventif');
     Route::get('pasien/download/fpl/{idPasien}', [PasienController::class, 'downloadPemeriksaanLab'])->name('pasien_download_format_form_pemeriksaan_lab');
     Route::get('pasien/download/gigimulut/{idPasien}', [PasienController::class, 'downloadGigiMulut'])->name('pasien_download_gigi_mulut');
     Route::get('pasien/download/cet/{idPasien}', [PasienController::class, 'downloadCet'])->name('pasien_download_cet');
     Route::get('pasien/download/gc/{idPasien}', [PasienController::class, 'downloadGc'])->name('pasien_download_gc');
     Route::get('pasien/download/pak/{idPasien}', [PasienController::class, 'downloadPak'])->name('pasien_download_pak');
-    Route::get('pasien/download/prolanis/{idPasien}', [PasienController::class, 'downloadProlanis'])->name('pasien_download_prolanis');
     Route::get('pasien/download/ss/{idKunjungan}', [PasienController::class, 'downloadSuratSehat'])->name('pasien_download_ss');
     Route::get('pasien/download/catin/{idKunjungan}', [PasienController::class, 'downloadCatin'])->name('pasien_download_catin');
 

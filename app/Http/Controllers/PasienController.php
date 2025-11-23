@@ -1198,7 +1198,7 @@ class PasienController extends Controller
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
 
-        return $dompdf->stream('prolanis.pdf', ['Attachment' => false]);
+        return $dompdf->stream('form_promotif_preventif.pdf', ['Attachment' => false]);
     }
     
     public function downloadPemeriksaanLab($idPasien = null)
@@ -1241,7 +1241,7 @@ class PasienController extends Controller
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
 
-        return $dompdf->stream('prolanis.pdf', ['Attachment' => false]);
+        return $dompdf->stream('form_perm_laboratorium.pdf', ['Attachment' => false]);
     }
 
 
