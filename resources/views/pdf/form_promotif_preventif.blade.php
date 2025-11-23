@@ -40,7 +40,7 @@
         <tr><td style="width:150px;">NO</td><td>: {{ $no }}</td></tr>
         <tr><td>NAMA PASIEN</td><td>: {{ $nama }}</td></tr>
         <tr><td>NO BPJS / NIK</td><td>: {{ $no_bpjs }}</td></tr>
-        <tr><td>TANGGAL LAHIR</td><td>: {{ $tanggal_lahir }}</td></tr>
+        <tr><td>TANGGAL LAHIR</td><td>: {{ $tgl_lahir }}</td></tr>
         <tr><td>ALAMAT</td><td>: {{ $alamat }}</td></tr>
         <tr><td>TINDAKAN</td><td>: {{ $tindakan }}</td></tr>
     </table>

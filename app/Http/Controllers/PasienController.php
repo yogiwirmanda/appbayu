@@ -1140,10 +1140,11 @@ class PasienController extends Controller
             'tgl_lahir' => $modelPasien->tgl_lahir,
             'umur' => $umur,
             'alamat' => $modelPasien->alamat,
+            'no' => $modelPasien->no_bpjs,
             'keterangan_prolanis' => $modelPasien->keterangan_prolanis,
             'diagnosa' => $modelPasien->keterangan_prolanis,
             "jk" => $modelPasien->jk == 'L' ? 'Laki-Laki' : 'Perempuan',
-            'no_bpjs' => $modelPasien->no_bpjs,
+            'no' => $modelPasien->no_bpjs,
             'tanggal_cek_lab' => $tanggalCekLab,
             'date' => date('d F Y')
         ];
@@ -1187,7 +1188,13 @@ class PasienController extends Controller
             'diagnosa' => $modelPasien->keterangan_prolanis,
             "jk" => $modelPasien->jk == 'L' ? 'Laki-Laki' : 'Perempuan',
             'no_bpjs' => $modelPasien->no_bpjs,
-            'tanggal_cek_lab' => $tanggalCekLab,
+            'no' => $modelPasien->no_bpjs,
+            'tindakan' => '',
+            'bb' => '',
+            'tb' => '',
+            'lp' => '',
+            'tensi' => '',
+            'tanggal' => $tanggalCekLab,
             'date' => date('d F Y')
         ];
 
@@ -1230,7 +1237,13 @@ class PasienController extends Controller
             'diagnosa' => $modelPasien->keterangan_prolanis,
             "jk" => $modelPasien->jk == 'L' ? 'Laki-Laki' : 'Perempuan',
             'no_bpjs' => $modelPasien->no_bpjs,
-            'tanggal_cek_lab' => $tanggalCekLab,
+            'tanggal' => $tanggalCekLab,
+            'status' => '',
+            'pengirim' => '',
+            'no_lab' => '',
+            'gdp' => '',
+            'gd2jpp' => '',
+            'gds' => '',
             'date' => date('d F Y')
         ];
 
