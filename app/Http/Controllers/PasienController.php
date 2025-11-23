@@ -1201,6 +1201,7 @@ class PasienController extends Controller
         $view = view('pdf.form_promotif_preventif', $data)->render();
 
         $dompdf = new Dompdf();
+        $dompdf->set_option('isRemoteEnabled', true);
         $dompdf->loadHtml($view);
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
