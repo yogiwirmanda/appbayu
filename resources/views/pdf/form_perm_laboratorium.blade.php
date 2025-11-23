@@ -6,7 +6,7 @@
         font-size: 14px;
     }
     .page {
-        width: 210mm;
+        width: 150mm;
         min-height: 297mm;
         padding: 20mm;
         margin: auto;
