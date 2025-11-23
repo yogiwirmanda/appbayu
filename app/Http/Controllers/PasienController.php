@@ -1154,6 +1154,7 @@ class PasienController extends Controller
         $dompdf = new Dompdf();
         $dompdf->loadHtml($view);
         $dompdf->setPaper('A4', 'portrait');
+        ob_get_clean();
         $dompdf->render();
 
         return $dompdf->stream('prolanis.pdf', ['Attachment' => false]);
@@ -1204,6 +1205,7 @@ class PasienController extends Controller
         $dompdf->set_option('isRemoteEnabled', true);
         $dompdf->loadHtml($view);
         $dompdf->setPaper('A4', 'portrait');
+        ob_get_clean();
         $dompdf->render();
 
         return $dompdf->stream('form_promotif_preventif.pdf', ['Attachment' => false]);
@@ -1253,6 +1255,7 @@ class PasienController extends Controller
         $dompdf = new Dompdf();
         $dompdf->loadHtml($view);
         $dompdf->setPaper('A4', 'portrait');
+        ob_get_clean();
         $dompdf->render();
 
         return $dompdf->stream('form_perm_laboratorium.pdf', ['Attachment' => false]);
