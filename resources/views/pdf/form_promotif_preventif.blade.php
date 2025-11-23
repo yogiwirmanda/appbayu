@@ -30,7 +30,7 @@
 </style>
 
 <div class="page">
-    <img src="{{ asset('images/logo-bpjs.png') }}">
+    <img src="https://ehealthprc.com/image/logo-bpjs.png">
     <div class="section-title">
         PUSKESMAS RAMPAL CELAKET<br>
         BUKTI PELAYANAN PROMOTIF DAN PREVENTIF
