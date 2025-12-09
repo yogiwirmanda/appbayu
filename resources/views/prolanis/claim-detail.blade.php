@@ -86,7 +86,7 @@ $(document).ready(function() {
       @if(Auth::user()->role == 'admin' || Auth::user()->role == 'rm')
       buttons += `
         <div class="col-md-3">
-          <a href="/pasien/download/fhlp/${pasienId}" target="_blank" class="btn btn-success btn-sm btn-input-hasil-prolanis me-2">Form Hasil Lab Prolanis</a>'
+          <a href="/pasien/download/fhp/${pasienId}" target="_blank" class="btn btn-success btn-sm btn-input-hasil-prolanis me-2">Form Hasil Lab Prolanis</a>'
           </div>
         <div class="col-md-3">
           <a href="/pasien/download/ffp/${pasien.id}" target="_blank" class="btn btn-info btn-sm btn-input-hasil-prolanis me-2">Form Format Preventif</a>'

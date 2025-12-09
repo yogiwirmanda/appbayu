@@ -1210,6 +1210,80 @@ class PasienController extends Controller
 
         return $dompdf->stream('form_promotif_preventif.pdf', ['Attachment' => false]);
     }
+
+    public function downloadHasilLabProlanis($idClaim = null)
+    {
+        $claim = Claim::find($idClaim);
+        $idPasien = $claim->id_pasien;
+        $modelPasien = Pasien::find($idPasien);
+        $tglLahir = date_create($modelPasien->tgl_lahir);
+        $dateNow = date_create(Date('Y-m-d'));
+        $dateDiff = date_diff($tglLahir, $dateNow);
+        $umur = $dateDiff->y;
+        $nama_pasien = self::addName($idPasien) . $modelPasien->nama;
+        $tgl_periksa = $claim->tanggal;
+        $gdp = $claim->pemeriksaan_gula;
+        $tgl_lahir = Date('d-m-Y', \strtotime($modelPasien->tgl_lahir));
+        $alamat = $modelPasien->alamat;
+        $telepon = $modelPasien->no_hp;
+        $no_register = $modelPasien->no_rm;
+        $cara_bayar = $modelPasien->cara_bayar;
+        $no_bpjs = $modelPasien->no_bpjs ? $modelPasien->no_bpjs : '';
+        $nik = $modelPasien->no_ktp;
+        $umur = $umur . ' Tahun';
+        $jk = $modelPasien->jk == 'L' ? 'Laki-Laki' : 'Perempuan';
+        $kel = $modelPasien->district ? District::find($modelPasien->district)->name . ' ' : '-';
+        $agama = $modelPasien->agama;
+        $rt = $modelPasien->rt ? $modelPasien->rt . ' ' : '-';
+        $rw = $modelPasien->rw ? $modelPasien->rw . ' ' : '-';
+        $modelPasien = Pasien::find($idPasien);
+        $modelCeklab = Ceklab::where('id_pasien', $idPasien)
+            ->orderBy('tanggal', 'desc')
+            ->first();
+
+        if (!$modelPasien) {
+            return redirect()->back()->with('error', 'Patient not found');
+        }
+
+        $tglLahir = date_create($modelPasien->tgl_lahir);
+        $dateNow = date_create(date('Y-m-d'));
+        $dateDiff = date_diff($tglLahir, $dateNow);
+        $umur = $dateDiff->y;
+
+        $tanggalCekLab = $modelCeklab && $modelCeklab->tanggal
+            ? date('d F Y', strtotime($modelCeklab->tanggal))
+            : '-';
+
+        $data = [
+            'nama_pasien' => $nama_pasien,
+            'tgl_periksa' => $tgl_periksa,
+            'gdp' => $gdp,
+            'tgl_lahir' => $tgl_lahir,
+            'alamat' => $alamat,
+            'telepon' => $telepon,
+            'no_register' => $no_register,
+            'cara_bayar' => $cara_bayar,
+            'no_bpjs' => $no_bpjs,
+            'nik' => $nik,
+            'umur' => $umur,
+            'jk' => $jk,
+            'kel' => $kel,
+            'agama' => $agama,
+            'rt' => $rt,
+            'rw' => $rw,
+        ];
+
+        $view = view('pdf.hasil_lab_prolanis', $data)->render();
+
+        $dompdf = new Dompdf();
+        $dompdf->set_option('isRemoteEnabled', true);
+        $dompdf->loadHtml($view);
+        $dompdf->setPaper('A4', 'portrait');
+        ob_get_clean();
+        $dompdf->render();
+
+        return $dompdf->stream('form_hasil_lab_prolanis.pdf', ['Attachment' => false]);
+    }
     
     public function downloadPemeriksaanLab($idPasien = null)
     {
