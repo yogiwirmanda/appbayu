@@ -24,6 +24,7 @@ use App\Http\Controllers\SuratSehatController;
 use App\Http\Controllers\UnitTestController;
 use App\Http\Controllers\LabController;
 use App\Http\Controllers\FileUploadController;
+use App\Http\Controllers\WhatsappController;
 
 Route::post('/upload', [FileUploadController::class, 'upload'])->name('file.upload');
 
@@ -90,6 +91,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('kunjungans/harian/{param}', [KunjunganController::class, 'index'])->name('kunjunganHarian');
     Route::get('kunjungan/dtAjax', [KunjunganController::class, 'dtAjax'])->name('ajax_load_kunjungan');
     Route::get('kunjungan/form', [KunjunganController::class, 'formKunjungan'])->name('formKunjungan');
+
+    Route::get('reminder-whatsapp', [WhatsappController::class, 'index'])->name('reminder-whatsapp');
 
     Route::get('klpcms/check/icd', [KlpcmController::class, 'checkIcd'])->name('cari_data_diagnosa');
     Route::get('klpcms/check/obat', [KlpcmController::class, 'checkObat'])->name('cari_data_obat');

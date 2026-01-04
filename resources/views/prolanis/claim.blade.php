@@ -8,24 +8,22 @@
         <div class="card-body">
           <h4 class="mb-4">Daftar Klaim Pasien</h4>
 
-          <div class="text-center py-5" id="loading">
-            <div class="spinner-border text-primary"></div>
-            <p class="mt-3">Memuat data klaim...</p>
-          </div>
-
-          <div id="claims-content" class="d-none">
+          <div id="claims-content">
             <div class="table-responsive">
-              <table class="table table-bordered table-striped" id="claims-table">
+            <table class="table table-bordered table-striped" id="claims-table">
                 <thead class="thead-light">
-                  <tr>
-                    <th>Nama</th>
-                    <th>No. BPJS</th>
-                    <th>Tanggal</th>
-                    <th>Aksi</th>
-                  </tr>
+                    <tr>
+                        <th>No</th>
+                        <th>Tanggal Pemeriksaan</th>
+                        <th>No RM</th>
+                        <th>Nama</th>
+                        <th>NIK</th>
+                        <th>Alamat</th>
+                        <th>Aksi</th>
+                    </tr>
                 </thead>
                 <tbody></tbody>
-              </table>
+            </table>
             </div>
           </div>
 
@@ -38,51 +36,100 @@
 
 @section('page-scripts')
 <script>
-$(document).ready(function() {
-  const apiUrl = `https://ehealthprc.com/api/api/v1/claims/list?start=0&length=50`;
+const table = $('#claims-table').DataTable({
+    processing: true,
+    serverSide: true,
+    searching: true,
+    lengthChange: true,
+    pageLength: 10,
+    order: [[1, 'desc']],
 
-  $.ajax({
-    url: apiUrl,
-    method: "GET",
-    dataType: "json",
-    success: function(res) {
-      const data = res.data || [];
-      let rows = "";
-
-      if (data.length === 0) {
-        rows = `<tr><td colspan="4" class="text-center text-muted">Tidak ada data klaim</td></tr>`;
-      } else {
-        data.forEach(item => {
-          const pasien = item.pasien || {};
-          const nama = pasien.nama ?? '-';
-          const no_bpjs = pasien.no_bpjs ?? '-';
-          const tanggal = item.tanggal ? new Date(item.tanggal).toLocaleDateString('id-ID') : '-';
-          const id = pasien.id ?? '';
-
-          rows += `
-            <tr>
-              <td>${nama}</td>
-              <td>${no_bpjs}</td>
-              <td>${tanggal}</td>
-              <td>
-                <a href="/claim/${item.id}" class="btn btn-sm btn-primary">
-                  Detail
-                </a>
-              </td>
-            </tr>
-          `;
-        });
-      }
-
-      $("#claims-table tbody").html(rows);
-      $("#loading").addClass("d-none");
-      $("#claims-content").removeClass("d-none");
+    ajax: {
+        url: "http://127.0.0.1:5001/api/v1/claims/list",
+        type: "GET",
+        data: function (d) {
+            return {
+                draw: d.draw,
+                start: d.start,
+                length: d.length,
+                search: d.search.value
+            };
+        },
+        dataSrc: function (json) {
+            return json.data;
+        }
     },
-    error: function(err) {
-      console.error(err);
-      $("#loading").html("<p class='text-danger'>Gagal memuat data klaim.</p>");
-    }
-  });
+
+    columns: [
+        // No
+        {
+            data: null,
+            render: function (data, type, row, meta) {
+                return meta.row + meta.settings._iDisplayStart + 1;
+            }
+        },
+
+        // Tanggal Pemeriksaan
+        {
+            data: 'tanggal',
+            render: function (data) {
+                return data
+                    ? new Date(data).toLocaleDateString('id-ID')
+                    : '-';
+            }
+        },
+
+        // No RM
+        { data: 'pasien.no_rm', defaultContent: '-' },
+
+        // Nama
+        { data: 'pasien.nama', defaultContent: '-' },
+
+        // NIK
+        { data: 'pasien.no_ktp', defaultContent: '-' },
+
+        // Alamat
+        { data: 'pasien.alamat', defaultContent: '-' },
+
+        // Aksi
+        {
+            data: 'id',
+            orderable: false,
+            searchable: false,
+            render: function (id) {
+                return `
+                    <a href="/claim/${id}" class="btn btn-sm btn-primary mr-1">
+                        Detail
+                    </a>
+                    <button class="btn btn-sm btn-danger btn-delete"
+                        data-id="${id}">
+                        Hapus
+                    </button>
+                `;
+            }
+        }
+    ]
+});
+
+
+// 🗑 DELETE CLAIM
+$(document).on('click', '.btn-delete', function () {
+    const id = $(this).data('id');
+
+    if (!confirm('Yakin ingin menghapus klaim ini?')) return;
+
+    $.ajax({
+        url: "http://127.0.0.1:5001/api/v1/claims/delete",
+        type: "POST",
+        data: { id },
+        success: function () {
+            table.ajax.reload(null, false);
+        },
+        error: function () {
+            alert('Gagal menghapus data klaim');
+        }
+    });
 });
 </script>
 @endsection
+

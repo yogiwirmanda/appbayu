@@ -23,7 +23,7 @@ class FileUploadController extends Controller
                 'file',
                 file_get_contents($filePath),
                 $fileName
-            )->post('https://ehealthprc.com/api/api/v1/pasien/import-excel');
+            )->post('http://127.0.0.1:5001/api/v1/pasien/import-excel');
 
             if ($response->successful()) {
                 return back()->with('success', 'File uploaded and sent successfully!');

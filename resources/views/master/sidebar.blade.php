@@ -53,6 +53,7 @@
               <li><a href="/prolanis">Prolanis</a></li>
               <li><a href="/ceklab">Cek Lab</a></li>
               <li><a href="/prb">PRB</a></li>
+              <li><a href="/reminder-whatsapp">Reminder Whatsapp</a></li>
             </ul>
           </li>
           <li class="sidebar-list">
