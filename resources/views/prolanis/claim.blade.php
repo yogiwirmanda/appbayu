@@ -45,7 +45,7 @@ const table = $('#claims-table').DataTable({
     order: [[1, 'desc']],
 
     ajax: {
-        url: "http://127.0.0.1:5001/api/v1/claims/list",
+        url: "http://ehealthprc.com/api/api/v1/claims/list",
         type: "GET",
         data: function (d) {
             return {
