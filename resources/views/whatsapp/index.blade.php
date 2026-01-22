@@ -54,7 +54,7 @@ const table = $('#table-list-reminder').DataTable({
     pageLength: 10,
 
     ajax: {
-        url: "http://127.0.0.1:5001/api/v1/queue",
+        url: "https://ehealthprc.com/api/api/v1/queue",
         type: "GET",
         data: function (d) {
             return {
@@ -131,7 +131,7 @@ $(document).on('click', '.btn-delete', function () {
     if (!confirm('Yakin ingin menghapus reminder ini?')) return;
 
     $.ajax({
-        url: `http://127.0.0.1:5001/api/v1/queue/${id}`,
+        url: `https://ehealthprc.com/api/api/v1/queue/${id}`,
         type: 'DELETE',
         success: function (res) {
             if (res.success) {

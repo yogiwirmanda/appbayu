@@ -119,7 +119,7 @@ $(document).on('click', '.btn-delete', function () {
     if (!confirm('Yakin ingin menghapus klaim ini?')) return;
 
     $.ajax({
-        url: "http://127.0.0.1:5001/api/v1/claims/delete",
+        url: "https://ehealthprc.com/api/api/v1/claims/delete",
         type: "POST",
         data: { id },
         success: function () {
