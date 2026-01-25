@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container-fluid">
-  <div class="row">
+  <div class="row mt-5 pt-5">
     <div class="col-sm-12">
       <div class="card">
         <div class="card-body">
@@ -10,6 +10,32 @@
 
           <div id="claims-content">
             <div class="table-responsive">
+                <div class="row mb-3">
+    <div class="col-md-3">
+        <label>Bulan Pemeriksaan</label>
+        <input type="month" id="filter-bulan" class="form-control">
+    </div>
+
+    <div class="col-md-3">
+        <label>Status Klaim</label>
+        <select id="filter-status" class="form-control">
+            <option value="">Semua Status</option>
+            <option value="BISA_CLAIM">Bisa Claim</option>
+            <option value="PROLANIS_HT">Prolanis HT</option>
+            <option value="BELUM_PROLANIS">Belum Prolanis</option>
+            <option value="LANJUT_ENTRY">Lanjut Entry</option>
+        </select>
+    </div>
+
+    <div class="col-md-2 d-flex align-items-end">
+        <button id="btn-filter" class="btn btn-primary w-100">Filter</button>
+    </div>
+
+    <div class="col-md-2 d-flex align-items-end">
+        <button id="btn-reset" class="btn btn-secondary w-100">Reset</button>
+    </div>
+</div>
+
             <table class="table table-bordered table-striped" id="claims-table">
                 <thead class="thead-light">
                     <tr>
@@ -19,6 +45,7 @@
                         <th>Nama</th>
                         <th>NIK</th>
                         <th>Alamat</th>
+                        <th>Status</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -52,13 +79,17 @@ const table = $('#claims-table').DataTable({
                 draw: d.draw,
                 start: d.start,
                 length: d.length,
-                search: d.search.value
+                search: d.search.value,
+
+                bulan: $('#filter-bulan').val(),
+                status: $('#filter-status').val()
             };
         },
         dataSrc: function (json) {
             return json.data;
         }
     },
+
 
     columns: [
         // No
@@ -90,6 +121,20 @@ const table = $('#claims-table').DataTable({
 
         // Alamat
         { data: 'pasien.alamat', defaultContent: '-' },
+
+        {
+            data: 'claim_status',
+                render: function (data) {
+                    const map = {
+                        BISA_CLAIM: 'success',
+                        PROLANIS_HT: 'info',
+                        BELUM_PROLANIS: 'warning',
+                        LANJUT_ENTRY: 'primary'
+                    };
+
+                    return `<span class="badge badge-${map[data] || 'secondary'}">${data}</span>`;
+                }
+            },
 
         // Aksi
         {
@@ -130,6 +175,17 @@ $(document).on('click', '.btn-delete', function () {
         }
     });
 });
+
+$('#btn-filter').on('click', function () {
+    table.ajax.reload();
+});
+
+$('#btn-reset').on('click', function () {
+    $('#filter-bulan').val('');
+    $('#filter-status').val('');
+    table.ajax.reload();
+});
+
 </script>
 @endsection
 
