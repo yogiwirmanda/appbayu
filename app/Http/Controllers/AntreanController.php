@@ -97,13 +97,13 @@ class AntreanController extends Controller
         } else {
             $modelAntrean = Antrean::create($dataCreate);
 
-            Http::withoutVerifying()
-                ->async()
-                ->post('https://ehealthprc.com/api/api/v1/wa/send-antrean-lab', [
-                    'nama' => $modelAntrean->nama,
-                    'no_hp' => $modelAntrean->nohp,
-                    'tanggal' => $modelAntrean->tanggal
-                ]);
+        Http::withoutVerifying()
+            ->timeout(3)
+            ->post('https://ehealthprc.com/api/api/v1/wa/send-antrean-lab', [
+                'nama' => $modelAntrean->nama,
+                'no_hp' => $modelAntrean->nohp,
+                'tanggal' => $modelAntrean->tanggal
+            ]);
 
         }
 
