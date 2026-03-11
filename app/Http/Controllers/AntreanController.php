@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\DataTables;
 use Milon\Barcode\Facades\DNS1DFacade as DNS1D;
+use Illuminate\Support\Facades\Http;
 
 class AntreanController extends Controller
 {
@@ -95,6 +96,13 @@ class AntreanController extends Controller
             );
         } else {
             $modelAntrean = Antrean::create($dataCreate);
+
+            Http::withoutVerifying()->post('https://ehealthprc.com/api/api/v1/wa/send-antrean-lab', [
+                'nama' => $modelAntrean->nama,
+                'no_hp' => $modelAntrean->nohp,
+                'tanggal' => $modelAntrean->tanggal
+            ]);
+
         }
 
         return response()->json(
