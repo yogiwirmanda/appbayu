@@ -96,18 +96,19 @@ class AntreanController extends Controller
             );
         } else {
             $modelAntrean = Antrean::create($dataCreate);
-
-        try {
-            Http::withoutVerifying()
-                ->timeout(3)
-                ->post('https://ehealthprc.com/api/api/v1/wa/send-antrean-lab', [
-                    'nama' => $modelAntrean->nama,
-                    'no_hp' => $modelAntrean->nohp,
-                    'tanggal' => $modelAntrean->tanggal
-                ]);
-        } catch (\Exception $e) {
-            // ignore timeout because WA already triggered
-        }
+            if ($request->ceklab == 1){
+                try {
+                    Http::withoutVerifying()
+                        ->timeout(3)
+                        ->post('https://ehealthprc.com/api/api/v1/wa/send-antrean-lab', [
+                            'nama' => $modelAntrean->nama,
+                            'no_hp' => $modelAntrean->nohp,
+                            'tanggal' => $modelAntrean->tanggal
+                        ]);
+                } catch (\Exception $e) {
+                    // ignore timeout because WA already triggered
+                }
+            }
 
         }
 
