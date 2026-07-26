@@ -49,6 +49,7 @@
             <ul class="sidebar-submenu">
               <li><a href="/claim">Klaim</a></li>
               <li><a href="/pasien">Pasien</a></li>
+              <li><a href="/pasien/filter">Filter BPJS Pasien</a></li>
               <li><a href="/dokter">Dokter</a></li>
               <li><a href="/prolanis">Prolanis</a></li>
               <li><a href="/ceklab">Cek Lab</a></li>

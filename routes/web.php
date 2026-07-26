@@ -47,6 +47,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::get('pasien', [PasienController::class, 'index'])->name('daftar_pasien');
+    Route::get('pasien/filter', [PasienController::class, 'filter'])->name('filter-pasien');
     Route::get('pasien/create', [PasienController::class, 'create'])->name('tambah_pasien');
     Route::get('pasien/choose/{id}', [PasienController::class, 'choose'])->name('choose_pasien');
     Route::get('pasien/createAdmin', [PasienController::class, 'createAdmin'])->name('tambah_pasien_admin');

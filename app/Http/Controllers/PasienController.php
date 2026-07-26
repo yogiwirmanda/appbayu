@@ -525,6 +525,14 @@ class PasienController extends Controller
         return json_encode($data);
     }
 
+    public function filter()
+    {
+        $title = "Filter Pasien";
+        $navActive = 'filter-pasien';
+
+        return view('pasien.filter', compact('title', 'navActive'));
+    }
+
     public function kunjungan($idPasien = '')
     {
         $nav = $this->nav;
