@@ -208,7 +208,7 @@
 
                         return '-';
                     }
-                }
+                },
                 {
                     data: 'pasien.alamat',
                     name: 'alamat',
