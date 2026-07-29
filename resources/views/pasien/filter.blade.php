@@ -72,7 +72,10 @@
                                     <th>NIK</th>
                                     <th>Nama</th>
                                     <th>Tgl Lahir</th>
+                                    <th>Kelurahan</th>
                                     <th>Alamat</th>
+                                    <th>RT</th>
+                                    <th>RW</th>
                                     <th>No HP</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -193,13 +196,28 @@
                     searchable: false
                 },
                 {
+                    data: 'pasien.no_hp',
+                    name: 'no_hp',
+                    searchable: false
+                },
+                {
+                    data: 'pasien.villageData.name',
+                    name: 'no_hp',
+                    searchable: false
+                },
+                {
                     data: 'pasien.alamat',
                     name: 'alamat',
                     searchable: false
                 },
                 {
-                    data: 'pasien.no_hp',
-                    name: 'no_hp',
+                    data: 'pasien.rt',
+                    name: 'alamat',
+                    searchable: false
+                },
+                {
+                    data: 'pasien.rw',
+                    name: 'alamat',
                     searchable: false
                 },
                 {
