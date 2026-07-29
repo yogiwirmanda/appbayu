@@ -32,6 +32,9 @@
                                 data-original-title="Tambah Pasien">
                                 <span class="btn-inner--text">Tambah Pasien</span>
                             </a>
+                            <button class="btn btn-success" onclick="exportExcel()">
+                                <i class="fa fa-file-excel"></i> Export Excel
+                            </button>
                         </div>
                         <div class="col-md-3 col-sm-3">
                             <div class="form-group">
@@ -383,6 +386,16 @@
         queryParam += '&alamat=' + alamat;
         loadTable(queryParam)
       }, 500);
+    }
+
+    function exportExcel() {
+        let url = "https://ehealthprc.com/api/api/v1/pasien/filter/export?";
+
+        url += "nama=" + encodeURIComponent($("#nama").val());
+        url += "&no_bpjs=" + encodeURIComponent($("#no_bpjs").val());
+        url += "&no_ktp=" + encodeURIComponent($("#no_ktp").val());
+
+        window.open = url;
     }
 
     $('.search-filter').on('keyup', handleKeyupWithDelay);
