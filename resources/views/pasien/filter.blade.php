@@ -196,11 +196,6 @@
                     searchable: false
                 },
                 {
-                    data: 'pasien.no_hp',
-                    name: 'no_hp',
-                    searchable: false
-                },
-                {
                     data: 'pasien.villageData.name',
                     name: 'no_hp',
                     searchable: false
@@ -218,6 +213,11 @@
                 {
                     data: 'pasien.rw',
                     name: 'alamat',
+                    searchable: false
+                },
+                                {
+                    data: 'pasien.no_hp',
+                    name: 'no_hp',
                     searchable: false
                 },
                 {
