@@ -178,7 +178,7 @@
                             addNama = 'Ny. ';
                         }
 
-                        let urlNama = '<a href="pasiens/detail/'+row.pasien.id+'">'+addNama + row.pasien.nama+'</a>'
+                        let urlNama = '<a href="/pasiens/detail/'+row.pasien.id+'">'+addNama + row.pasien.nama+'</a>'
                         if (row.pasien.status_prolanis == 1){
                             urlNama += '<span class="badge badge-danger m-l-5">Prolanis</span>';
                         }
