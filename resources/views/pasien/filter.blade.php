@@ -389,12 +389,7 @@
     }
 
     function exportExcel() {
-        let url = "https://ehealthprc.com/api/api/v1/pasien/filter/export?";
-
-        url += "nama=" + encodeURIComponent($("#nama").val());
-        url += "&no_bpjs=" + encodeURIComponent($("#no_bpjs").val());
-        url += "&no_ktp=" + encodeURIComponent($("#no_ktp").val());
-
+        let url = "https://ehealthprc.com/api/api/v1/pasien/filter/export";
         window.open = url;
     }
 
