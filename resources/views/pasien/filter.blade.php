@@ -32,9 +32,9 @@
                                 data-original-title="Tambah Pasien">
                                 <span class="btn-inner--text">Tambah Pasien</span>
                             </a>
-                            <button class="btn btn-success" onclick="exportExcel()">
+                            <a target="_blank" href="https://ehealthprc.com/api/api/v1/pasien/filter/export" class="btn btn-success" onclick="exportExcel()">
                                 <i class="fa fa-file-excel"></i> Export Excel
-                            </button>
+</a>
                         </div>
                         <div class="col-md-3 col-sm-3">
                             <div class="form-group">
@@ -386,11 +386,6 @@
         queryParam += '&alamat=' + alamat;
         loadTable(queryParam)
       }, 500);
-    }
-
-    function exportExcel() {
-        let url = "https://ehealthprc.com/api/api/v1/pasien/filter/export";
-        window.open = url;
     }
 
     $('.search-filter').on('keyup', handleKeyupWithDelay);
