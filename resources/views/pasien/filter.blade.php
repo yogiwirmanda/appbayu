@@ -28,10 +28,6 @@
                     <div class="row">
                         <div class="col-md-12 d-flex justify-content-between mb-3">
                             <h2>Filter Data Pasien</h2>
-                            <a href="{{asset('pasien/create')}}" class="btn btn-pill btn-primary" data-toggle="tooltip"
-                                data-original-title="Tambah Pasien">
-                                <span class="btn-inner--text">Tambah Pasien</span>
-                            </a>
                             <a target="_blank" href="https://ehealthprc.com/api/api/v1/pasien/filter/export" class="btn btn-success" onclick="exportExcel()">
                                 <i class="fa fa-file-excel"></i> Export Excel
 </a>
