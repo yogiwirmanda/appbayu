@@ -197,7 +197,7 @@
                 },
                 {
                     data: 'pasien.villageData.name',
-                    name: 'no_hp',
+                    name: 'kelurahan',
                     searchable: false
                 },
                 {
@@ -207,12 +207,12 @@
                 },
                 {
                     data: 'pasien.rt',
-                    name: 'alamat',
+                    name: 'rt',
                     searchable: false
                 },
                 {
                     data: 'pasien.rw',
-                    name: 'alamat',
+                    name: 'rw',
                     searchable: false
                 },
                                 {
