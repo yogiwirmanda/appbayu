@@ -196,10 +196,19 @@
                     searchable: false
                 },
                 {
-                    data: 'pasien.villageData.name',
+                    data: null,
                     name: 'kelurahan',
-                    searchable: false
-                },
+                    searchable: false,
+                    render: function (data, type, row) {
+                        if (row.pasien &&
+                            row.pasien.villageData &&
+                            row.pasien.villageData.name) {
+                            return row.pasien.villageData.name;
+                        }
+
+                        return '-';
+                    }
+                }
                 {
                     data: 'pasien.alamat',
                     name: 'alamat',
