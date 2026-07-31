@@ -261,16 +261,25 @@
 
                 const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 
-                let actionBtn = `
-                <div class="d-flex align-items-center justify-content-around">
-                    <a target="_blank"
-                    href="${whatsappUrl}"
-                    class="btn btn-sm btn-success"
-                    data-bs-toggle="tooltip"
-                    title="Kirim WhatsApp">
-                        <i class="fa fa-whatsapp"></i>
-                    </a>
-                </div>`;
+let actionBtn = `
+<div class="d-flex align-items-center justify-content-around">
+
+    <a target="_blank"
+       href="${whatsappUrl}"
+       class="btn btn-sm btn-success me-1"
+       title="Kirim WhatsApp">
+        <i class="fa fa-whatsapp"></i>
+    </a>
+
+    <button
+        class="btn btn-sm btn-danger table-action-delete"
+        data-id="${row.id}"
+        data-nama="${row.pasien.nama}"
+        title="Hapus">
+        <i class="fa fa-trash"></i>
+    </button>
+
+</div>`;
                         return actionBtn;
                     },
                 }
@@ -331,40 +340,52 @@
         loadTable(getValue, tanggal);
     })
 
-    $(document).on('click', '.table-action-delete', function () {
-        let dataPasienId = $(this).attr('data-pasien-id');
-        let namaPasien = $(this).attr('data-pasien-nama');
-        swal({
-            title: 'Apakah anda yakin?',
-            text: 'Menghapus data pasien atas nama ' + namaPasien,
-            type: 'question',
-            buttonsStyling: false,
-            showCancelButton: true,
-            confirmButtonClass: 'btn btn-success btn-delete-pasien',
-            confirmButtonText: 'Hapus',
-            cancelButtonClass: 'btn btn-danger',
-            cancelButtonText: 'Batal',
-        }).then((result) => {
-            if (result.value == true) {
-                $.ajax({
-                    url: "pasien/destroy/" + dataPasienId,
-                    method: "GET",
-                    dataType: "json",
-                    data: {
-                        dataPasienId: dataPasienId
-                    },
-                    success: function (response) {
-                        if (response.errCode == 0) {
-                            $.notify('Pasien Berhasil dihapus', 'success');
-                            setTimeout(() => {
-                                window.location.reload();
-                            }, 2000);
-                        }
+$(document).on('click', '.table-action-delete', function () {
+
+    const id = $(this).data('id');
+    const nama = $(this).data('nama');
+
+    swal({
+        title: 'Hapus Data?',
+        text: 'Yakin ingin menghapus "' + nama + '" dari daftar filter?',
+        type: 'warning',
+        buttonsStyling: false,
+        showCancelButton: true,
+        confirmButtonClass: 'btn btn-danger',
+        confirmButtonText: 'Hapus',
+        cancelButtonClass: 'btn btn-secondary',
+        cancelButtonText: 'Batal',
+    }).then((result) => {
+
+        if (result.value) {
+
+            $.ajax({
+                url: 'https://ehealthprc.com/api/api/v1/pasien/filter/' + id,
+                type: 'DELETE',
+                success: function(response) {
+
+                    $.notify('Data berhasil dihapus.', 'success');
+
+                    table.ajax.reload(null, false);
+
+                },
+                error: function(xhr) {
+
+                    let message = 'Gagal menghapus data.';
+
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        message = xhr.responseJSON.message;
                     }
-                });
-            }
-        })
+
+                    $.notify(message, 'error');
+                }
+            });
+
+        }
+
     });
+
+});
 
     let timeoutId;
 
