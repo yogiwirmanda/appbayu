@@ -360,7 +360,7 @@ $(document).on('click', '.table-action-delete', function () {
         if (result.value) {
 
             $.ajax({
-                url: 'https://ehealthprc.com/api/api/v1/pasien/filter/' + id,
+                url: 'https://ehealthprc.com/api/api/v1/pasien/filter/delete' + id,
                 type: 'DELETE',
                 success: function(response) {
 
