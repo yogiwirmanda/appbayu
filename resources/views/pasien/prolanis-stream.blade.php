@@ -335,7 +335,7 @@
     style="font-size:9px;">&nbsp;</span></p>
 <p
   style='margin:0cm;font-size:15px;font-family:"Arial MT",sans-serif;margin-top:4.65pt;margin-right:0cm;margin-bottom:.0001pt;margin-left:267.25pt;'>
-  Malang,&nbsp; {{$tanggal_cek_lab}}
+  Malang,&nbsp; {{\Carbon\Carbon::parse($tanggal_cek_lab)->locale('id')->translatedFormat('d F Y')}}
 </p>
 <p style='margin:0cm;font-size:15px;font-family:"Arial MT",sans-serif;margin-top:.05pt;'>&nbsp;</p>
 <p

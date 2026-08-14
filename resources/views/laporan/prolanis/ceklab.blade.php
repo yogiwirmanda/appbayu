@@ -14,9 +14,9 @@
                 <td>{{$key + 1}}</td>
                 <td>{{ \Carbon\Carbon::parse($data['tanggal'])->locale('id')->translatedFormat('d F Y') }}</td>
                 @if($data['hasil'] == null)
-                <td><button class="brn btn-primary btn-input-hasil" ceklabid="{{$data['id']}}">Input Hasil</button>                  
+                <td><button class="btn btn-primary btn-input-hasil" ceklabid="{{$data['id']}}">Input Hasil</button>                  
                 <a href="/pasien/download/prolanis/{{$data->id_pasien}}/{{$data->tanggal}}" target="_blank"
-                    class="btn btn-primary btn-download-catatan-integrasi-2">Berkas Prolanis</a></td>
+                    class="btn btn-success btn-download-catatan-integrasi-2">Berkas Prolanis</a></td>
                 @else
                 <td>{{$data['hasil']}}</td>
                 @endif
