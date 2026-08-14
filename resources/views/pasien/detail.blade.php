@@ -116,12 +116,12 @@ $tanggal = Date('Y-m-d');
                     class="btn btn-primary mb-2 btn-download-catatan-integrasi-2">Pengkajian Awal Klinis</a>
                 </div>
                 @endif
-                @if($pasien->status_prolanis == 1)
+                <!-- @if($pasien->status_prolanis == 1)
                 <div class="col-md-3">
                   <a href="/pasien/download/prolanis/{{$pasien->id}}" target="_blank"
                     class="btn btn-primary btn-download-catatan-integrasi-2">Berkas Prolanis</a>
                 </div>
-                @endif
+                @endif -->
               </div>
             </div>
           </div>

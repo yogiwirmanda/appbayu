@@ -1123,7 +1123,7 @@ class PasienController extends Controller
         $templateProcessor->saveAs('php://output');
     }
 
-    public function downloadProlanis($idPasien = null)
+    public function downloadProlanis($idPasien = null, $tanggal = "")
     {
         $modelPasien = Pasien::find($idPasien);
         $modelCeklab = Ceklab::where('id_pasien', $idPasien)
@@ -1154,7 +1154,7 @@ class PasienController extends Controller
             'diagnosa' => $modelPasien->keterangan_prolanis,
             "jk" => $modelPasien->jk == 'L' ? 'Laki-Laki' : 'Perempuan',
             'no_bpjs' => $modelPasien->no_bpjs,
-            'tanggal_cek_lab' => $tanggalCekLab,
+            'tanggal_cek_lab' => $tanggal,
             'date' => date('d F Y')
         ];
 
