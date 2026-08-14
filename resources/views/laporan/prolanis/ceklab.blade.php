@@ -12,7 +12,7 @@
             @foreach($dataCekLab as $key => $data)
             <tr>
                 <td>{{$key + 1}}</td>
-                <td>{{ \Carbon\Carbon::parse($tanggal)->translatedFormat('d F Y') }}</td>
+                <td class="tanggal">{{$data['tanggal']}}</td>
                 @if($data['hasil'] == null)
                 <td><button class="brn btn-primary btn-input-hasil" ceklabid="{{$data['id']}}">Input Hasil</button>                  
                 <a href="/pasien/download/prolanis/{{$data->id_pasien}}/{{$data->tanggal}}" target="_blank"
