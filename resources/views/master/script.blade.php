@@ -96,14 +96,6 @@
             }
         }, 100);  // Add delay to ensure Select2 has time to open
     });
-
-    document.querySelectorAll('.tanggal').forEach(el => {
-        el.textContent = new Date(el.dataset.date).toLocaleDateString('id-ID', {
-            day: '2-digit',
-            month: 'long',
-            year: 'numeric'
-        });
-    });
 });
 
 </script>

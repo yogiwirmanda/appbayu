@@ -29,3 +29,12 @@
         @endif
     </tbody>
 </table>
+<script>
+    document.querySelectorAll('.tanggal').forEach(el => {
+        el.textContent = new Date(el.dataset.date).toLocaleDateString('id-ID', {
+            day: '2-digit',
+            month: 'long',
+            year: 'numeric'
+        });
+    });
+</script>
