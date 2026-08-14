@@ -1154,7 +1154,7 @@ class PasienController extends Controller
             'diagnosa' => $modelPasien->keterangan_prolanis,
             "jk" => $modelPasien->jk == 'L' ? 'Laki-Laki' : 'Perempuan',
             'no_bpjs' => $modelPasien->no_bpjs,
-            'tanggal_cek_lab' => $tanggal,
+            'tanggal_cek_lab' => date('d F Y', strtotime($tanggal)),
             'date' => date('d F Y')
         ];
 
