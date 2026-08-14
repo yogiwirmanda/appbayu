@@ -12,7 +12,7 @@
             @foreach($dataCekLab as $key => $data)
             <tr>
                 <td>{{$key + 1}}</td>
-                <td class="tanggal" data-date="{{ $item->tanggal }}">{{$data['tanggal']}}</td>
+                <td>{{ \Carbon\Carbon::parse($tanggal)->locale('id')->translatedFormat('d F Y') }}</td>
                 @if($data['hasil'] == null)
                 <td><button class="brn btn-primary btn-input-hasil" ceklabid="{{$data['id']}}">Input Hasil</button>                  
                 <a href="/pasien/download/prolanis/{{$data->id_pasien}}/{{$data->tanggal}}" target="_blank"
@@ -29,12 +29,3 @@
         @endif
     </tbody>
 </table>
-<script>
-    document.querySelectorAll('.tanggal').forEach(el => {
-        el.textContent = new Date(el.dataset.date).toLocaleDateString('id-ID', {
-            day: '2-digit',
-            month: 'long',
-            year: 'numeric'
-        });
-    });
-</script>
