@@ -360,8 +360,11 @@ class LaporanController extends Controller
 
     public function kedatanganCekLab($idPasien)
     {
-        $dataCekLab = Ceklab::where('datang', 1)
-            ->where('id_pasien', $idPasien)
+        // $dataCekLab = Ceklab::where('datang', 1)
+        //     ->where('id_pasien', $idPasien)
+        //     ->get();
+
+        $dataCekLab = Ceklab::where('id_pasien', $idPasien)
             ->get();
 
         return response()->json([
