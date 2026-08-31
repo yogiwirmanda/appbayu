@@ -1128,7 +1128,7 @@ class PasienController extends Controller
         $modelPasien = Pasien::find($idPasien);
         $modelCeklab = Ceklab::where('id_pasien', $idPasien)
             ->where('datang', 1)
-            ->orderBy('tanggal', 'asc')
+            ->orderBy('tanggal', 'desc')
             ->first();
 
         if (!$modelPasien) {

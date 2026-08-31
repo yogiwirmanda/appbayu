@@ -365,6 +365,7 @@ class LaporanController extends Controller
         //     ->get();
 
         $dataCekLab = Ceklab::where('id_pasien', $idPasien)
+            ->orderBy('tanggal', 'desc')
             ->get();
 
         return response()->json([
